@@ -1,0 +1,16 @@
+.nav {
+	flex-grow: 1;
+
+	&__list {
+		display: flex;
+		column-gap: 20px;
+	}
+
+	&__link {
+		color: var(--white);
+
+		&:hover {
+			color: var(--blue-2);
+		}
+	}
+}

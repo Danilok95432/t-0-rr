@@ -1,34 +1,42 @@
 export const navBarItems = [
   {
-    title: "Операции",
-    href: "operations",
+    id: 'operations',
+    title: 'Операции',
+    href: 'operations',
   },
   {
-    title: "Организации",
-    href: "organizations",
+    id: 'organizations',
+    title: 'Организации',
+    href: 'organizations',
   },
   {
-    title: "Контрагенты",
-    href: "counterparties",
+    id: 'counterparties',
+    title: 'Контрагенты',
+    href: 'counterparties',
   },
   {
-    title: "Счета",
-    href: "accounts",
+    id: 'accounts',
+    title: 'Счета',
+    href: 'accounts',
   },
   {
-    title: "Статьи",
-    href: "articles",
+    id: 'articles',
+    title: 'Статьи',
+    href: 'articles',
   },
   {
-    title: "Кейсы",
-    href: "cases",
+    id: 'cases',
+    title: 'Кейсы',
+    href: 'cases',
   },
   {
-    title: "Сделки",
-    href: "transactions",
+    id: 'transactions',
+    title: 'Сделки',
+    href: 'transactions',
   },
   {
-    title: "Импорты",
-    href: "imports",
+    id: 'imports',
+    title: 'Импорты',
+    href: 'imports',
   },
 ];

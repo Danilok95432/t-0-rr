@@ -1,11 +1,15 @@
-import { NavBar } from "@/components/NavBar/ui/NavBar";
+import { Logo } from '@/components/Logo'
+import { NavBar } from '@/components/NavBar/ui/NavBar'
+import { Profile } from '@/components/Profile'
 
-import styles from "./header.module.scss";
+import styles from './header.module.scss'
 
 export const Header = () => {
-  return (
-    <header className={styles.header}>
-      <NavBar />
-    </header>
-  );
-};
+	return (
+		<header className={styles.header}>
+			<Logo />
+			<NavBar />
+			<Profile />
+		</header>
+	)
+}

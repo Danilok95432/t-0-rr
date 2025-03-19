@@ -1,4 +1,8 @@
 .header {
-  height: var(--header-height);
-  background-color: var(--blue-4);
+	height: var(--header-height);
+	background-color: var(--blue-4);
+	padding: 10px 15px;
+	display: flex;
+	align-items: center;
+	column-gap: 45px;
 }

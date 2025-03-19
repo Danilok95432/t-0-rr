@@ -1,16 +1,24 @@
-import { navBarItems } from "../lib/navBar-items";
-import styles from "./navBar.module.scss";
+import { navBarItems } from '../lib/navBar-items'
+
+import styles from './navBar.module.scss'
 
 export const NavBar = () => {
-  return (
-    <nav className={styles.nav}>
-      <ul className={styles.list}>
-        {navBarItems.map((navItem) => (
-          <li>
-            <a href={navItem.href}>{navItem.title}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
+	return (
+		<nav className={styles.nav}>
+			<ul className={styles.nav__list}>
+				{navBarItems.map((navItem) => (
+					<li className={styles.item} key={navItem.id}>
+						<a
+							href={navItem.href}
+							aria-label={navItem.title}
+							title={navItem.title}
+							className={styles.nav__link}
+						>
+							{navItem.title}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	)
+}

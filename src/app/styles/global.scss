@@ -1,11 +1,12 @@
 body {
-  font-family: var(--font-family-base);
-  color: var(--black);
-  background-color: var(--white);
+	font-family: var(--font-family-base);
+	color: var(--black);
+	background-color: var(--white);
+	font-size: 12px;
 
-  &.is-lock {
-    overflow: hidden;
-  }
+	&.is-lock {
+		overflow: hidden;
+	}
 }
 
 a,
@@ -15,5 +16,10 @@ textarea,
 input,
 select,
 svg * {
-  transition-duration: var(--transition-duration);
+	transition-duration: var(--transition-duration);
+}
+
+a {
+	text-decoration: none;
+	color: var(--white);
 }
