@@ -1,0 +1,94 @@
+.actions-menu {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 60px;
+
+	&__list {
+		display: flex;
+		flex-direction: column;
+		row-gap: 20px;
+	}
+
+	&__button {
+		width: 32px;
+		height: 32px;
+		background-color: transparent;
+
+		&-add,
+		&-search,
+		&-import,
+		&-download,
+		&-graph,
+		&-mail,
+		&-faq,
+		&-settings {
+			width: 32px;
+			height: 32px;
+		}
+
+		&-add {
+			background: url('../../../assets/icons/add.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/add-filled.svg') center / cover no-repeat;
+			}
+		}
+
+		&-search {
+			background: url('../../../assets/icons/search.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/search-filled.svg') center / cover no-repeat;
+			}
+		}
+
+		&-import {
+			background: url('../../../assets/icons/import.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/import-filled.svg') center / cover no-repeat;
+			}
+		}
+
+		&-download {
+			background: url('../../../assets/icons/download.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/download-filled.svg') center / cover no-repeat;
+			}
+		}
+
+		&-graph {
+			background: url('../../../assets/icons/graph.svg') center / cover no-repeat;
+
+			// &:hover {
+			// 	background: url('') center / cover no-repeat;
+			// }
+		}
+
+		&-mail {
+			background: url('../../../assets/icons/mail.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/mail-filled.svg') center / cover no-repeat;
+			}
+		}
+
+		&-faq {
+			background: url('../../../assets/icons/faq.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/faq-filled.svg') center / cover no-repeat;
+			}
+		}
+
+		&-settings {
+			background: url('../../../assets/icons/settings.svg') center / cover no-repeat;
+
+			&:hover {
+				background: url('../../../assets/icons/settings-filled.svg') center / cover no-repeat;
+			}
+		}
+	}
+}
