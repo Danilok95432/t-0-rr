@@ -1,28 +1,37 @@
-import { useRef } from 'react'
-
-import styles from './modal.module.scss'
+import { FC, ReactNode, useEffect, useRef } from 'react'
 import { Icon } from '@/components/Icon'
 
-export const Modal = () => {
+import styles from './modal.module.scss'
+
+interface ModalProps {
+	isOpen: boolean // Состояние модального окна (открыто/закрыто)
+	onClose: () => void // Функция для закрытия модального окна
+	children: ReactNode // Динамическое содержимое модального окна
+}
+
+export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
 	const dialogRef = useRef<HTMLDialogElement>(null)
 
-	// const openModal = () => {
-	// 	dialogRef.current?.showModal() // Открываем модальное окно
-	// }
+	console.log(isOpen)
+	// Управление открытием/закрытием модального окна
+	useEffect(() => {
+		const dialog = dialogRef.current
 
-	const closeModal = () => {
-		dialogRef.current?.close() // Закрываем модальное окно
-	}
+		if (dialog) {
+			if (isOpen) {
+				dialog.showModal() // Открываем модальное окно
+			} else {
+				dialog.close() // Закрываем модальное окно
+			}
+		}
+	}, [isOpen])
+
 	return (
-		<>
-			<dialog open className={styles.modal} ref={dialogRef}>
-				Контент модалки
-				<button type='button' onClick={closeModal} className={styles['modal__close-button']}>
-					<Icon iconId='close' />
-				</button>
-			</dialog>
-
-			<button>Открыть</button>
-		</>
+		<dialog className={styles.modal} ref={dialogRef}>
+			{children}
+			<button type='button' onClick={onClose} className={styles['modal__close']}>
+				<Icon iconId='close' />
+			</button>
+		</dialog>
 	)
 }

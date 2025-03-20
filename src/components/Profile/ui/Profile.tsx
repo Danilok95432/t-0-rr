@@ -9,7 +9,7 @@ export const Profile = () => {
 				Анатолий Тедорадзе
 			</a>
 			<button type='button' className={styles.profile__button} aria-label='Выйти'>
-				<Icon iconId='exit' className={styles.profile__icon} />
+				<Icon iconId='exit' />
 			</button>
 		</div>
 	)
