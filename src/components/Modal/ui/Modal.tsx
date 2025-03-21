@@ -4,27 +4,14 @@ import { Icon } from '@/components/Icon'
 import styles from './modal.module.scss'
 
 interface ModalProps {
-	isOpen: boolean // Состояние модального окна (открыто/закрыто)
-	onClose: () => void // Функция для закрытия модального окна
-	children: ReactNode // Динамическое содержимое модального окна
+	isOpen?: boolean
+	onClose: () => void
+	title?: string
+	children: ReactNode
 }
 
 export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
 	const dialogRef = useRef<HTMLDialogElement>(null)
-
-	console.log(isOpen)
-	// Управление открытием/закрытием модального окна
-	useEffect(() => {
-		const dialog = dialogRef.current
-
-		if (dialog) {
-			if (isOpen) {
-				dialog.showModal() // Открываем модальное окно
-			} else {
-				dialog.close() // Закрываем модальное окно
-			}
-		}
-	}, [isOpen])
 
 	return (
 		<dialog className={styles.modal} ref={dialogRef}>

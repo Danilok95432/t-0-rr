@@ -1,7 +1,5 @@
+import { Filter } from '@/components/Filter'
+
 export const Operations = () => {
-	return (
-		<>
-			<h1>Операции</h1>
-		</>
-	)
+	return <Filter />
 }

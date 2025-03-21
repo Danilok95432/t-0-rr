@@ -1,60 +1,48 @@
-import { Modal } from '@/components/Modal'
+import { FC } from 'react'
+
 import styles from './actions-menu.module.scss'
-import { useState } from 'react'
+import { Button } from '@/components/Button'
 
-export const ActionsMenu = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
+interface ActionsMenuProps {
+	toggleFilterMenu?: () => void
+}
 
-	const openModal = () => setIsModalOpen(true)
-	const closeModal = () => setIsModalOpen(false)
-
+export const ActionsMenu: FC<ActionsMenuProps> = ({ toggleFilterMenu }) => {
 	return (
 		<div className={styles['actions-menu']}>
 			<ul className={styles['actions-menu__list']}>
 				<li className={styles['actions-menu__item']}>
-					<button
-						type='button'
-						id='add'
-						className={styles['actions-menu__button-add']}
-						onClick={openModal}
+					<Button id='add' mode='clear' className={styles['actions-menu__button-add']} />
+				</li>
+				<li className={styles['actions-menu__item']}>
+					<Button
+						mode='clear'
+						className={styles['actions-menu__button-search']}
+						onClick={toggleFilterMenu}
 					/>
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-search']} />
+					<Button mode='clear' className={styles['actions-menu__button-import']} />
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-import']} />
+					<Button mode='clear' className={styles['actions-menu__button-download']} />
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-download']} />
-				</li>
-				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-graph']} />
+					<Button mode='clear' className={styles['actions-menu__button-graph']} />
 				</li>
 			</ul>
 
 			<ul className={styles['actions-menu__list']}>
 				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-mail']} />
+					<Button mode='clear' className={styles['actions-menu__button-mail']} />
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-faq']} />
+					<Button mode='clear' className={styles['actions-menu__button-faq']} />
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<button type='button' className={styles['actions-menu__button-settings']} />
+					<Button mode='clear' className={styles['actions-menu__button-settings']} />
 				</li>
 			</ul>
-
-			<Modal isOpen={isModalOpen} onClose={closeModal}>
-				<h2>Динамическое содержимое</h2>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam itaque quod dolorum
-					perferendis aut ipsa, recusandae labore fugit! Molestiae commodi, explicabo minima totam
-					saepe praesentium iusto excepturi sint doloribus in. Explicabo deserunt dolor cum ab, esse
-					perspiciatis rem adipisci nostrum illum alias dignissimos cumque in assumenda maiores ad
-					repellendus, pariatur soluta est architecto, itaque facilis.
-				</p>
-			</Modal>
 		</div>
 	)
 }
