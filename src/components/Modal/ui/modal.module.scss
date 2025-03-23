@@ -44,11 +44,19 @@
 		@include starting-styles;
 	}
 
+	&__title {
+		font-size: 16px;
+		margin-bottom: 15px;
+	}
+
+	&__content {
+		border-block: 1px solid var(--gray-5);
+	}
+
 	&__close {
 		width: 24px;
 		height: 24px;
 		color: var(--gray-2);
-		background-color: transparent;
 		position: absolute;
 		top: 20px;
 		right: 25px;

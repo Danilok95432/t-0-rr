@@ -1,14 +1,28 @@
+import classNames from 'classnames'
+
+import { useFilterMenu } from '../model/useFilterMenu'
+
 import { Button } from '@/components/Button'
+import { CheckBox } from '@/components/CheckBox'
 import { Icon } from '@/components/Icon'
 
-import styles from './filter.module.scss'
-import { CheckBox } from '@/components/CheckBox'
+import styles from './filter-menu.module.scss'
 
-export const Filter = () => {
+export const FilterMenu = () => {
+	const { isOpenFiltersMenu, handleClose } = useFilterMenu()
+
 	return (
 		<div className={styles.filter}>
-			<div className={styles.filter__overlay}>
-				<div className={styles.filter__content}>
+			<div
+				className={classNames(styles.filter__overlay, {
+					[styles.isOpen]: isOpenFiltersMenu,
+				})}
+			>
+				<div
+					className={classNames(styles.filter__content, {
+						[styles.isOpen]: isOpenFiltersMenu,
+					})}
+				>
 					<form action='#' className={styles.filter__form}>
 						<div className={styles['filter__content-top']}>
 							<div className={styles['filter__select-wrapper']}>
@@ -95,7 +109,12 @@ export const Filter = () => {
 					</form>
 				</div>
 
-				<Button mode='clear' className={styles.filter__close} icon={<Icon iconId='close' />} />
+				<Button
+					mode='clear'
+					className={styles.filter__close}
+					icon={<Icon iconId='close' />}
+					onClick={handleClose}
+				/>
 			</div>
 		</div>
 	)

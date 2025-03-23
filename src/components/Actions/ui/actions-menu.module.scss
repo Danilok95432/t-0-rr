@@ -58,9 +58,9 @@
 		&-graph {
 			background: url('../../../assets/icons/graph.svg') center / cover no-repeat;
 
-			// &:hover {
-			// 	background: url('') center / cover no-repeat;
-			// }
+			&:hover {
+				background: url('../../../assets//icons/graph-filled.svg') center / cover no-repeat;
+			}
 		}
 
 		&-mail {

@@ -1,24 +1,30 @@
-import { FC } from 'react'
+import { useFiltersMenu } from '../model/useFiltersMenu'
+import { useModal } from '../model/useModal'
 
-import styles from './actions-menu.module.scss'
 import { Button } from '@/components/Button'
 
-interface ActionsMenuProps {
-	toggleFilterMenu?: () => void
-}
+import styles from './actions-menu.module.scss'
 
-export const ActionsMenu: FC<ActionsMenuProps> = ({ toggleFilterMenu }) => {
+export const ActionsMenu = () => {
+	const { handleOpenFilterMenu } = useFiltersMenu()
+	const { handleOpenModal } = useModal()
+
 	return (
 		<div className={styles['actions-menu']}>
 			<ul className={styles['actions-menu__list']}>
 				<li className={styles['actions-menu__item']}>
-					<Button id='add' mode='clear' className={styles['actions-menu__button-add']} />
+					<Button
+						id='add'
+						mode='clear'
+						className={styles['actions-menu__button-add']}
+						onClick={handleOpenModal}
+					/>
 				</li>
 				<li className={styles['actions-menu__item']}>
 					<Button
 						mode='clear'
 						className={styles['actions-menu__button-search']}
-						onClick={toggleFilterMenu}
+						onClick={handleOpenFilterMenu}
 					/>
 				</li>
 				<li className={styles['actions-menu__item']}>

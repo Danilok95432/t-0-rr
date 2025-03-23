@@ -22,6 +22,10 @@ svg * {
 a {
 	text-decoration: none;
 	color: var(--white);
+
+	&.active {
+		font-weight: 700;
+	}
 }
 
 button {
