@@ -1,0 +1,30 @@
+.wrapper {
+	width: 420px;
+	height: 36px;
+	position: relative;
+}
+
+.input {
+	width: 100%;
+	flex-shrink: 0;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	padding: 10px 27px 10px 8px;
+	color: var(--gray-1);
+	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
+	position: relative;
+
+	&:focus {
+		outline: none;
+		color: var(--black);
+		border: 1px solid var(--blue-2);
+	}
+
+	&__icon {
+		width: 16px;
+		height: 16px;
+		position: absolute;
+		top: 12px;
+		right: 8px;
+	}
+}

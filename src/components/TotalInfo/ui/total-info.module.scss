@@ -1,0 +1,9 @@
+.total-info {
+	padding: 10px 20px;
+	display: flex;
+	align-items: center;
+	column-gap: 55px;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	flex-shrink: 0;
+}
