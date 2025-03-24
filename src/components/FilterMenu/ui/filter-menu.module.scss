@@ -1,28 +1,29 @@
 .filter {
-	position: relative;
-	z-index: 50;
+	&__overlay,
+	&__content {
+		position: fixed;
+		left: 60px;
+		top: 50px;
+	}
 
 	&__overlay {
-		opacity: 0;
+		width: 100%;
+		height: 100%;
 		background-color: rgba(0, 0, 0, 0.4);
-		position: absolute;
-		transform: translateY(-100%);
-		transition: all var(--transition-duration) ease;
+		z-index: 50;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
 
 		&.isOpen {
-			inset: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.4);
-			position: absolute;
 			opacity: 1;
-			transform: translateY(0);
-			z-index: 50;
+			visibility: visible;
 		}
 	}
 
 	&__content {
-		height: 122px;
+		width: calc(100% - 60px);
+		min-height: 122px;
 		background-color: var(--white);
 		padding: 15px 30px;
 		transform: translateY(-100%);
@@ -30,13 +31,16 @@
 
 		&-top {
 			display: flex;
-			column-gap: 10px;
+			gap: 10px;
+			padding-right: 50px;
+			flex-wrap: wrap;
 		}
 
 		&-bottom {
 			display: flex;
 			align-items: center;
-			column-gap: 10px;
+			flex-wrap: wrap;
+			gap: 10px;
 		}
 
 		&.isOpen {

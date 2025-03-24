@@ -107,14 +107,14 @@ export const FilterMenu = () => {
 							</div>
 						</div>
 					</form>
-				</div>
 
-				<Button
-					mode='clear'
-					className={styles.filter__close}
-					icon={<Icon iconId='close' />}
-					onClick={handleClose}
-				/>
+					<Button
+						mode='clear'
+						className={styles.filter__close}
+						icon={<Icon iconId='close' />}
+						onClick={handleClose}
+					/>
+				</div>
 			</div>
 		</div>
 	)

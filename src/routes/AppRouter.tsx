@@ -1,13 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router'
 
 import { Content } from '@/components/Content'
-import { Operations } from '@/pages/Operations'
+import { Operations } from '@/pages/Operations/Operations'
 import { Organizations } from '@/pages/Organizations'
 import { AppRoutes } from './appRoutes'
 import { Counterparties } from '@/pages/Counterparties'
 import { Accounts } from '@/pages/Accounts'
 import { Articles } from '@/pages/Articles'
-import { Cases } from '@/pages/Сases'
+import { Cases } from '@/pages/Cases'
 import { Transactions } from '@/pages/Transactions'
 import { Imports } from '@/pages/Imports'
 
