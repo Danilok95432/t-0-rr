@@ -28,6 +28,7 @@ export const GridTable = () => {
 			<AgGridReact
 				rowData={rowData}
 				columnDefs={columnDefinitions}
+				// defaultColDef={}
 				rowSelection={rowSelection}
 				theme={theme}
 			/>
