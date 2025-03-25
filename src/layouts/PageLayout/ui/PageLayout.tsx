@@ -1,16 +1,13 @@
 import { FC } from 'react'
+
+import { IPageLayoutProps } from '@/types/page-layout'
+
 import { TotalInfo } from '@/components/TotalInfo'
 import { Input } from '@/components/Input'
 
 import styles from './page-layout.module.scss'
 
-interface PageLayoutProps {
-	title?: string
-	totalInfoData?: Record<string, string>[]
-	children?: React.ReactNode
-}
-
-export const PageLayout: FC<PageLayoutProps> = ({ title, totalInfoData, children }) => {
+export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, children }) => {
 	return (
 		<section className={styles.section}>
 			<div className={styles.section__header}>

@@ -1,14 +1,11 @@
 import { FC } from 'react'
 import classNames from 'classnames'
 
+import { IIconProps } from '@/types/icon'
+
 import styles from './icon.module.scss'
 
-export interface IconProps {
-	iconId: string
-	className?: string
-}
-
-export const Icon: FC<IconProps> = ({ iconId, className }) => (
+export const Icon: FC<IIconProps> = ({ iconId, className }) => (
 	<svg className={classNames(styles.icon, className)} aria-hidden='true'>
 		<use href={`#icon-${iconId}`} />
 	</svg>

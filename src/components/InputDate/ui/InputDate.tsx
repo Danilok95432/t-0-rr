@@ -4,18 +4,14 @@ import classNames from 'classnames'
 import { registerLocale } from 'react-datepicker'
 import { ru } from 'date-fns/locale/ru'
 
+import { IInputDateProps } from '@/types/input-date'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import './inputDate.scss'
 
-interface InputDateProps {
-	date: Date | null
-	onChange?: (date: Date | null) => void
-	className?: string
-}
-
 registerLocale('ru', ru)
 
-export const InputDate: FC<InputDateProps> = (props) => {
+export const InputDate: FC<IInputDateProps> = (props) => {
 	const { date, onChange, className } = props
 
 	return (

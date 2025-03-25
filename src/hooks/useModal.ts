@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { closeModal } from '@/features/modal/modalSlice'
+import { closeModal, openModal } from '@/features/modal/modalSlice'
 
 export const useModal = () => {
 	const dialogRef = useRef<HTMLDialogElement | null>(null)
@@ -8,9 +8,13 @@ export const useModal = () => {
 	const dispatch = useAppDispatch()
 	const { isOpenModal } = useAppSelector((state) => state.modal)
 
-	const handleClose = () => {
+	const handleOpenModal = () => {
+		dispatch(openModal())
+	}
+
+	const handleCloseModal = () => {
 		dispatch(closeModal())
 	}
 
-	return { dialogRef, isOpenModal, handleClose }
+	return { dialogRef, isOpenModal, handleOpenModal, handleCloseModal }
 }

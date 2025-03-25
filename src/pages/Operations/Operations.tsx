@@ -3,7 +3,7 @@ import { GridTable } from '@/components/GridTable'
 import { Modal } from '@/components/Modal'
 import { NewOperation } from '@/components/Forms/NewOperation'
 
-import { operationsTotalInfo } from './mock/operations-total-info'
+import { operationsTotalInfo } from '@/mock/operations-total-info'
 
 import styles from './operations.module.scss'
 

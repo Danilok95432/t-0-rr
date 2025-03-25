@@ -9,6 +9,7 @@ export const Profile = () => {
 			<a href='##' className={styles.profile__link} aria-label='Профиль' title='Профиль'>
 				Анатолий Тедорадзе
 			</a>
+
 			<Button
 				type='button'
 				className={styles.profile__button}

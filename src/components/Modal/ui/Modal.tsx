@@ -1,18 +1,15 @@
-import { FC, ReactNode, useEffect } from 'react'
-import { useModal } from '../model/useModal'
+import { FC, useEffect } from 'react'
+
+import { IModalProps } from '@/types/modal'
+import { useModal } from '@/hooks/useModal'
 
 import { Icon } from '@/components/Icon'
 import { Button } from '@/components/Button'
 
 import styles from './modal.module.scss'
 
-interface ModalProps {
-	title?: string
-	children: ReactNode
-}
-
-export const Modal: FC<ModalProps> = ({ title, children }) => {
-	const { dialogRef, isOpenModal, handleClose } = useModal()
+export const Modal: FC<IModalProps> = ({ title, children }) => {
+	const { dialogRef, isOpenModal, handleCloseModal } = useModal()
 
 	useEffect(() => {
 		if (isOpenModal) {
@@ -20,7 +17,7 @@ export const Modal: FC<ModalProps> = ({ title, children }) => {
 
 			const closeByEscape = (event: KeyboardEvent) => {
 				if (event.key === 'Escape') {
-					handleClose()
+					handleCloseModal()
 				}
 			}
 			document.addEventListener('keydown', closeByEscape)
@@ -29,7 +26,7 @@ export const Modal: FC<ModalProps> = ({ title, children }) => {
 		} else {
 			dialogRef.current?.close()
 		}
-	}, [dialogRef, isOpenModal, handleClose])
+	}, [dialogRef, isOpenModal, handleCloseModal])
 
 	return (
 		<dialog className={styles.modal} ref={dialogRef}>
@@ -41,7 +38,7 @@ export const Modal: FC<ModalProps> = ({ title, children }) => {
 				mode='clear'
 				icon={<Icon iconId='close' />}
 				className={styles['modal__close']}
-				onClick={handleClose}
+				onClick={handleCloseModal}
 			/>
 		</dialog>
 	)

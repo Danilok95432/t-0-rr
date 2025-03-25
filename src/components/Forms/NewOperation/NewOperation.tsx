@@ -1,42 +1,19 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
+import { TFormNewOperation } from '@/types/formNewOperation'
+
 import { Select } from '@/components/Select'
-import { InputDate } from '@/components/InputDate'
 import { Input } from '@/components/Input'
+import { InputDate } from '@/components/InputDate'
+import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
 
+import { addOperation } from '@/mock/addOperation'
+
 import styles from './new-operation.module.scss'
-import { TextAria } from '@/components/TextAria'
-
-type FormNewOperation = {
-	organization: string
-	name: string
-	counterparty: string
-	counterpartyAccount: string
-	date: Date | null
-	bankID: string
-	sumOperation: string
-	nameOperation: string
-	comments: string
-	case: string
-	direction: string
-	article: string
-	payer: string
-}
-
-const addOperation = [
-	{
-		value: 'ТАУ',
-		name: 'НПО ТАУ ООО',
-	},
-	{
-		value: 'МЦАИ',
-		name: 'МЦАИ ООО',
-	},
-]
 
 export const NewOperation = () => {
-	const { control, handleSubmit, reset } = useForm<FormNewOperation>({
+	const { control, handleSubmit, reset } = useForm<TFormNewOperation>({
 		defaultValues: {
 			organization: '',
 			name: '',
@@ -54,7 +31,7 @@ export const NewOperation = () => {
 		},
 	})
 
-	const onSubmit: SubmitHandler<FormNewOperation> = (data) => {
+	const onSubmit: SubmitHandler<TFormNewOperation> = (data) => {
 		console.log(data)
 		reset()
 	}
@@ -165,7 +142,7 @@ export const NewOperation = () => {
 						name='nameOperation'
 						control={control}
 						render={({ field }) => (
-							<TextAria
+							<TextArea
 								id='nameOperation'
 								label='Наименование операции'
 								value={field.value}
@@ -177,7 +154,7 @@ export const NewOperation = () => {
 						name='comments'
 						control={control}
 						render={({ field }) => (
-							<TextAria
+							<TextArea
 								id='comments'
 								label='Комментарий сотрудника'
 								value={field.value}

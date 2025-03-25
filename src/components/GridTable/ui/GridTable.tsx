@@ -2,11 +2,12 @@ import { useMemo } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { RowSelectionOptions, type Theme } from 'ag-grid-community'
 
-import { rowData } from '@/pages/Operations/mock/operations-data'
-import { FilterMenu } from '@/components/FilterMenu'
-
 import { customTheme } from '../config/tableTheme'
 import { columnDefinitions } from '@/pages/Operations/configTable/columnDefinitions'
+
+import { FilterMenu } from '@/components/FilterMenu'
+
+import { rowData } from '@/mock/operations-data'
 
 export const GridTable = () => {
 	const theme = useMemo<Theme | 'legacy'>(() => {

@@ -1,5 +1,5 @@
-import { useFiltersMenu } from '../model/useFiltersMenu'
-import { useModal } from '../model/useModal'
+import { useFiltersMenu } from '@/hooks/useFiltersMenu'
+import { useModal } from '@/hooks/useModal'
 
 import { Button } from '@/components/Button'
 

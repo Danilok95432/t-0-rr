@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router'
+
 import { Sidebar } from '@/components/SideBar'
 
 import styles from './content.module.scss'

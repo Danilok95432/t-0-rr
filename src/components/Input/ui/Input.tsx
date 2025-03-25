@@ -1,23 +1,14 @@
 import { FC } from 'react'
 import classNames from 'classnames'
 
+import { IInputProps } from '@/types/input'
+
 import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 
 import styles from './input.module.scss'
 
-interface InputProps {
-	id: string
-	value?: string
-	type?: string
-	placeholder?: string
-	label?: string
-	className?: string
-	hasIcon?: boolean
-	onChange?: (value: string) => void
-}
-
-export const Input: FC<InputProps> = (props) => {
+export const Input: FC<IInputProps> = (props) => {
 	const {
 		id,
 		value,

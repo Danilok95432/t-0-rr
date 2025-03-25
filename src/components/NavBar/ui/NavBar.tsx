@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router'
-import { navBarItems } from '../lib/navBar-items'
+import { navBarItems } from '@/mock/navBar-items'
 
 import styles from './navBar.module.scss'
 

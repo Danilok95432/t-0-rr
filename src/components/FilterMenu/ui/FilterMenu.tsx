@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { useFilterMenu } from '../model/useFilterMenu'
+import { useFiltersMenu } from '@/hooks/useFiltersMenu'
 
 import { Select } from '@/components/Select'
 import { Button } from '@/components/Button'
@@ -15,10 +15,10 @@ import {
 	dateOptions,
 	directionsOptions,
 	organizationOptions,
-} from '../mock/selectOptionTest' /* тест */
+} from '@/mock/selectOptionTest' /* тест */
 
 export const FilterMenu = () => {
-	const { isOpenFiltersMenu, handleClose } = useFilterMenu()
+	const { isOpenFiltersMenu, handleCloseFilterMenu } = useFiltersMenu()
 
 	return (
 		<div className={styles.filter}>
@@ -61,7 +61,7 @@ export const FilterMenu = () => {
 						mode='clear'
 						className={styles.filter__close}
 						icon={<Icon iconId='close' />}
-						onClick={handleClose}
+						onClick={handleCloseFilterMenu}
 					/>
 				</div>
 			</div>

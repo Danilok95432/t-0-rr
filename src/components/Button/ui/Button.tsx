@@ -1,19 +1,11 @@
-import { FC, ReactElement } from 'react'
+import { FC } from 'react'
 import classNames from 'classnames'
+
+import { IButtonProps } from '@/types/button'
 
 import styles from './button.module.scss'
 
-interface ButtonProps {
-	id?: string
-	className?: string
-	label?: string
-	type?: 'button' | 'submit' | 'reset'
-	mode?: 'primary' | 'secondary' | 'clear'
-	icon?: ReactElement
-	onClick?: () => void
-}
-
-export const Button: FC<ButtonProps> = (props) => {
+export const Button: FC<IButtonProps> = (props) => {
 	const { className, type = 'button', label, mode = 'primary', icon, onClick } = props
 
 	return (
@@ -23,6 +15,7 @@ export const Button: FC<ButtonProps> = (props) => {
 			onClick={onClick}
 		>
 			{label && <span>{label}</span>}
+
 			{icon && icon}
 		</button>
 	)
