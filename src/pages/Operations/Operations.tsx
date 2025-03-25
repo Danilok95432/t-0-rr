@@ -1,6 +1,8 @@
 import { PageLayout } from '@/layouts/PageLayout'
 import { GridTable } from '@/components/GridTable'
 import { Modal } from '@/components/Modal'
+import { NewOperation } from '@/components/Forms/NewOperation'
+
 import { operationsTotalInfo } from './mock/operations-total-info'
 
 import styles from './operations.module.scss'
@@ -12,7 +14,9 @@ export const Operations = () => {
 				<GridTable />
 			</div>
 
-			<Modal title='Новая операция'>Тут форма добавления новой операции</Modal>
+			<Modal title='Новая операция'>
+				<NewOperation />
+			</Modal>
 		</PageLayout>
 	)
 }

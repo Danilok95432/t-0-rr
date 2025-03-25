@@ -1,0 +1,34 @@
+import { FC } from 'react'
+import DatePicker from 'react-datepicker'
+import classNames from 'classnames'
+import { registerLocale } from 'react-datepicker'
+import { ru } from 'date-fns/locale/ru'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import './inputDate.scss'
+
+interface InputDateProps {
+	date: Date | null
+	onChange?: (date: Date | null) => void
+	className?: string
+}
+
+registerLocale('ru', ru)
+
+export const InputDate: FC<InputDateProps> = (props) => {
+	const { date, onChange, className } = props
+
+	return (
+		<div className={classNames('datepicker-root', className)}>
+			<DatePicker
+				selected={date || new Date()}
+				onChange={onChange}
+				dateFormat='dd.MM.yyyy'
+				className='datepicker'
+				dropdownMode='select'
+				locale='ru'
+				placeholderText='Выберите диапазон дат'
+			/>
+		</div>
+	)
+}

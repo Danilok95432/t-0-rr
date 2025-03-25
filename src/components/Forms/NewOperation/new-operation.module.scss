@@ -1,0 +1,55 @@
+.addNewOperation {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}
+
+.main-info {
+	display: flex;
+	flex-wrap: wrap;
+	border-block: var(--border);
+	padding-block: 20px;
+	gap: 10px 31px;
+
+	&-left,
+	&-right {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+
+	&-select {
+		width: 380px;
+		min-width: 250px;
+	}
+}
+
+.extra-info {
+	padding-bottom: 20px;
+	border-bottom: var(--border);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 31px;
+
+	&-left,
+	&-right {
+		width: 380px;
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+
+		&-wrapper {
+			width: 100%;
+			display: flex;
+			column-gap: 10px;
+
+			.idInput {
+				width: 212px;
+			}
+
+			.sumInput {
+				width: 380px;
+			}
+		}
+	}
+}

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { TotalInfo } from '@/components/TotalInfo'
+import { Input } from '@/components/Input'
 
 import styles from './page-layout.module.scss'
-import { Input } from '@/components/Input'
 
 interface PageLayoutProps {
 	title?: string
@@ -16,7 +16,12 @@ export const PageLayout: FC<PageLayoutProps> = ({ title, totalInfoData, children
 			<div className={styles.section__header}>
 				<h2 className={styles.title}>{title}</h2>
 
-				<Input id='operations-search' placeholder='Искать по наименованию..' />
+				<Input
+					id='operations-search'
+					placeholder='Искать по наименованию..'
+					hasIcon
+					className={styles.section__input}
+				/>
 
 				<TotalInfo>
 					{totalInfoData?.map((el, index) => (

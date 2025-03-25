@@ -5,7 +5,7 @@ import { iconRenderCell } from './iconRenderCell'
 import { IRow } from '../../../pages/Operations/mock/operations-data'
 //
 export const columnDefinitions: ColDef<IRow>[] = [
-	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
+	{ field: 'id', headerName: 'ID', width: 80, maxWidth: 80 },
 	{ field: 'date', headerName: 'Дата', minWidth: 100, maxWidth: 100 },
 	{
 		field: 'iconType',
@@ -18,5 +18,5 @@ export const columnDefinitions: ColDef<IRow>[] = [
 	{ field: 'nameOperation', headerName: 'Наименование операции', flex: 1 },
 	{ field: 'caseAndDeal', headerName: 'Кейс и сделка', flex: 1 },
 	{ field: 'article', headerName: 'Статья и подстатья', flex: 1 },
-	{ field: 'amount', headerName: 'Сумма' },
+	{ field: 'amount', headerName: 'Сумма', minWidth: 150, maxWidth: 200 },
 ]

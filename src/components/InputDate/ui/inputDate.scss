@@ -1,0 +1,108 @@
+.datepicker-root {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	max-width: 158px;
+}
+
+.datepicker {
+	width: 158px;
+	height: 40px;
+	padding: 5px 8px;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	outline: none;
+	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
+	position: relative;
+
+	&:focus {
+		outline: none;
+		border: 1px solid var(--blue-2);
+	}
+}
+
+.react-datepicker {
+	font-family: var(--font-family-base);
+	border: var(--border);
+	border-radius: 5px;
+	top: -5px;
+	left: 42px;
+	z-index: 50;
+
+	&__input-container {
+		&:after {
+			content: '';
+			display: block;
+			width: 16px;
+			height: 16px;
+			background: url('../../../assets/icons/calendar.svg') center / cover no-repeat;
+			position: absolute;
+			top: 11px;
+			right: 8px;
+		}
+	}
+
+	&-popper {
+		z-index: 50;
+	}
+
+	&__triangle {
+		display: none;
+	}
+
+	&__navigation {
+		top: 15px;
+
+		&-icon::before {
+			border-color: var(--black);
+			border-width: 2px 2px 0 0; /* Толщина стрелок */
+		}
+	}
+
+	&__header {
+		background-color: var(--white);
+		border: none;
+		font-size: 13px;
+		font-weight: normal;
+		padding-top: 20px;
+	}
+
+	&__current-month {
+		font-size: 13px;
+		font-weight: 400;
+		text-transform: capitalize;
+		margin-bottom: 16px;
+	}
+
+	&__day-names {
+		margin-top: 16px;
+		margin-bottom: -17px;
+	}
+
+	&__day-name {
+		font-size: 11px;
+		color: var(--gray-1);
+		text-transform: uppercase;
+	}
+
+	&__day {
+		font-size: 12px;
+		font-weight: 500;
+
+		&--selected {
+			background-color: var(--blue-2);
+
+			&:not([aria-disabled='true']):hover {
+				background-color: var(--blue-4);
+			}
+		}
+
+		&--weekend {
+			color: var(--red);
+		}
+
+		&--outside-month {
+			color: var(--gray-1);
+		}
+	}
+}

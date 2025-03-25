@@ -3,7 +3,6 @@
 	position: fixed;
 	inset: 0;
 	width: 844px;
-	height: 588px;
 	padding: 20px 25px;
 	background-color: var(--white);
 	border: var(--border);
@@ -43,10 +42,6 @@
 	&__title {
 		font-size: 16px;
 		margin-bottom: 15px;
-	}
-
-	&__content {
-		border-block: var(--border);
 	}
 
 	&__close {

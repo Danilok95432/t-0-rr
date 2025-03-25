@@ -2,11 +2,20 @@ import classNames from 'classnames'
 
 import { useFilterMenu } from '../model/useFilterMenu'
 
+import { Select } from '@/components/Select'
 import { Button } from '@/components/Button'
 import { CheckBox } from '@/components/CheckBox'
 import { Icon } from '@/components/Icon'
 
 import styles from './filter-menu.module.scss'
+//
+import {
+	articleOptions,
+	counterpartiesOptions,
+	dateOptions,
+	directionsOptions,
+	organizationOptions,
+} from '../mock/selectOptionTest' /* тест */
 
 export const FilterMenu = () => {
 	const { isOpenFiltersMenu, handleClose } = useFilterMenu()
@@ -25,80 +34,20 @@ export const FilterMenu = () => {
 				>
 					<form action='#' className={styles.filter__form}>
 						<div className={styles['filter__content-top']}>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Диапазон дат
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option>От и до</option>
-									<option value=''>Неделя</option>
-									<option value=''>Месяц</option>
-									<option value=''>Год</option>
-								</select>
-							</div>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Организации
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option></option>
-									<option value=''>МЦАИ ООО</option>
-									<option value=''>ТАУ НПО ООО</option>
-								</select>
-							</div>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Счёта организации
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option></option>
-									<option value=''>МЦАИ ООО</option>
-									<option value=''>ТАУ НПО ООО</option>
-								</select>
-							</div>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Контрагент
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option></option>
-									<option value=''>ООО Рога и Копыта (355988882230)</option>
-									<option value=''>ООО Рога2 и Копыта2 (11111111111)</option>
-								</select>
-							</div>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Направления
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option></option>
-									<option value=''>Приход</option>
-									<option value=''>Приход</option>
-									<option value=''>Перемещение</option>
-								</select>
-							</div>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Статья и подстатья
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option></option>
-									<option value=''>Заработная плата</option>
-								</select>
-							</div>
+							<Select
+								options={dateOptions}
+								label='Диапазон дат'
+								placeholder='От и до'
+								className={styles.select_date}
+							/>
+							<Select options={organizationOptions} label='Организации' />
+							<Select options={counterpartiesOptions} label='Контрагент' />
+							<Select options={directionsOptions} label='Направления' />
+							<Select options={articleOptions} label='Статья и подстатья' />
 						</div>
 
 						<div className={styles['filter__content-bottom']}>
-							<div className={styles['filter__select-wrapper']}>
-								<label htmlFor='' className={styles['filter__select-label']}>
-									Статья и подстатья
-								</label>
-								<select name='' id='' className={styles.date}>
-									<option></option>
-									<option value=''>Заработная плата</option>
-								</select>
-							</div>
-
+							<Select options={articleOptions} label='Label' />
 							<CheckBox label='Запомнить выбор' />
 
 							<div className={styles['filter__buttons-wrapper']}>

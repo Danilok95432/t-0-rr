@@ -34,7 +34,8 @@ export const Modal: FC<ModalProps> = ({ title, children }) => {
 	return (
 		<dialog className={styles.modal} ref={dialogRef}>
 			<h2 className={styles.modal__title}>{title}</h2>
-			<div className={styles.modal__content}>{children}</div>
+
+			{children}
 
 			<Button
 				mode='clear'

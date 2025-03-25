@@ -1,7 +1,7 @@
+import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 
 import styles from './profile.module.scss'
-import { Button } from '@/components/Button'
 
 export const Profile = () => {
 	return (
