@@ -10,7 +10,7 @@ export const useModal = () => {
 
 	const handleOpenModal = (event: MouseEvent<HTMLButtonElement>) => {
 		const idButton = event.currentTarget.getAttribute('id')
-		dispatch(openModal(idButton))
+		dispatch(openModal(idButton ?? ''))
 	}
 
 	const handleCloseModal = () => {

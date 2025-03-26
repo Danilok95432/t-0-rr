@@ -8,4 +8,5 @@ export interface IButtonProps {
 	mode?: 'primary' | 'secondary' | 'clear'
 	icon?: ReactElement
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+	disabled?: boolean
 }

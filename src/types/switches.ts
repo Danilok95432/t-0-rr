@@ -3,6 +3,7 @@ export interface ISwitchesProps {
 	name?: string
 	value?: string
 	label?: string
-	checked: boolean
+	checked?: boolean
+	className?: string
 	onChange?: () => void
 }

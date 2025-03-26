@@ -19,11 +19,23 @@
 	&__type-file {
 		display: flex;
 		column-gap: 30px;
+
+		&-link {
+			color: var(--blue-1);
+
+			&:hover {
+				color: var(--blue-4);
+			}
+		}
 	}
 
 	&__action-loading {
 		display: flex;
 		flex-direction: column;
 		row-gap: 10px;
+	}
+
+	&__error {
+		color: var(--red);
 	}
 }

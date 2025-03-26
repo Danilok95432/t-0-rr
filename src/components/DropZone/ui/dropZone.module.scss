@@ -11,6 +11,12 @@
 	}
 }
 
+.dropzone__label {
+	span {
+		color: var(--blue-1);
+	}
+}
+
 .uploadFile-wrapper {
 	display: flex;
 	align-items: center;

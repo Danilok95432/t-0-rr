@@ -1,5 +1,6 @@
 export interface ITextAreaProps {
-	id: string
+	id?: string
+	name?: string
 	value?: string
 	label?: string
 	placeholder?: string
