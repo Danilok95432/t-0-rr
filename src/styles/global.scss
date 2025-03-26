@@ -24,6 +24,10 @@ svg * {
 	transition-duration: var(--transition-duration);
 }
 
+input[type='radio'] {
+	margin: 0;
+}
+
 a {
 	text-decoration: none;
 	color: var(--white);
@@ -34,6 +38,11 @@ a {
 }
 
 button {
+	border: none;
+	padding: 0;
+}
+
+fieldset {
 	border: none;
 	padding: 0;
 }

@@ -1,0 +1,32 @@
+.container {
+	max-width: 280px;
+	padding: 10px;
+	border: 1px dashed var(--gray-1);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		border: 1px dashed var(--blue-1);
+	}
+}
+
+.uploadFile-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.uploadFile-icon {
+	width: 24px;
+	height: 24px;
+}
+
+.sizeFile {
+	color: var(--gray-1);
+}
+
+.deleteFile {
+	width: 16px;
+	height: 16px;
+	margin-left: 16px;
+}

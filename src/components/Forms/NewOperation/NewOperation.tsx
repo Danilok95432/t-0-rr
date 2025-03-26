@@ -1,18 +1,24 @@
+import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
 import { TFormNewOperation } from '@/types/formNewOperation'
+import { IFormProps } from '@/types/form'
+
+import { useModal } from '@/hooks/useModal'
 
 import { Select } from '@/components/Select'
 import { Input } from '@/components/Input'
 import { InputDate } from '@/components/InputDate'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
+import { Badge } from '@/components/Badge'
 
 import { addOperation } from '@/mock/addOperation'
 
 import styles from './new-operation.module.scss'
 
-export const NewOperation = () => {
+export const NewOperation: FC<IFormProps> = ({ hasBadge, labelBadge }) => {
+	const { handleCloseModal } = useModal()
 	const { control, handleSubmit, reset } = useForm<TFormNewOperation>({
 		defaultValues: {
 			organization: '',
@@ -34,10 +40,13 @@ export const NewOperation = () => {
 	const onSubmit: SubmitHandler<TFormNewOperation> = (data) => {
 		console.log(data)
 		reset()
+		handleCloseModal()
 	}
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOperation}>
+			{hasBadge && <Badge label={labelBadge} />}
+
 			<div className={styles['main-info']}>
 				<div className={styles['main-info-left']}>
 					<Controller

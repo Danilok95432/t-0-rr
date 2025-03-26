@@ -17,7 +17,7 @@ export const ActionsMenu = () => {
 						id='add'
 						mode='clear'
 						className={styles['actions-menu__button-add']}
-						onClick={handleOpenModal}
+						onClick={(event) => handleOpenModal(event)}
 					/>
 				</li>
 				<li className={styles['actions-menu__item']}>
@@ -28,10 +28,20 @@ export const ActionsMenu = () => {
 					/>
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<Button mode='clear' className={styles['actions-menu__button-import']} />
+					<Button
+						id='upload'
+						mode='clear'
+						className={styles['actions-menu__button-import']}
+						onClick={(event) => handleOpenModal(event)}
+					/>
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<Button mode='clear' className={styles['actions-menu__button-download']} />
+					<Button
+						id='unload'
+						mode='clear'
+						className={styles['actions-menu__button-download']}
+						onClick={(event) => handleOpenModal(event)}
+					/>
 				</li>
 				<li className={styles['actions-menu__item']}>
 					<Button mode='clear' className={styles['actions-menu__button-graph']} />
@@ -46,7 +56,12 @@ export const ActionsMenu = () => {
 					<Button mode='clear' className={styles['actions-menu__button-faq']} />
 				</li>
 				<li className={styles['actions-menu__item']}>
-					<Button mode='clear' className={styles['actions-menu__button-settings']} />
+					<Button
+						id='settings'
+						mode='clear'
+						className={styles['actions-menu__button-settings']}
+						onClick={(event) => handleOpenModal(event)}
+					/>
 				</li>
 			</ul>
 		</div>

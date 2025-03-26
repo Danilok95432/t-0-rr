@@ -1,0 +1,29 @@
+.uploadOperation {
+	display: flex;
+	flex-direction: column;
+
+	&__body {
+		margin-block: 15px;
+		padding-block: 15px;
+		border-block: var(--border);
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+
+	&__title {
+		font-size: 12px;
+		font-weight: 500;
+	}
+
+	&__type-file {
+		display: flex;
+		column-gap: 30px;
+	}
+
+	&__action-loading {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+}

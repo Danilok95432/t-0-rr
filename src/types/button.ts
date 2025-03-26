@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { MouseEvent, ReactElement } from 'react'
 
 export interface IButtonProps {
 	id?: string
@@ -7,5 +7,5 @@ export interface IButtonProps {
 	type?: 'button' | 'submit' | 'reset'
 	mode?: 'primary' | 'secondary' | 'clear'
 	icon?: ReactElement
-	onClick?: () => void
+	onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 }

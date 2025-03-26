@@ -1,18 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
 	isOpenModal: false,
+	buttonId: '',
 }
 
 export const modalSlice = createSlice({
 	name: '@modal',
 	initialState,
 	reducers: {
-		openModal: (state) => {
+		openModal: (state, action: PayloadAction<string>) => {
 			state.isOpenModal = true
+			state.buttonId = action.payload
 		},
 		closeModal: (state) => {
 			state.isOpenModal = false
+			state.buttonId = ''
 		},
 	},
 })

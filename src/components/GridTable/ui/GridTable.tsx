@@ -8,6 +8,7 @@ import { columnDefinitions } from '@/pages/Operations/configTable/columnDefiniti
 import { FilterMenu } from '@/components/FilterMenu'
 
 import { rowData } from '@/mock/operations-data'
+import '../config/checkbox-style.css'
 
 export const GridTable = () => {
 	const theme = useMemo<Theme | 'legacy'>(() => {
@@ -18,7 +19,6 @@ export const GridTable = () => {
 		return {
 			mode: 'multiRow',
 			headerCheckbox: true,
-			checkboxLocation: 'selectionColumn',
 		}
 	}, [])
 
@@ -29,7 +29,6 @@ export const GridTable = () => {
 			<AgGridReact
 				rowData={rowData}
 				columnDefs={columnDefinitions}
-				// defaultColDef={}
 				rowSelection={rowSelection}
 				theme={theme}
 			/>
