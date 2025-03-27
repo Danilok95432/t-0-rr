@@ -12,6 +12,7 @@ h4,
 h5,
 h6 {
 	margin: 0;
+	font-weight: 600;
 }
 
 a,
@@ -45,4 +46,10 @@ button {
 fieldset {
 	border: none;
 	padding: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
 }

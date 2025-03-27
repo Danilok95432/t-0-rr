@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 export interface ISwitchesProps {
 	id?: string
 	name?: string
@@ -5,5 +7,5 @@ export interface ISwitchesProps {
 	label?: string
 	checked?: boolean
 	className?: string
-	onChange?: () => void
+	onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }

@@ -14,6 +14,7 @@ export const DropZone: FC<IDropZoneProps> = ({ files, onDrop, onRemoveFile }) =>
 
 	return (
 		<>
+			{/* Файл не загружен */}
 			{!files?.length ? (
 				<section className={styles.container}>
 					<div {...getRootProps({ className: 'dropzone' })}>
@@ -25,6 +26,7 @@ export const DropZone: FC<IDropZoneProps> = ({ files, onDrop, onRemoveFile }) =>
 				</section>
 			) : (
 				<>
+					{/* Файл загружен */}
 					{files.map((file, index) => (
 						<div className={styles['uploadFile-wrapper']} key={file.id}>
 							<Icon iconId='file' className={styles['uploadFile-icon']} />

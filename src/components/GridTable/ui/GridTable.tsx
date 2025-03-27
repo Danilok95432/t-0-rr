@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { RowSelectionOptions, type Theme } from 'ag-grid-community'
 
@@ -9,8 +9,10 @@ import { FilterMenu } from '@/components/FilterMenu'
 
 import { rowData } from '@/mock/operations-data'
 import '../config/checkbox-style.css'
+import { Input } from '@/components/Input'
 
 export const GridTable = () => {
+	const gridRef = useRef<AgGridReact>(null)
 	const theme = useMemo<Theme | 'legacy'>(() => {
 		return customTheme
 	}, [])
@@ -22,11 +24,19 @@ export const GridTable = () => {
 		}
 	}, [])
 
+	// const onFilterTextBoxChanged = useCallback(() => {
+	// 	gridRef.current!.api.setGridOption(
+	// 		'quickFilterText',
+	// 		(document.getElementById('test') as HTMLInputElement).value
+	// 	)
+	// }, [])
+
 	return (
 		<>
 			<FilterMenu />
 
 			<AgGridReact
+				ref={gridRef}
 				rowData={rowData}
 				columnDefs={columnDefinitions}
 				rowSelection={rowSelection}

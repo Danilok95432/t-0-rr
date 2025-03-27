@@ -5,7 +5,7 @@ import styles from './app-layout.module.scss'
 
 export const AppLayout = () => {
 	return (
-		<div className={styles['app-layout']}>
+		<div className={styles.layout}>
 			<Header />
 			<AppRouter />
 		</div>

@@ -25,5 +25,19 @@ export const columnDefinitions: ColDef<IRow>[] = [
 	},
 	{ field: 'caseAndDeal', headerName: 'Кейс и сделка', flex: 1 },
 	{ field: 'article', headerName: 'Статья и подстатья', flex: 1 },
-	{ field: 'amount', headerName: 'Сумма', minWidth: 150, maxWidth: 200 },
+	{
+		field: 'amount',
+		headerName: 'Сумма',
+		cellStyle: (params) => {
+			if (params.value[0] === '+') {
+				return { color: '#c30707' }
+			}
+			if (params.value[0] === '-') {
+				return { color: '#106f01' }
+			}
+			return { color: '#191c30' }
+		},
+		minWidth: 150,
+		maxWidth: 200,
+	},
 ]

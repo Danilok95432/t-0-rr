@@ -10,19 +10,19 @@ import styles from './page-layout.module.scss'
 export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, children }) => {
 	return (
 		<section className={styles.section}>
-			<div className={styles.section__header}>
+			<div className={styles.header}>
 				<h2 className={styles.title}>{title}</h2>
 
 				<Input
 					id='operations-search'
 					placeholder='Искать по наименованию..'
 					hasIcon
-					className={styles.section__input}
+					className={styles.input}
 				/>
 
 				<TotalInfo>
 					{totalInfoData?.map((el, index) => (
-						<div className='' key={index}>
+						<div key={index}>
 							{el.name}: <span>{el.value}</span>
 						</div>
 					))}

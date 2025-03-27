@@ -2,16 +2,18 @@ import { FC } from 'react'
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form'
 import { IFormProps } from '@/types/form'
 import { TFormUploadingOperations } from '@/types/formUploadingOperations'
-import { useModal } from '@/hooks/useModal'
 
 import { Button } from '@/components/Button'
 import { Badge } from '@/components/Badge'
 import { RadioButton } from '@/components/RadioButton'
 import { DropZone } from '@/components/DropZone'
 
+// import { downloadReportItems } from '@/mock/download-report'
+// import { downloadErrorItems } from '@/mock/download-error'
+
 import styles from './uploading-operations.module.scss'
 
-export const UploadingOperations: FC<IFormProps> = ({ hasBadge, labelBadge }) => {
+export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
 	const { control, handleSubmit, watch } = useForm<TFormUploadingOperations>({
 		defaultValues: {
 			fileType: undefined,
@@ -19,7 +21,7 @@ export const UploadingOperations: FC<IFormProps> = ({ hasBadge, labelBadge }) =>
 		},
 	})
 
-	const { append, fields, remove } = useFieldArray({
+	const { fields, append, remove } = useFieldArray({
 		control,
 		name: 'files',
 	})
@@ -44,7 +46,7 @@ export const UploadingOperations: FC<IFormProps> = ({ hasBadge, labelBadge }) =>
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.uploadOperation}>
-			{hasBadge && <Badge label={labelBadge} />}
+			{labelBadge && <Badge label={labelBadge} />}
 
 			<div className={styles['uploadOperation__body']}>
 				<h3 className={styles.uploadOperation__title}>Выбор типа файла импорта</h3>
@@ -100,9 +102,32 @@ export const UploadingOperations: FC<IFormProps> = ({ hasBadge, labelBadge }) =>
 				)}
 			</div>
 
-			<div>
-				<h3>Импорт проведен успешно!</h3>
-			</div>
+			{/* В случае успешной загрузки */}
+			{/* <div className={styles.downloadReport}>
+				<h3 className={styles.downloadReport__title}>Импорт проведен успешно!</h3>
+
+				<p className={styles.downloadReport__subtitle}>Отчет о загрузке</p>
+				<ul className={styles['downloadReport__main-info']}>
+					{downloadReportItems.map((item) => (
+						<li className={styles.downloadReport__values}>
+							<span>{item.title}</span>
+							<span>{item.value}</span>
+						</li>
+					))}
+				</ul>
+				<ul className={styles['downloadReport__error-info']}>
+					{downloadErrorItems.map((item) => (
+						<li className={styles.downloadReport__values}>
+							<span>{item.title}</span>
+							<span>{item.value}</span>
+						</li>
+					))}
+				</ul>
+			</div> */}
+			{/* <a href=''>
+				<Button mode='primary' label='Перейти на страницу результата импорта' />
+			</a> */}
+			{/*  */}
 
 			<Button
 				mode='primary'

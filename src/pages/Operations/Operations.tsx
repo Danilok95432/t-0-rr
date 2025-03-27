@@ -31,16 +31,13 @@ export const Operations = () => {
 
 			{buttonId === 'upload' && (
 				<Modal title='Загрузка (импорт) операций'>
-					<UploadingOperations
-						hasBadge
-						labelBadge='В этой форме производится массовая загрузка (импорт) операций из файла'
-					/>
+					<UploadingOperations labelBadge='В этой форме производится массовая загрузка (импорт) операций из файла' />
 				</Modal>
 			)}
 
 			{buttonId === 'unload' && (
 				<Modal title='Выгрузка (экспорт) операций'>
-					<UnloadingOperations />
+					<UnloadingOperations labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список' />
 				</Modal>
 			)}
 

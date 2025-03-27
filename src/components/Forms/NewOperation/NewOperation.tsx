@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-
 import { TFormNewOperation } from '@/types/formNewOperation'
 import { IFormProps } from '@/types/form'
 
@@ -17,7 +16,7 @@ import { addOperation } from '@/mock/addOperation'
 
 import styles from './new-operation.module.scss'
 
-export const NewOperation: FC<IFormProps> = ({ hasBadge, labelBadge }) => {
+export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 	const { handleCloseModal } = useModal()
 	const { control, handleSubmit, reset } = useForm<TFormNewOperation>({
 		defaultValues: {
@@ -45,7 +44,7 @@ export const NewOperation: FC<IFormProps> = ({ hasBadge, labelBadge }) => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOperation}>
-			{hasBadge && <Badge label={labelBadge} />}
+			{labelBadge && <Badge label={labelBadge} />}
 
 			<div className={styles['main-info']}>
 				<div className={styles['main-info-left']}>

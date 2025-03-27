@@ -39,3 +39,35 @@
 		color: var(--red);
 	}
 }
+
+.downloadReport {
+	border-bottom: var(--border);
+	padding-bottom: 15px;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+
+	&__title {
+		font-size: 16px;
+		color: var(--green);
+	}
+
+	&__subtitle {
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	&__main-info,
+	&__error-info {
+		max-width: 250px;
+		display: flex;
+		flex-direction: column;
+		row-gap: 6px;
+	}
+
+	&__values {
+		display: grid;
+		grid-template-columns: 1fr 70px;
+	}
+}
