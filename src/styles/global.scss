@@ -1,7 +1,7 @@
 body {
 	font-family: var(--font-family-base);
-	color: var(--black);
-	background-color: var(--white);
+	color: var(--text-01);
+	background-color: var(--base-01);
 	font-size: 12px;
 }
 
@@ -31,7 +31,7 @@ input[type='radio'] {
 
 a {
 	text-decoration: none;
-	color: var(--white);
+	color: var(--base-01);
 
 	&.active {
 		font-weight: 700;

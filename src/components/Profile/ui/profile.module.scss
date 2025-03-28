@@ -4,21 +4,21 @@
 	column-gap: 8px;
 
 	&__link {
-		border-bottom: 1px solid var(--gray-3);
+		border-bottom: 1px solid var(--text-02-alt);
 
 		&:hover {
-			color: var(--blue-2);
-			border-bottom: 1px solid var(--blue-2);
+			color: var(--base-border);
+			border-bottom: 1px solid var(--base-border);
 		}
 	}
 
 	&__button {
 		width: 24px;
 		height: 24px;
-		color: var(--white);
+		color: var(--base-01);
 
 		&:hover {
-			color: var(--blue-2);
+			color: var(--text-02-alt);
 		}
 	}
 }

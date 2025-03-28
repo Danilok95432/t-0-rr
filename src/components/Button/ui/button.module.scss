@@ -15,29 +15,30 @@
 	}
 
 	&__primary {
-		color: var(--white);
-		background-color: var(--blue-1);
+		color: var(--base-01);
+		background-color: var(--link);
 
 		&:hover {
-			background-color: var(--blue-2);
+			background-color: var(--link-hover);
 		}
 
 		&:disabled:hover {
-			background-color: var(--blue-1);
+			opacity: 0.56;
 		}
 	}
 
 	&__secondary {
-		color: var(--black);
+		color: var(--text-01);
 		background-color: transparent;
-		border: 1px solid var(--gray-4);
+		border: var(--border);
 
 		&:hover {
-			border: 1px solid var(--gray-2);
+			border: 1px solid var(--text-03);
 		}
 
 		&:disabled:hover {
 			background-color: transparent;
+			border: var(--border);
 		}
 	}
 

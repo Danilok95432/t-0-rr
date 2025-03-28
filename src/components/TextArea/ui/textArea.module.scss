@@ -14,12 +14,12 @@
 
 	&:focus {
 		outline: none;
-		border: 1px solid var(--blue-2);
+		border: 1px solid var(--link-hover);
 	}
 
 	&-label {
 		font-size: 11px;
-		color: var(--gray-1);
+		color: var(--text-02);
 		position: absolute;
 		top: 4px;
 		left: 8px;

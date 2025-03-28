@@ -6,8 +6,8 @@ interface IconCellRendererParams extends CustomCellRendererProps {
 	value: string
 }
 
-export const iconCellRenderer = ({ value }: IconCellRendererParams) => {
-	const styleIcon = { width: '16px', height: '16px' }
+export const iconCellRender = ({ value }: IconCellRendererParams) => {
+	const styleIcon = { width: '28px', height: '24px' }
 
 	return (
 		value && (

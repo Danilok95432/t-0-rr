@@ -1,27 +1,28 @@
 import { FC } from 'react'
 import classNames from 'classnames'
 
-import { IInputProps } from '@/types/input'
+import { InputProps } from '@/types/input'
 
 import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 
 import styles from './input.module.scss'
 
-export const Input: FC<IInputProps> = (props) => {
+export const Input: FC<InputProps> = (props) => {
 	const {
 		id,
 		value,
-		type = 'text',
 		placeholder,
 		className,
 		hasIcon = false,
+		hasResetIcon = true,
 		label,
 		onChange,
+		maxLength,
 	} = props
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		onChange?.(event.target.value)
+		onChange?.(event.currentTarget.value)
 	}
 
 	const handleReset = () => {
@@ -33,18 +34,20 @@ export const Input: FC<IInputProps> = (props) => {
 			{label && <label className={styles['input-label']}>{label}</label>}
 
 			<input
-				type={type}
 				name={id}
 				id={id}
 				value={value}
 				className={classNames(styles.input, label ? styles['with-label'] : '')}
 				placeholder={placeholder}
 				onChange={handleChange}
+				maxLength={maxLength}
+				autoComplete='false'
+				autoFocus={false}
 			/>
 
 			{!value && hasIcon ? <Icon iconId='input-search' className={styles.input__icon} /> : null}
 
-			{value && (
+			{value && hasResetIcon ? (
 				<Button
 					mode='clear'
 					type='reset'
@@ -52,7 +55,7 @@ export const Input: FC<IInputProps> = (props) => {
 					className={styles.input__icon}
 					onClick={handleReset}
 				/>
-			)}
+			) : null}
 		</div>
 	)
 }

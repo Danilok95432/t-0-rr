@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import classNames from 'classnames'
 import { TFormNewOperation } from '@/types/formNewOperation'
 import { IFormProps } from '@/types/form'
 
@@ -21,7 +22,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 	const { control, handleSubmit, reset } = useForm<TFormNewOperation>({
 		defaultValues: {
 			organization: '',
-			name: '',
+			organizationAccount: '',
 			counterparty: '',
 			counterpartyAccount: '',
 			date: null,
@@ -47,7 +48,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 			{labelBadge && <Badge label={labelBadge} />}
 
 			<div className={styles['main-info']}>
-				<div className={styles['main-info-left']}>
+				<div className={classNames(styles.left, styles.hasArrow)}>
 					<Controller
 						name='organization'
 						control={control}
@@ -63,20 +64,20 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 					/>
 
 					<Controller
-						name='name'
+						name='organizationAccount'
 						control={control}
 						render={({ field }) => (
 							<Select
 								options={addOperation}
 								value={field.value}
-								label='Label'
+								label='Счет организации'
 								onChange={field.onChange}
 								className={styles['main-info-select']}
 							/>
 						)}
 					/>
 				</div>
-				<div className={styles['main-info-right']}>
+				<div className={styles.right}>
 					<Controller
 						name='counterparty'
 						control={control}
@@ -86,7 +87,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 								value={field.value}
 								label='Контрагент'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles.addOperation__select}
 							/>
 						)}
 					/>
@@ -100,7 +101,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 								value={field.value}
 								label='Счет контрагента'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles.addOperation__select}
 							/>
 						)}
 					/>
@@ -108,8 +109,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 			</div>
 
 			<div className={styles['extra-info']}>
-				<div className={styles['extra-info-left']}>
-					<div className={styles['extra-info-left-wrapper']}>
+				<div className={styles.left}>
+					<div className={styles.wrapper}>
 						<Controller
 							name='date'
 							control={control}
@@ -127,6 +128,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 									value={field.value}
 									onChange={(text) => field.onChange(text)}
 									className={styles.idInput}
+									maxLength={30}
 								/>
 							)}
 						/>
@@ -135,6 +137,10 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 					<Controller
 						name='sumOperation'
 						control={control}
+						rules={{
+							validate: (value) =>
+								/^\d{10,12}$/.test(value) || 'ИНН должен содержать 10 или 12 цифр',
+						}}
 						render={({ field }) => (
 							<Input
 								id='sumOperation'
@@ -142,6 +148,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
 								className={styles.sumInput}
+								hasResetIcon={false}
+								maxLength={40}
 							/>
 						)}
 					/>
@@ -172,7 +180,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 					/>
 				</div>
 
-				<div className={styles['extra-info-right']}>
+				<div className={styles.right}>
 					<Controller
 						name='case'
 						control={control}

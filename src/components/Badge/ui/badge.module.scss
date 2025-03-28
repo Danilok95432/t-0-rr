@@ -1,7 +1,29 @@
 .badge {
 	width: fit-content;
 	padding: 3px 6px;
-	background-color: var(--purple-1);
 	border-radius: var(--border-radius);
 	margin-top: 5px;
+
+	&__default {
+		background-color: var(--base-info-bg);
+	}
+
+	&__positive {
+		background-color: var(--positive-bg);
+		color: var(--positive);
+	}
+
+	&__negative {
+		background-color: var(--negative-bg);
+		color: var(--negative);
+	}
+
+	&__warning {
+		background-color: var(--warning-bg);
+		color: var(--text-warning);
+	}
+
+	&__neutral {
+		background-color: var(--neural-bg);
+	}
 }

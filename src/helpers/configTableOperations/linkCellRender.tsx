@@ -5,7 +5,7 @@ interface linkCellRendererParams extends CustomCellRendererProps {
 }
 
 export const linkCellRender = ({ value }: linkCellRendererParams) => {
-	const styleLink = { color: 'var(--blue-1)' }
+	const styleLink = { color: 'var(--link)' }
 	return (
 		<a href='#' style={styleLink}>
 			{value}

@@ -3,53 +3,72 @@
 	flex-direction: column;
 	margin-top: 15px;
 	row-gap: 20px;
+
+	&-select {
+		width: 100%;
+		min-width: 250px;
+	}
 }
 
 .main-info {
 	display: flex;
-	flex-wrap: wrap;
 	border-block: var(--border);
 	padding-block: 20px;
 	gap: 10px 31px;
+}
 
-	&-left,
-	&-right {
-		display: flex;
-		flex-direction: column;
-		row-gap: 10px;
-	}
+.left,
+.right {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	width: 100%;
+}
 
-	&-select {
-		width: 380px;
-		min-width: 250px;
-	}
+.left {
+	position: relative;
+}
+
+.hasArrow::after {
+	content: '';
+	width: 16px;
+	height: 16px;
+	background: url('../../../assets/icons/red-arrow-left.svg') center / cover no-repeat;
+	position: absolute;
+	top: 38px;
+	right: -23px;
 }
 
 .extra-info {
 	padding-bottom: 20px;
 	border-bottom: var(--border);
 	display: flex;
-	flex-wrap: wrap;
 	gap: 10px 31px;
 
-	&-left,
-	&-right {
-		width: 380px;
-		display: flex;
-		flex-direction: column;
-		row-gap: 10px;
-
-		&-wrapper {
+	.left,
+	.right {
+		.wrapper {
 			width: 100%;
 			display: flex;
 			column-gap: 10px;
+			position: relative;
+
+			&::after {
+				content: 'RUB — Рубли РФ';
+				font-size: 11px;
+				color: var(--text-02);
+				position: absolute;
+				top: 70px;
+				right: 8px;
+				z-index: 5;
+			}
 
 			.idInput {
-				width: 212px;
+				width: 100%;
 			}
 
 			.sumInput {
-				width: 380px;
+				width: 100%;
 			}
 		}
 	}

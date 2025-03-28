@@ -1,3 +1,3 @@
 export interface ITotalInfoProps {
-	children?: React.ReactNode
+	totalInfo?: Record<string, string>[]
 }

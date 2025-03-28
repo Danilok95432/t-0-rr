@@ -17,7 +17,7 @@
 
 	&:focus {
 		outline: none;
-		border: 1px solid var(--blue-2);
+		border: 1px solid var(--link-hover);
 	}
 }
 
@@ -54,13 +54,13 @@
 		top: 15px;
 
 		&-icon::before {
-			border-color: var(--black);
+			border-color: var(--text-01);
 			border-width: 2px 2px 0 0; /* Толщина стрелок */
 		}
 	}
 
 	&__header {
-		background-color: var(--white);
+		background-color: var(--base-01);
 		border: none;
 		font-size: 13px;
 		font-weight: normal;
@@ -81,7 +81,7 @@
 
 	&__day-name {
 		font-size: 11px;
-		color: var(--gray-1);
+		color: var(--text-02);
 		text-transform: uppercase;
 	}
 
@@ -90,19 +90,19 @@
 		font-weight: 500;
 
 		&--selected {
-			background-color: var(--blue-2);
+			background-color: var(--link-hover);
 
 			&:not([aria-disabled='true']):hover {
-				background-color: var(--blue-4);
+				background-color: var(--link);
 			}
 		}
 
 		&--weekend {
-			color: var(--red);
+			color: var(--negative);
 		}
 
 		&--outside-month {
-			color: var(--gray-1);
+			color: var(--text-02);
 		}
 	}
 }

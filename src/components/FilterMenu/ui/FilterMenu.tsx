@@ -23,34 +23,29 @@ export const FilterMenu = () => {
 	return (
 		<div className={styles.filter}>
 			<div
-				className={classNames(styles.filter__overlay, {
+				className={classNames(styles.overlay, {
 					[styles.isOpen]: isOpenFiltersMenu,
 				})}
 			>
 				<div
-					className={classNames(styles.filter__content, {
+					className={classNames(styles.content, {
 						[styles.isOpen]: isOpenFiltersMenu,
 					})}
 				>
-					<form action='#' className={styles.filter__form}>
-						<div className={styles['filter__content-top']}>
-							<Select
-								options={dateOptions}
-								label='Диапазон дат'
-								placeholder='От и до'
-								className={styles.select_date}
-							/>
+					<form action='#' className={styles.form}>
+						<div className={styles.top}>
+							<Select options={dateOptions} label='Диапазон дат' placeholder='От и до' />
 							<Select options={organizationOptions} label='Организации' />
 							<Select options={counterpartiesOptions} label='Контрагент' />
 							<Select options={directionsOptions} label='Направления' />
 							<Select options={articleOptions} label='Статья и подстатья' />
 						</div>
 
-						<div className={styles['filter__content-bottom']}>
+						<div className={styles.bottom}>
 							<Select options={articleOptions} label='Label' />
 							<CheckBox label='Запомнить выбор' />
 
-							<div className={styles['filter__buttons-wrapper']}>
+							<div className={styles['buttons-wrapper']}>
 								<Button mode='primary' label='Применить' />
 								<Button mode='secondary' label='Сбросить фильтр' />
 							</div>
@@ -59,7 +54,7 @@ export const FilterMenu = () => {
 
 					<Button
 						mode='clear'
-						className={styles.filter__close}
+						className={styles.close}
 						icon={<Icon iconId='close' />}
 						onClick={handleCloseFilterMenu}
 					/>

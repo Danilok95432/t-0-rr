@@ -123,8 +123,8 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
 						</li>
 					))}
 				</ul>
-			</div> */}
-			{/* <a href=''>
+			</div>
+			<a href=''>
 				<Button mode='primary' label='Перейти на страницу результата импорта' />
 			</a> */}
 			{/*  */}

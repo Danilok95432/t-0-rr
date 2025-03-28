@@ -7,14 +7,14 @@
 	border: var(--border);
 	border-radius: var(--border-radius);
 	padding: 10px 27px 10px 8px;
-	color: var(--gray-1);
+	color: var(--text-02);
 	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
 	position: relative;
 
 	&:focus {
 		outline: none;
-		color: var(--black);
-		border: 1px solid var(--blue-2);
+		color: var(--text-01);
+		border: 1px solid var(--link-hover);
 	}
 
 	&__icon {
@@ -22,14 +22,14 @@
 		height: 16px;
 		position: absolute;
 		top: 12px;
-		right: 8px;
+		right: 6px;
 	}
 
 	&-label {
 		font-size: 11px;
-		color: var(--gray-1);
+		color: var(--text-02);
 		position: absolute;
-		top: 4px;
+		top: 2px;
 		left: 8px;
 		z-index: 10;
 	}
@@ -37,7 +37,7 @@
 
 .with-label {
 	&.input {
-		padding: 20px 8px 5px;
+		padding: 20px 22px 5px 8px;
 		height: 40px;
 	}
 }

@@ -8,3 +8,16 @@
 	flex-shrink: 0;
 	min-height: 40px;
 }
+
+.value {
+	margin-left: 4px;
+}
+
+.coming-value,
+.difference-value {
+	color: var(--positive);
+}
+
+.expenditure-value {
+	color: var(--negative);
+}

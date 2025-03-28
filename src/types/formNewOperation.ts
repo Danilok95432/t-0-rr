@@ -1,6 +1,6 @@
 export type TFormNewOperation = {
 	organization: string
-	name: string
+	organizationAccount: string
 	counterparty: string
 	counterpartyAccount: string
 	date: Date | null

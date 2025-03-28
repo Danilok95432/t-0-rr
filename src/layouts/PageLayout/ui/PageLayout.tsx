@@ -17,15 +17,12 @@ export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, childre
 					placeholder='Искать по наименованию..'
 					hasIcon
 					className={styles.input}
+					onChange={(e) => {
+						console.log(e.target.value)
+					}}
 				/>
 
-				<TotalInfo>
-					{totalInfoData?.map((el, index) => (
-						<div key={index}>
-							{el.name}: <span>{el.value}</span>
-						</div>
-					))}
-				</TotalInfo>
+				<TotalInfo totalInfo={totalInfoData} />
 			</div>
 
 			<div className={styles.content}>{children}</div>

@@ -1,19 +1,19 @@
 .container {
 	max-width: 280px;
 	padding: 10px;
-	border: 1px dashed var(--gray-1);
+	border: 1px dashed var(--text-02);
 	border-radius: 5px;
 	display: flex;
 	align-items: center;
 
 	&:hover {
-		border: 1px dashed var(--blue-1);
+		border: 1px dashed var(--link-hover);
 	}
 }
 
 .dropzone__label {
 	span {
-		color: var(--blue-1);
+		color: var(--link);
 	}
 }
 
@@ -28,7 +28,7 @@
 }
 
 .sizeFile {
-	color: var(--gray-1);
+	color: var(--text-02);
 }
 
 .deleteFile {

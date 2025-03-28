@@ -1,10 +1,12 @@
-export interface IInputProps {
+export interface InputProps {
 	id: string
 	value?: string
-	type?: string
 	placeholder?: string
 	label?: string
 	className?: string
 	hasIcon?: boolean
-	onChange?: (value: string) => void
+	hasResetIcon?: boolean
+	onChange: (event: string) => void
+	error?: string
+	maxLength?: number
 }

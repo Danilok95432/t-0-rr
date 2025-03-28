@@ -2,17 +2,22 @@ import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
 import { IOperationsData } from '@/types/operationsData'
 
-import { iconCellRenderer } from './iconCellRender'
+import { iconCellRender } from './iconCellRender'
 import { linkCellRender } from './linkCellRender'
+import iconCellHeader from './iconCellHeader'
+import { sumCellRender } from './sumCellRender'
 
 export const columnDefOperations: ColDef<IOperationsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
 	{ field: 'date', headerName: 'Дата', minWidth: 100, maxWidth: 100 },
 	{
 		field: 'iconType',
-		cellRenderer: memo(iconCellRenderer),
+		cellRenderer: memo(iconCellRender),
 		headerName: '',
+		headerComponent: iconCellHeader,
+		minWidth: 60,
 		maxWidth: 60,
+		sortable: false,
 	},
 	{ field: 'organization', headerName: 'Организация и счет', flex: 1 },
 	{ field: 'counterparty', headerName: 'Контрагент', flex: 1 },
@@ -27,15 +32,7 @@ export const columnDefOperations: ColDef<IOperationsData>[] = [
 	{
 		field: 'amount',
 		headerName: 'Сумма',
-		cellStyle: (params) => {
-			if (params.value[0] === '+') {
-				return { color: '#c30707' }
-			}
-			if (params.value[0] === '-') {
-				return { color: '#106f01' }
-			}
-			return { color: '#191c30' }
-		},
+		cellRenderer: sumCellRender,
 		minWidth: 150,
 		maxWidth: 200,
 	},
