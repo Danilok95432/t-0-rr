@@ -1,17 +1,14 @@
-import { useCallback, useMemo, useRef } from 'react'
+import { FC, useMemo, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { RowSelectionOptions, type Theme } from 'ag-grid-community'
-
-import { customTheme } from '../config/tableTheme'
-import { columnDefinitions } from '@/pages/Operations/configTable/columnDefinitions'
+import { TGridTableData } from '@/types/gridTable'
 
 import { FilterMenu } from '@/components/FilterMenu'
 
-import { rowData } from '@/mock/operations-data'
+import { customTheme } from '../config/tableTheme'
 import '../config/checkbox-style.css'
-import { Input } from '@/components/Input'
 
-export const GridTable = () => {
+export const GridTable: FC<TGridTableData> = ({ rowData, columnDefinitions }) => {
 	const gridRef = useRef<AgGridReact>(null)
 	const theme = useMemo<Theme | 'legacy'>(() => {
 		return customTheme

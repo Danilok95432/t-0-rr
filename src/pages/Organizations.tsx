@@ -1,11 +1,28 @@
+import { useModal } from '@/hooks/useModal'
+
 import { PageLayout } from '@/layouts/PageLayout'
 import { Modal } from '@/components/Modal'
+import { GridTable } from '@/components/GridTable'
+
+import { columnDefOrganization } from '@/helpers/configTableOrganizations/columnDefOrganization'
+import { organizationsData } from '@/mock/organizations-data'
+import { organizationTotalInfo } from '@/mock/organizations-total-info'
 
 export const Organizations = () => {
+	const { buttonId } = useModal()
+
 	return (
-		<PageLayout title='Организации'>
-			Контент
-			<Modal title='Новая организация'>Тут форма добавления новой организации</Modal>
+		<PageLayout title='Организации' totalInfoData={organizationTotalInfo}>
+			<GridTable rowData={organizationsData} columnDefinitions={columnDefOrganization} />
+
+			{/* модалки */}
+			{buttonId === 'add' && (
+				<Modal title='Новая организация'>Тут форма добавления новой организации</Modal>
+			)}
+
+			{buttonId === 'unload' && (
+				<Modal title='Выгрузка (экспорт) организаций'>Выгрузка организаций</Modal>
+			)}
 		</PageLayout>
 	)
 }

@@ -1,4 +1,4 @@
-export interface IRow {
+export interface IOperationsData {
 	id: string
 	date: string
 	iconType: string

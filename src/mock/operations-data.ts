@@ -1,6 +1,6 @@
-import { IRow } from '@/types/row'
+import { IOperationsData } from '@/types/operationsData'
 
-export const rowData: IRow[] = [
+export const operationsData: IOperationsData[] = [
 	{
 		id: '367800',
 		date: '23.03.2025',

@@ -4,10 +4,12 @@ import { useModal } from '@/hooks/useModal'
 import { Button } from '@/components/Button'
 
 import styles from './actions-menu.module.scss'
+import { useLocation } from 'react-router'
 
 export const ActionsMenu = () => {
 	const { handleOpenFilterMenu } = useFiltersMenu()
 	const { handleOpenModal } = useModal()
+	const path = useLocation().pathname.substring(1)
 
 	return (
 		<div className={styles['actions-menu']}>
@@ -20,21 +22,28 @@ export const ActionsMenu = () => {
 						onClick={(event) => handleOpenModal(event)}
 					/>
 				</li>
-				<li className={styles['actions-menu__item']}>
-					<Button
-						mode='clear'
-						className={styles['actions-menu__button-search']}
-						onClick={handleOpenFilterMenu}
-					/>
-				</li>
-				<li className={styles['actions-menu__item']}>
-					<Button
-						id='upload'
-						mode='clear'
-						className={styles['actions-menu__button-import']}
-						onClick={(event) => handleOpenModal(event)}
-					/>
-				</li>
+
+				{path === 'operations' && (
+					<li className={styles['actions-menu__item']}>
+						<Button
+							mode='clear'
+							className={styles['actions-menu__button-search']}
+							onClick={handleOpenFilterMenu}
+						/>
+					</li>
+				)}
+
+				{path === 'operations' && (
+					<li className={styles['actions-menu__item']}>
+						<Button
+							id='upload'
+							mode='clear'
+							className={styles['actions-menu__button-import']}
+							onClick={(event) => handleOpenModal(event)}
+						/>
+					</li>
+				)}
+
 				<li className={styles['actions-menu__item']}>
 					<Button
 						id='unload'
@@ -43,18 +52,23 @@ export const ActionsMenu = () => {
 						onClick={(event) => handleOpenModal(event)}
 					/>
 				</li>
-				<li className={styles['actions-menu__item']}>
-					<Button mode='clear' className={styles['actions-menu__button-graph']} />
-				</li>
+
+				{path === 'operations' && (
+					<li className={styles['actions-menu__item']}>
+						<Button mode='clear' className={styles['actions-menu__button-graph']} />
+					</li>
+				)}
 			</ul>
 
 			<ul className={styles['actions-menu__list']}>
 				<li className={styles['actions-menu__item']}>
 					<Button mode='clear' className={styles['actions-menu__button-mail']} />
 				</li>
+
 				<li className={styles['actions-menu__item']}>
 					<Button mode='clear' className={styles['actions-menu__button-faq']} />
 				</li>
+
 				<li className={styles['actions-menu__item']}>
 					<Button
 						id='settings'

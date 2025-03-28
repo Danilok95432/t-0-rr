@@ -1,13 +1,12 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-
-import { IRow } from '@/types/row'
+import { IOperationsData } from '@/types/operationsData'
 
 import { iconCellRenderer } from './iconCellRender'
 import { linkCellRender } from './linkCellRender'
 
-export const columnDefinitions: ColDef<IRow>[] = [
-	{ field: 'id', headerName: 'ID', width: 80, maxWidth: 80 },
+export const columnDefOperations: ColDef<IOperationsData>[] = [
+	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
 	{ field: 'date', headerName: 'Дата', minWidth: 100, maxWidth: 100 },
 	{
 		field: 'iconType',

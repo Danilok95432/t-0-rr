@@ -1,5 +1,7 @@
 import { useModal } from '@/hooks/useModal'
 
+import { columnDefOperations } from '@/helpers/configTableOperations/columnDefOperations'
+
 import { PageLayout } from '@/layouts/PageLayout'
 import { GridTable } from '@/components/GridTable'
 import { Modal } from '@/components/Modal'
@@ -10,17 +12,14 @@ import { UploadingOperations } from '@/components/Forms/UploadingOperations'
 import { SettingsListOperations } from '@/components/Forms/SettingsListOperations'
 
 import { operationsTotalInfo } from '@/mock/operations-total-info'
-
-import styles from './operations.module.scss'
+import { operationsData } from '@/mock/operations-data'
 
 export const Operations = () => {
 	const { buttonId } = useModal()
 
 	return (
 		<PageLayout title='Операции' totalInfoData={operationsTotalInfo}>
-			<div className={styles.content}>
-				<GridTable />
-			</div>
+			<GridTable rowData={operationsData} columnDefinitions={columnDefOperations} />
 
 			{/* модалки */}
 			{buttonId === 'add' && (

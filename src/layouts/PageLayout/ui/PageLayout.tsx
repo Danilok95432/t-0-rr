@@ -1,5 +1,4 @@
 import { FC } from 'react'
-
 import { IPageLayoutProps } from '@/types/page-layout'
 
 import { TotalInfo } from '@/components/TotalInfo'
@@ -29,7 +28,7 @@ export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, childre
 				</TotalInfo>
 			</div>
 
-			{children}
+			<div className={styles.content}>{children}</div>
 		</section>
 	)
 }
