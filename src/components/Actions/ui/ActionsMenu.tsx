@@ -1,10 +1,10 @@
+import { useLocation } from 'react-router'
 import { useFiltersMenu } from '@/hooks/useFiltersMenu'
 import { useModal } from '@/hooks/useModal'
 
 import { Button } from '@/components/Button'
 
 import styles from './actions-menu.module.scss'
-import { useLocation } from 'react-router'
 
 export const ActionsMenu = () => {
 	const { handleOpenFilterMenu } = useFiltersMenu()

@@ -5,7 +5,7 @@ import { IOperationsData } from '@/types/operationsData'
 import { iconCellRender } from './iconCellRender'
 import { linkCellRender } from './linkCellRender'
 import iconCellHeader from './iconCellHeader'
-import { sumCellRender } from './sumCellRender'
+import { sumCellRender } from './sumCell/sumCellRender'
 
 export const columnDefOperations: ColDef<IOperationsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
@@ -32,8 +32,9 @@ export const columnDefOperations: ColDef<IOperationsData>[] = [
 	{
 		field: 'amount',
 		headerName: 'Сумма',
+		cellStyle: { display: 'flex', justifyContent: 'start', alignItems: 'center' },
 		cellRenderer: sumCellRender,
-		minWidth: 150,
-		maxWidth: 200,
+		minWidth: 130,
+		maxWidth: 130,
 	},
 ]

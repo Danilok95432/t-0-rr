@@ -7,13 +7,5 @@ interface IconCellRendererParams extends CustomCellRendererProps {
 }
 
 export const iconCellRender = ({ value }: IconCellRendererParams) => {
-	const styleIcon = { width: '28px', height: '24px' }
-
-	return (
-		value && (
-			<div style={styleIcon}>
-				<Icon iconId={value} />
-			</div>
-		)
-	)
+	return value && <Icon iconId={value} width='28px' height='28px' />
 }

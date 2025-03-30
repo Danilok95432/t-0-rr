@@ -1,8 +1,9 @@
 .badge {
 	width: fit-content;
+	display: flex;
+	align-items: center;
 	padding: 3px 6px;
 	border-radius: var(--border-radius);
-	margin-top: 5px;
 
 	&__default {
 		background-color: var(--base-info-bg);

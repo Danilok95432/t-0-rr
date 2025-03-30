@@ -128,7 +128,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 									value={field.value}
 									onChange={(text) => field.onChange(text)}
 									className={styles.idInput}
-									maxLength={30}
+									maxLength={25}
 								/>
 							)}
 						/>
@@ -149,7 +149,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 								onChange={(text) => field.onChange(text)}
 								className={styles.sumInput}
 								hasResetIcon={false}
-								maxLength={40}
+								maxLength={35}
 							/>
 						)}
 					/>
