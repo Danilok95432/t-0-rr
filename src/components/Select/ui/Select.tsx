@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import classNames from 'classnames'
+import Select from 'react-dropdown-select'
 
 import { ISelectProps } from '@/types/select'
 
-import styles from './select.module.scss'
+import './select.scss'
 
-export const Select: FC<ISelectProps> = (props) => {
-	const { options, value = '', onChange, label, placeholder, className } = props
+export const SelectC: FC<ISelectProps> = (props) => {
+	const { options, value = '', onChange, label, placeholder = '', className } = props
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		console.log(event.target.value)
@@ -14,10 +15,18 @@ export const Select: FC<ISelectProps> = (props) => {
 	}
 
 	return (
-		<div className={classNames(styles['select-wrapper'], className)}>
-			{label && <label className={styles['select-label']}>{label}</label>}
+		<div className={classNames('select-wrapper', className)}>
+			{label && <label className='select-label'>{label}</label>}
 
-			<select value={value} onChange={handleChange} className={styles.select}>
+			<Select
+				multi
+				options={options}
+				onChange={onChange}
+				className='select'
+				placeholder={placeholder}
+				searchable={false}
+			/>
+			{/* <select value={value} onChange={handleChange} className={styles.select}>
 				{placeholder && <option value=''>{placeholder}</option>}
 
 				{options.map((option) => (
@@ -25,7 +34,7 @@ export const Select: FC<ISelectProps> = (props) => {
 						{option.name}
 					</option>
 				))}
-			</select>
+			</select> */}
 		</div>
 	)
 }

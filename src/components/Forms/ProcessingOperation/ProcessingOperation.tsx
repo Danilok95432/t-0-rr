@@ -1,11 +1,11 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import classNames from 'classnames'
 import { TFormProcessingOperation } from '@/types/formProcessingOperation'
 import { IFormProps } from '@/types/form'
 
 import { useModal } from '@/hooks/useModal'
-import { Select } from '@/components/Select'
+import { SelectC } from '@/components/Select'
 import { Input } from '@/components/Input'
 import { InputDate } from '@/components/InputDate'
 import { TextArea } from '@/components/TextArea'
@@ -33,12 +33,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='organization'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Организация'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles['main-info-SelectC']}
 							/>
 						)}
 					/>
@@ -47,12 +47,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='organizationAccount'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Счет организации'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles['main-info-SelectC']}
 							/>
 						)}
 					/>
@@ -62,12 +62,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='counterparty'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Контрагент'
 								onChange={field.onChange}
-								className={styles.addOperation__select}
+								className={styles.addOperation__SelectC}
 							/>
 						)}
 					/>
@@ -76,12 +76,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='counterpartyAccount'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Счет контрагента'
 								onChange={field.onChange}
-								className={styles.addOperation__select}
+								className={styles.addOperation__SelectC}
 							/>
 						)}
 					/>
@@ -161,12 +161,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='case'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Кейс / сделка'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles['main-info-SelectC']}
 							/>
 						)}
 					/>
@@ -174,12 +174,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='direction'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Направление операции'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles['main-info-SelectC']}
 							/>
 						)}
 					/>
@@ -187,12 +187,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='article'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Статья / подстатья'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles['main-info-SelectC']}
 							/>
 						)}
 					/>
@@ -200,12 +200,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						name='payer'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Расходы на операцию несет'
 								onChange={field.onChange}
-								className={styles['main-info-select']}
+								className={styles['main-info-SelectC']}
 							/>
 						)}
 					/>
@@ -249,17 +249,17 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 
 			<TableProcessingOperation />
 
-			<div className={styles.select_block}>
+			<div className={styles.SelectC_block}>
 				<Controller
 					name='counterpartyDivision'
 					control={control}
 					render={({ field }) => (
-						<Select
+						<SelectC
 							options={[]}
 							value={field.value}
 							label='Контрагент'
 							onChange={field.onChange}
-							className={styles.addOperation__select}
+							className={styles.addOperation__SelectC}
 						/>
 					)}
 				/>
@@ -268,12 +268,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 					name='caseDivision'
 					control={control}
 					render={({ field }) => (
-						<Select
+						<SelectC
 							options={[]}
 							value={field.value}
 							label='Кейс / сделка'
 							onChange={field.onChange}
-							className={styles['main-info-select']}
+							className={styles['main-info-SelectC']}
 						/>
 					)}
 				/>
@@ -299,12 +299,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 					name='counterpartyAccountDivision'
 					control={control}
 					render={({ field }) => (
-						<Select
+						<SelectC
 							options={[]}
 							value={field.value}
 							label='Счет контрагента'
 							onChange={field.onChange}
-							className={styles.addOperation__select}
+							className={styles.addOperation__SelectC}
 						/>
 					)}
 				/>
@@ -313,12 +313,12 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 					name='articleDivision'
 					control={control}
 					render={({ field }) => (
-						<Select
+						<SelectC
 							options={[]}
 							value={field.value}
 							label='Статья / подстатья'
 							onChange={field.onChange}
-							className={styles['main-info-select']}
+							className={styles['main-info-SelectC']}
 						/>
 					)}
 				/>

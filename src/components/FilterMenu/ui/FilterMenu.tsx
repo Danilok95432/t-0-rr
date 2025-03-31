@@ -2,7 +2,7 @@ import classNames from 'classnames'
 
 import { useFiltersMenu } from '@/hooks/useFiltersMenu'
 
-import { Select } from '@/components/Select'
+import { SelectC } from '@/components/Select'
 import { Button } from '@/components/Button'
 import { CheckBox } from '@/components/CheckBox'
 import { Icon } from '@/components/Icon'
@@ -34,15 +34,15 @@ export const FilterMenu = () => {
 				>
 					<form action='#' className={styles.form}>
 						<div className={styles.top}>
-							<Select options={dateOptions} label='Диапазон дат' placeholder='От и до' />
-							<Select options={organizationOptions} label='Организации' />
-							<Select options={counterpartiesOptions} label='Контрагент' />
-							<Select options={directionsOptions} label='Направления' />
-							<Select options={articleOptions} label='Статья и подстатья' />
+							<SelectC options={dateOptions} label='Диапазон дат' placeholder='От и до' />
+							<SelectC options={organizationOptions} label='Организации' />
+							<SelectC options={counterpartiesOptions} label='Контрагент' />
+							<SelectC options={directionsOptions} label='Направления' />
+							<SelectC options={articleOptions} label='Статья и подстатья' />
 						</div>
 
 						<div className={styles.bottom}>
-							<Select options={articleOptions} label='Label' />
+							<SelectC options={articleOptions} label='Label' />
 							<CheckBox label='Запомнить выбор' />
 
 							<div className={styles['buttons-wrapper']}>

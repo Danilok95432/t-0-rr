@@ -6,7 +6,7 @@ import { IFormProps } from '@/types/form'
 
 import { useModal } from '@/hooks/useModal'
 
-import { Select } from '@/components/Select'
+import { SelectC } from '@/components/Select'
 import { Input } from '@/components/Input'
 import { InputDate } from '@/components/InputDate'
 import { TextArea } from '@/components/TextArea'
@@ -53,7 +53,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='organization'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Организация'
@@ -67,7 +67,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='organizationAccount'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Счет организации'
@@ -82,7 +82,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='counterparty'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Контрагент'
@@ -96,7 +96,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='counterpartyAccount'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Счет контрагента'
@@ -182,7 +182,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='case'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Кейс / сделка'
@@ -195,7 +195,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='direction'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Направление операции'
@@ -208,7 +208,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='article'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Статья / подстатья'
@@ -221,7 +221,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						name='payer'
 						control={control}
 						render={({ field }) => (
-							<Select
+							<SelectC
 								options={addOperation}
 								value={field.value}
 								label='Расходы на операцию несет'

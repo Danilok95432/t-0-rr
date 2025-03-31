@@ -1,25 +1,14 @@
 .select-wrapper {
 	position: relative;
-
-	&::after {
-		content: '';
-		width: 16px;
-		height: 16px;
-		background: url('../../../assets/icons/arrow-down.svg') center / 100% no-repeat;
-		position: absolute;
-		top: 50%;
-		right: 8px;
-		transform: translateY(-50%);
-	}
 }
 
 .select-label {
 	font-size: 11px;
 	color: var(--text-02);
 	position: absolute;
-	top: 4px;
+	top: 3px;
 	left: 8px;
-	z-index: 10;
+	z-index: 3;
 }
 
 .select {
@@ -41,4 +30,8 @@
 	&:focus-visible {
 		border: none;
 	}
+}
+.react-dropdown-select-input::placeholder {
+	color: var(--text-01);
+	margin-left: 0;
 }
