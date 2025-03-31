@@ -18,6 +18,7 @@ export const AppRouter = () => {
 				<Route path='/' element={<Navigate to={AppRoutes.OPERATIONS} replace />} />
 				<Route path={AppRoutes.OPERATIONS} element={<Operations />} />
 				<Route path={AppRoutes.ORGANIZATIONS} element={<Organizations />} />
+				<Route path={`${AppRoutes.ORGANIZATION}/:id`} element={<div>страница организации</div>} />
 				<Route path={AppRoutes.COUNTERPARTIES} element={<Counterparties />} />
 				<Route path={AppRoutes.ACCOUNTS} element={<Accounts />} />
 				<Route path={AppRoutes.ARTICLES} element={<Articles />} />

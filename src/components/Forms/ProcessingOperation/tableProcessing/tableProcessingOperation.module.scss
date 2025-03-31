@@ -1,0 +1,50 @@
+.table_block {
+	width: 100%;
+
+	& thead {
+		& tr {
+			border-bottom: var(--border);
+
+			& th {
+				padding: 10px;
+				text-align: start;
+				color: var(--text-01);
+				font-weight: 400;
+			}
+		}
+	}
+
+	& tbody {
+		& tr {
+			border-bottom: var(--border);
+
+			& td {
+				padding: 8px;
+			}
+		}
+	}
+}
+
+.title_text01 {
+	font-weight: 600;
+}
+
+.title_text02 {
+	color: var(--text-02);
+}
+
+.tableRow_del {
+	width: 16px;
+	height: 16px;
+	background-color: transparent;
+}
+
+.add_icon {
+	width: 16px;
+	height: 16px;
+}
+
+.addRow_btn {
+	color: var(--link);
+	align-self: start;
+}

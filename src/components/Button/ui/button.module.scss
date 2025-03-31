@@ -50,4 +50,10 @@
 		opacity: 0.56;
 		cursor: not-allowed;
 	}
+
+	.wrapper {
+		display: flex;
+		align-items: center;
+		column-gap: 4px;
+	}
 }

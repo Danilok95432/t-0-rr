@@ -13,7 +13,7 @@ export const Profile = () => {
 			<Button
 				type='button'
 				className={styles.profile__button}
-				icon={<Icon iconId='exit' />}
+				icon={<Icon iconId='exit' width='24px' height='24px' />}
 				mode='clear'
 				aria-label='Выйти'
 			/>

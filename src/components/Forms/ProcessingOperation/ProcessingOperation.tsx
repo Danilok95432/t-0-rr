@@ -1,52 +1,32 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import classNames from 'classnames'
-import { TFormNewOperation } from '@/types/formNewOperation'
+import { TFormProcessingOperation } from '@/types/formProcessingOperation'
 import { IFormProps } from '@/types/form'
 
 import { useModal } from '@/hooks/useModal'
-
 import { Select } from '@/components/Select'
 import { Input } from '@/components/Input'
 import { InputDate } from '@/components/InputDate'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
-import { Badge } from '@/components/Badge'
+import { TableProcessingOperation } from './tableProcessing/tableProcessingOperation'
 
 import { addOperation } from '@/mock/addOperation'
 
-import styles from './new-operation.module.scss'
+import styles from './processing-operation.module.scss'
 
-export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
+export const ProcessingOperation: FC<IFormProps> = () => {
 	const { handleCloseModal } = useModal()
-	const { control, handleSubmit, reset } = useForm<TFormNewOperation>({
-		defaultValues: {
-			organization: '',
-			organizationAccount: '',
-			counterparty: '',
-			counterpartyAccount: '',
-			date: null,
-			bankID: '',
-			sumOperation: '',
-			nameOperation: '',
-			comments: '',
-			case: '',
-			direction: '',
-			article: '',
-			payer: '',
-		},
-	})
+	const { control, handleSubmit } = useForm<TFormProcessingOperation>()
 
-	const onSubmit: SubmitHandler<TFormNewOperation> = (data) => {
+	const onSubmit: SubmitHandler<TFormProcessingOperation> = (data) => {
 		console.log(data)
-		reset()
 		handleCloseModal()
 	}
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOperation}>
-			{labelBadge && <Badge label={labelBadge} />}
-
 			<div className={styles['main-info']}>
 				<div className={classNames(styles.left, styles.hasArrow)}>
 					<Controller
@@ -141,7 +121,6 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 							<Input
 								id='sumOperation'
 								label='Сумма операции'
-								extraLabel='RUB — Рубли РФ'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
 								className={styles.sumInput}
@@ -233,7 +212,119 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 				</div>
 			</div>
 
-			<Button type='submit' label='Создать операцию' mode='primary' />
+			<Button type='submit' label='Сохранить' mode='primary' />
+
+			<h3 className={styles.subTitle}>Деление операции</h3>
+
+			<div className={styles.sum_block}>
+				<Controller
+					name='initialAmount'
+					control={control}
+					render={({ field }) => (
+						<Input
+							id='initialAmount'
+							label='Первоначальная сумма'
+							value={field.value}
+							onChange={(text) => field.onChange(text)}
+							className={styles.idInput}
+							maxLength={25}
+						/>
+					)}
+				/>
+				<Controller
+					name='retainedAmount'
+					control={control}
+					render={({ field }) => (
+						<Input
+							id='retainedAmount'
+							label='Нераспределенная сумма'
+							value={field.value}
+							onChange={(text) => field.onChange(text)}
+							className={styles.idInput}
+							maxLength={25}
+						/>
+					)}
+				/>
+			</div>
+
+			<TableProcessingOperation />
+
+			<div className={styles.select_block}>
+				<Controller
+					name='counterpartyDivision'
+					control={control}
+					render={({ field }) => (
+						<Select
+							options={[]}
+							value={field.value}
+							label='Контрагент'
+							onChange={field.onChange}
+							className={styles.addOperation__select}
+						/>
+					)}
+				/>
+
+				<Controller
+					name='caseDivision'
+					control={control}
+					render={({ field }) => (
+						<Select
+							options={[]}
+							value={field.value}
+							label='Кейс / сделка'
+							onChange={field.onChange}
+							className={styles['main-info-select']}
+						/>
+					)}
+				/>
+
+				<Controller
+					name='sumOperationDivision'
+					control={control}
+					render={({ field }) => (
+						<Input
+							id='sumOperation'
+							label='Сумма операции'
+							extraLabel='RUB — Рубли РФ'
+							value={field.value}
+							onChange={(text) => field.onChange(text)}
+							className={styles.sumInput}
+							hasResetIcon={false}
+							maxLength={35}
+						/>
+					)}
+				/>
+
+				<Controller
+					name='counterpartyAccountDivision'
+					control={control}
+					render={({ field }) => (
+						<Select
+							options={[]}
+							value={field.value}
+							label='Счет контрагента'
+							onChange={field.onChange}
+							className={styles.addOperation__select}
+						/>
+					)}
+				/>
+
+				<Controller
+					name='articleDivision'
+					control={control}
+					render={({ field }) => (
+						<Select
+							options={[]}
+							value={field.value}
+							label='Статья / подстатья'
+							onChange={field.onChange}
+							className={styles['main-info-select']}
+						/>
+					)}
+				/>
+			</div>
+
+			<Button label='Закрыть форму деления' mode='secondary' className={styles.division_btn} />
 		</form>
 	)
 }

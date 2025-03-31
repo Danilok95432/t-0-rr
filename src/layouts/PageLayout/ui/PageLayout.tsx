@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { IPageLayoutProps } from '@/types/page-layout'
 
 import { TotalInfo } from '@/components/TotalInfo'
@@ -7,6 +7,7 @@ import { Input } from '@/components/Input'
 import styles from './page-layout.module.scss'
 
 export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, children }) => {
+	const [value, setValue] = useState('')
 	return (
 		<section className={styles.section}>
 			<div className={styles.header}>
@@ -16,9 +17,11 @@ export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, childre
 					id='operations-search'
 					placeholder='Искать по наименованию..'
 					hasIcon
+					hasResetIcon
 					className={styles.input}
-					onChange={(e) => {
-						console.log(e.target.value)
+					value={value}
+					onChange={(event) => {
+						setValue(event?.currentTarget.value ?? '')
 					}}
 				/>
 

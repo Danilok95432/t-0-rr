@@ -55,7 +55,7 @@ export const FilterMenu = () => {
 					<Button
 						mode='clear'
 						className={styles.close}
-						icon={<Icon iconId='close' />}
+						icon={<Icon iconId='close' width='24px' height='24px' />}
 						onClick={handleCloseFilterMenu}
 					/>
 				</div>

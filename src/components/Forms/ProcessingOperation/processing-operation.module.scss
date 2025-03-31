@@ -3,6 +3,7 @@
 	flex-direction: column;
 	margin-top: 15px;
 	row-gap: 20px;
+	width: 984px;
 
 	&-select {
 		width: 100%;
@@ -40,8 +41,6 @@
 }
 
 .extra-info {
-	padding-bottom: 20px;
-	border-bottom: var(--border);
 	display: flex;
 	gap: 10px 31px;
 
@@ -53,6 +52,16 @@
 			column-gap: 10px;
 			position: relative;
 
+			&::after {
+				content: 'RUB — Рубли РФ';
+				font-size: 11px;
+				color: var(--text-02);
+				position: absolute;
+				top: 70px;
+				right: 8px;
+				z-index: 5;
+			}
+
 			.idInput {
 				width: 100%;
 			}
@@ -62,4 +71,26 @@
 			}
 		}
 	}
+}
+
+.subTitle {
+	padding-top: 15px;
+	border-top: var(--border);
+}
+
+.sum_block {
+	display: grid;
+	grid-template-columns: repeat(2, 200px);
+	column-gap: 10px;
+}
+
+.select_block {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	margin-top: 8px;
+}
+
+.division_btn {
+	color: var(--negative);
 }

@@ -7,8 +7,9 @@ import { Icon } from '@/components/Icon'
 import { Button } from '@/components/Button'
 
 import styles from './modal.module.scss'
+import classNames from 'classnames'
 
-export const Modal: FC<IModalProps> = ({ title, children }) => {
+export const Modal: FC<IModalProps> = ({ title, children, className }) => {
 	const { dialogRef, isOpenModal, handleCloseModal } = useModal()
 
 	useEffect(() => {
@@ -29,14 +30,14 @@ export const Modal: FC<IModalProps> = ({ title, children }) => {
 	}, [dialogRef, isOpenModal, handleCloseModal])
 
 	return (
-		<dialog className={styles.modal} ref={dialogRef}>
+		<dialog className={classNames(styles.modal, className)} ref={dialogRef}>
 			<h2 className={styles.modal__title}>{title}</h2>
 
 			{children}
 
 			<Button
 				mode='clear'
-				icon={<Icon iconId='close' />}
+				icon={<Icon iconId='close' width='24px' height='24px' />}
 				className={styles['modal__close']}
 				onClick={handleCloseModal}
 			/>

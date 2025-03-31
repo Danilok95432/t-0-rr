@@ -16,9 +16,11 @@ export const Button: FC<IButtonProps> = (props) => {
 			onClick={onClick}
 			disabled={disabled}
 		>
-			{label && <span>{label}</span>}
+			<div className={styles.wrapper}>
+				{icon && icon}
 
-			{icon && icon}
+				{label && <span>{label}</span>}
+			</div>
 		</button>
 	)
 }

@@ -2,10 +2,10 @@ import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
 import { IOperationsData } from '@/types/operationsData'
 
-import { iconCellRender } from './iconCellRender'
-import { linkCellRender } from './linkCellRender'
-import iconCellHeader from './iconCellHeader'
-import { sumCellRender } from './sumCell/sumCellRender'
+import { iconCellRender } from './components/iconCellRender'
+import { ButtonCellRender } from './components/buttonCell/buttonCellRender'
+import iconCellHeader from './components/iconCellHeader'
+import { sumCellRender } from './components/sumCell/sumCellRender'
 
 export const columnDefOperations: ColDef<IOperationsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
@@ -24,7 +24,8 @@ export const columnDefOperations: ColDef<IOperationsData>[] = [
 	{
 		field: 'nameOperation',
 		headerName: 'Наименование операции',
-		cellRenderer: linkCellRender,
+		cellRenderer: ButtonCellRender,
+		valueFormatter: (params) => (params.value === null ? '' : params.value),
 		flex: 1,
 	},
 	{ field: 'caseAndDeal', headerName: 'Кейс и сделка', flex: 1 },

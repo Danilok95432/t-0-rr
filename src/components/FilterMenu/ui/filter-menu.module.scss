@@ -40,9 +40,8 @@
 }
 
 .bottom {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: 250px 140px 290px;
 	gap: 10px;
 }
 
@@ -51,7 +50,6 @@
 	align-items: center;
 	justify-content: center;
 	column-gap: 10px;
-	margin-left: 24px;
 }
 
 .form {

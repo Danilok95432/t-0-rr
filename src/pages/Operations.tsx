@@ -9,6 +9,7 @@ import { NewOperation } from '@/components/Forms/NewOperation'
 import { UnloadingOperations } from '@/components/Forms/UnloadingOperations'
 import { UploadingOperations } from '@/components/Forms/UploadingOperations'
 import { SettingsListOperations } from '@/components/Forms/SettingsListOperations'
+import { ProcessingOperation } from '@/components/Forms/ProcessingOperation'
 
 import { operationsTotalInfo } from '@/mock/operations-total-info'
 import { operationsData } from '@/mock/operations-data'
@@ -42,6 +43,12 @@ export const Operations = () => {
 			{buttonId === 'settings' && (
 				<Modal title='Настройки списка операций'>
 					<SettingsListOperations />
+				</Modal>
+			)}
+
+			{buttonId.includes('processing') && (
+				<Modal title='Обработка операции'>
+					<ProcessingOperation />
 				</Modal>
 			)}
 		</PageLayout>
