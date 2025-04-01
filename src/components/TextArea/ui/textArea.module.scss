@@ -29,5 +29,6 @@
 
 	&[disabled] {
 		background-color: var(--base-input-bg);
+		box-shadow: none;
 	}
 }
