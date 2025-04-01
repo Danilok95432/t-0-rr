@@ -6,7 +6,7 @@ import { ITextAreaProps } from '@/types/textArea'
 import styles from './textArea.module.scss'
 
 export const TextArea: FC<ITextAreaProps> = (props) => {
-	const { id, value = '', label, placeholder, className, onChange } = props
+	const { id, value = '', label, placeholder, className, onChange, disabled } = props
 
 	const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		onChange?.(event.target.value)
@@ -24,6 +24,7 @@ export const TextArea: FC<ITextAreaProps> = (props) => {
 				onChange={handleChange}
 				className={styles.textArea}
 				spellCheck
+				disabled={disabled}
 			/>
 		</div>
 	)

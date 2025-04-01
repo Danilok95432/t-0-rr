@@ -1,53 +1,53 @@
 const dateOptions = [
 	{
 		value: 'week',
-		name: 'Неделя',
+		label: 'Неделя',
 	},
 	{
 		value: 'month',
-		name: 'Месяц',
+		label: 'Месяц',
 	},
 	{
 		value: 'year',
-		name: 'Год',
+		label: 'Год',
 	},
 ]
 
 const organizationOptions = [
 	{
-		value: '',
-		name: 'МЦАИ ООО',
+		value: 'МЦАИ',
+		label: 'МЦАИ ООО',
 	},
 	{
-		value: '',
-		name: 'ТАУ НПО ООО',
+		value: 'ТАУ',
+		label: 'ТАУ НПО ООО',
 	},
 	{
-		value: '',
-		name: 'Рога и копыта ООО',
+		value: 'Рога',
+		label: 'Рога и копыта ООО',
 	},
 ]
 
 const counterpartiesOptions = [
 	{
-		value: '',
-		name: 'ООО Рога и Копыта (355988882230)',
+		value: 'ООО Рога и Копыта (355988882230)',
+		label: 'ООО Рога и Копыта (355988882230)',
 	},
 	{
-		value: '',
-		name: 'ООО Рога2 и Копыта2 (11111111111)',
+		value: 'ООО Рога2 и Копыта2 (11111111111)',
+		label: 'ООО Рога2 и Копыта2 (11111111111)',
 	},
 ]
 
 const directionsOptions = [
-	{ value: '', name: 'Приход' },
-	{ value: '', name: 'Расход' },
-	{ value: '', name: 'Перемещение' },
+	{ value: 'Приход', label: 'Приход' },
+	{ value: 'Расход', label: 'Расход' },
+	{ value: 'Перемещение', label: 'Перемещение' },
 ]
 
 const articleOptions = [
-	{ value: '', name: 'Заработная плата' },
-	{ value: '', name: 'Выплата аванса' },
+	{ value: 'Заработная плата', label: 'Заработная плата' },
+	{ value: 'Выплата аванса', label: 'Выплата аванса' },
 ]
 
 export {

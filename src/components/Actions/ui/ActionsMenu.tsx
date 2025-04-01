@@ -9,11 +9,22 @@ import styles from './actions-menu.module.scss'
 export const ActionsMenu = () => {
 	const { handleOpenFilterMenu } = useFiltersMenu()
 	const { handleOpenModal } = useModal()
-	const path = useLocation().pathname.substring(1)
+	const path = useLocation().pathname.substring(1).split('/')[0]
 
 	return (
 		<div className={styles['actions-menu']}>
 			<ul className={styles['actions-menu__list']}>
+				{path === 'organization' && (
+					<li className={styles['actions-menu__item']}>
+						<Button
+							id='editing'
+							mode='clear'
+							className={styles['actions-menu__button-editing']}
+							onClick={(event) => handleOpenModal(event)}
+						/>
+					</li>
+				)}
+
 				<li className={styles['actions-menu__item']}>
 					<Button
 						id='add'
@@ -44,14 +55,16 @@ export const ActionsMenu = () => {
 					</li>
 				)}
 
-				<li className={styles['actions-menu__item']}>
-					<Button
-						id='unload'
-						mode='clear'
-						className={styles['actions-menu__button-download']}
-						onClick={(event) => handleOpenModal(event)}
-					/>
-				</li>
+				{path !== 'organization' && (
+					<li className={styles['actions-menu__item']}>
+						<Button
+							id='unload'
+							mode='clear'
+							className={styles['actions-menu__button-download']}
+							onClick={(event) => handleOpenModal(event)}
+						/>
+					</li>
+				)}
 
 				{path === 'operations' && (
 					<li className={styles['actions-menu__item']}>

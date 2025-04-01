@@ -12,10 +12,12 @@ import './inputDate.scss'
 registerLocale('ru', ru)
 
 export const InputDate: FC<IInputDateProps> = (props) => {
-	const { date, onChange, className } = props
+	const { date, onChange, className, label } = props
 
 	return (
 		<div className={classNames('datepicker-root', className)}>
+			{label && <label className='datepicker-root__label'>{label}</label>}
+
 			<DatePicker
 				selected={date || new Date()}
 				onChange={onChange}

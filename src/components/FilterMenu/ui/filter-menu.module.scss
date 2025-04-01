@@ -35,14 +35,14 @@
 
 .top {
 	display: grid;
-	grid-template-columns: 200px repeat(3, 250px) 280px;
+	grid-template-columns: 200px repeat(4, 250px) 280px;
 	column-gap: 10px;
 }
 
 .bottom {
 	display: grid;
 	grid-template-columns: 250px 140px 290px;
-	gap: 10px;
+	gap: 6px;
 }
 
 .buttons-wrapper {

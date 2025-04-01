@@ -6,4 +6,5 @@ export interface ITextAreaProps {
 	placeholder?: string
 	className?: string
 	onChange?: (value: string) => void
+	disabled?: boolean
 }

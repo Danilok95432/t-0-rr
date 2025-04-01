@@ -1,12 +1,11 @@
-type TOption = {
+export type TSelectOption = {
 	value: string
-	name: string
 }
 
-export interface ISelectProps {
-	options: TOption[]
-	value?: string
-	onChange?: (value: string) => void
+export interface ISelectCProps {
+	options: TSelectOption[]
+	values: TSelectOption[]
+	onChange: (value: TSelectOption[]) => void
 	label?: string
 	placeholder?: string
 	className?: string

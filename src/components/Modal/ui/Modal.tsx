@@ -12,6 +12,7 @@ import classNames from 'classnames'
 export const Modal: FC<IModalProps> = ({ title, children, className }) => {
 	const { dialogRef, isOpenModal, handleCloseModal } = useModal()
 
+	// Закрыть модалку на кнопку Esc
 	useEffect(() => {
 		if (isOpenModal) {
 			dialogRef.current?.showModal()

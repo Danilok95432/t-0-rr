@@ -8,6 +8,7 @@ import styles from './page-layout.module.scss'
 
 export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, children }) => {
 	const [value, setValue] = useState('')
+
 	return (
 		<section className={styles.section}>
 			<div className={styles.header}>

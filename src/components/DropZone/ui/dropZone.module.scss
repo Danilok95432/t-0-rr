@@ -1,14 +1,10 @@
 .container {
 	max-width: 280px;
 	padding: 10px;
-	border: 1px dashed var(--text-02);
+	border: 1.5px dashed var(--link);
 	border-radius: 5px;
 	display: flex;
 	align-items: center;
-
-	&:hover {
-		border: 1px dashed var(--link-hover);
-	}
 }
 
 .dropzone__label {

@@ -3,15 +3,24 @@
 	display: inline-block;
 	width: 100%;
 	max-width: 158px;
+
+	&__label {
+		font-size: 11px;
+		color: var(--text-02);
+		position: absolute;
+		top: 3px;
+		left: 8px;
+	}
 }
 
 .datepicker {
 	width: 158px;
 	height: 40px;
-	padding: 5px 8px;
+	padding: 15px 27px 0px 8px;
 	border: var(--border);
 	border-radius: var(--border-radius);
 	outline: none;
+	background-color: transparent;
 	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
 	position: relative;
 

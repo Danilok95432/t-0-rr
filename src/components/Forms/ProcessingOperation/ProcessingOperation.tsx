@@ -35,7 +35,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Организация'
 								onChange={field.onChange}
 								className={styles['main-info-SelectC']}
@@ -49,7 +49,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Счет организации'
 								onChange={field.onChange}
 								className={styles['main-info-SelectC']}
@@ -64,7 +64,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Контрагент'
 								onChange={field.onChange}
 								className={styles.addOperation__SelectC}
@@ -78,7 +78,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Счет контрагента'
 								onChange={field.onChange}
 								className={styles.addOperation__SelectC}
@@ -95,7 +95,11 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 							name='date'
 							control={control}
 							render={({ field }) => (
-								<InputDate date={field.value} onChange={(date) => field.onChange(date)} />
+								<InputDate
+									date={field.value}
+									label='Дата операции'
+									onChange={(date) => field.onChange(date)}
+								/>
 							)}
 						/>
 						<Controller
@@ -163,7 +167,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Кейс / сделка'
 								onChange={field.onChange}
 								className={styles['main-info-SelectC']}
@@ -176,7 +180,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Направление операции'
 								onChange={field.onChange}
 								className={styles['main-info-SelectC']}
@@ -189,7 +193,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Статья / подстатья'
 								onChange={field.onChange}
 								className={styles['main-info-SelectC']}
@@ -202,7 +206,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						render={({ field }) => (
 							<SelectC
 								options={addOperation}
-								value={field.value}
+								values={field.value ? [{ value: field.value }] : []}
 								label='Расходы на операцию несет'
 								onChange={field.onChange}
 								className={styles['main-info-SelectC']}
@@ -228,6 +232,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 							onChange={(text) => field.onChange(text)}
 							className={styles.idInput}
 							maxLength={25}
+							disabled
 						/>
 					)}
 				/>
@@ -242,6 +247,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 							onChange={(text) => field.onChange(text)}
 							className={styles.idInput}
 							maxLength={25}
+							disabled
 						/>
 					)}
 				/>
@@ -249,14 +255,14 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 
 			<TableProcessingOperation />
 
-			<div className={styles.SelectC_block}>
+			<div className={styles.select_block}>
 				<Controller
 					name='counterpartyDivision'
 					control={control}
 					render={({ field }) => (
 						<SelectC
 							options={[]}
-							value={field.value}
+							values={field.value ? [{ value: field.value }] : []}
 							label='Контрагент'
 							onChange={field.onChange}
 							className={styles.addOperation__SelectC}
@@ -270,7 +276,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 					render={({ field }) => (
 						<SelectC
 							options={[]}
-							value={field.value}
+							values={field.value ? [{ value: field.value }] : []}
 							label='Кейс / сделка'
 							onChange={field.onChange}
 							className={styles['main-info-SelectC']}
@@ -301,7 +307,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 					render={({ field }) => (
 						<SelectC
 							options={[]}
-							value={field.value}
+							values={field.value ? [{ value: field.value }] : []}
 							label='Счет контрагента'
 							onChange={field.onChange}
 							className={styles.addOperation__SelectC}
@@ -315,7 +321,7 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 					render={({ field }) => (
 						<SelectC
 							options={[]}
-							value={field.value}
+							values={field.value ? [{ value: field.value }] : []}
 							label='Статья / подстатья'
 							onChange={field.onChange}
 							className={styles['main-info-SelectC']}

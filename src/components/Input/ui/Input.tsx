@@ -20,6 +20,7 @@ export const Input: FC<InputProps> = (props) => {
 		extraLabel,
 		onChange,
 		maxLength,
+		disabled,
 	} = props
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,8 +41,7 @@ export const Input: FC<InputProps> = (props) => {
 
 		onChange?.(event)
 	}
-	console.log('hasIcon', hasIcon)
-	console.log('hasResetIcon', hasResetIcon)
+
 	return (
 		<div className={classNames(styles.wrapper, className)}>
 			{label && <label className={styles['input-label']}>{label}</label>}
@@ -58,6 +58,7 @@ export const Input: FC<InputProps> = (props) => {
 				maxLength={maxLength}
 				autoComplete='off'
 				autoFocus={false}
+				disabled={disabled}
 			/>
 
 			{!value && hasIcon && <Icon iconId='input-search' className={styles.input__icon} />}

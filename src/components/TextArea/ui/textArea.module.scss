@@ -9,8 +9,10 @@
 	padding: 20px 8px 5px;
 	border: var(--border);
 	border-radius: var(--border-radius);
+	background-color: transparent;
 	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
 	resize: none;
+	position: relative;
 
 	&:focus {
 		outline: none;
@@ -23,6 +25,9 @@
 		position: absolute;
 		top: 4px;
 		left: 8px;
-		z-index: 10;
+	}
+
+	&[disabled] {
+		background-color: var(--base-input-bg);
 	}
 }

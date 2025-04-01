@@ -8,6 +8,7 @@
 	border-radius: var(--border-radius);
 	padding: 10px 27px 10px 8px;
 	color: var(--text-02);
+	background-color: transparent;
 	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
 	position: relative;
 
@@ -29,9 +30,12 @@
 		font-size: 11px;
 		color: var(--text-02);
 		position: absolute;
-		top: 2px;
+		top: 3px;
 		left: 8px;
-		z-index: 5;
+	}
+
+	&[disabled] {
+		background-color: var(--base-input-bg);
 	}
 }
 
@@ -41,7 +45,6 @@
 	position: absolute;
 	bottom: 5px;
 	right: 8px;
-	z-index: 5;
 }
 
 .with-label {

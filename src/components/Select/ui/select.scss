@@ -1,37 +1,99 @@
 .select-wrapper {
 	position: relative;
-}
 
-.select-label {
-	font-size: 11px;
-	color: var(--text-02);
-	position: absolute;
-	top: 3px;
-	left: 8px;
-	z-index: 3;
-}
-
-.select {
-	width: 100%;
-	height: 41px;
-	padding: 18px 8px 5px;
-	border: var(--border);
-	appearance: none;
-	border-radius: var(--border-radius);
-	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
-	cursor: pointer;
-	position: relative;
-
-	&:focus {
-		outline: none;
-		border: 1px solid var(--link-hover);
+	.select-label {
+		font-size: 11px;
+		color: var(--text-02);
+		position: absolute;
+		top: 3px;
+		left: 8px;
 	}
 
-	&:focus-visible {
-		border: none;
+	.select {
+		width: 100%;
+		height: 41px;
+		padding: 10px 8px 5px;
+		border: var(--border);
+		appearance: none;
+		border-radius: var(--border-radius);
+		background-color: transparent;
+		box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
+		cursor: pointer;
+		position: relative;
+		transition: var(--transition-duration);
+
+		&:focus {
+			outline: none;
+			border: 1px solid var(--link-hover);
+			box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
+		}
+
+		&:focus-within {
+			box-shadow: none;
+		}
+
+		.react-dropdown-select {
+			&-dropdown-handle {
+				margin: 0 0 5px 5px;
+			}
+
+			&-content {
+				margin-top: 10px;
+
+				span {
+					display: block;
+					width: 100%;
+					padding-top: 18px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+
+			&-input {
+				margin-left: 0;
+
+				&::placeholder {
+					font-size: 12px;
+					color: var(--text-01);
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+
+			&-dropdown {
+				border-radius: 5px;
+				padding-block: 6px;
+				row-gap: 4px;
+				width: 100%;
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 11px 11px 0 rgba(0, 0, 0, 0.04),
+					0 25px 15px 0 rgba(0, 0, 0, 0.03);
+			}
+
+			&-item {
+				padding: 6px 7px;
+
+				&:hover {
+					background: var(--base-06);
+				}
+
+				&-selected {
+					background: var(--base-01);
+					color: var(--text-01);
+					position: relative;
+
+					&::after {
+						content: '';
+						width: 16px;
+						height: 16px;
+						background: url('../../../assets/icons/check.svg') center / cover no-repeat;
+						position: absolute;
+						top: 7px;
+						right: 8px;
+					}
+				}
+			}
+		}
 	}
-}
-.react-dropdown-select-input::placeholder {
-	color: var(--text-01);
-	margin-left: 0;
 }
