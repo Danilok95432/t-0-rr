@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import classNames from 'classnames'
-
 import { ITextAreaProps } from '@/types/textArea'
+
+import { Icon } from '@/components/Icon'
 
 import styles from './textArea.module.scss'
 
 export const TextArea: FC<ITextAreaProps> = (props) => {
-	const { id, value = '', label, placeholder, className, onChange, disabled } = props
+	const { id, value, label, placeholder, className, onChange, disabled = false } = props
 
 	const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		onChange?.(event.target.value)
@@ -26,6 +27,8 @@ export const TextArea: FC<ITextAreaProps> = (props) => {
 				spellCheck
 				disabled={disabled}
 			/>
+
+			{disabled && <Icon iconId='lock' className={styles.textArea__icon_lock} />}
 		</div>
 	)
 }

@@ -9,4 +9,5 @@ export interface ISelectCProps {
 	label?: string
 	placeholder?: string
 	className?: string
+	disabled?: boolean
 }

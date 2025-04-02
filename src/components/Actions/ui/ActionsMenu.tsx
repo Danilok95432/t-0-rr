@@ -1,26 +1,38 @@
 import { useLocation } from 'react-router'
+import classNames from 'classnames'
 import { useFiltersMenu } from '@/hooks/useFiltersMenu'
 import { useModal } from '@/hooks/useModal'
+import { useEditingMode } from '@/hooks/useEditingMode'
 
 import { Button } from '@/components/Button'
 
 import styles from './actions-menu.module.scss'
 
 export const ActionsMenu = () => {
+	const path = useLocation().pathname.substring(1).split('/')[0]
+
 	const { handleOpenFilterMenu } = useFiltersMenu()
 	const { handleOpenModal } = useModal()
-	const path = useLocation().pathname.substring(1).split('/')[0]
+	const { isEditingModeActive, handleActiveEditingMode } = useEditingMode()
+
+	const isEditingAction = path === ('organization' as string) || path === ('counterparty' as string)
+	const isDownLoadAction =
+		path === ('operations' as string) ||
+		path === ('organizations' as string) ||
+		path === ('counterparties' as string)
 
 	return (
 		<div className={styles['actions-menu']}>
 			<ul className={styles['actions-menu__list']}>
-				{path === 'organization' && (
+				{isEditingAction && (
 					<li className={styles['actions-menu__item']}>
 						<Button
 							id='editing'
 							mode='clear'
-							className={styles['actions-menu__button-editing']}
-							onClick={(event) => handleOpenModal(event)}
+							className={classNames(styles['actions-menu__button-editing'], {
+								[styles.active]: isEditingModeActive,
+							})}
+							onClick={handleActiveEditingMode}
 						/>
 					</li>
 				)}
@@ -55,7 +67,7 @@ export const ActionsMenu = () => {
 					</li>
 				)}
 
-				{path !== 'organization' && (
+				{isDownLoadAction && (
 					<li className={styles['actions-menu__item']}>
 						<Button
 							id='unload'

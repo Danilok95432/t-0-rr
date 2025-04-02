@@ -1,12 +1,12 @@
 import { FC, useState } from 'react'
-import { IPageLayoutProps } from '@/types/page-layout'
+import { IListLayoutProps } from '@/types/page-layout'
 
 import { TotalInfo } from '@/components/TotalInfo'
 import { Input } from '@/components/Input'
 
-import styles from './page-layout.module.scss'
+import styles from './list-layout.module.scss'
 
-export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, children }) => {
+export const ListLayout: FC<IListLayoutProps> = ({ title, totalInfoData, children }) => {
 	const [value, setValue] = useState('')
 
 	return (
@@ -17,7 +17,7 @@ export const PageLayout: FC<IPageLayoutProps> = ({ title, totalInfoData, childre
 				<Input
 					id='operations-search'
 					placeholder='Искать по наименованию..'
-					hasIcon
+					hasIconSearch
 					hasResetIcon
 					className={styles.input}
 					value={value}

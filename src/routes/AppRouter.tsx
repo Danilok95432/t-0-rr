@@ -2,15 +2,16 @@ import { Navigate, Route, Routes } from 'react-router'
 
 import { Content } from '@/components/Content'
 import { Operations } from '@/pages/Operations/Operations'
-import { Organizations } from '@/pages/Organizations'
+import { Organizations } from '@/pages/Organizations/Organizations'
 import { AppRoutes } from './appRoutes'
-import { Counterparties } from '@/pages/Counterparties'
+import { Counterparties } from '@/pages/Counterparties/Counterparties'
 import { Accounts } from '@/pages/Accounts'
 import { Articles } from '@/pages/Articles'
 import { Cases } from '@/pages/Cases'
 import { Transactions } from '@/pages/Transactions'
 import { Imports } from '@/pages/Imports'
 import { Organization } from '@/pages/Organization/Organization'
+import { Counterparty } from '@/pages/Counterparty/Counterparty'
 
 export const AppRouter = () => {
 	return (
@@ -23,6 +24,7 @@ export const AppRouter = () => {
 				<Route path={`${AppRoutes.ORGANIZATION}/:id`} element={<Organization />} />
 				{/*  */}
 				<Route path={AppRoutes.COUNTERPARTIES} element={<Counterparties />} />
+				<Route path={`${AppRoutes.COUNTERPARTY}/:id`} element={<Counterparty />} />
 				{/*  */}
 				<Route path={AppRoutes.ACCOUNTS} element={<Accounts />} />
 				{/*  */}

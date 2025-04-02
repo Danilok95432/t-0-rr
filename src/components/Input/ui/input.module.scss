@@ -18,9 +18,13 @@
 		border: 1px solid var(--link-hover);
 	}
 
-	&__icon {
+	&__icon,
+	&__icon_lock {
 		width: 16px;
 		height: 16px;
+	}
+
+	&__icon {
 		position: absolute;
 		top: 12px;
 		right: 6px;
@@ -38,6 +42,16 @@
 		background-color: var(--base-input-bg);
 		box-shadow: none;
 	}
+}
+
+.input[disabled] ~ .input__icon_lock {
+	position: absolute;
+	top: 12px;
+	right: 8px;
+}
+
+.input:not([disabled]) ~ .input__icon_lock {
+	display: none;
 }
 
 .extraLabel {

@@ -7,7 +7,7 @@ export type TFormNewOperation = {
 	bankID: string
 	sumOperation: string
 	nameOperation: string
-	comments: string
+	employeesComment: string
 	case: string
 	direction: string
 	article: string

@@ -1,0 +1,41 @@
+.cardAccount {
+	padding: 16px 15px;
+	border: var(--border);
+	border-radius: var(--border-radius);
+
+	&_header {
+		padding-bottom: 14px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&_title {
+		font-size: 14px;
+	}
+
+	&_edit {
+		width: 24px;
+		height: 24px;
+
+		&:hover {
+			color: var(--base-02);
+		}
+	}
+
+	&_button {
+		padding: 4px 8px;
+	}
+
+	&_body {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+		border-top: var(--border);
+		padding-top: 16px;
+	}
+
+	&_textArea {
+		height: 89px;
+	}
+}

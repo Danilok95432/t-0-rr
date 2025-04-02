@@ -95,5 +95,23 @@
 				}
 			}
 		}
+
+		&[disabled] {
+			background-color: var(--base-input-bg);
+			box-shadow: none;
+			opacity: 1;
+
+			& .react-dropdown-select-dropdown-handle {
+				display: none;
+			}
+		}
+
+		&__icon_lock {
+			width: 16px;
+			height: 16px;
+			position: absolute;
+			top: 12px;
+			right: 8px;
+		}
 	}
 }

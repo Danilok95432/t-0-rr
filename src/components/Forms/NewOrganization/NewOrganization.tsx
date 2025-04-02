@@ -3,11 +3,12 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/hooks/useModal'
 import { IFormProps } from '@/types/form'
 import { TFormNewOrganization } from '@/types/formNewOrganization'
-import { Button } from '@/components/Button'
 
-import styles from './new-organization.module.scss'
+import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { TextArea } from '@/components/TextArea'
+
+import styles from './new-organization.module.scss'
 
 export const NewOrganization: FC<IFormProps> = () => {
 	const { handleCloseModal } = useModal()
@@ -18,9 +19,8 @@ export const NewOrganization: FC<IFormProps> = () => {
 			fullName: '',
 			ogrn: '',
 			legalAddress: '',
-			employee: '',
+			employeesComment: '',
 		},
-		mode: 'onBlur',
 	})
 	const onSubmit: SubmitHandler<TFormNewOrganization> = (data) => {
 		console.log(data)
@@ -101,11 +101,11 @@ export const NewOrganization: FC<IFormProps> = () => {
 					/>
 
 					<Controller
-						name='employee'
+						name='employeesComment'
 						control={control}
 						render={({ field }) => (
 							<TextArea
-								id='employee'
+								id='employeesComment'
 								label='Комментарий сотрудника'
 								value={field.value}
 								onChange={field.onChange}

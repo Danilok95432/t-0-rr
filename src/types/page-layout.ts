@@ -1,8 +1,11 @@
-export interface IElementPageLayoutProps {
+export interface IItemLayoutProps {
 	children?: React.ReactNode
+	labelButton?: string
+	pathToBack?: string
 }
 
-export interface IPageLayoutProps extends IElementPageLayoutProps {
+export interface IListLayoutProps {
 	title?: string
+	children?: React.ReactNode
 	totalInfoData?: Record<string, string>[]
 }

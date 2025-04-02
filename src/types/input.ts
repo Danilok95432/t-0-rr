@@ -7,7 +7,7 @@ export interface InputProps {
 	label?: string
 	extraLabel?: string
 	className?: string
-	hasIcon?: boolean
+	hasIconSearch?: boolean
 	hasResetIcon?: boolean
 	onChange?: (event?: ChangeEvent<HTMLInputElement>) => void
 	error?: string

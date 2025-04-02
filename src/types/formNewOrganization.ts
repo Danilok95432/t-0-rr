@@ -4,5 +4,5 @@ export type TFormNewOrganization = {
 	fullName: string
 	ogrn: string
 	legalAddress: string
-	employee?: string
+	employeesComment: string
 }

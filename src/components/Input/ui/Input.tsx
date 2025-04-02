@@ -14,13 +14,13 @@ export const Input: FC<InputProps> = (props) => {
 		value,
 		placeholder,
 		className,
-		hasIcon = false,
+		hasIconSearch = false,
 		hasResetIcon = true,
 		label,
 		extraLabel,
 		onChange,
 		maxLength,
-		disabled,
+		disabled = false,
 	} = props
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +61,9 @@ export const Input: FC<InputProps> = (props) => {
 				disabled={disabled}
 			/>
 
-			{!value && hasIcon && <Icon iconId='input-search' className={styles.input__icon} />}
+			{!value && hasIconSearch && <Icon iconId='input-search' className={styles.input__icon} />}
+
+			{disabled && <Icon iconId='lock' className={styles.input__icon_lock} />}
 
 			{value && hasResetIcon && (
 				<Button

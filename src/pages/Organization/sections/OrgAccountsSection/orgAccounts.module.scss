@@ -1,0 +1,20 @@
+.orgAccounts {
+	.inner {
+		display: inline-flex;
+		column-gap: 4px;
+
+		.title {
+			margin-bottom: 12px;
+		}
+
+		.badge {
+			height: 22px;
+		}
+	}
+
+	.list {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 22px;
+	}
+}

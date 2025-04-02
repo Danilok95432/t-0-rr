@@ -2,7 +2,7 @@ import { useModal } from '@/hooks/useModal'
 
 import { columnDefOperations } from '@/helpers/configTableOperations/columnDefOperations'
 
-import { PageLayout } from '@/layouts/PageLayout'
+import { ListLayout } from '@/layouts/ListLayout'
 import { GridTable } from '@/components/GridTable'
 import { Modal } from '@/components/Modal'
 import { NewOperation } from '@/components/Forms/NewOperation'
@@ -18,7 +18,7 @@ export const Operations = () => {
 	const { buttonId } = useModal()
 
 	return (
-		<PageLayout title='Операции' totalInfoData={operationsTotalInfo}>
+		<ListLayout title='Операции' totalInfoData={operationsTotalInfo}>
 			<GridTable rowData={operationsData} columnDefinitions={columnDefOperations} />
 
 			{/* модалки */}
@@ -51,6 +51,6 @@ export const Operations = () => {
 					<ProcessingOperation />
 				</Modal>
 			)}
-		</PageLayout>
+		</ListLayout>
 	)
 }

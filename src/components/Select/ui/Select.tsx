@@ -4,9 +4,10 @@ import Select from 'react-dropdown-select'
 import { ISelectCProps } from '@/types/select'
 
 import './select.scss'
+import { Icon } from '@/components/Icon'
 
 export const SelectC: FC<ISelectCProps> = (props) => {
-	const { options, values, onChange, label, placeholder = '', className } = props
+	const { options, values, onChange, label, placeholder = '', className, disabled } = props
 
 	return (
 		<div className={classNames('select-wrapper', className)}>
@@ -20,7 +21,10 @@ export const SelectC: FC<ISelectCProps> = (props) => {
 				placeholder={placeholder}
 				searchable={false}
 				multi={false}
+				disabled={disabled}
 			/>
+
+			{disabled && <Icon iconId='lock' className='select__icon_lock' />}
 		</div>
 	)
 }

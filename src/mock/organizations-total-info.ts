@@ -1,4 +1,4 @@
-export const organizationTotalInfo = [
+export const organizationsTotalInfo = [
 	{
 		name: 'Всего организаций',
 		value: '6',

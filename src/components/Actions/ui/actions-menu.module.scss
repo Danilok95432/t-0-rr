@@ -30,6 +30,10 @@
 			&:hover {
 				background: url('../../../assets/icons/edit-filled.svg') center / cover no-repeat;
 			}
+
+			&.active {
+				background: url('../../../assets/icons/edit-filled.svg') center / cover no-repeat;
+			}
 		}
 
 		&-add {

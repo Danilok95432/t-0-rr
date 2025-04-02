@@ -1,6 +1,6 @@
 import { FC, useMemo, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
-import { RowSelectionOptions, type Theme } from 'ag-grid-community'
+import { DataTypeDefinition, RowSelectionOptions, type Theme } from 'ag-grid-community'
 import { TGridTableData } from '@/types/gridTable'
 
 import { FilterMenu } from '@/components/FilterMenu'
@@ -21,12 +21,18 @@ export const GridTable: FC<TGridTableData> = ({ rowData, columnDefinitions }) =>
 		}
 	}, [])
 
-	// const onFilterTextBoxChanged = useCallback(() => {
-	// 	gridRef.current!.api.setGridOption(
-	// 		'quickFilterText',
-	// 		(document.getElementById('test') as HTMLInputElement).value
-	// 	)
-	// }, [])
+	const dataTypeDefinitions = useMemo<{
+		[cellDataType: string]: DataTypeDefinition
+	}>(() => {
+		return {
+			object: {
+				baseDataType: 'object',
+				extendsDataType: 'object',
+				valueParser: (params) => ({ name: params.newValue }),
+				valueFormatter: (params) => (params.value == null ? '' : params.value.name),
+			},
+		}
+	}, [])
 
 	return (
 		<>
@@ -36,6 +42,7 @@ export const GridTable: FC<TGridTableData> = ({ rowData, columnDefinitions }) =>
 				ref={gridRef}
 				rowData={rowData}
 				columnDefs={columnDefinitions}
+				dataTypeDefinitions={dataTypeDefinitions}
 				rowSelection={rowSelection}
 				theme={theme}
 			/>

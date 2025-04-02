@@ -29,7 +29,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 			bankID: '',
 			sumOperation: '',
 			nameOperation: '',
-			comments: '',
+			employeesComment: '',
 			case: '',
 			direction: '',
 			article: '',
@@ -39,7 +39,6 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 
 	const onSubmit: SubmitHandler<TFormNewOperation> = (data) => {
 		console.log(data)
-		reset()
 		handleCloseModal()
 	}
 
@@ -77,6 +76,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						)}
 					/>
 				</div>
+
 				<div className={styles.right}>
 					<Controller
 						name='counterparty'
@@ -122,6 +122,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 								/>
 							)}
 						/>
+
 						<Controller
 							name='bankID'
 							control={control}
@@ -167,12 +168,13 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 							/>
 						)}
 					/>
+
 					<Controller
-						name='comments'
+						name='employeesComment'
 						control={control}
 						render={({ field }) => (
 							<TextArea
-								id='comments'
+								id='employeesComment'
 								label='Комментарий сотрудника'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
@@ -195,6 +197,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 							/>
 						)}
 					/>
+
 					<Controller
 						name='direction'
 						control={control}
@@ -208,6 +211,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 							/>
 						)}
 					/>
+
 					<Controller
 						name='article'
 						control={control}
@@ -221,6 +225,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 							/>
 						)}
 					/>
+
 					<Controller
 						name='payer'
 						control={control}

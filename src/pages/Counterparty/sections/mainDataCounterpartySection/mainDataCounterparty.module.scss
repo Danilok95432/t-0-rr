@@ -1,0 +1,21 @@
+.mainDataCounterparty {
+	.title {
+		margin-bottom: 12px;
+	}
+
+	.inner {
+		display: grid;
+		grid-template-columns: repeat(3, 431px);
+		gap: 10px 22px;
+	}
+
+	.button_wrapper {
+		column-gap: 12px;
+		margin-top: 14px;
+		display: none;
+
+		&.isVisible {
+			display: flex;
+		}
+	}
+}

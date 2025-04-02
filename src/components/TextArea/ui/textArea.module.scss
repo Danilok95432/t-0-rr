@@ -1,6 +1,6 @@
 .wrapper {
 	position: relative;
-	height: 89px;
+	min-height: 89px;
 }
 
 .textArea {
@@ -27,8 +27,23 @@
 		left: 8px;
 	}
 
+	&__icon_lock {
+		width: 16px;
+		height: 16px;
+	}
+
 	&[disabled] {
 		background-color: var(--base-input-bg);
 		box-shadow: none;
 	}
+}
+
+.textArea[disabled] ~ .textArea__icon_lock {
+	position: absolute;
+	top: 12px;
+	right: 8px;
+}
+
+.textArea:not([disabled]) ~ .textArea__icon_lock {
+	display: none;
 }
