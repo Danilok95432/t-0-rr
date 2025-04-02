@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/hooks/useModal'
-import { IFormProps } from '@/types/form'
-import { TFormNewOrganization } from '@/types/formNewOrganization'
+import { IFormProps } from '@/shared/types/form'
+import { TFormNewOrganization } from '@/shared/types/formNewOrganization'
 
-import { Button } from '@/components/Button'
-import { Input } from '@/components/Input'
-import { TextArea } from '@/components/TextArea'
+import { Button } from '@/shared/ui/Button'
+import { Input } from '@/shared/ui/Input'
+import { TextArea } from '@/shared/ui/TextArea'
 
 import styles from './new-organization.module.scss'
 

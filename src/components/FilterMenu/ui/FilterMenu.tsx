@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import classNames from 'classnames'
-import { TFormFilterMenu } from '@/types/filterMenu'
+import { TFormFilterMenu } from '@/shared/types/filterMenu'
 
 import { useFiltersMenu } from '@/hooks/useFiltersMenu'
 
-import { SelectC } from '@/components/Select'
-import { Button } from '@/components/Button'
-import { CheckBox } from '@/components/CheckBox'
-import { Icon } from '@/components/Icon'
+import { SelectC } from '@/shared/ui/Select'
+import { Button } from '@/shared/ui/Button'
+import { CheckBox } from '@/shared/ui/CheckBox'
+import { Icon } from '@/shared/ui/Icon'
 
 import styles from './filter-menu.module.scss'
 //

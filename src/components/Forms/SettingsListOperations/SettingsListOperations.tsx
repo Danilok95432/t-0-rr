@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { IFormProps } from '@/types/form'
-import { TFormSettingsListOperations } from '@/types/formSettingsListOperations'
+import { IFormProps } from '@/shared/types/form'
+import { TFormSettingsListOperations } from '@/shared/types/formSettingsListOperations'
 import { useModal } from '@/hooks/useModal'
 
-import { Button } from '@/components/Button'
-import { CheckBox } from '@/components/CheckBox'
-import { RadioButton } from '@/components/RadioButton'
+import { Button } from '@/shared/ui/Button'
+import { CheckBox } from '@/shared/ui/CheckBox'
+import { RadioButton } from '@/shared/ui/RadioButton'
 
 import styles from './settingsList-operations.module.scss'
 

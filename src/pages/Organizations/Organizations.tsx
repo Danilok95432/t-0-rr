@@ -1,11 +1,11 @@
 import { useModal } from '@/hooks/useModal'
 
 import { ListLayout } from '@/layouts/ListLayout'
-import { Modal } from '@/components/Modal'
-import { GridTable } from '@/components/GridTable'
+import { Modal } from '@/shared/ui/Modal'
+import { GridTable } from '@/shared/ui/GridTable'
 import { NewOrganization } from '@/components/Forms/NewOrganization/NewOrganization'
 
-import { columnDefOrganization } from '@/helpers/configTableOrganizations/columnDefOrganization'
+import { organizationDef } from '@/features/table/configs/organizationDef'
 import { organizationsData } from '@/mock/organizations-data'
 import { organizationsTotalInfo } from '@/mock/organizations-total-info'
 
@@ -14,7 +14,7 @@ export const Organizations = () => {
 
 	return (
 		<ListLayout title='Организации' totalInfoData={organizationsTotalInfo}>
-			<GridTable columnDefinitions={columnDefOrganization} rowData={organizationsData} />
+			<GridTable columnDefinitions={organizationDef} rowData={organizationsData} />
 
 			{/* модалки */}
 			{buttonId === 'add' && (

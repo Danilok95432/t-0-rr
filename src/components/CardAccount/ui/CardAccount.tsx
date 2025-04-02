@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Input } from '@/components/Input'
-import { TextArea } from '@/components/TextArea'
-import { Button } from '@/components/Button'
-import { Icon } from '@/components/Icon'
+import { Input } from '@/shared/ui/Input'
+import { TextArea } from '@/shared/ui/TextArea'
+import { Button } from '@/shared/ui/Button'
+import { Icon } from '@/shared/ui/Icon'
 
 import styles from './card-account.module.scss'
 

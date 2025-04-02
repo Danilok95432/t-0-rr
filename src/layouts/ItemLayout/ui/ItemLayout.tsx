@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Link } from 'react-router'
-import { IItemLayoutProps } from '@/types/page-layout'
+import { IItemLayoutProps } from '@/shared/types/page-layout'
 
 import styles from './itemLayout.module.scss'
 

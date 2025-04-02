@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [
 		react(),
 		createSvgIconsPlugin({
-			iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+			iconDirs: [path.resolve(process.cwd(), 'src/shared/assets/icons')],
 		}),
 	],
 

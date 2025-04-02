@@ -1,4 +1,4 @@
-import { IOperationsData } from '@/types/operationsData'
+import { IOperationsData } from '@/shared/types/operationsData'
 
 export const operationsData: IOperationsData[] = [
 	{

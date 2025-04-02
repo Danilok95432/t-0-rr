@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form'
-import { IFormProps } from '@/types/form'
-import { TFormUploadingOperations } from '@/types/formUploadingOperations'
+import { IFormProps } from '@/shared/types/form'
+import { TFormUploadingOperations } from '@/shared/types/formUploadingOperations'
 
-import { Button } from '@/components/Button'
-import { Badge } from '@/components/Badge'
-import { RadioButton } from '@/components/RadioButton'
-import { DropZone } from '@/components/DropZone'
+import { Button } from '@/shared/ui/Button'
+import { Badge } from '@/shared/ui/Badge'
+import { RadioButton } from '@/shared/ui/RadioButton'
+import { DropZone } from '@/shared/ui/DropZone'
 
 // import { downloadReportItems } from '@/mock/download-report'
 // import { downloadErrorItems } from '@/mock/download-error'

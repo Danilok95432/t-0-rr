@@ -1,10 +1,10 @@
 import { useModal } from '@/hooks/useModal'
 
-import { columnDefOperations } from '@/helpers/configTableOperations/columnDefOperations'
+import { operationsDef } from '../../features/table/configs/operationsDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
-import { GridTable } from '@/components/GridTable'
-import { Modal } from '@/components/Modal'
+import { GridTable } from '@/shared/ui/GridTable'
+import { Modal } from '@/shared/ui/Modal'
 import { NewOperation } from '@/components/Forms/NewOperation'
 import { UnloadingOperations } from '@/components/Forms/UnloadingOperations'
 import { UploadingOperations } from '@/components/Forms/UploadingOperations'
@@ -13,13 +13,15 @@ import { ProcessingOperation } from '@/components/Forms/ProcessingOperation'
 
 import { operationsTotalInfo } from '@/mock/operations-total-info'
 import { operationsData } from '@/mock/operations-data'
+import { FilterMenu } from '@/components/FilterMenu'
 
 export const Operations = () => {
 	const { buttonId } = useModal()
 
 	return (
 		<ListLayout title='Операции' totalInfoData={operationsTotalInfo}>
-			<GridTable rowData={operationsData} columnDefinitions={columnDefOperations} />
+			<FilterMenu />
+			<GridTable rowData={operationsData} columnDefinitions={operationsDef} />
 
 			{/* модалки */}
 			{buttonId === 'add' && (

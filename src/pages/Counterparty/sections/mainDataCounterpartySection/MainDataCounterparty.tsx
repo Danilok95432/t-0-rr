@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import { useEditingMode } from '@/hooks/useEditingMode'
 
-import { Input } from '@/components/Input'
-import { SelectC } from '@/components/Select'
-import { TextArea } from '@/components/TextArea'
-import { Button } from '@/components/Button'
+import { Input } from '@/shared/ui/Input'
+import { SelectC } from '@/shared/ui/Select'
+import { TextArea } from '@/shared/ui/TextArea'
+import { Button } from '@/shared/ui/Button'
 
 import styles from './mainDataCounterparty.module.scss'
 

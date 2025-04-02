@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import classNames from 'classnames'
-import { ITotalInfoProps } from '@/types/total-info'
+import { ITotalInfoProps } from '../types'
 
 import styles from './total-info.module.scss'
 

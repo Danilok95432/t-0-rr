@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import { useEditingMode } from '@/hooks/useEditingMode'
 
-import { Input } from '@/components/Input'
-import { TextArea } from '@/components/TextArea'
-import { Button } from '@/components/Button'
+import { Input } from '@/shared/ui/Input'
+import { TextArea } from '@/shared/ui/TextArea'
+import { Button } from '@/shared/ui/Button'
 
 import styles from './orgMainData.module.scss'
 

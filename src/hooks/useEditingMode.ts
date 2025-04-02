@@ -1,4 +1,4 @@
-import { activeEditingMode, deactivateEditingMode } from '@/features/editingMOde/editingModeSlice'
+import { activeEditingMode, deactivateEditingMode } from '@/features/editingMode/editingModeSlice'
 import { useAppDispatch, useAppSelector } from './useRedux'
 
 export const useEditingMode = () => {

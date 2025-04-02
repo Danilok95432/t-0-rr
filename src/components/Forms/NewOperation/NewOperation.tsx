@@ -1,17 +1,17 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import classNames from 'classnames'
-import { TFormNewOperation } from '@/types/formNewOperation'
-import { IFormProps } from '@/types/form'
+import { TFormNewOperation } from '@/shared/types/formNewOperation'
+import { IFormProps } from '@/shared/types/form'
 
 import { useModal } from '@/hooks/useModal'
 
-import { SelectC } from '@/components/Select'
-import { Input } from '@/components/Input'
-import { InputDate } from '@/components/InputDate'
-import { TextArea } from '@/components/TextArea'
-import { Button } from '@/components/Button'
-import { Badge } from '@/components/Badge'
+import { SelectC } from '@/shared/ui/Select'
+import { Input } from '@/shared/ui/Input'
+import { InputDate } from '@/shared/ui/InputDate'
+import { TextArea } from '@/shared/ui/TextArea'
+import { Button } from '@/shared/ui/Button'
+import { Badge } from '@/shared/ui/Badge'
 
 import { addOperation } from '@/mock/addOperation'
 

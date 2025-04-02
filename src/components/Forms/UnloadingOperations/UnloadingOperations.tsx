@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { IFormProps } from '@/types/form'
-import { TFormUnloadOperations } from '@/types/formUnloadOperations'
+import { IFormProps } from '@/shared/types/form'
+import { TFormUnloadOperations } from '@/shared/types/formUnloadOperations'
 
-import { Badge } from '@/components/Badge'
-import { RadioButton } from '@/components/RadioButton'
-import { Button } from '@/components/Button'
-import { CheckBox } from '@/components/CheckBox'
+import { Badge } from '@/shared/ui/Badge'
+import { RadioButton } from '@/shared/ui/RadioButton'
+import { Button } from '@/shared/ui/Button'
+import { CheckBox } from '@/shared/ui/CheckBox'
 
 import styles from './unloading-operations.module.scss'
 

@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 import styles from './card-counterparty.module.scss'
-import { Button } from '@/components/Button'
-import { Icon } from '@/components/Icon'
-import { Input } from '@/components/Input'
-import { TextArea } from '@/components/TextArea'
+import { Button } from '@/shared/ui/Button'
+import { Icon } from '@/shared/ui/Icon'
+import { Input } from '@/shared/ui/Input'
+import { TextArea } from '@/shared/ui/TextArea'
 
 export const CardCounterparty = () => {
 	const [editing, setEditing] = useState(false)

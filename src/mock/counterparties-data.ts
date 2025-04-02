@@ -1,4 +1,4 @@
-import { ICounterpartiesData } from '@/types/counterpartiesData'
+import { ICounterpartiesData } from '@/shared/types/counterpartiesData'
 
 export const counterpartiesData: ICounterpartiesData[] = [
 	{
