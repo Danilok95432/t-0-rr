@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { TFormProcessingOperation } from '@/shared/types/formProcessingOperation'
 import { IFormProps } from '@/shared/types/form'
 
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 import { SelectC } from '@/shared/ui/Select'
 import { Input } from '@/shared/ui/Input'
 import { InputDate } from '@/shared/ui/InputDate'

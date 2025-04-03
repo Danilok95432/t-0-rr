@@ -1,11 +1,11 @@
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 
-import { operationsDef } from '../../features/table/configs/operationsDef'
+import { operationsDef } from '../../features/operations/configs/operationsDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { Modal } from '@/shared/ui/Modal'
-import { NewOperation } from '@/components/Forms/NewOperation'
+import { NewOperation } from '@/features/operations/components/NewOperation'
 import { UnloadingOperations } from '@/components/Forms/UnloadingOperations'
 import { UploadingOperations } from '@/components/Forms/UploadingOperations'
 import { SettingsListOperations } from '@/components/Forms/SettingsListOperations'
@@ -13,7 +13,7 @@ import { ProcessingOperation } from '@/components/Forms/ProcessingOperation'
 
 import { operationsTotalInfo } from '@/mock/operations-total-info'
 import { operationsData } from '@/mock/operations-data'
-import { FilterMenu } from '@/components/FilterMenu'
+import { FilterMenu } from '@/features/filtersMenu/components/FilterMenu'
 
 export const Operations = () => {
 	const { buttonId } = useModal()

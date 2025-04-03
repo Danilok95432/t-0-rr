@@ -1,4 +1,4 @@
-import { CardCounterparty } from '@/components/CardCounterparty'
+import { CardCounterparty } from '@/widgets/CardCounterparty'
 import { Badge } from '@/shared/ui/Badge'
 
 import styles from './accountsCounterparty.module.scss'

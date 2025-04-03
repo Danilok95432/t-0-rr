@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { closeFiltersMenu, openFiltersMenu } from '@/features/filtersMenu/filtersMenuSlice'
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks/useRedux'
+import { closeFiltersMenu, openFiltersMenu } from '@/features/filtersMenu/store/filtersMenuSlice'
 
 export const useFiltersMenu = () => {
 	const dispatch = useAppDispatch()

@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { IFormProps } from '@/shared/types/form'
 import { TFormSettingsListOperations } from '@/shared/types/formSettingsListOperations'
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 
 import { Button } from '@/shared/ui/Button'
 import { CheckBox } from '@/shared/ui/CheckBox'

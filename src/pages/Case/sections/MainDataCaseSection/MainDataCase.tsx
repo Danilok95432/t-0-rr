@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useEditingMode } from '@/hooks/useEditingMode'
+import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'

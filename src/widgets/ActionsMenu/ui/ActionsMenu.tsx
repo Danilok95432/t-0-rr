@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router'
 import classNames from 'classnames'
-import { useFiltersMenu } from '@/hooks/useFiltersMenu'
-import { useModal } from '@/hooks/useModal'
-import { useEditingMode } from '@/hooks/useEditingMode'
+import { useFiltersMenu } from '@/features/filtersMenu/hooks/useFiltersMenu'
+import { useModal } from '@/features/modal/hooks/useModal'
+import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
 
 import { Button } from '@/shared/ui/Button'
 

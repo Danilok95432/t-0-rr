@@ -1,5 +1,5 @@
 import { accountsDef } from '@/features/table/configs/accountsDef'
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { NewAccount } from '@/components/Forms/NewAccount'

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { filtersMenuReducer } from '@/features/filtersMenu/filtersMenuSlice'
-import { modalsReducer } from '@/features/modal/modalSlice'
-import { editingModeReducer } from '@/features/editingMode/editingModeSlice'
+import { filtersMenuReducer } from '@/features/filtersMenu/store/filtersMenuSlice'
+import { modalsReducer } from '@/features/modal/store/modalSlice'
+import { editingModeReducer } from '@/features/editingMode/store/editingModeSlice'
 
 export const store = configureStore({
 	reducer: {

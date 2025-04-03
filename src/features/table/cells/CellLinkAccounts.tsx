@@ -1,5 +1,5 @@
 import { CustomCellRendererProps } from 'ag-grid-react'
-import { IOrganizationsData } from '@/shared/types/organizationsData'
+import { IOrganizationsData } from '@/features/organizations/config/organizationsTypes'
 
 interface ICellLinkAccountsParams extends CustomCellRendererProps {
 	data: IOrganizationsData

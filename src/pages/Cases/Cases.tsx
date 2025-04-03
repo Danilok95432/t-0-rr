@@ -1,4 +1,4 @@
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 import { ListLayout } from '@/layouts/ListLayout'
 import { NewCase } from '@/components/Forms/NewCase'
 import { casesData } from '@/mock/cases-data'

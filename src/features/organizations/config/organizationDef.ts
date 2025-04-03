@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-import { IOrganizationsData } from '@/shared/types/organizationsData'
+import { IOrganizationsData } from '@/features/organizations/config/organizationsTypes'
 
-import { CellBadge } from '../cells/badgeCell/CellBadge'
-import { CellLinkName } from '../cells/CellLinkName'
-import { CellLinkAccounts } from '../cells/CellLinkAccounts'
+import { CellBadge } from '../../table/cells/badgeCell/CellBadge'
+import { CellLinkName } from '../../table/cells/CellLinkName'
+import { CellLinkAccounts } from '../../table/cells/CellLinkAccounts'
 
 export const organizationDef: ColDef<IOrganizationsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },

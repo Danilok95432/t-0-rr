@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 import classNames from 'classnames'
 
 import { IModalProps } from '../types'
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 
 import { Icon } from '@/shared/ui/Icon'
 import { Button } from '@/shared/ui/Button'

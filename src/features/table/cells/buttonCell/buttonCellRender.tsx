@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/Button'
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 import type { CustomCellRendererProps } from 'ag-grid-react'
 
 import './button-cell.scss'

@@ -1,11 +1,11 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-import { IOperationsData } from '@/shared/types/operationsData'
+import { IOperationsData } from '@/features/operations/configs/operationsTypes'
 
-import { CellIcon } from '../cells/CellIcon'
-import { ButtonCellRender } from '../cells/buttonCell/buttonCellRender'
-import { CellIconHeader } from '../cells/CellIconHeader'
-import { CellBalance } from '../cells/CellBalance/CellBalance'
+import { CellIcon } from '../../table/cells/CellIcon'
+import { ButtonCellRender } from '../../table/cells/buttonCell/buttonCellRender'
+import { CellIconHeader } from '../../table/cells/CellIconHeader'
+import { CellBalance } from '../../table/cells/CellBalance/CellBalance'
 
 export const operationsDef: ColDef<IOperationsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },

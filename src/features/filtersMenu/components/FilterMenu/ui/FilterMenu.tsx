@@ -3,7 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import classNames from 'classnames'
 import { TFormFilterMenu } from '@/shared/types/filterMenu'
 
-import { useFiltersMenu } from '@/hooks/useFiltersMenu'
+import { useFiltersMenu } from '@/features/filtersMenu/hooks/useFiltersMenu'
 
 import { SelectC } from '@/shared/ui/Select'
 import { Button } from '@/shared/ui/Button'

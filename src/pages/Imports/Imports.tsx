@@ -1,4 +1,4 @@
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 import { ListLayout } from '@/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { importsDef } from '@/features/table/configs/importsDef'

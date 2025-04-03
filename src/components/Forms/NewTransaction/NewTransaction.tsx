@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { useModal } from '@/hooks/useModal'
+import { useModal } from '@/features/modal/hooks/useModal'
 import { IFormProps } from '@/shared/types/form'
 import { TFormNewTransaction } from '@/shared/types/formNewTransaction'
 
@@ -126,7 +126,7 @@ export const NewTransaction: FC<IFormProps> = () => {
 								date={field.value}
 								label='Дата заключения Договора'
 								onChange={(date) => field.onChange(date)}
-								popperPlacement='left-start'
+								popperPlacement='left'
 							/>
 						)}
 					/>

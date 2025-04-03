@@ -1,6 +1,6 @@
 import { MouseEvent, useRef } from 'react'
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { closeModal, openModal } from '@/features/modal/modalSlice'
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks/useRedux'
+import { closeModal, openModal } from '@/features/modal/store/modalSlice'
 
 export const useModal = () => {
 	const dialogRef = useRef<HTMLDialogElement | null>(null)

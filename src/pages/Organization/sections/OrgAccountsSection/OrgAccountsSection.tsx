@@ -1,4 +1,4 @@
-import { CardAccount } from '@/components/CardAccount'
+import { CardAccount } from '@/widgets/CardAccount'
 import { Badge } from '@/shared/ui/Badge'
 
 import styles from './orgAccounts.module.scss'
