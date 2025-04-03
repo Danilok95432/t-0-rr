@@ -15,9 +15,15 @@ export const ActionsMenu = () => {
 	const { handleOpenModal } = useModal()
 	const { isEditingModeActive, handleActiveEditingMode } = useEditingMode()
 
-	const isEditingAction = path === 'organization' || path === 'counterparty'
+	const isEditingAction =
+		path === 'organization' || path === 'counterparty' || path === 'account' || path === 'case'
+
 	const isDownLoadAction =
-		path === 'operations' || path === 'organizations' || path === 'counterparties'
+		path === 'operations' ||
+		path === 'organizations' ||
+		path === 'counterparties' ||
+		path === 'accounts' ||
+		path === 'cases'
 
 	return (
 		<div className={styles['actions-menu']}>
@@ -47,6 +53,7 @@ export const ActionsMenu = () => {
 				{path === 'operations' && (
 					<li className={styles['actions-menu__item']}>
 						<Button
+							id='search'
 							mode='clear'
 							className={styles['actions-menu__button-search']}
 							onClick={handleOpenFilterMenu}
@@ -70,7 +77,7 @@ export const ActionsMenu = () => {
 						<Button
 							id='unload'
 							mode='clear'
-							className={styles['actions-menu__button-download']}
+							className={styles['actions-menu__button-unload']}
 							onClick={(event) => handleOpenModal(event)}
 						/>
 					</li>
@@ -78,18 +85,18 @@ export const ActionsMenu = () => {
 
 				{path === 'operations' && (
 					<li className={styles['actions-menu__item']}>
-						<Button mode='clear' className={styles['actions-menu__button-graph']} />
+						<Button id='graph' mode='clear' className={styles['actions-menu__button-graph']} />
 					</li>
 				)}
 			</ul>
 
 			<ul className={styles['actions-menu__list']}>
 				<li className={styles['actions-menu__item']}>
-					<Button mode='clear' className={styles['actions-menu__button-mail']} />
+					<Button id='mail' mode='clear' className={styles['actions-menu__button-mail']} />
 				</li>
 
 				<li className={styles['actions-menu__item']}>
-					<Button mode='clear' className={styles['actions-menu__button-faq']} />
+					<Button id='faq' mode='clear' className={styles['actions-menu__button-faq']} />
 				</li>
 
 				<li className={styles['actions-menu__item']}>

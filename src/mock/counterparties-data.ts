@@ -18,7 +18,7 @@ export const counterpartiesData: ICounterpartiesData[] = [
 		},
 	},
 	{
-		id: '11',
+		id: '12',
 		shortName: 'Иванов Ф. Е.',
 		fullName: {
 			path: 'counterparty',
@@ -33,7 +33,7 @@ export const counterpartiesData: ICounterpartiesData[] = [
 		},
 	},
 	{
-		id: '11',
+		id: '13',
 		shortName: 'МЦАИ ООО',
 		fullName: {
 			path: 'counterparty',

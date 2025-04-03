@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { IListLayoutProps } from '@/shared/types/page-layout'
 
-import { TotalInfo } from '@/components/TotalInfo'
+import { TotalInfo } from '@/widgets/TotalInfo'
 import { Input } from '@/shared/ui/Input'
 
 import styles from './list-layout.module.scss'

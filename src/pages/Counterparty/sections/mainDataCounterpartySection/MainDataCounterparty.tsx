@@ -14,6 +14,7 @@ export const MainDataCounterparty = () => {
 	return (
 		<section className={styles.mainDataCounterparty}>
 			<h3 className={styles.title}>Основные данные контрагента</h3>
+
 			<div className={styles.inner}>
 				<Input
 					id='name'

@@ -15,7 +15,7 @@
 		&-add,
 		&-search,
 		&-import,
-		&-download,
+		&-unload,
 		&-graph,
 		&-mail,
 		&-faq,
@@ -60,11 +60,11 @@
 			}
 		}
 
-		&-download {
-			background: url('../../../shared/assets/icons/download.svg') center / cover no-repeat;
+		&-unload {
+			background: url('../../../shared/assets/icons/unload.svg') center / cover no-repeat;
 
 			&:hover {
-				background: url('../../../shared/assets/icons/download-filled.svg') center / cover no-repeat;
+				background: url('../../../shared/assets/icons/unload-filled.svg') center / cover no-repeat;
 			}
 		}
 

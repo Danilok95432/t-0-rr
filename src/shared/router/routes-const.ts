@@ -5,8 +5,11 @@ export enum RoutesConst {
 	COUNTERPARTIES = 'counterparties',
 	COUNTERPARTY = 'counterparty',
 	ACCOUNTS = 'accounts',
+	ACCOUNT = 'account',
 	ARTICLES = 'articles',
 	CASES = 'cases',
+	CASE = 'case',
 	TRANSACTIONS = 'transactions',
 	IMPORTS = 'imports',
+	SUMMARY = 'summary',
 }

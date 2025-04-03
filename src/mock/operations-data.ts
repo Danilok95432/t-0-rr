@@ -14,7 +14,10 @@ export const operationsData: IOperationsData[] = [
 		},
 		caseAndDeal: 'Начальная Мурманск-22 НОВЫЙ',
 		article: 'Заработная плата Выплата аванса 40%',
-		amount: '-835 783 222.64',
+		amount: {
+			status: 'negative',
+			value: '-835 783 222.64',
+		},
 	},
 	{
 		id: '2',
@@ -28,7 +31,10 @@ export const operationsData: IOperationsData[] = [
 		},
 		caseAndDeal: 'Начальная Мурманск-22 НОВЫЙ',
 		article: 'Заработная плата Выплата аванса 40%',
-		amount: '+835 783 222.64',
+		amount: {
+			status: 'positive',
+			value: '+835 783 222.64',
+		},
 	},
 	{
 		id: '3',
@@ -42,7 +48,10 @@ export const operationsData: IOperationsData[] = [
 		},
 		caseAndDeal: 'Начальная Мурманск-22 НОВЫЙ',
 		article: 'Заработная плата Выплата аванса 40%',
-		amount: '835 783 222.64',
+		amount: {
+			status: 'neutral',
+			value: '835 783 222.64',
+		},
 	},
 	{
 		id: '4',
@@ -56,6 +65,9 @@ export const operationsData: IOperationsData[] = [
 		},
 		caseAndDeal: 'Начальная Мурманск-22 НОВЫЙ',
 		article: 'Заработная плата Выплата аванса 40%',
-		amount: '+835 783 222.64',
+		amount: {
+			status: 'positive',
+			value: '+835 783 222.64',
+		},
 	},
 ]

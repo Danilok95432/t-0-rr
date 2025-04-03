@@ -1,6 +1,6 @@
 import { FC, useMemo, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
-import { DataTypeDefinition, RowSelectionOptions, type Theme } from 'ag-grid-community'
+import { ColDef, DataTypeDefinition, RowSelectionOptions, type Theme } from 'ag-grid-community'
 import { TGridTableData } from '../types'
 import { customTheme } from '../config/tableTheme'
 
@@ -32,12 +32,19 @@ export const GridTable: FC<TGridTableData> = ({ rowData, columnDefinitions }) =>
 		}
 	}, [])
 
+	const defaultColDef = useMemo<ColDef>(() => {
+		return {
+			flex: 1,
+		}
+	}, [])
+
 	return (
 		<>
 			<AgGridReact
 				ref={gridRef}
 				rowData={rowData}
 				columnDefs={columnDefinitions}
+				defaultColDef={defaultColDef}
 				dataTypeDefinitions={dataTypeDefinitions}
 				rowSelection={rowSelection}
 				theme={theme}

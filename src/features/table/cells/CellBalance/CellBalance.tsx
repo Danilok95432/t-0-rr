@@ -4,15 +4,12 @@ import { Badge } from '@/shared/ui/Badge'
 import './cellBalance.scss'
 
 interface ICellBalanceParams extends CustomCellRendererProps {
-	value: string
+	value: {
+		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
+		value: string
+	}
 }
 
 export const CellBalance = ({ value }: ICellBalanceParams) => {
-	if (value[0] === '+') {
-		return <Badge label={value} mode='positive' className='customSumCell' />
-	}
-	if (value[0] === '-') {
-		return <Badge label={value} mode='negative' className='customSumCell' />
-	}
-	return <Badge label={value} mode='neutral' className='customSumCell' />
+	return <Badge label={value.value} mode={value.status ?? 'neutral'} className='customSumCell' />
 }

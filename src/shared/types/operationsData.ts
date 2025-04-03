@@ -4,13 +4,14 @@ export interface IOperationsData {
 	iconType: string
 	organization: string
 	counterparty: string
-	nameOperation: INameOperation
+	nameOperation: {
+		id: string
+		name: string
+	}
 	caseAndDeal: string
 	article: string
-	amount: string
-}
-
-interface INameOperation {
-	id: string
-	name: string
+	amount: {
+		status: string
+		value: string
+	}
 }

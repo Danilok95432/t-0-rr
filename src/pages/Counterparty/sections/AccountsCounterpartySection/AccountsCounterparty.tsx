@@ -9,7 +9,7 @@ export const AccountsCounterparty = () => {
 	return (
 		<section className={styles.accountsCounterparty}>
 			<div className={styles.inner}>
-				<h3 className={styles.title}>Счета организации</h3>
+				<h3 className={styles.title}>Счета контрагента</h3>
 				<Badge mode='default' label={invoiceCounter} className={styles.badge} />
 			</div>
 

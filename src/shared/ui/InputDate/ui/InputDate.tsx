@@ -12,7 +12,7 @@ import './inputDate.scss'
 registerLocale('ru', ru)
 
 export const InputDate: FC<IInputDateProps> = (props) => {
-	const { date, onChange, className, label } = props
+	const { date, onChange, className, label, popperPlacement = 'bottom-start' } = props
 
 	return (
 		<div className={classNames('datepicker-root', className)}>
@@ -26,6 +26,7 @@ export const InputDate: FC<IInputDateProps> = (props) => {
 				dropdownMode='select'
 				locale='ru'
 				placeholderText='Выберите диапазон дат'
+				popperPlacement={popperPlacement}
 			/>
 		</div>
 	)

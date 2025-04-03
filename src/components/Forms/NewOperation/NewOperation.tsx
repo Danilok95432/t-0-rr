@@ -119,6 +119,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 									date={field.value}
 									label='Дата операции'
 									onChange={(date) => field.onChange(date)}
+									popperPlacement='bottom-start'
 								/>
 							)}
 						/>

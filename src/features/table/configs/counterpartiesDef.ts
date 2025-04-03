@@ -8,7 +8,11 @@ import { CellBadge } from '../cells/badgeCell/CellBadge'
 
 export const counterpartiesDef: ColDef<ICounterpartiesData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
-	{ field: 'shortName', headerName: 'Краткое название контрагента', flex: 1 },
+	{
+		field: 'shortName',
+		headerName: 'Краткое название контрагента',
+		flex: 1,
+	},
 	{
 		field: 'fullName',
 		headerName: 'Полное официальное название контрагента',

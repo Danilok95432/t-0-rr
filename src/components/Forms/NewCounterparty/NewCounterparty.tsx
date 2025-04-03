@@ -13,6 +13,7 @@ import styles from './new-counterparty.module.scss'
 
 export const NewCounterparty: FC<IFormProps> = () => {
 	const { handleCloseModal } = useModal()
+
 	const { control, handleSubmit, reset } = useForm<TFormNewCounterparty>({
 		defaultValues: {
 			name: '',
