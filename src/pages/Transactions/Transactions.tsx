@@ -1,10 +1,14 @@
 import { useModal } from '@/features/modal/hooks/useModal'
+import { NewTransaction } from '@/features/transactions/components/NewTransaction'
+import { transactionsDef } from '@/features/transactions/transactionTable/config/transactionsDef'
+
 import { ListLayout } from '@/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
-import { transactionsDef } from '@/features/table/configs/transactionsDef'
-import { NewTransaction } from '@/components/Forms/NewTransaction'
+
+//
 import { transactionsData } from '@/mock/transactions-data'
+//
 
 export const Transactions = () => {
 	const { buttonId } = useModal()

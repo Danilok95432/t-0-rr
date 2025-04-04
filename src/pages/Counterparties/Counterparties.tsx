@@ -1,13 +1,16 @@
 import { useModal } from '@/features/modal/hooks/useModal'
 
+import { NewCounterparty } from '@/features/counterparties/components/NewCounterparty'
+import { counterpartiesDef } from '@/features/counterparties/counterpartiesTable/config/counterpartiesDef'
+
 import { ListLayout } from '@/layouts/ListLayout'
-import { NewCounterparty } from '@/components/Forms/NewCounterparty'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
 
+//
 import { counterpartiesTotalInfo } from '@/mock/counterparties-total-info'
-import { counterpartiesDef } from '../../features/table/configs/counterpartiesDef'
 import { counterpartiesData } from '@/mock/counterparties-data'
+//
 
 export const Counterparties = () => {
 	const { buttonId } = useModal()

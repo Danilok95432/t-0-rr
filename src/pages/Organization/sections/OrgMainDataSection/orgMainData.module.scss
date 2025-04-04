@@ -5,7 +5,7 @@
 
 	.inner {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(4, minmax(200px, 431px));
 		gap: 10px 22px;
 	}
 
@@ -18,7 +18,7 @@
 		display: flex;
 		flex-direction: column;
 		row-gap: 12px;
-		width: 391px;
+		max-width: 391px;
 
 		&_title {
 			grid-column: 1 / 3;

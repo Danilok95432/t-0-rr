@@ -35,4 +35,10 @@
 	--font-family-base: 'OpenSans', sans-serif;
 
 	--transition-duration: 0.2s;
+
+	--scrollbarBg: var(--base-03);
+	// --scrollbarThumb: ;
+	--scrollbarWidth: 8px;
+	// --scrollbarBorder: 3px solid var(--scrollbarBg);
+	--scrollbarBorderRadius: calc(var(--scrollbarWidth) / 2);
 }

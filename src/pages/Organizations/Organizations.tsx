@@ -3,11 +3,13 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { ListLayout } from '@/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
-import { NewOrganization } from '@/features/organizations/components/NewOrganization/NewOrganization'
+import { NewOrganization } from '@/features/organizations/components/NewOrganization'
 
-import { organizationDef } from '@/features/organizations/config/organizationDef'
+import { organizationDef } from '@/features/organizations/configTable/config/organizationDef'
+//
 import { organizationsData } from '@/mock/organizations-data'
 import { organizationsTotalInfo } from '@/mock/organizations-total-info'
+//
 
 export const Organizations = () => {
 	const { buttonId } = useModal()
@@ -16,7 +18,6 @@ export const Organizations = () => {
 		<ListLayout title='Организации' totalInfoData={organizationsTotalInfo}>
 			<GridTable columnDefinitions={organizationDef} rowData={organizationsData} />
 
-			{/* модалки */}
 			{buttonId === 'add' && (
 				<Modal title='Новая организация'>
 					<NewOrganization />

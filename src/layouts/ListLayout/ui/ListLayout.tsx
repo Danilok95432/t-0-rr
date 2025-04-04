@@ -26,7 +26,7 @@ export const ListLayout: FC<IListLayoutProps> = ({ title, totalInfoData, childre
 					}}
 				/>
 
-				<TotalInfo totalInfo={totalInfoData} />
+				{totalInfoData && <TotalInfo totalInfo={totalInfoData} />}
 			</div>
 
 			<div className={styles.content}>{children}</div>

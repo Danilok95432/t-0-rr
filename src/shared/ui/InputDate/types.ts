@@ -3,6 +3,7 @@ export interface IInputDateProps {
 	onChange?: (date: Date | null) => void
 	className?: string
 	label?: string
+	disabled?: boolean
 	popperPlacement?:
 		| 'left'
 		| 'right'

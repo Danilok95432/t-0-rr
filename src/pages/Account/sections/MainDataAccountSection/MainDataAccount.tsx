@@ -37,7 +37,7 @@ export const MainDataAccount = () => {
 					id='comment'
 					label='Комментарий'
 					disabled={!isEditingModeActive}
-					className={styles.accountTextAria}
+					className={styles.accountTextArea}
 				/>
 
 				<Input id='organization' label='Организация' hasResetIcon disabled={!isEditingModeActive} />

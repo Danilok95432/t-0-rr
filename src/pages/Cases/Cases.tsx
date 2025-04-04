@@ -1,12 +1,16 @@
 import { useModal } from '@/features/modal/hooks/useModal'
+import { NewCase } from '@/features/cases/components/NewCase'
+import { casesDef } from '@/features/cases/casesTable/config/casesDef'
+
 import { ListLayout } from '@/layouts/ListLayout'
-import { NewCase } from '@/components/Forms/NewCase'
-import { casesData } from '@/mock/cases-data'
-import { GridTable } from '@/shared/ui/GridTable'
 import { Modal } from '@/shared/ui/Modal'
-import { casesDef } from '@/features/table/configs/casesDef'
+import { GridTable } from '@/shared/ui/GridTable'
 
 import './cases.scss'
+
+//
+import { casesData } from '@/mock/cases-data'
+//
 
 export const Cases = () => {
 	const { buttonId } = useModal()

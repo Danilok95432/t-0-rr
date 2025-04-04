@@ -63,3 +63,9 @@
 .ag-header-cell-comp-wrapper {
 	justify-content: center;
 }
+
+.ag-body-vertical-scroll-viewport {
+	&::-webkit-scrollbar {
+		width: var(--scrollbarWidth);
+	}
+}

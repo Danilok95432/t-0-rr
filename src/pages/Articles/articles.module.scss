@@ -1,0 +1,16 @@
+.articlesPage {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	column-gap: 18px;
+}
+
+.left,
+.right {
+	width: 50%;
+	max-width: 891px;
+}
+
+.title {
+	margin-bottom: 11px;
+}

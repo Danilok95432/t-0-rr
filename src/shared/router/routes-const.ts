@@ -7,9 +7,12 @@ export enum RoutesConst {
 	ACCOUNTS = 'accounts',
 	ACCOUNT = 'account',
 	ARTICLES = 'articles',
+	ARTICLE = 'article',
 	CASES = 'cases',
 	CASE = 'case',
 	TRANSACTIONS = 'transactions',
+	TRANSACTION = 'transaction',
 	IMPORTS = 'imports',
+	IMPORT = 'import',
 	SUMMARY = 'summary',
 }

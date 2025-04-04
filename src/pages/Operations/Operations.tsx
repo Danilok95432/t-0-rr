@@ -1,19 +1,20 @@
 import { useModal } from '@/features/modal/hooks/useModal'
-
-import { operationsDef } from '../../features/operations/configs/operationsDef'
+import { FilterMenu } from '@/features/filtersMenu/components/FilterMenu'
+import { NewOperation } from '@/features/operations/components/NewOperation'
+import { UnloadingOperations } from '@/features/operations/components/UnloadingOperations'
+import { UploadingOperations } from '@/features/operations/components/UploadingOperations'
+import { SettingsListOperations } from '@/features/operations/components/SettingsListOperations'
+import { ProcessingOperation } from '@/features/operations/components/ProcessingOperation'
+import { operationsDef } from '@/features/operations/operationsTable/config/operationsDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { Modal } from '@/shared/ui/Modal'
-import { NewOperation } from '@/features/operations/components/NewOperation'
-import { UnloadingOperations } from '@/components/Forms/UnloadingOperations'
-import { UploadingOperations } from '@/components/Forms/UploadingOperations'
-import { SettingsListOperations } from '@/components/Forms/SettingsListOperations'
-import { ProcessingOperation } from '@/components/Forms/ProcessingOperation'
 
+//
 import { operationsTotalInfo } from '@/mock/operations-total-info'
 import { operationsData } from '@/mock/operations-data'
-import { FilterMenu } from '@/features/filtersMenu/components/FilterMenu'
+//
 
 export const Operations = () => {
 	const { buttonId } = useModal()
@@ -23,7 +24,6 @@ export const Operations = () => {
 			<FilterMenu />
 			<GridTable rowData={operationsData} columnDefinitions={operationsDef} />
 
-			{/* модалки */}
 			{buttonId === 'add' && (
 				<Modal title='Новая операция'>
 					<NewOperation />

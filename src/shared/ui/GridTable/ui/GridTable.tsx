@@ -6,7 +6,11 @@ import { customTheme } from '../config/tableTheme'
 
 import '../config/checkbox-style.css'
 
-export const GridTable: FC<TGridTableData> = ({ rowData, columnDefinitions }) => {
+export const GridTable: FC<TGridTableData> = ({
+	rowData,
+	columnDefinitions,
+	checkboxHidden = true,
+}) => {
 	const gridRef = useRef<AgGridReact>(null)
 	const theme = useMemo<Theme | 'legacy'>(() => {
 		return customTheme
@@ -15,7 +19,8 @@ export const GridTable: FC<TGridTableData> = ({ rowData, columnDefinitions }) =>
 	const rowSelection = useMemo<RowSelectionOptions | 'single' | 'multiple'>(() => {
 		return {
 			mode: 'multiRow',
-			headerCheckbox: true,
+			headerCheckbox: checkboxHidden,
+			checkboxes: checkboxHidden,
 		}
 	}, [])
 

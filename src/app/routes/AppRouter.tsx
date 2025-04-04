@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from 'react-router'
 
 import { RoutesConst } from '@/shared/router/routes-const'
 
+import { Content } from '@/widgets/Content'
+
 import { Operations } from '@/pages/Operations/Operations'
 import { Organizations } from '@/pages/Organizations/Organizations'
 import { Organization } from '@/pages/Organization/Organization'
@@ -10,12 +12,13 @@ import { Counterparty } from '@/pages/Counterparty/Counterparty'
 import { Accounts } from '@/pages/Accounts/Accounts'
 import { Account } from '@/pages/Account/Account'
 import { Articles } from '@/pages/Articles/Articles'
+import { Article } from '@/pages/Article/Article'
 import { Cases } from '@/pages/Cases/Cases'
 import { Case } from '@/pages/Case/Case'
 import { Transactions } from '@/pages/Transactions/Transactions'
+import { Transaction } from '@/pages/Transaction/Transaction'
 import { Imports } from '@/pages/Imports/Imports'
-
-import { Content } from '@/widgets/Content'
+import { Import } from '@/pages/Import/Import'
 
 export const AppRouter = () => {
 	return (
@@ -34,13 +37,16 @@ export const AppRouter = () => {
 				<Route path={`${RoutesConst.ACCOUNT}/:id`} element={<Account />} />
 				{/*  */}
 				<Route path={RoutesConst.ARTICLES} element={<Articles />} />
+				<Route path={`${RoutesConst.ARTICLE}/:id`} element={<Article />} />
 				{/*  */}
 				<Route path={RoutesConst.CASES} element={<Cases />} />
 				<Route path={`${RoutesConst.CASE}/:id`} element={<Case />} />
 				{/*  */}
 				<Route path={RoutesConst.TRANSACTIONS} element={<Transactions />} />
+				<Route path={`${RoutesConst.TRANSACTION}/:id`} element={<Transaction />} />
 				{/*  */}
 				<Route path={RoutesConst.IMPORTS} element={<Imports />} />
+				<Route path={`${RoutesConst.IMPORT}/:id`} element={<Import />} />
 
 				<Route path={RoutesConst.SUMMARY} element={<div>SUMMARY</div>} />
 			</Route>

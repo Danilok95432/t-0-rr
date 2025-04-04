@@ -16,7 +16,12 @@ export const ActionsMenu = () => {
 	const { isEditingModeActive, handleActiveEditingMode } = useEditingMode()
 
 	const isEditingAction =
-		path === 'organization' || path === 'counterparty' || path === 'account' || path === 'case'
+		path === 'organization' ||
+		path === 'counterparty' ||
+		path === 'account' ||
+		path === 'article' ||
+		path === 'case' ||
+		path === 'transaction'
 
 	const isDownLoadAction =
 		path === 'operations' ||

@@ -27,6 +27,11 @@
 		outline: none;
 		border: 1px solid var(--link-hover);
 	}
+
+	&[disabled] {
+		background-color: var(--base-input-bg);
+		box-shadow: none;
+	}
 }
 
 .react-datepicker {

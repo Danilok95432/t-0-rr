@@ -15,6 +15,7 @@ export const OrgAccountsSection = () => {
 
 			<ul className={styles.list}>
 				<CardAccount />
+				<CardAccount />
 			</ul>
 		</section>
 	)
