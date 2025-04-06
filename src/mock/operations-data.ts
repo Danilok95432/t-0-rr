@@ -1,4 +1,4 @@
-import { IOperationsData } from '../features/operations/operationsTable/config/operationsTypes'
+import { IOperationsData } from '../features/operations/table/config/operationsTypes'
 
 export const operationsData: IOperationsData[] = [
 	{

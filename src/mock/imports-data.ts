@@ -1,4 +1,4 @@
-import { IImportsData } from '@/features/imports/importsTable/configs/importsTypes'
+import { IImportsData } from '@/features/imports/table/configs/importsTypes'
 
 export const importsData: IImportsData[] = [
 	{

@@ -1,4 +1,4 @@
-import { ITransactionsData } from '@/features/transactions/transactionTable/config/transactionsType'
+import { ITransactionsData } from '@/features/transactions/table/config/transactionsType'
 
 export const transactionsData: ITransactionsData[] = [
 	{

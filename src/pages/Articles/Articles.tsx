@@ -1,6 +1,6 @@
 import { useModal } from '@/features/modal/hooks/useModal'
-import { articleArrivalDef } from '@/features/articles/articlesTables/config/articleArrivalDef'
-import { articleExpenseDef } from '@/features/articles/articlesTables/config/articleExpenseDef'
+import { articleArrivalDef } from '@/features/articles/table/config/articleArrivalDef'
+import { articleExpenseDef } from '@/features/articles/table/config/articleExpenseDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'

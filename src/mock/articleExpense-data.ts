@@ -1,4 +1,4 @@
-import { IArticleExpenseData } from '@/features/articles/articlesTables/config/articlesTypes'
+import { IArticleExpenseData } from '@/features/articles/table/config/articlesTypes'
 
 export const articleExpenseData: IArticleExpenseData[] = [
 	{ id: '11', level: 'Основной', name: 'Фонд заработной платы', type: 'Прямые' },

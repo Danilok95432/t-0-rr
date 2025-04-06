@@ -1,4 +1,4 @@
-import { importDef } from '@/features/import/importTable/config/importDef'
+import { importDef } from '@/features/import/table/config/importDef'
 import { GridTable } from '@/shared/ui/GridTable'
 
 import styles from './import.module.scss'

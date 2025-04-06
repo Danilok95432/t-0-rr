@@ -1,4 +1,4 @@
-import { ICounterpartiesData } from '@/features/counterparties/counterpartiesTable/config/counterpartiesTypes'
+import { ICounterpartiesData } from '@/features/counterparties/table/config/counterpartiesTypes'
 
 export const counterpartiesData: ICounterpartiesData[] = [
 	{

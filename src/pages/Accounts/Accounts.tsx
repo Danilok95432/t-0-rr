@@ -1,6 +1,6 @@
 import { useModal } from '@/features/modal/hooks/useModal'
-import { NewAccount } from '@/features/accounts/components/NewAccount'
-import { accountsDef } from '@/features/accounts/accountsTable/config/accountsDef'
+import { NewAccount } from '@/features/accounts/newAccount'
+import { accountsDef } from '@/features/accounts/table/config/accountsDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'

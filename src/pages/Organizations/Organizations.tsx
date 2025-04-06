@@ -3,9 +3,9 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { ListLayout } from '@/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
-import { NewOrganization } from '@/features/organizations/components/NewOrganization'
+import { NewOrganization } from '@/features/organizations/newOrganization'
 
-import { organizationDef } from '@/features/organizations/configTable/config/organizationDef'
+import { organizationDef } from '@/features/organizations/table/config/organizationDef'
 //
 import { organizationsData } from '@/mock/organizations-data'
 import { organizationsTotalInfo } from '@/mock/organizations-total-info'

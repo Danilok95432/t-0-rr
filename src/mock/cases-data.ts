@@ -1,4 +1,4 @@
-import { ICasesData } from '@/features/cases/casesTable/config/casesTypes'
+import { ICasesData } from '@/features/cases/table/config/casesTypes'
 
 export const casesData: ICasesData[] = [
 	{

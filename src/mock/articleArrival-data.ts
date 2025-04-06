@@ -1,4 +1,4 @@
-import { IArticleArrivalData } from '@/features/articles/articlesTables/config/articlesTypes'
+import { IArticleArrivalData } from '@/features/articles/table/config/articlesTypes'
 
 export const articleArrivalData: IArticleArrivalData[] = [
 	{ id: '11', level: 'Основной', name: 'Займы и кредиты' },

@@ -1,7 +1,7 @@
 import { useModal } from '@/features/modal/hooks/useModal'
 
-import { NewCounterparty } from '@/features/counterparties/components/NewCounterparty'
-import { counterpartiesDef } from '@/features/counterparties/counterpartiesTable/config/counterpartiesDef'
+import { NewCounterparty } from '@/features/counterparties/newCounterparty'
+import { counterpartiesDef } from '@/features/counterparties/table/config/counterpartiesDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'

@@ -1,21 +1,23 @@
-import { accountsDef } from '@/features/accounts/accountsTable/config/accountsDef'
-import { IAccountsData } from '@/features/accounts/accountsTable/config/accountsTypes'
-import { articleArrivalDef } from '@/features/articles/articlesTables/config/articleArrivalDef'
-import { articleExpenseDef } from '@/features/articles/articlesTables/config/articleExpenseDef'
+import { accountsDef } from '@/features/accounts/table/config/accountsDef'
+import { IAccountsData } from '@/features/accounts/table/config/accountsTypes'
+import { articleArrivalDef } from '@/features/articles/table/config/articleArrivalDef'
+import { articleExpenseDef } from '@/features/articles/table/config/articleExpenseDef'
 import {
 	IArticleArrivalData,
 	IArticleExpenseData,
-} from '@/features/articles/articlesTables/config/articlesTypes'
-import { casesDef } from '@/features/cases/casesTable/config/casesDef'
-import { counterpartiesDef } from '@/features/counterparties/counterpartiesTable/config/counterpartiesDef'
-import { ICounterpartiesData } from '@/features/counterparties/counterpartiesTable/config/counterpartiesTypes'
-import { importsDef } from '@/features/imports/importsTable/configs/importsDef'
-import { operationsDef } from '@/features/operations/operationsTable/config/operationsDef'
-import { IOperationsData } from '@/features/operations/operationsTable/config/operationsTypes'
-import { organizationDef } from '@/features/organizations/configTable/config/organizationDef'
-import { IOrganizationsData } from '@/features/organizations/configTable/config/organizationsTypes'
-import { transactionsDef } from '@/features/transactions/transactionTable/config/transactionsDef'
-import { ITransactionsData } from '@/features/transactions/transactionTable/config/transactionsType'
+} from '@/features/articles/table/config/articlesTypes'
+import { casesDef } from '@/features/cases/table/config/casesDef'
+import { ICasesData } from '@/features/cases/table/config/casesTypes'
+import { counterpartiesDef } from '@/features/counterparties/table/config/counterpartiesDef'
+import { ICounterpartiesData } from '@/features/counterparties/table/config/counterpartiesTypes'
+import { importsDef } from '@/features/imports/table/configs/importsDef'
+import { IImportsData } from '@/features/imports/table/configs/importsTypes'
+import { operationsDef } from '@/features/operations/table/config/operationsDef'
+import { IOperationsData } from '@/features/operations/table/config/operationsTypes'
+import { organizationDef } from '@/features/organizations/table/config/organizationDef'
+import { IOrganizationsData } from '@/features/organizations/table/config/organizationsTypes'
+import { transactionsDef } from '@/features/transactions/table/config/transactionsDef'
+import { ITransactionsData } from '@/features/transactions/table/config/transactionsType'
 
 export type TGridTableData = {
 	columnDefinitions:
@@ -36,5 +38,7 @@ export type TGridTableData = {
 		| IArticleArrivalData[]
 		| IArticleExpenseData[]
 		| ITransactionsData[]
+		| ICasesData[]
+		| IImportsData[]
 	checkboxHidden?: boolean
 }

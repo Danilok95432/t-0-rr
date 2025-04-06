@@ -1,4 +1,4 @@
-import { IOrganizationsData } from '../features/organizations/configTable/config/organizationsTypes'
+import { IOrganizationsData } from '../features/organizations/table/config/organizationsTypes'
 
 export const organizationsData: IOrganizationsData[] = [
 	{

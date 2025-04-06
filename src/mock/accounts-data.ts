@@ -1,4 +1,4 @@
-import { IAccountsData } from '@/features/accounts/accountsTable/config/accountsTypes'
+import { IAccountsData } from '@/features/accounts/table/config/accountsTypes'
 import { V } from 'node_modules/react-router/dist/development/fog-of-war-BQyvjjKg.d.mts'
 
 export const accountsData: IAccountsData[] = [

@@ -1,6 +1,6 @@
 import { useModal } from '@/features/modal/hooks/useModal'
-import { NewCase } from '@/features/cases/components/NewCase'
-import { casesDef } from '@/features/cases/casesTable/config/casesDef'
+import { NewCase } from '@/features/cases/newCase'
+import { casesDef } from '@/features/cases/table/config/casesDef'
 
 import { ListLayout } from '@/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
