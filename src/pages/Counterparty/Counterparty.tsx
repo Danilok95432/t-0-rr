@@ -1,4 +1,4 @@
-import { ItemLayout } from '@/layouts/ItemLayout'
+import { ItemLayout } from '@/shared/layouts/ItemLayout'
 import { MainDataCounterparty } from './sections/MainDataCounterpartySection'
 import { AccountsCounterparty } from './sections/AccountsCounterpartySection'
 

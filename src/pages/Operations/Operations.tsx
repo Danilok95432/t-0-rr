@@ -7,7 +7,7 @@ import { SettingsListOperations } from '@/features/operations/settingsListOperat
 import { ProcessingOperation } from '@/features/operations/processingOperation'
 import { operationsDef } from '@/features/operations/table/config/operationsDef'
 
-import { ListLayout } from '@/layouts/ListLayout'
+import { ListLayout } from '@/shared/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { Modal } from '@/shared/ui/Modal'
 

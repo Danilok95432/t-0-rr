@@ -1,9 +1,6 @@
 export interface IImportsData {
 	id: string
-	dateAndTime: {
-		date: string
-		time: string
-	}
+	dateAndTime: string
 	organization: string
 	accounts: string[]
 	file: string

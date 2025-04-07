@@ -1,0 +1,80 @@
+.articlesAndOrganizations {
+	padding: 25px 30px 0;
+	max-width: 910px;
+
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 20px;
+	}
+
+	.titleWrapper {
+		display: flex;
+		flex-direction: column;
+		row-gap: 5px;
+	}
+
+	.subtitle {
+		font-size: 12px;
+		color: var(--text-02);
+	}
+
+	.title {
+		font-size: 22px;
+	}
+
+	.link {
+		color: var(--base-01);
+		background-color: var(--link);
+		border-radius: var(--border-radius);
+		padding: 8px 16px;
+	}
+
+	.icon {
+		width: 13px;
+		height: 13px;
+	}
+
+	.value {
+		text-align: -webkit-right;
+	}
+
+	.tableWrapper {
+		table {
+			width: 100%;
+		}
+
+		thead {
+			tr {
+				border-bottom: var(--border);
+
+				th {
+					padding: 10px;
+					text-align: start;
+					color: var(--text-01);
+					font-weight: 400;
+				}
+
+				th:not(:first-child) {
+					text-align: end;
+				}
+			}
+		}
+
+		tbody {
+			.rowTitle {
+				width: 225px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-weight: 600;
+			}
+
+			td {
+				padding-block: 8px;
+				min-width: 155px;
+			}
+		}
+	}
+}

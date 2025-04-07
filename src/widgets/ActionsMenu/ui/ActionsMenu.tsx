@@ -28,6 +28,7 @@ export const ActionsMenu = () => {
 		path === 'organizations' ||
 		path === 'counterparties' ||
 		path === 'accounts' ||
+		path === 'articles' ||
 		path === 'cases'
 
 	return (

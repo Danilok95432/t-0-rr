@@ -1,4 +1,4 @@
-import { ItemLayout } from '@/layouts/ItemLayout'
+import { ItemLayout } from '@/shared/layouts/ItemLayout'
 import { MainArticleSection } from './sections/MainArticleSection'
 
 export const Article = () => {

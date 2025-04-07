@@ -2,7 +2,7 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { NewAccount } from '@/features/accounts/newAccount'
 import { accountsDef } from '@/features/accounts/table/config/accountsDef'
 
-import { ListLayout } from '@/layouts/ListLayout'
+import { ListLayout } from '@/shared/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { Modal } from '@/shared/ui/Modal'
 

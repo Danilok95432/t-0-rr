@@ -2,7 +2,7 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { articleArrivalDef } from '@/features/articles/table/config/articleArrivalDef'
 import { articleExpenseDef } from '@/features/articles/table/config/articleExpenseDef'
 
-import { ListLayout } from '@/layouts/ListLayout'
+import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
 

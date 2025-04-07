@@ -2,7 +2,7 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { NewCase } from '@/features/cases/newCase'
 import { casesDef } from '@/features/cases/table/config/casesDef'
 
-import { ListLayout } from '@/layouts/ListLayout'
+import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
 

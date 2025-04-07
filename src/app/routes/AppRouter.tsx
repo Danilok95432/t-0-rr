@@ -19,6 +19,9 @@ import { Transactions } from '@/pages/Transactions/Transactions'
 import { Transaction } from '@/pages/Transaction/Transaction'
 import { Imports } from '@/pages/Imports/Imports'
 import { Import } from '@/pages/Import/Import'
+import { SummaryCashFlow } from '@/pages/SummaryCashFlow/SummaryCashFlow'
+import { ArticlesAndOrganizations } from '@/pages/SummaryCashFlow/ArticlesAndOrganizations/ArticlesAndOrganizations'
+import { CasesAndDeals } from '@/pages/SummaryCashFlow/CasesAndDeals/CasesAndDeals'
 
 export const AppRouter = () => {
 	return (
@@ -48,7 +51,10 @@ export const AppRouter = () => {
 				<Route path={RoutesConst.IMPORTS} element={<Imports />} />
 				<Route path={`${RoutesConst.IMPORT}/:id`} element={<Import />} />
 
-				<Route path={RoutesConst.SUMMARY} element={<div>SUMMARY</div>} />
+				<Route path={RoutesConst.SUMMARY} element={<SummaryCashFlow />}>
+					<Route index element={<ArticlesAndOrganizations />} />
+				</Route>
+				<Route path={`${RoutesConst.SUMMARY}/casesAndDeals`} element={<CasesAndDeals />} />
 			</Route>
 		</Routes>
 	)

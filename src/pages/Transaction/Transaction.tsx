@@ -1,4 +1,4 @@
-import { ItemLayout } from '@/layouts/ItemLayout'
+import { ItemLayout } from '@/shared/layouts/ItemLayout'
 import { TransactionData } from './sections/TransactionDataSections'
 
 export const Transaction = () => {

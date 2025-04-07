@@ -10,6 +10,8 @@ import { casesDef } from '@/features/cases/table/config/casesDef'
 import { ICasesData } from '@/features/cases/table/config/casesTypes'
 import { counterpartiesDef } from '@/features/counterparties/table/config/counterpartiesDef'
 import { ICounterpartiesData } from '@/features/counterparties/table/config/counterpartiesTypes'
+import { importDef } from '@/features/import/table/config/importDef'
+import { IImportData } from '@/features/import/table/config/importTypes'
 import { importsDef } from '@/features/imports/table/configs/importsDef'
 import { IImportsData } from '@/features/imports/table/configs/importsTypes'
 import { operationsDef } from '@/features/operations/table/config/operationsDef'
@@ -30,6 +32,7 @@ export type TGridTableData = {
 		| typeof casesDef
 		| typeof transactionsDef
 		| typeof importsDef
+		| typeof importDef
 	rowData?:
 		| IOrganizationsData[]
 		| IOperationsData[]
@@ -40,5 +43,6 @@ export type TGridTableData = {
 		| ITransactionsData[]
 		| ICasesData[]
 		| IImportsData[]
+		| IImportData[]
 	checkboxHidden?: boolean
 }

@@ -1,4 +1,4 @@
-import { ItemLayout } from '@/layouts/ItemLayout'
+import { ItemLayout } from '@/shared/layouts/ItemLayout'
 import { OrgMainDataSection } from './sections/OrgMainDataSection'
 import { OrgAccountsSection } from './sections/OrgAccountsSection'
 

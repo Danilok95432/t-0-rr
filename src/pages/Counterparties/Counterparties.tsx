@@ -3,7 +3,7 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { NewCounterparty } from '@/features/counterparties/newCounterparty'
 import { counterpartiesDef } from '@/features/counterparties/table/config/counterpartiesDef'
 
-import { ListLayout } from '@/layouts/ListLayout'
+import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
 
