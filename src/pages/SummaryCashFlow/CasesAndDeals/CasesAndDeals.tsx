@@ -1,31 +1,25 @@
 import { Link } from 'react-router'
 
-import styles from './casesAndDeals.module.scss'
 import { Badge } from '@/shared/ui/Badge'
 import { Fragment, ReactElement, useState } from 'react'
 import { Icon } from '@/shared/ui/Icon'
 
-interface TableRow {
+import styles from './casesAndDeals.module.scss'
+
+export interface ISumValue {
+	status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
+	value: string
+}
+
+export interface ITableRow {
 	id: string
 	name: string
 	isGroup?: boolean
-	children?: TableRow[]
-	january: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
-	february: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
-	march: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
-	total: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
+	children?: ITableRow[]
+	january: ISumValue
+	february: ISumValue
+	march: ISumValue
+	total: ISumValue
 }
 
 export const CasesAndDeals = () => {
@@ -38,7 +32,7 @@ export const CasesAndDeals = () => {
 		}))
 	}
 
-	const data: TableRow[] = [
+	const data: ITableRow[] = [
 		{
 			id: 'name',
 			name: 'Длинное название кейса - 1',
@@ -300,7 +294,7 @@ export const CasesAndDeals = () => {
 		},
 	]
 
-	const renderRow = (row: TableRow, level = 0): ReactElement => {
+	const renderRow = (row: ITableRow, level = 0): ReactElement => {
 		const hasChildren = !!row.children?.length
 		const isExpanded = expandedRows[row.id]
 

@@ -1,32 +1,27 @@
 import { Link } from 'react-router'
 import { Fragment, ReactElement, useState } from 'react'
 
-interface TableRow {
+export interface ISumValue {
+	status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
+	value: string
+}
+
+export interface ITableRow {
 	id: string
 	name: string
 	isGroup?: boolean
-	children?: TableRow[]
-	january: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
-	february: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
-	march: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
-	total: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
+	children?: ITableRow[]
+	january: ISumValue
+	february: ISumValue
+	march: ISumValue
+	total: ISumValue
 }
 
 import { Icon } from '@/shared/ui/Icon'
 import { Badge } from '@/shared/ui/Badge'
 import styles from './articlesAndOrganizations.module.scss'
+import { table } from 'console'
+import classNames from 'classnames'
 
 export const ArticlesAndOrganizations = () => {
 	const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
@@ -38,7 +33,7 @@ export const ArticlesAndOrganizations = () => {
 		}))
 	}
 
-	const data: TableRow[] = [
+	const data: ITableRow[] = [
 		{
 			id: 'income',
 			name: 'Поступления',
@@ -188,27 +183,27 @@ export const ArticlesAndOrganizations = () => {
 						},
 					],
 				},
-				{
-					id: 'notSpecified',
-					name: 'Статья не указана',
-					january: {
-						status: 'neutral',
-						value: '0.00',
-					},
-					february: {
-						status: 'neutral',
-						value: '0.00',
-					},
-					march: {
-						status: 'neutral',
-						value: '0.00',
-					},
-					total: {
-						status: 'neutral',
-						value: '0.00',
-					},
-				},
 			],
+		},
+		{
+			id: 'notSpecified',
+			name: 'Статья не указана',
+			january: {
+				status: 'neutral',
+				value: '0.00',
+			},
+			february: {
+				status: 'neutral',
+				value: '0.00',
+			},
+			march: {
+				status: 'neutral',
+				value: '0.00',
+			},
+			total: {
+				status: 'neutral',
+				value: '0.00',
+			},
 		},
 		{
 			id: 'payments',
@@ -359,27 +354,27 @@ export const ArticlesAndOrganizations = () => {
 						},
 					],
 				},
-				{
-					id: 'notSpecified',
-					name: 'Статья не указана',
-					january: {
-						status: 'neutral',
-						value: '0.00',
-					},
-					february: {
-						status: 'neutral',
-						value: '0.00',
-					},
-					march: {
-						status: 'neutral',
-						value: '0.00',
-					},
-					total: {
-						status: 'neutral',
-						value: '0.00',
-					},
-				},
 			],
+		},
+		{
+			id: 'notSpecified1',
+			name: 'Статья не указана',
+			january: {
+				status: 'neutral',
+				value: '0.00',
+			},
+			february: {
+				status: 'neutral',
+				value: '0.00',
+			},
+			march: {
+				status: 'neutral',
+				value: '0.00',
+			},
+			total: {
+				status: 'neutral',
+				value: '0.00',
+			},
 		},
 		{
 			id: 'totalCashFlow',
@@ -510,8 +505,8 @@ export const ArticlesAndOrganizations = () => {
 					},
 					children: [
 						{
-							id: 'org2',
-							name: 'ООО НПО ТАУ',
+							id: 'article2_1',
+							name: 'Счет один-один',
 							january: {
 								status: 'positive',
 								value: '50 000 000',
@@ -557,23 +552,19 @@ export const ArticlesAndOrganizations = () => {
 		},
 	]
 
-	const renderRow = (row: TableRow, level = 0): ReactElement => {
+	const renderRow = (row: ITableRow, level = 0): ReactElement => {
 		const hasChildren = !!row.children?.length
 		const isExpanded = expandedRows[row.id]
 
 		return (
 			<Fragment key={row.id}>
-				<tr
-					onClick={() => hasChildren && toggleRow(row.id)}
-					style={{
-						cursor: hasChildren ? 'pointer' : 'default',
-					}}
-				>
+				<tr onClick={() => hasChildren && toggleRow(row.id)}>
 					<td
 						style={{ paddingLeft: `${level * 20}px` }}
 						className={
 							hasChildren ||
 							row.id === 'notSpecified' ||
+							row.id === 'notSpecified1' ||
 							row.id === 'totalCashFlow' ||
 							row.id === 'balancesAndPeriod'
 								? styles.rowTitle
@@ -587,16 +578,16 @@ export const ArticlesAndOrganizations = () => {
 					</td>
 
 					<td className={styles.value}>
-						{<Badge label={row.january.value} mode={row.january.status} />}
+						{<Badge label={row.january.value} mode={row.january.status ?? 'neutral'} />}
 					</td>
 					<td className={styles.value}>
-						{<Badge label={row.february.value} mode={row.february.status} />}
+						{<Badge label={row.february.value} mode={row.february.status ?? 'neutral'} />}
 					</td>
 					<td className={styles.value}>
-						{<Badge label={row.march.value} mode={row.march.status} />}
+						{<Badge label={row.march.value} mode={row.march.status ?? 'neutral'} />}
 					</td>
 					<td className={styles.value}>
-						{<Badge label={row.total.value} mode={row.total.status} />}
+						{<Badge label={row.total.value} mode={row.total.status ?? 'neutral'} />}
 					</td>
 				</tr>
 

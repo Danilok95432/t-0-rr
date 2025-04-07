@@ -63,7 +63,20 @@
 		}
 
 		tbody {
+			.table_row {
+				transition: background-color var(--transition-duration);
+
+				&:hover {
+					background-color: var(--base-04);
+				}
+			}
+
+			.clickable {
+				cursor: pointer;
+			}
+
 			.rowTitle {
+				padding: 10px;
 				width: 225px;
 				display: flex;
 				align-items: center;
