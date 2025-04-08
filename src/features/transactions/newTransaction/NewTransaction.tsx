@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/features/modal/hooks/useModal'
-import { IFormProps } from '@/shared/types/form'
-import { TFormNewTransaction } from '@/shared/types/formNewTransaction'
+import { IFormProps } from '@/shared/types/forms'
+import { TFormNewTransaction } from '@/shared/types/forms'
 
 import styles from './new-transaction.module.scss'
 import { Input } from '@/shared/ui/Input'
@@ -30,7 +30,7 @@ export const NewTransaction: FC<IFormProps> = () => {
 	const onSubmit: SubmitHandler<TFormNewTransaction> = (data) => {
 		console.log(data)
 		reset()
-		// handleCloseModal()
+		handleCloseModal()
 	}
 
 	return (

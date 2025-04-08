@@ -1,0 +1,24 @@
+.filterOperations {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+
+	.top {
+		display: grid;
+		grid-template-columns: 200px repeat(4, 250px) 280px;
+		column-gap: 10px;
+	}
+
+	.bottom {
+		display: grid;
+		grid-template-columns: 250px 140px 290px;
+		gap: 6px;
+	}
+
+	.buttons-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		column-gap: 10px;
+	}
+}

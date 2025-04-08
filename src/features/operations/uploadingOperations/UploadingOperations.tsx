@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form'
-import { IFormProps } from '@/shared/types/form'
-import { TFormUploadingOperations } from '@/shared/types/formUploadingOperations'
+import { IFormProps } from '@/shared/types/forms'
+import { TFormUploadingOperations } from '@/shared/types/forms'
 
 import { Button } from '@/shared/ui/Button'
 import { Badge } from '@/shared/ui/Badge'

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { IFormProps } from '@/shared/types/form'
-import { TFormUnloadOperations } from '@/shared/types/formUnloadOperations'
+import { IFormProps } from '@/shared/types/forms'
+import { TFormUnloadOperations } from '@/shared/types/forms'
 
 import { Badge } from '@/shared/ui/Badge'
 import { RadioButton } from '@/shared/ui/RadioButton'

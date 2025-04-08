@@ -66,4 +66,8 @@ ul {
 	height: 100dvh;
 	overflow-x: auto;
 	overflow-y: hidden;
+
+	&::-webkit-scrollbar {
+		height: 10px;
+	}
 }

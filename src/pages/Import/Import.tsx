@@ -1,10 +1,12 @@
-import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { ImportSection } from './sections/ImportSection'
+import { Suspense, lazy } from 'react'
+import { Loader } from '@/shared/ui/Loader'
+
+const ImportContent = lazy(() => import('./ImportContent'))
 
 export const Import = () => {
 	return (
-		<ItemLayout labelButton='Вернуться к списку импортов' pathToBack='imports'>
-			<ImportSection />
-		</ItemLayout>
+		<Suspense fallback={<Loader />}>
+			<ImportContent />
+		</Suspense>
 	)
 }

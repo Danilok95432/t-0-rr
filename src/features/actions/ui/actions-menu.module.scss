@@ -1,0 +1,12 @@
+.actions {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 65px;
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		row-gap: 23px;
+	}
+}

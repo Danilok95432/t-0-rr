@@ -1,4 +1,4 @@
-import { ActionsMenu } from '@/widgets/ActionsMenu'
+import { ActionsMenu } from '@/features/actions'
 
 import styles from './sidebar.module.scss'
 

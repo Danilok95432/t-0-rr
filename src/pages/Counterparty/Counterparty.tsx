@@ -1,12 +1,12 @@
-import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { MainDataCounterparty } from './sections/mainDataCounterpartySection'
-import { AccountsCounterparty } from './sections/accountsCounterpartySection'
+import { Suspense, lazy } from 'react'
+import { Loader } from '@/shared/ui/Loader'
+
+const CounterpartyContent = lazy(() => import('./CounterpartyContent'))
 
 export const Counterparty = () => {
 	return (
-		<ItemLayout labelButton='Вернуться к списку контрагентов' pathToBack='counterparties'>
-			<MainDataCounterparty />
-			<AccountsCounterparty />
-		</ItemLayout>
+		<Suspense fallback={<Loader />}>
+			<CounterpartyContent />
+		</Suspense>
 	)
 }

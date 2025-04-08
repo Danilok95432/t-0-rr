@@ -1,14 +1,12 @@
-import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { BalanceAccount } from './sections/BalanceAccountSection'
-import { MainDataAccount } from './sections/MainDataAccountSection'
-import { MovementsAccount } from './sections/MovementsAccountSection'
+import { Suspense, lazy } from 'react'
+import { Loader } from '@/shared/ui/Loader'
+
+const AccountContent = lazy(() => import('./AccountContent'))
 
 export const Account = () => {
 	return (
-		<ItemLayout labelButton='Вернуться к списку счетов' pathToBack='accounts'>
-			<BalanceAccount />
-			<MainDataAccount />
-			<MovementsAccount />
-		</ItemLayout>
+		<Suspense fallback={<Loader />}>
+			<AccountContent />
+		</Suspense>
 	)
 }

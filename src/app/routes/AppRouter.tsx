@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router'
 
 import { RoutesConst } from '@/shared/router/routes-const'
-
 import { Content } from '@/widgets/Content'
 
 import { Operations } from '@/pages/Operations/Operations'
@@ -20,8 +19,8 @@ import { Transaction } from '@/pages/Transaction/Transaction'
 import { Imports } from '@/pages/Imports/Imports'
 import { Import } from '@/pages/Import/Import'
 import { SummaryCashFlow } from '@/pages/SummaryCashFlow/SummaryCashFlow'
-import { ArticlesAndOrganizations } from '@/pages/SummaryCashFlow/ArticlesAndOrganizations/ArticlesAndOrganizations'
-import { CasesAndDeals } from '@/pages/SummaryCashFlow/CasesAndDeals/CasesAndDeals'
+import { ArticlesAndOrganizations } from '@/pages/ArticlesAndOrganizations/ArticlesAndOrganizations'
+import { CasesAndDeals } from '@/pages/CasesAndDeals/CasesAndDeals'
 
 export const AppRouter = () => {
 	return (
@@ -59,3 +58,4 @@ export const AppRouter = () => {
 		</Routes>
 	)
 }
+

@@ -1,10 +1,12 @@
-import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { TransactionData } from './sections/TransactionDataSections'
+import { Suspense, lazy } from 'react'
+import { Loader } from '@/shared/ui/Loader'
+
+const TransactionContent = lazy(() => import('./TransactionContent'))
 
 export const Transaction = () => {
 	return (
-		<ItemLayout labelButton='Вернуться к списку транзакций' pathToBack='transactions'>
-			<TransactionData />
-		</ItemLayout>
+		<Suspense fallback={<Loader />}>
+			<TransactionContent />
+		</Suspense>
 	)
 }

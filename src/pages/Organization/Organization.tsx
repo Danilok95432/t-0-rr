@@ -1,12 +1,12 @@
-import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { OrgMainDataSection } from './sections/OrgMainDataSection'
-import { OrgAccountsSection } from './sections/OrgAccountsSection'
+import { Suspense, lazy } from 'react'
+import { Loader } from '@/shared/ui/Loader'
+
+const OrganizationContent = lazy(() => import('./OrganizationContent'))
 
 export const Organization = () => {
 	return (
-		<ItemLayout labelButton='Вернуться к списку организаций' pathToBack='organizations'>
-			<OrgMainDataSection />
-			<OrgAccountsSection />
-		</ItemLayout>
+		<Suspense fallback={<Loader />}>
+			<OrganizationContent />
+		</Suspense>
 	)
 }

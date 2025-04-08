@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/features/modal/hooks/useModal'
-import { IFormProps } from '@/shared/types/form'
-import { TFormNewOrganization } from '@/shared/types/formNewOrganization'
+import { IFormProps } from '@/shared/types/forms'
+import { TFormNewOrganization } from '@/shared/types/forms'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'

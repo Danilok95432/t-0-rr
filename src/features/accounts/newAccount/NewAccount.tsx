@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/features/modal/hooks/useModal'
-import { IFormProps } from '@/shared/types/form'
-import { TFormNewAccount } from '@/shared/types/formNewAccount'
+import { IFormProps } from '@/shared/types/forms'
+import { TFormNewAccount } from '@/shared/types/forms'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
@@ -21,6 +21,7 @@ export const NewAccount: FC<IFormProps> = () => {
 			comment: '',
 			type: '',
 			bank: '',
+			paymentAccount: '',
 			bik: '',
 		},
 	})
@@ -28,7 +29,7 @@ export const NewAccount: FC<IFormProps> = () => {
 	const onSubmit: SubmitHandler<TFormNewAccount> = (data) => {
 		console.log(data)
 		reset()
-		// handleCloseModal()
+		handleCloseModal()
 	}
 
 	return (

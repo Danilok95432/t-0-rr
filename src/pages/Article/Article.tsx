@@ -1,10 +1,12 @@
-import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { MainArticleSection } from './sections/MainArticleSection'
+import { Suspense, lazy } from 'react'
+import { Loader } from '@/shared/ui/Loader'
+
+const ArticleContent = lazy(() => import('./ArticleContent'))
 
 export const Article = () => {
 	return (
-		<ItemLayout labelButton='Вернуться к списку статей' pathToBack='articles'>
-			<MainArticleSection />
-		</ItemLayout>
+		<Suspense fallback={<Loader />}>
+			<ArticleContent />
+		</Suspense>
 	)
 }

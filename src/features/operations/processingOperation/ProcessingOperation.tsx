@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import classNames from 'classnames'
-import { TFormProcessingOperation } from '@/shared/types/formProcessingOperation'
-import { IFormProps } from '@/shared/types/form'
+import { TFormProcessingOperation } from '@/shared/types/forms'
+import { IFormProps } from '@/shared/types/forms'
 
 import { useModal } from '@/features/modal/hooks/useModal'
 import { SelectC } from '@/shared/ui/Select'

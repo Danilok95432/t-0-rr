@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/features/modal/hooks/useModal'
-import { IFormProps } from '@/shared/types/form'
-import { TFormNewCase } from '@/shared/types/formNewCase'
+import { IFormProps } from '@/shared/types/forms'
+import { TFormNewCase } from '@/shared/types/forms'
 
 import { Input } from '@/shared/ui/Input'
 import { Button } from '@/shared/ui/Button'

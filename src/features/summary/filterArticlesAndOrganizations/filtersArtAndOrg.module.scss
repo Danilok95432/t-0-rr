@@ -1,0 +1,12 @@
+.filterArtAndOrgs {
+	display: grid;
+	grid-template-columns: 200px repeat(3, 250px) 140px 300px;
+	column-gap: 10px;
+
+	.buttons-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		column-gap: 10px;
+	}
+}
