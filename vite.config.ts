@@ -35,9 +35,9 @@ export default defineConfig({
 		rollupOptions: {
 			output: {
 				manualChunks: {
-					// Выделили отдельные чанки для вендорных библиотек
+					// Отдельные чанки для вендорных библиотек
 					vendor: ['react', 'react-dom', 'react-router-dom'],
-					// Выделили отдельные чанки для страниц
+					// Отдельные чанки для страниц
 					operations: ['./src/pages/Operations'],
 					organizations: ['./src/pages/Organizations', './src/pages/Organization'],
 					counterparties: ['./src/pages/Counterparties', './src/pages/Counterparty'],
