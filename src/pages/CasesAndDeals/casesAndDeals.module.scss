@@ -71,9 +71,38 @@
 				font-weight: 600;
 			}
 
+			.underlinedRow {
+				border-bottom: var(--border);
+				position: relative;
+
+				&::after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: 1px;
+					background-color: var(--border);
+				}
+
+				td {
+					padding-bottom: 18px;
+				}
+			}
+
 			td {
 				padding-block: 8px;
 				min-width: 155px;
+			}
+
+			&:first-child {
+				padding-top: 12px;
+			}
+
+			.total {
+				td {
+					padding-block: 18px;
+				}
 			}
 		}
 	}

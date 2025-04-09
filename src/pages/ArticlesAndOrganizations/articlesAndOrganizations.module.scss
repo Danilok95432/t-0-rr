@@ -88,6 +88,31 @@
 				padding-block: 8px;
 				min-width: 155px;
 			}
+
+			.underlinedRow {
+				border-bottom: var(--border);
+				position: relative;
+
+				&::after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: 1px;
+					background-color: var(--border);
+				}
+
+				td {
+					padding-bottom: 18px;
+				}
+			}
+
+			.total {
+				td {
+					padding-block: 18px;
+				}
+			}
 		}
 	}
 }

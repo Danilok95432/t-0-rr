@@ -2,6 +2,7 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { articleArrivalDef } from '@/features/articles/table/config/articleArrivalDef'
 import { articleExpenseDef } from '@/features/articles/table/config/articleExpenseDef'
 import { NewArticle } from '@/features/articles/newArticle'
+import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
@@ -15,6 +16,7 @@ import { articleExpenseData } from '@/mock/articleExpense-data'
 
 const ArticlesContent = () => {
 	const { buttonId } = useModal()
+	const { value } = useQuickFilter()
 
 	return (
 		<ListLayout title='Статьи'>
@@ -26,6 +28,7 @@ const ArticlesContent = () => {
 						columnDefinitions={articleArrivalDef}
 						rowData={articleArrivalData}
 						checkboxHidden={false}
+						quickFilterText={value}
 					/>
 				</div>
 
@@ -36,6 +39,7 @@ const ArticlesContent = () => {
 						columnDefinitions={articleExpenseDef}
 						rowData={articleExpenseData}
 						checkboxHidden={false}
+						quickFilterText={value}
 					/>
 				</div>
 			</div>

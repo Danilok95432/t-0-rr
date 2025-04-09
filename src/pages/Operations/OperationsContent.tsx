@@ -6,6 +6,7 @@ import { UploadingOperations } from '@/features/operations/uploadingOperations'
 import { SettingsListOperations } from '@/features/operations/settingsListOperations'
 import { ProcessingOperation } from '@/features/operations/processingOperation'
 import { operationsDef } from '@/features/operations/table/config/operationsDef'
+import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
@@ -18,6 +19,7 @@ import { operationsData } from '@/mock/operations-data'
 
 const OperationsContent = () => {
 	const { buttonId } = useModal()
+	const { value } = useQuickFilter()
 
 	return (
 		<ListLayout title='Операции' totalInfoData={operationsTotalInfo}>
@@ -25,7 +27,11 @@ const OperationsContent = () => {
 				<FilterOperations />
 			</FiltersMenu>
 
-			<GridTable rowData={operationsData} columnDefinitions={operationsDef} />
+			<GridTable
+				rowData={operationsData}
+				columnDefinitions={operationsDef}
+				quickFilterText={value}
+			/>
 
 			{buttonId === 'add' && (
 				<Modal title='Новая операция'>

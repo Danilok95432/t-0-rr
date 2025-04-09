@@ -45,4 +45,5 @@ export type TGridTableData = {
 		| IImportsData[]
 		| IImportData[]
 	checkboxHidden?: boolean
+	quickFilterText?: string
 }

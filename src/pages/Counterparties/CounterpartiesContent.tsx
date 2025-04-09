@@ -6,7 +6,7 @@ import { counterpartiesDef } from '@/features/counterparties/table/config/counte
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
-
+import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 //
 import { counterpartiesTotalInfo } from '@/mock/counterparties-total-info'
 import { counterpartiesData } from '@/mock/counterparties-data'
@@ -14,10 +14,15 @@ import { counterpartiesData } from '@/mock/counterparties-data'
 
 const CounterpartiesContent = () => {
 	const { buttonId } = useModal()
+	const { value } = useQuickFilter()
 
 	return (
 		<ListLayout title='Контрагенты' totalInfoData={counterpartiesTotalInfo}>
-			<GridTable columnDefinitions={counterpartiesDef} rowData={counterpartiesData} />
+			<GridTable
+				columnDefinitions={counterpartiesDef}
+				rowData={counterpartiesData}
+				quickFilterText={value}
+			/>
 
 			{/* модалки */}
 			{buttonId === 'add' && (

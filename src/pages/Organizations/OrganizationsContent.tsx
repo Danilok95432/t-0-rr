@@ -9,14 +9,20 @@ import { organizationDef } from '@/features/organizations/table/config/organizat
 //
 import { organizationsData } from '@/mock/organizations-data'
 import { organizationsTotalInfo } from '@/mock/organizations-total-info'
+import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 //
 
 const OrganizationsContent = () => {
 	const { buttonId } = useModal()
+	const { value } = useQuickFilter()
 
 	return (
 		<ListLayout title='Организации' totalInfoData={organizationsTotalInfo}>
-			<GridTable columnDefinitions={organizationDef} rowData={organizationsData} />
+			<GridTable
+				columnDefinitions={organizationDef}
+				rowData={organizationsData}
+				quickFilterText={value}
+			/>
 
 			{buttonId === 'add' && (
 				<Modal title='Новая организация'>

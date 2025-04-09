@@ -10,6 +10,7 @@ export const GridTable: FC<TGridTableData> = ({
 	rowData,
 	columnDefinitions,
 	checkboxHidden = true,
+	quickFilterText,
 }) => {
 	const gridRef = useRef<AgGridReact>(null)
 	const theme = useMemo<Theme | 'legacy'>(() => {
@@ -53,6 +54,8 @@ export const GridTable: FC<TGridTableData> = ({
 				dataTypeDefinitions={dataTypeDefinitions}
 				rowSelection={rowSelection}
 				theme={theme}
+				quickFilterText={quickFilterText}
+				cacheQuickFilter={true}
 			/>
 		</>
 	)

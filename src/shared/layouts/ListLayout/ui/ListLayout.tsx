@@ -1,4 +1,5 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 import { IListLayoutProps } from '@/shared/types/page-layout'
 
 import { TotalInfo } from '@/widgets/TotalInfo'
@@ -7,7 +8,7 @@ import { Input } from '@/shared/ui/Input'
 import styles from './list-layout.module.scss'
 
 export const ListLayout: FC<IListLayoutProps> = ({ title, totalInfoData, children }) => {
-	const [value, setValue] = useState('')
+	const { value, handleChange } = useQuickFilter()
 
 	return (
 		<section className={styles.section}>
@@ -21,9 +22,7 @@ export const ListLayout: FC<IListLayoutProps> = ({ title, totalInfoData, childre
 					hasResetIcon
 					className={styles.input}
 					value={value}
-					onChange={(event) => {
-						setValue(event?.currentTarget.value ?? '')
-					}}
+					onChange={handleChange}
 				/>
 
 				{totalInfoData && <TotalInfo totalInfo={totalInfoData} />}
