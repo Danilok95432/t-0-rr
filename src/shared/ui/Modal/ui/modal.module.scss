@@ -9,8 +9,9 @@
 	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05), 0 11px 11px 0 rgba(0, 0, 0, 0.04),
 		0 25px 15px 0 rgba(0, 0, 0, 0.03);
 	border-radius: 5px;
-	transition-duration: var(--transition-duration);
-	transition-behavior: allow-discrete;
+	// transition-duration: var(--transition-duration);
+	transition: display 1s allow-discrete, overlay 1s allow-discrete, opacity 1s;
+	opacity: 0;
 
 	&::backdrop {
 		opacity: 1;
@@ -20,10 +21,10 @@
 		background-color: rgba(0, 0, 0, 0.4);
 	}
 
-	@mixin starting-styles {
-		opacity: 0;
-		scale: 1.05;
-	}
+	// @mixin starting-styles {
+	// 	opacity: 0;
+	// 	scale: 1.05;
+	// }
 
 	&[open] {
 		opacity: 1;
@@ -35,9 +36,12 @@
 		}
 	}
 
-	&:not([open]) {
-		@include starting-styles;
-	}
+	// &:not([open]) {
+	// 	@starting-style {
+	// 		opacity: 0;
+	// 		scale: 1.05;
+	// 	}
+	// }
 
 	&__title {
 		font-size: 16px;

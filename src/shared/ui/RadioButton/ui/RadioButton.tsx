@@ -4,14 +4,9 @@ import { IRadioButtonProps } from '../types'
 
 import styles from './radio-button.module.scss'
 
-export const RadioButton: FC<IRadioButtonProps> = ({
-	id,
-	name,
-	value,
-	label,
-	checked,
-	onChange,
-}) => {
+export const RadioButton: FC<IRadioButtonProps> = (props) => {
+	const { id, name, value, label, checked, onChange } = props
+
 	return (
 		<label className={styles['radio-wrapper']}>
 			<input
