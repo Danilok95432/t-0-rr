@@ -7,7 +7,7 @@ import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
 
-import './cases.scss'
+import styles from './cases.module.scss'
 
 //
 import { casesData } from '@/mock/cases-data'
@@ -22,7 +22,7 @@ const CasesContent = () => {
 			<GridTable columnDefinitions={casesDef} rowData={casesData} quickFilterText={value} />
 
 			{buttonId === 'add' && (
-				<Modal title='Новый кейс' className='modal-cases'>
+				<Modal title='Новый кейс' className={styles.modal_cases}>
 					<NewCase />
 				</Modal>
 			)}

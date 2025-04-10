@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import classNames from 'classnames'
 
 import { IModalProps } from '../types'
@@ -10,38 +11,46 @@ import { Button } from '@/shared/ui/Button'
 import styles from './modal.module.scss'
 
 export const Modal: FC<IModalProps> = ({ title, children, className }) => {
-	const { dialogRef, isOpenModal, handleCloseModal } = useModal()
+	const { isOpenModal, handleCloseModal } = useModal()
 
 	// Обработчик Esc
 	useEffect(() => {
 		if (isOpenModal) {
-			dialogRef.current?.showModal()
-
 			const closeByEscape = (event: KeyboardEvent) => {
 				if (event.key === 'Escape') {
 					handleCloseModal()
 				}
 			}
 			document.addEventListener('keydown', closeByEscape)
-
 			return () => document.removeEventListener('keydown', closeByEscape)
-		} else {
-			dialogRef.current?.close()
 		}
-	}, [dialogRef, isOpenModal, handleCloseModal])
+	}, [isOpenModal, handleCloseModal])
 
 	return (
-		<dialog className={classNames(styles.modal, className)} ref={dialogRef}>
-			<h2 className={styles.modal__title}>{title}</h2>
+		<div className={classNames(styles.overlay, { [styles.visible]: isOpenModal })}>
+			<motion.div
+				initial={{ opacity: 0, scale: 0.5 }}
+				animate={{ opacity: 1, scale: 1 }}
+				transition={{
+					duration: 0.8,
+					delay: 0.5,
+					ease: [0, 0.71, 0.2, 1.01],
+				}}
+			>
+				<div className={classNames(styles.content, className)}>
+					<h2 className={styles.title}>{title}</h2>
 
-			{children}
+					{children}
 
-			<Button
-				mode='clear'
-				icon={<Icon iconId='close' width='24px' height='24px' />}
-				className={styles['modal__close']}
-				onClick={handleCloseModal}
-			/>
-		</dialog>
+					<Button
+						type='submit'
+						mode='clear'
+						icon={<Icon iconId='close' width='24px' height='24px' />}
+						className={styles.modal_close}
+						onClick={handleCloseModal}
+					/>
+				</div>
+			</motion.div>
+		</div>
 	)
 }

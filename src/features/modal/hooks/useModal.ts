@@ -1,10 +1,8 @@
-import { MouseEvent, useRef } from 'react'
+import { MouseEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks/useRedux'
 import { closeModal, openModal } from '@/features/modal/store/modalSlice'
 
 export const useModal = () => {
-	const dialogRef = useRef<HTMLDialogElement | null>(null)
-
 	const dispatch = useAppDispatch()
 	const { isOpenModal, buttonId } = useAppSelector((state) => state.modal)
 
@@ -17,5 +15,5 @@ export const useModal = () => {
 		dispatch(closeModal())
 	}
 
-	return { dialogRef, isOpenModal, buttonId, handleOpenModal, handleCloseModal }
+	return { isOpenModal, buttonId, handleOpenModal, handleCloseModal }
 }
