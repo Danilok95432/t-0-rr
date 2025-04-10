@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion } from 'motion/react'
 import classNames from 'classnames'
 
 import { IModalProps } from '../types'
@@ -26,31 +26,48 @@ export const Modal: FC<IModalProps> = ({ title, children, className }) => {
 		}
 	}, [isOpenModal, handleCloseModal])
 
+	// обЪект свойств поведения модального окна
+	const fadeIn = {
+		hidden: {
+			opacity: 0,
+			scale: 0.95,
+		},
+		visible: {
+			opacity: 1,
+			scale: 1,
+		},
+		exit: {
+			opacity: 0,
+			scale: 0.95,
+		},
+	}
+
 	return (
-		<div className={classNames(styles.overlay, { [styles.visible]: isOpenModal })}>
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			className={classNames(styles.overlay, { [styles.visible]: isOpenModal })}
+		>
 			<motion.div
-				initial={{ opacity: 0, scale: 0.5 }}
-				animate={{ opacity: 1, scale: 1 }}
-				transition={{
-					duration: 0.8,
-					delay: 0.5,
-					ease: [0, 0.71, 0.2, 1.01],
-				}}
+				variants={fadeIn}
+				initial='hidden'
+				animate='visible'
+				exit='exit'
+				className={classNames(styles.content, className)}
 			>
-				<div className={classNames(styles.content, className)}>
-					<h2 className={styles.title}>{title}</h2>
+				<h2 className={styles.title}>{title}</h2>
 
-					{children}
+				{children}
 
-					<Button
-						type='submit'
-						mode='clear'
-						icon={<Icon iconId='close' width='24px' height='24px' />}
-						className={styles.modal_close}
-						onClick={handleCloseModal}
-					/>
-				</div>
+				<Button
+					type='submit'
+					mode='clear'
+					icon={<Icon iconId='close' width='24px' height='24px' />}
+					className={styles.modal_close}
+					onClick={handleCloseModal}
+				/>
 			</motion.div>
-		</div>
+		</motion.div>
 	)
 }

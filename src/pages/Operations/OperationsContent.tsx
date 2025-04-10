@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 import { FilterOperations } from '@/features/operations/filterOperations'
 import { NewOperation } from '@/features/operations/newOperation'
@@ -33,35 +35,45 @@ const OperationsContent = () => {
 				quickFilterText={value}
 			/>
 
-			{buttonId === 'add' && (
-				<Modal title='Новая операция'>
-					<NewOperation />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новая операция'>
+						<NewOperation />
+					</Modal>
+				)}
+			</AnimatePresence>
 
-			{buttonId === 'import' && (
-				<Modal title='Загрузка (импорт) операций'>
-					<UploadingOperations labelBadge='В этой форме производится массовая загрузка (импорт) операций из файла' />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'import' && (
+					<Modal title='Загрузка (импорт) операций'>
+						<UploadingOperations labelBadge='В этой форме производится массовая загрузка (импорт) операций из файла' />
+					</Modal>
+				)}
+			</AnimatePresence>
 
-			{buttonId === 'unload' && (
-				<Modal title='Выгрузка (экспорт) операций'>
-					<UnloadingOperations labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список' />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'unload' && (
+					<Modal title='Выгрузка (экспорт) операций'>
+						<UnloadingOperations labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список' />
+					</Modal>
+				)}
+			</AnimatePresence>
 
-			{buttonId === 'settings' && (
-				<Modal title='Настройки списка операций'>
-					<SettingsListOperations />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'settings' && (
+					<Modal title='Настройки списка операций'>
+						<SettingsListOperations />
+					</Modal>
+				)}
+			</AnimatePresence>
 
-			{buttonId.includes('processing') && (
-				<Modal title='Обработка операции'>
-					<ProcessingOperation />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'processing' && (
+					<Modal title='Обработка операции'>
+						<ProcessingOperation />
+					</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }

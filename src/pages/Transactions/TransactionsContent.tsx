@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 import { NewTransaction } from '@/features/transactions/newTransaction'
 import { transactionsDef } from '@/features/transactions/table/config/transactionsDef'
@@ -23,11 +25,13 @@ const TransactionsContent = () => {
 				quickFilterText={value}
 			/>
 
-			{buttonId === 'add' && (
-				<Modal title='Новая сделка'>
-					<NewTransaction />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новая сделка'>
+						<NewTransaction />
+					</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }

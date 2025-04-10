@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 import { articleArrivalDef } from '@/features/articles/table/config/articleArrivalDef'
 import { articleExpenseDef } from '@/features/articles/table/config/articleExpenseDef'
@@ -44,11 +46,13 @@ const ArticlesContent = () => {
 				</div>
 			</div>
 
-			{buttonId === 'add' && (
-				<Modal title='Новая статья'>
-					<NewArticle />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новая статья'>
+						<NewArticle />
+					</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }

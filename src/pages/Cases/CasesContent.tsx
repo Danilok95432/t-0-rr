@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 import { NewCase } from '@/features/cases/newCase'
 import { casesDef } from '@/features/cases/table/config/casesDef'
@@ -21,11 +23,13 @@ const CasesContent = () => {
 		<ListLayout title='Кейсы' totalInfoData={[]}>
 			<GridTable columnDefinitions={casesDef} rowData={casesData} quickFilterText={value} />
 
-			{buttonId === 'add' && (
-				<Modal title='Новый кейс' className={styles.modal_cases}>
-					<NewCase />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новый кейс' className={styles.modal_cases}>
+						<NewCase />
+					</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }

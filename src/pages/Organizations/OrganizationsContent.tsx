@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
@@ -24,15 +26,19 @@ const OrganizationsContent = () => {
 				quickFilterText={value}
 			/>
 
-			{buttonId === 'add' && (
-				<Modal title='Новая организация'>
-					<NewOrganization />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новая организация'>
+						<NewOrganization />
+					</Modal>
+				)}
+			</AnimatePresence>
 
-			{buttonId === 'unload' && (
-				<Modal title='Выгрузка (экспорт) организаций'>Выгрузка организаций</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'unload' && (
+					<Modal title='Выгрузка (экспорт) организаций'>Выгрузка организаций</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }

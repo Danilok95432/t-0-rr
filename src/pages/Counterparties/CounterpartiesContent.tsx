@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 
 import { NewCounterparty } from '@/features/counterparties/newCounterparty'
@@ -24,16 +26,19 @@ const CounterpartiesContent = () => {
 				quickFilterText={value}
 			/>
 
-			{/* модалки */}
-			{buttonId === 'add' && (
-				<Modal title='Новый контрагент'>
-					<NewCounterparty />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новый контрагент'>
+						<NewCounterparty />
+					</Modal>
+				)}
+			</AnimatePresence>
 
-			{buttonId === 'unload' && (
-				<Modal title='Выгрузка (экспорт) контрагента'>Выгрузка организаций</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'unload' && (
+					<Modal title='Выгрузка (экспорт) контрагента'>Выгрузка организаций</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }

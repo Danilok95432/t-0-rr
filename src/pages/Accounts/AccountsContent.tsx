@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'motion/react'
+
 import { useModal } from '@/features/modal/hooks/useModal'
 import { NewAccount } from '@/features/accounts/newAccount'
 import { accountsDef } from '@/features/accounts/table/config/accountsDef'
@@ -17,11 +19,13 @@ const AccountsContent = () => {
 		<ListLayout title='Счета' totalInfoData={[]}>
 			<GridTable columnDefinitions={accountsDef} rowData={accountsData} quickFilterText={value} />
 
-			{buttonId === 'add' && (
-				<Modal title='Новый счёт'>
-					<NewAccount />
-				</Modal>
-			)}
+			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+				{buttonId === 'add' && (
+					<Modal title='Новый счёт'>
+						<NewAccount />
+					</Modal>
+				)}
+			</AnimatePresence>
 		</ListLayout>
 	)
 }
