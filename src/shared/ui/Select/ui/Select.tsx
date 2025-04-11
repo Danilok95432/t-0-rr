@@ -8,7 +8,16 @@ import { Icon } from '@/shared/ui/Icon'
 import './select.scss'
 
 export const SelectC: FC<ISelectCProps> = (props) => {
-	const { options, values, onChange, label, placeholder = '', className, disabled } = props
+	const {
+		options,
+		values,
+		onChange,
+		label,
+		placeholder = '',
+		className,
+		disabled,
+		searchable,
+	} = props
 	const [isFocused, setIsFocused] = useState(false)
 
 	return (
@@ -19,11 +28,12 @@ export const SelectC: FC<ISelectCProps> = (props) => {
 				onChange={onChange}
 				className='select'
 				placeholder={placeholder}
-				searchable={false}
+				searchable={searchable}
 				multi={false}
 				disabled={disabled}
 				onDropdownOpen={() => setIsFocused(true)}
 				onDropdownClose={() => setIsFocused(false)}
+				searchBy='label'
 			/>
 			{/* Основной лейбл */}
 			{label && (

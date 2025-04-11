@@ -10,4 +10,5 @@ export interface ISelectCProps {
 	placeholder?: string
 	className?: string
 	disabled?: boolean
+	searchable?: boolean
 }

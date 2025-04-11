@@ -89,6 +89,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 								label='Контрагент'
 								onChange={field.onChange}
 								className={styles.addOperation__select}
+								searchable={true}
 							/>
 						)}
 					/>
