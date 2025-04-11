@@ -9,7 +9,7 @@ import { importData } from '@/mock/import-data'
 export const ImportSection = () => {
 	return (
 		<section className={styles.importData}>
-			<GridTable columnDefinitions={importDef} rowData={importData} />
+			<GridTable columnDefinitions={importDef} rowData={importData} checkboxHidden={false} />
 		</section>
 	)
 }

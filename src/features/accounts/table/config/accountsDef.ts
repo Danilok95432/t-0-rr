@@ -6,7 +6,7 @@ import { CellBadge } from '../cells/cellBadge/CellBadge'
 
 export const accountsDef: ColDef<IAccountsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
-	{ field: 'type', headerName: 'Тип' },
+	{ field: 'type', headerName: 'Тип счёта' },
 	{
 		field: 'fullName',
 		headerName: 'Наименование счёта',

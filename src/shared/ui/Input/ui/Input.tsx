@@ -44,10 +44,6 @@ export const Input: FC<IInputProps> = (props) => {
 
 	return (
 		<div className={classNames(styles.wrapper, className)}>
-			{label && <label className={styles['input-label']}>{label}</label>}
-
-			{extraLabel && <span className={styles.extraLabel}>{extraLabel}</span>}
-
 			<input
 				name={id}
 				id={id}
@@ -61,10 +57,15 @@ export const Input: FC<IInputProps> = (props) => {
 				disabled={disabled}
 			/>
 
+			{/* основной лейбл */}
+			{label && <label className={styles.label}>{label}</label>}
+			{/* на некоторых инпуитах есть дополнительные лейблы */}
+			{extraLabel && <span className={styles.extraLabel}>{extraLabel}</span>}
+			{/* иконка поиска */}
 			{!value && hasIconSearch && <Icon iconId='input-search' className={styles.input__icon} />}
-
+			{/* иконка замочка */}
 			{disabled && <Icon iconId='lock' className={styles.input__icon_lock} />}
-
+			{/* кнопка стереть содержимое инпута */}
 			{value && hasResetIcon && (
 				<Button
 					mode='clear'

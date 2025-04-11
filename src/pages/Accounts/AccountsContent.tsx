@@ -17,7 +17,12 @@ const AccountsContent = () => {
 
 	return (
 		<ListLayout title='Счета' totalInfoData={[]}>
-			<GridTable columnDefinitions={accountsDef} rowData={accountsData} quickFilterText={value} />
+			<GridTable
+				columnDefinitions={accountsDef}
+				rowData={accountsData}
+				quickFilterText={value}
+				checkboxHidden={false}
+			/>
 
 			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
 				{buttonId === 'add' && (

@@ -24,6 +24,7 @@ const CounterpartiesContent = () => {
 				columnDefinitions={counterpartiesDef}
 				rowData={counterpartiesData}
 				quickFilterText={value}
+				checkboxHidden={false}
 			/>
 
 			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>

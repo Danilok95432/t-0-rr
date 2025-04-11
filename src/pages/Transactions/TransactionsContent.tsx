@@ -23,6 +23,7 @@ const TransactionsContent = () => {
 				columnDefinitions={transactionsDef}
 				rowData={transactionsData}
 				quickFilterText={value}
+				checkboxHidden={false}
 			/>
 
 			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>

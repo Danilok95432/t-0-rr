@@ -69,3 +69,7 @@
 		width: var(--scrollbarWidth);
 	}
 }
+
+.ag-header-cell-resize::after {
+	background-color: transparent;
+}

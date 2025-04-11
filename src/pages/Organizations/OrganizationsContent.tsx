@@ -24,6 +24,7 @@ const OrganizationsContent = () => {
 				columnDefinitions={organizationDef}
 				rowData={organizationsData}
 				quickFilterText={value}
+				checkboxHidden={false}
 			/>
 
 			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>

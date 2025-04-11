@@ -23,7 +23,7 @@ export const GridTable: FC<TGridTableData> = ({
 			headerCheckbox: checkboxHidden,
 			checkboxes: checkboxHidden,
 		}
-	}, [])
+	}, [checkboxHidden])
 
 	const dataTypeDefinitions = useMemo<{
 		[cellDataType: string]: DataTypeDefinition

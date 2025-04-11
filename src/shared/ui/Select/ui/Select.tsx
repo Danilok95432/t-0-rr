@@ -12,8 +12,6 @@ export const SelectC: FC<ISelectCProps> = (props) => {
 
 	return (
 		<div className={classNames('select-wrapper', className)}>
-			{label && <label className='select-label'>{label}</label>}
-
 			<Select
 				values={values}
 				options={options}
@@ -24,7 +22,9 @@ export const SelectC: FC<ISelectCProps> = (props) => {
 				multi={false}
 				disabled={disabled}
 			/>
-
+			{/* Основной лейбл */}
+			{label && <label className='select-label'>{label}</label>}
+			{/* Иконка замочка */}
 			{disabled && <Icon iconId='lock' className='select__icon_lock' />}
 		</div>
 	)

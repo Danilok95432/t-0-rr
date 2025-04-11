@@ -1,5 +1,5 @@
 import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { MainDataCounterparty } from './sections/mainDataCounterparty'
+import { MainDataCounterparty } from './sections/mainDataCounterpartySection'
 import { AccountsCounterparty } from './sections/accountsCounterparty'
 
 const CounterpartyContent = () => {

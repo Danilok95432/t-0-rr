@@ -12,7 +12,12 @@ const ImportsContent = () => {
 
 	return (
 		<ListLayout title='Импорты'>
-			<GridTable columnDefinitions={importsDef} rowData={importsData} quickFilterText={value} />
+			<GridTable
+				columnDefinitions={importsDef}
+				rowData={importsData}
+				quickFilterText={value}
+				checkboxHidden={false}
+			/>
 		</ListLayout>
 	)
 }

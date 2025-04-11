@@ -11,6 +11,7 @@
 	background-color: transparent;
 	box-shadow: 0 2px 3px 0 rgba(25, 28, 48, 0.1);
 	position: relative;
+	z-index: 10;
 
 	&:focus {
 		outline: none;
@@ -30,18 +31,22 @@
 		right: 6px;
 	}
 
-	&-label {
-		font-size: 11px;
-		color: var(--text-02);
-		position: absolute;
-		top: 3px;
-		left: 8px;
-	}
-
 	&[disabled] {
 		background-color: var(--base-input-bg);
 		box-shadow: none;
 	}
+}
+
+.label {
+	font-size: 11px;
+	color: var(--text-02);
+	position: absolute;
+	top: 12px;
+	left: 8px;
+}
+
+.input:focus ~ .label {
+	top: 3px;
 }
 
 .input[disabled] ~ .input__icon_lock {

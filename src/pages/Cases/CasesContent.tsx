@@ -21,7 +21,12 @@ const CasesContent = () => {
 
 	return (
 		<ListLayout title='Кейсы' totalInfoData={[]}>
-			<GridTable columnDefinitions={casesDef} rowData={casesData} quickFilterText={value} />
+			<GridTable
+				columnDefinitions={casesDef}
+				rowData={casesData}
+				quickFilterText={value}
+				checkboxHidden={false}
+			/>
 
 			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
 				{buttonId === 'add' && (
