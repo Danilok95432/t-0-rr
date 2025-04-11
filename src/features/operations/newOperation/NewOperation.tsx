@@ -40,6 +40,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 	const onSubmit: SubmitHandler<TFormNewOperation> = (data) => {
 		console.log(data)
 		handleCloseModal()
+		reset()
 	}
 
 	return (

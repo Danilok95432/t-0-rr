@@ -10,7 +10,7 @@ interface TableRowProcessing {
 
 export const TableProcessingOperation = () => {
 	const [rows, setRows] = useState<TableRowProcessing[]>([])
-	const [newRow, setNewRow] = useState<Omit<TableRowProcessing, 'id'>>({
+	const [newRow] = useState<Omit<TableRowProcessing, 'id'>>({
 		counterpartyAccount: '',
 		caseTransaction: { case: '', transaction: '' },
 		infoArticle: { article: '', subArticles: '' },

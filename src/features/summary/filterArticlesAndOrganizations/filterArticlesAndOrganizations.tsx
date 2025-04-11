@@ -25,7 +25,7 @@ export const FilterArticlesAndOrganizations = () => {
 	const onSubmit: SubmitHandler<TFormFilterArticlesAndOrganizations> = (data) => {
 		console.log(data)
 		reset()
-		// handleCloseFilterMenu()
+		handleCloseFilterMenu()
 	}
 
 	return (

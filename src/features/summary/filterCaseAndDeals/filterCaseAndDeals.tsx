@@ -17,7 +17,7 @@ export const FilterCaseAndDeals = () => {
 	const onSubmit: SubmitHandler<TFormCasesAndDeals> = (data) => {
 		console.log(data)
 		reset()
-		// handleCloseFilterMenu()
+		handleCloseFilterMenu()
 	}
 
 	return (
