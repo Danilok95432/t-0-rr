@@ -20,6 +20,7 @@ export const counterpartiesDef: ColDef<ICounterpartiesData>[] = [
 		headerName: 'Полное официальное название контрагента',
 		cellRenderer: memo(CellLinkFullName),
 		flex: 2,
+		tooltipField: 'fullName',
 	},
 	{ field: 'type', headerName: 'Тип', flex: 1 },
 	{ field: 'inn', headerName: 'ИНН', flex: 1 },

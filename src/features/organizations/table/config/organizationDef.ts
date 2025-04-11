@@ -13,6 +13,7 @@ export const organizationDef: ColDef<IOrganizationsData>[] = [
 		field: 'fullName',
 		headerName: 'Полное официальное название организации',
 		cellRenderer: memo(CellLinkName),
+		tooltipField: 'fullName',
 		flex: 2,
 	},
 	{ field: 'type', headerName: 'Тип' },

@@ -26,13 +26,19 @@ export const importDef: ColDef<IImportData>[] = [
 		field: 'amount',
 		headerName: 'Сумма',
 	},
-	{ field: 'counterparty', headerName: 'Контрагент' },
+	{ field: 'counterparty', headerName: 'Контрагент', tooltipField: 'counterparty' },
 	{
 		field: 'nameOperation',
 		headerName: 'Наименование операции',
 		flex: 3,
 		cellStyle: { color: 'var(--link)' },
+		tooltipField: 'nameOperation',
 	},
-	{ field: 'determinedAccount', headerName: 'Определен счёт' },
-	{ field: 'organization', headerName: 'Организация', cellStyle: { color: 'var(--link)' } },
+	{ field: 'determinedAccount', headerName: 'Определен счёт', tooltipField: 'determinedAccount' },
+	{
+		field: 'organization',
+		headerName: 'Организация',
+		cellStyle: { color: 'var(--link)' },
+		tooltipField: 'organization',
+	},
 ]

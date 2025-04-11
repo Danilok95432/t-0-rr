@@ -10,8 +10,8 @@ export const importsDef: ColDef<IImportsData>[] = [
 		headerName: 'Дата и время импорта',
 		cellRenderer: memo(CellLinkDateTime),
 	},
-	{ field: 'organization', headerName: 'Организация' },
-	{ field: 'accounts', headerName: 'Счета' },
-	{ field: 'file', headerName: 'Файл' },
+	{ field: 'organization', headerName: 'Организация', tooltipField: 'organization' },
+	{ field: 'accounts', headerName: 'Счета', tooltipField: 'accounts' },
+	{ field: 'file', headerName: 'Файл', tooltipField: 'file' },
 	{ field: 'standard', headerName: 'Эталон', cellStyle: { color: 'var(--link)' } },
 ]

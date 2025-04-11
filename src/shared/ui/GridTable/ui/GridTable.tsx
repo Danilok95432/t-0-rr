@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react'
 import { ColDef, DataTypeDefinition, RowSelectionOptions, type Theme } from 'ag-grid-community'
 import { TGridTableData } from '../types'
 import { customTheme } from '../config/tableTheme'
+import { CustomTooltip } from '../config/customTooltip'
 
 import '../config/checkbox-style.css'
 
@@ -41,6 +42,7 @@ export const GridTable: FC<TGridTableData> = ({
 	const defaultColDef = useMemo<ColDef>(() => {
 		return {
 			flex: 1,
+			tooltipComponent: CustomTooltip,
 		}
 	}, [])
 
@@ -56,6 +58,7 @@ export const GridTable: FC<TGridTableData> = ({
 				theme={theme}
 				quickFilterText={quickFilterText}
 				cacheQuickFilter={true}
+				tooltipShowDelay={1000}
 			/>
 		</>
 	)
