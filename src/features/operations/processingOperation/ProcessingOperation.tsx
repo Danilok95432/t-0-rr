@@ -147,11 +147,11 @@ export const ProcessingOperation: FC<IFormProps> = () => {
 						)}
 					/>
 					<Controller
-						name='comments'
+						name='employeesComment'
 						control={control}
 						render={({ field }) => (
 							<TextArea
-								id='comments'
+								id='employeesComment'
 								label='Комментарий сотрудника'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}

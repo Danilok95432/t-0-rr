@@ -68,7 +68,7 @@ const OperationsContent = () => {
 			</AnimatePresence>
 
 			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'processing' && (
+				{buttonId.split('-')[0] == 'processing' && (
 					<Modal title='Обработка операции'>
 						<ProcessingOperation />
 					</Modal>
