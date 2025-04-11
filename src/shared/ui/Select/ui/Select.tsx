@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import classNames from 'classnames'
 import Select from 'react-dropdown-select'
 import { ISelectCProps } from '../types'
@@ -9,6 +9,7 @@ import './select.scss'
 
 export const SelectC: FC<ISelectCProps> = (props) => {
 	const { options, values, onChange, label, placeholder = '', className, disabled } = props
+	const [isFocused, setIsFocused] = useState(false)
 
 	return (
 		<div className={classNames('select-wrapper', className)}>
@@ -21,9 +22,19 @@ export const SelectC: FC<ISelectCProps> = (props) => {
 				searchable={false}
 				multi={false}
 				disabled={disabled}
+				onDropdownOpen={() => setIsFocused(true)}
+				onDropdownClose={() => setIsFocused(false)}
 			/>
 			{/* Основной лейбл */}
-			{label && <label className='select-label'>{label}</label>}
+			{label && (
+				<label
+					className={classNames('select-label', {
+						'select-label--focused': isFocused || values.length > 0,
+					})}
+				>
+					{label}
+				</label>
+			)}
 			{/* Иконка замочка */}
 			{disabled && <Icon iconId='lock' className='select__icon_lock' />}
 		</div>

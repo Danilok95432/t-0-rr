@@ -6,7 +6,14 @@
 		color: var(--text-02);
 		position: absolute;
 		top: 12px;
-		left: 8px;
+		left: 5px;
+		pointer-events: none;
+		background: transparent;
+		padding: 0 4px;
+
+		&--focused {
+			top: 3px;
+		}
 	}
 
 	.select {
