@@ -17,3 +17,4 @@ export const useModal = () => {
 
 	return { isOpenModal, buttonId, handleOpenModal, handleCloseModal }
 }
+

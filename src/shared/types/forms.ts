@@ -14,6 +14,7 @@ export type TFormNewOperation = {
 	employeesComment: string
 	case: string
 	direction: string
+	typeExpense: string
 	article: string
 	payer: string
 }

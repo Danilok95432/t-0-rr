@@ -48,7 +48,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={dateOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Диапазон дат'
 							placeholder='От и до'
 							onChange={field.onChange}
@@ -62,7 +62,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={organizationOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Организации'
 							onChange={field.onChange}
 						/>
@@ -75,7 +75,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={organizationOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Счета организаций'
 							onChange={field.onChange}
 						/>
@@ -88,7 +88,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={counterpartiesOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Контрагент'
 							onChange={field.onChange}
 						/>
@@ -101,7 +101,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={directionsOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Направления'
 							onChange={field.onChange}
 						/>
@@ -114,7 +114,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={articleOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Статья и подстатья'
 							onChange={field.onChange}
 						/>
@@ -129,7 +129,7 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={articleOptions}
-							values={field.value ? [{ value: field.value }] : []}
+							values={field.value ? [{ value: field.value, label: field.value }] : []}
 							label='Кейс и сделка'
 							onChange={field.onChange}
 						/>

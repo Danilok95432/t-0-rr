@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import classNames from 'classnames'
 import { TFormNewOperation } from '@/shared/types/forms'
@@ -13,12 +13,14 @@ import { TextArea } from '@/shared/ui/TextArea'
 import { Button } from '@/shared/ui/Button'
 import { Badge } from '@/shared/ui/Badge'
 
-import { addOperation } from '@/mock/addOperation'
+import { accounts, counterparties, organizations } from '@/mock/addOperation'
 
 import styles from './new-operation.module.scss'
 
 export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 	const { handleCloseModal } = useModal()
+	const [selectedDirection, setSelectedDirection] = useState<string>('')
+
 	const { control, handleSubmit, reset } = useForm<TFormNewOperation>({
 		defaultValues: {
 			organization: '',
@@ -32,6 +34,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 			employeesComment: '',
 			case: '',
 			direction: '',
+			typeExpense: '',
 			article: '',
 			payer: '',
 		},
@@ -41,6 +44,10 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 		console.log(data)
 		handleCloseModal()
 		reset()
+	}
+
+	const handleDirectionChange = (value: string) => {
+		setSelectedDirection(value)
 	}
 
 	return (
@@ -54,8 +61,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={organizations}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Организация'
 								onChange={field.onChange}
 								className={styles['main-info-select']}
@@ -68,8 +75,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={accounts}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Счет организации'
 								onChange={field.onChange}
 								className={styles['main-info-select']}
@@ -84,8 +91,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={counterparties}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Контрагент'
 								onChange={field.onChange}
 								className={styles.addOperation__select}
@@ -99,8 +106,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={accounts}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Счет контрагента'
 								onChange={field.onChange}
 								className={styles.addOperation__select}
@@ -192,8 +199,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={[]}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Кейс / сделка'
 								onChange={field.onChange}
 								className={styles['main-info-select']}
@@ -206,22 +213,48 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={[
+									{ value: 'income', label: 'ПРИХОД' },
+									{ value: 'expense', label: 'РАСХОД' },
+								]}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Направление операции'
-								onChange={field.onChange}
+								onChange={(values) => {
+									const value = values[0]?.value || ''
+									field.onChange(value)
+									handleDirectionChange(value)
+								}}
 								className={styles['main-info-select']}
 							/>
 						)}
 					/>
+
+					{selectedDirection === 'expense' && (
+						<Controller
+							name='typeExpense'
+							control={control}
+							render={({ field }) => (
+								<SelectC
+									options={[
+										{ value: 'direct', label: 'Прямые' },
+										{ value: 'indirect ', label: 'Косвенные' },
+									]}
+									values={field.value ? [{ value: field.value, label: field.value }] : []}
+									label='Тип расходов'
+									onChange={field.onChange}
+									className={styles['main-info-select']}
+								/>
+							)}
+						/>
+					)}
 
 					<Controller
 						name='article'
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={[]}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Статья / подстатья'
 								onChange={field.onChange}
 								className={styles['main-info-select']}
@@ -234,8 +267,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								options={addOperation}
-								values={field.value ? [{ value: field.value }] : []}
+								options={[]}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								label='Расходы на операцию несет'
 								onChange={field.onChange}
 								className={styles['main-info-select']}

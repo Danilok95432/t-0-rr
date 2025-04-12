@@ -50,6 +50,7 @@ export const Modal: FC<IModalProps> = ({ title, children, className }) => {
 			className={classNames(styles.overlay, { [styles.visible]: isOpenModal })}
 		>
 			<motion.div
+				role='dialog'
 				variants={fadeIn}
 				initial='hidden'
 				animate='visible'

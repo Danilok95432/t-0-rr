@@ -1,7 +1,7 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 import classNames from 'classnames'
 import Select from 'react-dropdown-select'
-import { ISelectCProps } from '../types'
+import { ISelectCProps, TSelectOption } from '../types'
 
 import { Icon } from '@/shared/ui/Icon'
 
@@ -20,12 +20,24 @@ export const SelectC: FC<ISelectCProps> = (props) => {
 	} = props
 	const [isFocused, setIsFocused] = useState(false)
 
+	const handleChange = useCallback(
+		/* если новое значение пустое и старое значение пустое, то ничего не делаем */
+		(newValues: TSelectOption[]) => {
+			if (newValues.length === 0 && values.length === 0) {
+				return
+			}
+
+			onChange(newValues)
+		},
+		[onChange, values]
+	)
+
 	return (
 		<div className={classNames('select-wrapper', className)}>
 			<Select
 				values={values}
 				options={options}
-				onChange={onChange}
+				onChange={handleChange}
 				className='select'
 				placeholder={placeholder}
 				searchable={searchable}

@@ -27,7 +27,9 @@ export const operationsDef: ColDef<IOperationsData>[] = [
 		field: 'nameOperation',
 		headerName: 'Наименование операции',
 		cellRenderer: memo(CellModalButton),
+		minWidth: 200,
 		flex: 1,
+		autoHeight: false,
 		tooltipField: 'nameOperation',
 	},
 	{
@@ -45,3 +47,4 @@ export const operationsDef: ColDef<IOperationsData>[] = [
 		maxWidth: 130,
 	},
 ]
+

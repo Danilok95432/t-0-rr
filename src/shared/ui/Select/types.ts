@@ -1,5 +1,6 @@
 export type TSelectOption = {
 	value: string
+	label: string
 }
 
 export interface ISelectCProps {
