@@ -17,7 +17,7 @@ export const ListLayout: FC<IListLayoutProps> = ({ title, totalInfoData, childre
 
 				<Input
 					id='operations-search'
-					placeholder='Искать по наименованию..'
+					label='Искать по наименованию...'
 					hasIconSearch
 					hasResetIcon
 					className={styles.input}

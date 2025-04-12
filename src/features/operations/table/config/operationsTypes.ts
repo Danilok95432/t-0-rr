@@ -5,8 +5,14 @@ export interface IOperationsData {
 	organization: string
 	counterparty: string
 	nameOperation: string
-	caseAndDeal: string
-	article: string
+	caseAndDeal: {
+		case: string
+		deal: string
+	}
+	article: {
+		article: string
+		subArticle: string
+	}
 	amount: {
 		status: string
 		value: string

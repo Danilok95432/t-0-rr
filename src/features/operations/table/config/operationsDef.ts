@@ -6,6 +6,8 @@ import { CellIcon } from '../cells/CellIcon'
 import { CellIconHeader } from '../cells/CellIconHeader'
 import { CellModalButton } from '../cells/cellModalButton/CellModalButton'
 import { CellBadge } from '../cells/cellBadge/CellBadge'
+import { CellCase } from '../cells/cellCase/CellCase'
+import { CellArticle } from '../cells/cellArticle/CellArticle'
 
 export const operationsDef: ColDef<IOperationsData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
@@ -28,8 +30,12 @@ export const operationsDef: ColDef<IOperationsData>[] = [
 		flex: 1,
 		tooltipField: 'nameOperation',
 	},
-	{ field: 'caseAndDeal', headerName: 'Кейс и сделка', tooltipField: 'caseAndDeal' },
-	{ field: 'article', headerName: 'Статья и подстатья' },
+	{
+		field: 'caseAndDeal',
+		headerName: 'Кейс и сделка',
+		cellRenderer: memo(CellCase),
+	},
+	{ field: 'article', headerName: 'Статья и подстатья', cellRenderer: CellArticle },
 	{
 		field: 'amount',
 		headerName: 'Сумма',

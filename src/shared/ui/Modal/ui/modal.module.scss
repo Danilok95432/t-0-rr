@@ -22,6 +22,10 @@
 	border-radius: 5px;
 	max-height: 85vh;
 	overflow: auto;
+
+	&::-webkit-scrollbar {
+		width: var(--scrollbarWidth);
+	}
 }
 
 .title {
