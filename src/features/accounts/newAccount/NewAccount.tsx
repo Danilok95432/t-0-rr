@@ -82,7 +82,7 @@ export const NewAccount: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Тип счёта'
 								onChange={field.onChange}

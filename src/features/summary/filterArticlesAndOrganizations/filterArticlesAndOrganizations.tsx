@@ -36,7 +36,7 @@ export const FilterArticlesAndOrganizations = () => {
 				render={({ field }) => (
 					<SelectC
 						options={[]}
-						values={field.value ? [{ value: field.value }] : []}
+						values={field.value ? [{ value: field.value, label: field.value }] : []}
 						label='Диапазон дат одной колонки'
 						placeholder='От и до'
 						onChange={field.onChange}
@@ -50,7 +50,7 @@ export const FilterArticlesAndOrganizations = () => {
 				render={({ field }) => (
 					<SelectC
 						options={[]}
-						values={field.value ? [{ value: field.value }] : []}
+						values={field.value ? [{ value: field.value, label: field.value }] : []}
 						label='Организации'
 						onChange={field.onChange}
 					/>
@@ -63,7 +63,7 @@ export const FilterArticlesAndOrganizations = () => {
 				render={({ field }) => (
 					<SelectC
 						options={[]}
-						values={field.value ? [{ value: field.value }] : []}
+						values={field.value ? [{ value: field.value, label: field.value }] : []}
 						label='Кейсы'
 						onChange={field.onChange}
 					/>
@@ -76,7 +76,7 @@ export const FilterArticlesAndOrganizations = () => {
 				render={({ field }) => (
 					<SelectC
 						options={[]}
-						values={field.value ? [{ value: field.value }] : []}
+						values={field.value ? [{ value: field.value, label: field.value }] : []}
 						label='Контрагент'
 						onChange={field.onChange}
 					/>

@@ -69,7 +69,7 @@ export const NewTransaction: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Кейс'
 								onChange={field.onChange}
@@ -84,7 +84,7 @@ export const NewTransaction: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Организация с нашей стороны'
 								onChange={field.onChange}
@@ -97,7 +97,7 @@ export const NewTransaction: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Контрагент'
 								onChange={field.onChange}

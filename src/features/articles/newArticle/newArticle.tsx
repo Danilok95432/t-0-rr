@@ -51,7 +51,7 @@ export const NewArticle: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Родительская статья'
 								onChange={field.onChange}
@@ -79,7 +79,7 @@ export const NewArticle: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Направление статьи'
 								onChange={field.onChange}
@@ -92,7 +92,7 @@ export const NewArticle: FC<IFormProps> = () => {
 						control={control}
 						render={({ field }) => (
 							<SelectC
-								values={field.value ? [{ value: field.value }] : []}
+								values={field.value ? [{ value: field.value, label: field.value }] : []}
 								options={[]}
 								label='Тип расходов'
 								onChange={field.onChange}
