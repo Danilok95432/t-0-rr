@@ -28,9 +28,12 @@ export const FilterCaseAndDeals = () => {
 				render={({ field }) => (
 					<SelectC
 						options={[]}
-						values={field.value ? [{ value: field.value, label: field.value }] : []}
+						values={
+							field.value
+								? [{ value: field.value, label: field.value }]
+								: [{ value: '', label: 'От и до' }]
+						}
 						label='Диапазон дат одной колонки'
-						placeholder='От и до'
 						onChange={field.onChange}
 					/>
 				)}

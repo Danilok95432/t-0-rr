@@ -37,7 +37,17 @@ export const operationsDef: ColDef<IOperationsData>[] = [
 		headerName: 'Кейс и сделка',
 		cellRenderer: memo(CellCase),
 	},
-	{ field: 'article', headerName: 'Статья и подстатья', cellRenderer: CellArticle },
+	{
+		field: 'article',
+		headerName: 'Статья и подстатья',
+		cellRenderer: CellArticle,
+		// filter: true,
+		// valueGetter: (params) => params.data?.article,
+		// filterValueGetter: (value) => value.data?.article.article,
+		// filterParams: {
+		// 	buttons: ['reset'],
+		// },
+	},
 	{
 		field: 'amount',
 		headerName: 'Сумма',

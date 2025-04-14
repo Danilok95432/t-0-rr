@@ -35,8 +35,8 @@ export const FilterOperations = () => {
 
 	const onSubmit: SubmitHandler<TFormFilterOperationsMenu> = (data) => {
 		console.log(data)
-		reset()
 		handleCloseFilterMenu()
+		reset()
 	}
 
 	return (
@@ -48,10 +48,14 @@ export const FilterOperations = () => {
 					render={({ field }) => (
 						<SelectC
 							options={dateOptions}
-							values={field.value ? [{ value: field.value, label: field.value }] : []}
+							values={
+								field.value
+									? [{ value: field.value, label: field.value }]
+									: [{ value: '', label: 'От и до' }]
+							}
 							label='Диапазон дат'
-							placeholder='От и до'
 							onChange={field.onChange}
+							className={styles.dateSelect}
 						/>
 					)}
 				/>

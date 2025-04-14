@@ -1,6 +1,7 @@
 import { FC, useMemo, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { ColDef, DataTypeDefinition, RowSelectionOptions, type Theme } from 'ag-grid-community'
+import { AG_GRID_LOCALE_RU } from '@/shared/utils/ag-grid-locale'
 import { TGridTableData } from '../types'
 import { customTheme } from '../config/tableTheme'
 
@@ -16,6 +17,7 @@ export const GridTable: FC<TGridTableData> = ({
 	const theme = useMemo<Theme | 'legacy'>(() => {
 		return customTheme
 	}, [])
+	const localeText = AG_GRID_LOCALE_RU
 
 	const rowSelection = useMemo<RowSelectionOptions | 'single' | 'multiple'>(() => {
 		return {
@@ -57,6 +59,7 @@ export const GridTable: FC<TGridTableData> = ({
 				quickFilterText={quickFilterText}
 				cacheQuickFilter={true}
 				tooltipShowDelay={1000}
+				localeText={localeText}
 			/>
 		</>
 	)

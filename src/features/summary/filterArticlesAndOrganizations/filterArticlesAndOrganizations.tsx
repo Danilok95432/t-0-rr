@@ -8,6 +8,8 @@ import { Button } from '@/shared/ui/Button'
 import { CheckBox } from '@/shared/ui/CheckBox'
 
 import styles from './filtersArtAndOrg.module.scss'
+import { organizations } from '@/mock/addOperation'
+import { dateOptions } from '@/mock/selectOptionTest'
 
 export const FilterArticlesAndOrganizations = () => {
 	const { handleCloseFilterMenu } = useFiltersMenu()
@@ -24,8 +26,8 @@ export const FilterArticlesAndOrganizations = () => {
 
 	const onSubmit: SubmitHandler<TFormFilterArticlesAndOrganizations> = (data) => {
 		console.log(data)
-		reset()
 		handleCloseFilterMenu()
+		reset()
 	}
 
 	return (
@@ -35,10 +37,13 @@ export const FilterArticlesAndOrganizations = () => {
 				control={control}
 				render={({ field }) => (
 					<SelectC
-						options={[]}
-						values={field.value ? [{ value: field.value, label: field.value }] : []}
+						options={dateOptions}
+						values={
+							field.value
+								? [{ value: field.value, label: field.value }]
+								: [{ value: '', label: 'От и до' }]
+						}
 						label='Диапазон дат одной колонки'
-						placeholder='От и до'
 						onChange={field.onChange}
 					/>
 				)}
@@ -49,7 +54,7 @@ export const FilterArticlesAndOrganizations = () => {
 				control={control}
 				render={({ field }) => (
 					<SelectC
-						options={[]}
+						options={organizations}
 						values={field.value ? [{ value: field.value, label: field.value }] : []}
 						label='Организации'
 						onChange={field.onChange}
