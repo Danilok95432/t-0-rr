@@ -8,18 +8,26 @@ import { importsData } from '@/mock/imports-data'
 //
 
 const ImportsContent = () => {
-	const { value } = useQuickFilter()
+  const { value } = useQuickFilter()
 
-	return (
-		<ListLayout title='Импорты'>
-			<GridTable
-				columnDefinitions={importsDef}
-				rowData={importsData}
-				quickFilterText={value}
-				checkboxHidden={false}
-			/>
-		</ListLayout>
-	)
+  return (
+    <ListLayout
+      title='Импорты'
+      totalInfoData={[
+        {
+          name: 'Всего импортов',
+          value: '24',
+        },
+      ]}
+    >
+      <GridTable
+        columnDefinitions={importsDef}
+        rowData={importsData}
+        quickFilterText={value}
+        checkboxHidden={false}
+      />
+    </ListLayout>
+  )
 }
 
 export default ImportsContent

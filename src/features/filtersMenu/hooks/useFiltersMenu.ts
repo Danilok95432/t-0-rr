@@ -1,18 +1,27 @@
+import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks/useRedux'
 import { closeFiltersMenu, openFiltersMenu } from '@/features/filtersMenu/store/filtersMenuSlice'
 
 export const useFiltersMenu = () => {
-	const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-	const { isOpenFiltersMenu } = useAppSelector((state) => state.filterMenu)
+  const { isOpenFiltersMenu } = useAppSelector((state) => state.filterMenu)
 
-	const handleOpenFilterMenu = () => {
-		dispatch(openFiltersMenu())
-	}
+  const handleOpenFilterMenu = () => {
+    dispatch(openFiltersMenu())
+  }
 
-	const handleCloseFilterMenu = () => {
-		dispatch(closeFiltersMenu())
-	}
+  const handleCloseFilterMenu = useCallback(() => {
+    dispatch(closeFiltersMenu())
+  }, [dispatch])
 
-	return { isOpenFiltersMenu, handleOpenFilterMenu, handleCloseFilterMenu }
+  useEffect(() => {
+    return () => {
+      if (isOpenFiltersMenu) {
+        handleCloseFilterMenu()
+      }
+    }
+  }, [isOpenFiltersMenu, handleCloseFilterMenu])
+
+  return { isOpenFiltersMenu, handleOpenFilterMenu, handleCloseFilterMenu }
 }

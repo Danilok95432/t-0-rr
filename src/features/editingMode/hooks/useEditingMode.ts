@@ -1,21 +1,30 @@
+import { useEffect, useCallback } from 'react'
 import {
-	activeEditingMode,
-	deactivateEditingMode,
+  activeEditingMode,
+  deactivateEditingMode,
 } from '@/features/editingMode/store/editingModeSlice'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks/useRedux'
 
 export const useEditingMode = () => {
-	const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-	const { isEditingModeActive } = useAppSelector((state) => state.editingMode)
+  const { isEditingModeActive } = useAppSelector((state) => state.editingMode)
 
-	const handleActiveEditingMode = () => {
-		dispatch(activeEditingMode())
-	}
+  const handleActiveEditingMode = () => {
+    dispatch(activeEditingMode())
+  }
 
-	const handleDeactivateEditingMode = () => {
-		dispatch(deactivateEditingMode())
-	}
+  const handleDeactivateEditingMode = useCallback(() => {
+    dispatch(deactivateEditingMode())
+  }, [dispatch])
 
-	return { isEditingModeActive, handleActiveEditingMode, handleDeactivateEditingMode }
+  useEffect(() => {
+    return () => {
+      if (isEditingModeActive) {
+        handleDeactivateEditingMode()
+      }
+    }
+  }, [isEditingModeActive, handleDeactivateEditingMode])
+
+  return { isEditingModeActive, handleActiveEditingMode, handleDeactivateEditingMode }
 }

@@ -8,27 +8,27 @@ import { Input } from '@/shared/ui/Input'
 import styles from './list-layout.module.scss'
 
 export const ListLayout: FC<IListLayoutProps> = ({ title, totalInfoData, children }) => {
-	const { value, handleChange } = useQuickFilter()
+  const { value, handleChange } = useQuickFilter()
 
-	return (
-		<section className={styles.section}>
-			<div className={styles.header}>
-				<h2 className={styles.title}>{title}</h2>
+  return (
+    <section className={styles.section}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{title}</h2>
 
-				<Input
-					id='operations-search'
-					label='Искать по наименованию...'
-					hasIconSearch
-					hasResetIcon
-					className={styles.input}
-					value={value}
-					onChange={handleChange}
-				/>
+        <Input
+          id='operations-search'
+          label='Искать...'
+          hasIconSearch
+          hasResetIcon
+          className={styles.input}
+          value={value}
+          onChange={handleChange}
+        />
 
-				{totalInfoData && <TotalInfo totalInfo={totalInfoData} />}
-			</div>
+        {totalInfoData && <TotalInfo totalInfo={totalInfoData} />}
+      </div>
 
-			<div className={styles.content}>{children}</div>
-		</section>
-	)
+      <div className={styles.content}>{children}</div>
+    </section>
+  )
 }

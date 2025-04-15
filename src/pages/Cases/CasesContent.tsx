@@ -16,27 +16,35 @@ import { casesData } from '@/mock/cases-data'
 //
 
 const CasesContent = () => {
-	const { buttonId } = useModal()
-	const { value } = useQuickFilter()
+  const { buttonId } = useModal()
+  const { value } = useQuickFilter()
 
-	return (
-		<ListLayout title='Кейсы' totalInfoData={[]}>
-			<GridTable
-				columnDefinitions={casesDef}
-				rowData={casesData}
-				quickFilterText={value}
-				checkboxHidden={false}
-			/>
+  return (
+    <ListLayout
+      title='Кейсы'
+      totalInfoData={[
+        {
+          name: 'Всего кейсов',
+          value: '24',
+        },
+      ]}
+    >
+      <GridTable
+        columnDefinitions={casesDef}
+        rowData={casesData}
+        quickFilterText={value}
+        checkboxHidden={false}
+      />
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'add' && (
-					<Modal title='Новый кейс' className={styles.modal_cases}>
-						<NewCase />
-					</Modal>
-				)}
-			</AnimatePresence>
-		</ListLayout>
-	)
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'add' && (
+          <Modal title='Новый кейс' className={styles.modal_cases}>
+            <NewCase />
+          </Modal>
+        )}
+      </AnimatePresence>
+    </ListLayout>
+  )
 }
 
 export default CasesContent

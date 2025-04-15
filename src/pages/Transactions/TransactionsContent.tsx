@@ -14,27 +14,35 @@ import { transactionsData } from '@/mock/transactions-data'
 //
 
 const TransactionsContent = () => {
-	const { buttonId } = useModal()
-	const { value } = useQuickFilter()
+  const { buttonId } = useModal()
+  const { value } = useQuickFilter()
 
-	return (
-		<ListLayout title='Сделки' totalInfoData={[]}>
-			<GridTable
-				columnDefinitions={transactionsDef}
-				rowData={transactionsData}
-				quickFilterText={value}
-				checkboxHidden={false}
-			/>
+  return (
+    <ListLayout
+      title='Сделки'
+      totalInfoData={[
+        {
+          name: 'Всего сделок',
+          value: '24',
+        },
+      ]}
+    >
+      <GridTable
+        columnDefinitions={transactionsDef}
+        rowData={transactionsData}
+        quickFilterText={value}
+        checkboxHidden={false}
+      />
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'add' && (
-					<Modal title='Новая сделка'>
-						<NewTransaction />
-					</Modal>
-				)}
-			</AnimatePresence>
-		</ListLayout>
-	)
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'add' && (
+          <Modal title='Новая сделка'>
+            <NewTransaction />
+          </Modal>
+        )}
+      </AnimatePresence>
+    </ListLayout>
+  )
 }
 
 export default TransactionsContent

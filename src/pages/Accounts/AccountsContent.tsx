@@ -12,27 +12,35 @@ import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 import { accountsData } from '@/mock/accounts-data'
 
 const AccountsContent = () => {
-	const { buttonId } = useModal()
-	const { value } = useQuickFilter()
+  const { buttonId } = useModal()
+  const { value } = useQuickFilter()
 
-	return (
-		<ListLayout title='Счета' totalInfoData={[]}>
-			<GridTable
-				columnDefinitions={accountsDef}
-				rowData={accountsData}
-				quickFilterText={value}
-				checkboxHidden={false}
-			/>
+  return (
+    <ListLayout
+      title='Счета'
+      totalInfoData={[
+        {
+          name: 'Всего счетов',
+          value: '24',
+        },
+      ]}
+    >
+      <GridTable
+        columnDefinitions={accountsDef}
+        rowData={accountsData}
+        quickFilterText={value}
+        checkboxHidden={false}
+      />
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'add' && (
-					<Modal title='Новый счёт'>
-						<NewAccount />
-					</Modal>
-				)}
-			</AnimatePresence>
-		</ListLayout>
-	)
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'add' && (
+          <Modal title='Новый счёт'>
+            <NewAccount />
+          </Modal>
+        )}
+      </AnimatePresence>
+    </ListLayout>
+  )
 }
 
 export default AccountsContent
