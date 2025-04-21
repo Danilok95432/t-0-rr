@@ -8,6 +8,7 @@ import { CellModalButton } from '../cells/cellModalButton/CellModalButton'
 import { CellBadge } from '../cells/cellBadge/CellBadge'
 import { CellCase } from '../cells/cellCase/CellCase'
 import { CellArticle } from '../cells/cellArticle/CellArticle'
+import { CellOrg } from '../cells/cellOrg/cellOrg'
 
 export const operationsDef: ColDef<IOperationsData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
@@ -21,7 +22,15 @@ export const operationsDef: ColDef<IOperationsData>[] = [
     maxWidth: 60,
     sortable: false,
   },
-  { field: 'organization', headerName: 'Организация и счет', tooltipField: 'organization' },
+  {
+    field: 'organization',
+    headerName: 'Организация и счет',
+    cellRenderer: CellOrg,
+    tooltipValueGetter: (params) => [
+      params.data?.organization.name,
+      params.data?.organization.account,
+    ],
+  },
   { field: 'counterparty', headerName: 'Контрагент', tooltipField: 'counterparty' },
   {
     field: 'nameOperation',
