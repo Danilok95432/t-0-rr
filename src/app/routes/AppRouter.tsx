@@ -23,39 +23,39 @@ import { ArticlesAndOrganizations } from '@/pages/ArticlesAndOrganizations/Artic
 import { CasesAndDeals } from '@/pages/CasesAndDeals/CasesAndDeals'
 
 export const AppRouter = () => {
-	return (
-		<Routes>
-			<Route path='/' element={<Content />}>
-				<Route path='/' element={<Navigate to={RoutesConst.OPERATIONS} replace />} />
-				<Route path={RoutesConst.OPERATIONS} element={<Operations />} />
-				{/*  */}
-				<Route path={RoutesConst.ORGANIZATIONS} element={<Organizations />} />
-				<Route path={`${RoutesConst.ORGANIZATION}/:id`} element={<Organization />} />
-				{/*  */}
-				<Route path={RoutesConst.COUNTERPARTIES} element={<Counterparties />} />
-				<Route path={`${RoutesConst.COUNTERPARTY}/:id`} element={<Counterparty />} />
-				{/*  */}
-				<Route path={RoutesConst.ACCOUNTS} element={<Accounts />} />
-				<Route path={`${RoutesConst.ACCOUNT}/:id`} element={<Account />} />
-				{/*  */}
-				<Route path={RoutesConst.ARTICLES} element={<Articles />} />
-				<Route path={`${RoutesConst.ARTICLE}/:id`} element={<Article />} />
-				{/*  */}
-				<Route path={RoutesConst.CASES} element={<Cases />} />
-				<Route path={`${RoutesConst.CASE}/:id`} element={<Case />} />
-				{/*  */}
-				<Route path={RoutesConst.TRANSACTIONS} element={<Transactions />} />
-				<Route path={`${RoutesConst.TRANSACTION}/:id`} element={<Transaction />} />
-				{/*  */}
-				<Route path={RoutesConst.IMPORTS} element={<Imports />} />
-				<Route path={`${RoutesConst.IMPORT}/:id`} element={<Import />} />
+  return (
+    <Routes>
+      <Route path='/' element={<Content />}>
+        <Route path='/' element={<Navigate to={RoutesConst.OPERATIONS} replace />} />
+        <Route path={RoutesConst.OPERATIONS} element={<Operations />} />
+        {/*  */}
+        <Route path={RoutesConst.ORGANIZATIONS} element={<Organizations />} />
+        <Route path={`${RoutesConst.ORGANIZATION}/:id`} element={<Organization />} />
+        {/*  */}
+        <Route path={RoutesConst.COUNTERPARTIES} element={<Counterparties />} />
+        <Route path={`${RoutesConst.COUNTERPARTY}/:id`} element={<Counterparty />} />
+        {/*  */}
+        <Route path={RoutesConst.ACCOUNTS} element={<Accounts />} />
+        <Route path={`${RoutesConst.ACCOUNT}/:id`} element={<Account />} />
+        {/*  */}
+        <Route path={RoutesConst.ARTICLES} element={<Articles />} />
+        <Route path={`${RoutesConst.ARTICLE}/:id`} element={<Article />} />
+        {/*  */}
+        <Route path={RoutesConst.CASES} element={<Cases />} />
+        <Route path={`${RoutesConst.CASE}/:id`} element={<Case />} />
+        {/*  */}
+        <Route path={RoutesConst.TRANSACTIONS} element={<Transactions />} />
+        <Route path={`${RoutesConst.TRANSACTION}/:id`} element={<Transaction />} />
+        {/*  */}
+        <Route path={RoutesConst.IMPORTS} element={<Imports />} />
+        <Route path={`${RoutesConst.IMPORT}/:id`} element={<Import />} />
 
-				<Route path={RoutesConst.SUMMARY} element={<SummaryCashFlow />}>
-					<Route index element={<ArticlesAndOrganizations />} />
-				</Route>
-				<Route path={`${RoutesConst.SUMMARY}/casesAndDeals`} element={<CasesAndDeals />} />
-			</Route>
-		</Routes>
-	)
+        <Route path={RoutesConst.SUMMARY} element={<SummaryCashFlow />}>
+          <Route index element={<ArticlesAndOrganizations />} />
+        </Route>
+        <Route path={`${RoutesConst.SUMMARY}/casesAndDeals`} element={<CasesAndDeals />} />
+      </Route>
+    </Routes>
+  )
 }
 
