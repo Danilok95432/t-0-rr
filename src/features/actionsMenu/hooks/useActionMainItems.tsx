@@ -1,7 +1,7 @@
-import { IActionItem } from '../types'
+import { useModal } from '@/features/modal/hooks/useModal'
 import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
 import { useFiltersMenu } from '@/features/filtersMenu/hooks/useFiltersMenu'
-import { useModal } from '@/features/modal/hooks/useModal'
+import { IActionItem } from '../types'
 
 const COMMON_PATHS = [
   'operations',
