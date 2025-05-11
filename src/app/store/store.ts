@@ -5,16 +5,19 @@ import { filtersMenuReducer } from '@/features/filtersMenu/store/filtersMenuSlic
 import { modalsReducer } from '@/features/modal/store/modalSlice'
 import { editingModeReducer } from '@/features/editingMode/store/editingModeSlice'
 import { quickFilterReducer } from '@/features/quickFilter/store/quickFilterSlice'
+import { authApi } from '@/shared/api/authApi'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    [authApi.reducerPath]: authApi.reducer,
     filterMenu: filtersMenuReducer,
     modal: modalsReducer,
     editingMode: editingModeReducer,
     quickFilter: quickFilterReducer,
   },
   devTools: true,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

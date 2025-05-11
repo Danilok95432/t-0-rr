@@ -8,7 +8,7 @@ interface AuthState extends AuthResponse {
 const initialState: AuthState = {
   isAuth: false,
   user: null,
-  accessToken: null,
+  token: null,
 }
 
 export const authSlice = createSlice({
@@ -16,17 +16,28 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<AuthResponse>) => {
-      state.accessToken = action.payload.accessToken
+      state.token = action.payload.token
       state.isAuth = true
       state.user = action.payload.user
+      localStorage.setItem('token', action.payload.token ?? '')
+      localStorage.setItem('user', JSON.stringify(action.payload.user ?? null))
     },
 
     logout: (state) => {
-      Object.assign(state, initialState)
+      state.isAuth = false
+      state.user = null
+      state.token = null
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    },
+
+    restoreAuth: (state, action: PayloadAction<AuthResponse>) => {
+      state.token = action.payload.token
+      state.isAuth = true
+      state.user = action.payload.user
     },
   },
 })
 
-export const { login, logout } = authSlice.actions
+export const { login, logout, restoreAuth } = authSlice.actions
 export const authReducer = authSlice.reducer
-

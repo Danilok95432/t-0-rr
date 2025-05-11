@@ -11,6 +11,27 @@
     0 25px 15px 0 rgba(0, 0, 0, 0.03);
 }
 
+.error_auth,
+.error_name,
+.error_pass {
+  position: absolute;
+  color: var(--negative);
+  left: 20px;
+}
+
+.error_auth {
+  font-size: 15px;
+  top: 58px;
+}
+
+.error_name {
+  top: 130px;
+}
+
+.error_pass {
+  bottom: 57px;
+}
+
 .button {
   padding-inline: 50px;
   align-self: center;

@@ -6,5 +6,5 @@ export type User = {
 
 export interface AuthResponse {
   user: null | User
-  accessToken: string | null
+  token: string | null
 }

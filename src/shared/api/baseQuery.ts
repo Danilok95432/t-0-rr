@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.accessToken
+    const token = (getState() as RootState).auth.token
 
     if (token) headers.set('Authorization', token)
 
@@ -46,15 +46,15 @@ export const baseQueryWithReauth: BaseQueryFn<
         )
 
         if (refreshResult.data) {
+          console.log('Токен успешно обновлён')
           const authResponse = refreshResult.data as AuthResponse
 
           api.dispatch(login(authResponse))
 
           result = await baseQuery(args, api, extraOptions)
         } else {
+          console.error('Ошибка обновления токена', refreshResult.error)
           api.dispatch(logout())
-
-          localStorage.removeItem('token')
         }
       } finally {
         release()
@@ -68,4 +68,3 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   return result
 }
-

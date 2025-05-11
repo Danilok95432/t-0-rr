@@ -20,62 +20,62 @@ import { operationsTotalInfo } from '@/mock/operations-total-info'
 import { operationsData } from '@/mock/operations-data'
 
 const OperationsContent = () => {
-	const { buttonId } = useModal()
-	const { value } = useQuickFilter()
+  const { buttonId } = useModal()
+  const { value } = useQuickFilter()
 
-	return (
-		<ListLayout title='Операции' totalInfoData={operationsTotalInfo}>
-			<FiltersMenu>
-				<FilterOperations />
-			</FiltersMenu>
+  return (
+    <ListLayout title='Операции' totalInfoData={operationsTotalInfo}>
+      <FiltersMenu>
+        <FilterOperations />
+      </FiltersMenu>
 
-			<GridTable
-				rowData={operationsData}
-				columnDefinitions={operationsDef}
-				quickFilterText={value}
-			/>
+      <GridTable
+        rowData={operationsData}
+        columnDefinitions={operationsDef}
+        quickFilterText={value}
+      />
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'add' && (
-					<Modal title='Новая операция'>
-						<NewOperation />
-					</Modal>
-				)}
-			</AnimatePresence>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'add' && (
+          <Modal title='Новая операция'>
+            <NewOperation />
+          </Modal>
+        )}
+      </AnimatePresence>
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'import' && (
-					<Modal title='Загрузка (импорт) операций'>
-						<UploadingOperations labelBadge='В этой форме производится массовая загрузка (импорт) операций из файла' />
-					</Modal>
-				)}
-			</AnimatePresence>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'import' && (
+          <Modal title='Загрузка (импорт) операций'>
+            <UploadingOperations labelBadge='В этой форме производится массовая загрузка (импорт) операций из файла' />
+          </Modal>
+        )}
+      </AnimatePresence>
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'unload' && (
-					<Modal title='Выгрузка (экспорт) операций'>
-						<UnloadingOperations labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список' />
-					</Modal>
-				)}
-			</AnimatePresence>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'unload' && (
+          <Modal title='Выгрузка (экспорт) операций'>
+            <UnloadingOperations labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список' />
+          </Modal>
+        )}
+      </AnimatePresence>
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId === 'settings' && (
-					<Modal title='Настройки списка операций'>
-						<SettingsListOperations />
-					</Modal>
-				)}
-			</AnimatePresence>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'settings' && (
+          <Modal title='Настройки списка операций'>
+            <SettingsListOperations />
+          </Modal>
+        )}
+      </AnimatePresence>
 
-			<AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-				{buttonId.split('-')[0] == 'processing' && (
-					<Modal title='Обработка операции'>
-						<ProcessingOperation />
-					</Modal>
-				)}
-			</AnimatePresence>
-		</ListLayout>
-	)
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId.split('-')[0] == 'processing' && (
+          <Modal title='Обработка операции'>
+            <ProcessingOperation />
+          </Modal>
+        )}
+      </AnimatePresence>
+    </ListLayout>
+  )
 }
 
 export default OperationsContent
