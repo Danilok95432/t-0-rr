@@ -80,7 +80,7 @@ export const AuthForm: FC<IFormProps> = () => {
           <Input
             id='password'
             label='Пароль'
-            // type='password'
+            type='password'
             hasResetIcon
             value={field.value}
             onChange={(text) => field.onChange(text)}

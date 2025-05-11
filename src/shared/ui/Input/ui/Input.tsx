@@ -14,6 +14,7 @@ export const Input: FC<IInputProps> = (props) => {
     value,
     placeholder,
     className,
+    type = 'text',
     hasIconSearch = false,
     hasResetIcon = true,
     label,
@@ -48,6 +49,7 @@ export const Input: FC<IInputProps> = (props) => {
         name={id}
         id={id}
         value={value}
+        type={type}
         className={classNames(styles.input, label ? styles['with-label'] : '')}
         placeholder={placeholder}
         onChange={handleChange}
