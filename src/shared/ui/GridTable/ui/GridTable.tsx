@@ -19,13 +19,13 @@ export const GridTable: FC<TGridTableData> = ({
   }, [])
   const localeText = AG_GRID_LOCALE_RU
 
-  // const rowSelection = useMemo<RowSelectionOptions | 'single' | 'multiple'>(() => {
-  //   return {
-  //     mode: 'multiRow',
-  //     headerCheckbox: checkboxHidden,
-  //     checkboxes: checkboxHidden,
-  //   }
-  // }, [])
+  const rowSelection = useMemo<RowSelectionOptions | 'single' | 'multiple'>(() => {
+    return {
+      mode: 'multiRow',
+      headerCheckbox: checkboxHidden,
+      checkboxes: checkboxHidden,
+    }
+  }, [checkboxHidden])
 
   const dataTypeDefinitions = useMemo<{
     [cellDataType: string]: DataTypeDefinition
@@ -54,13 +54,14 @@ export const GridTable: FC<TGridTableData> = ({
         columnDefs={columnDefinitions}
         defaultColDef={defaultColDef}
         dataTypeDefinitions={dataTypeDefinitions}
-        // rowSelection={rowSelection}
+        rowSelection={rowSelection}
         theme={theme}
         quickFilterText={quickFilterText}
         cacheQuickFilter={true}
         tooltipShowDelay={1000}
         tooltipHideDelay={2000}
         localeText={localeText}
+        loading={false}
       />
     </>
   )
