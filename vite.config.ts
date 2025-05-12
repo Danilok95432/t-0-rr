@@ -19,11 +19,10 @@ export default defineConfig({
   },
 
   build: {
-    chunkSizeWarningLimit: 1000, // Увеличиваем лимит предупреждения до 1000 КБ
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
-          // Разделяем основные библиотеки в отдельные чанки
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['motion', 'react-dropzone', 'react-dropdown-select'],
           'state-vendor': ['@reduxjs/toolkit', 'react-redux'],
