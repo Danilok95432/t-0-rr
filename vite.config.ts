@@ -53,5 +53,18 @@ export default defineConfig({
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    open: true,
+    cors: {
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    },
+    proxy: {
+      '/api': {
+        target: 'https://t0rrapi.npotau.ru',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 })

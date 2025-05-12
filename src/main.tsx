@@ -1,9 +1,8 @@
-import { StrictMode, lazy, Suspense } from 'react'
+import { StrictMode, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
-import { Loader } from './shared/ui/Loader'
 
 // Ленивая загрузка основного компонента приложения
 const App = lazy(() => import('@/app/App'))
@@ -24,9 +23,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <Suspense fallback={<Loader />}>
-          <App />
-        </Suspense>
+        <App />
       </Provider>
     </BrowserRouter>
   </StrictMode>
