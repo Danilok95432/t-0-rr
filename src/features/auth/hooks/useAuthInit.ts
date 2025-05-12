@@ -5,8 +5,8 @@ import { useCheckAuthQuery } from '@/shared/api/authApi'
 import { selectIsAuth } from '@/features/auth/store/authSelectors'
 
 export const useAuthInit = () => {
+  const [isInitialized, setIsInitialized] = useState(false)
   const dispatch = useAppDispatch()
-  const [init, setInit] = useState(false)
   const isAuth = useAppSelector(selectIsAuth)
 
   useEffect(() => {
@@ -14,13 +14,19 @@ export const useAuthInit = () => {
     const user = localStorage.getItem('user')
 
     if (token && user) {
-      dispatch(restoreAuth({ token, user: JSON.parse(user) }))
+      try {
+        const parsedUser = JSON.parse(user)
+        dispatch(restoreAuth({ token, user: parsedUser }))
+      } catch (error) {
+        console.error('Ошибка чтения  данных пользователя:', error)
+        dispatch(logout())
+      }
     }
 
-    setInit(true)
+    setIsInitialized(true)
   }, [dispatch])
 
-  const { data, isSuccess, isError } = useCheckAuthQuery(null, { skip: !init || !isAuth })
+  const { data, isSuccess, isError } = useCheckAuthQuery(null, { skip: !isInitialized || !isAuth })
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -29,9 +35,8 @@ export const useAuthInit = () => {
 
     if (isError) {
       dispatch(logout())
-      setInit(false)
     }
   }, [isSuccess, isError, data, dispatch])
 
-  return init
+  return isInitialized
 }
