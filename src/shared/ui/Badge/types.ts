@@ -1,5 +1,5 @@
 export interface IBadgeProps {
-	label?: string
-	mode?: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-	className?: string
+  label?: string | null
+  mode?: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
+  className?: string
 }

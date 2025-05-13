@@ -12,12 +12,15 @@ import { GridTable } from '@/shared/ui/GridTable'
 import styles from './cases.module.scss'
 
 //
-import { casesData } from '@/mock/cases-data'
+// import { casesData } from '@/mock/cases-data'
+import { useGetAllCasesQuery } from '@/features/cases/api/casesApi'
+import { Loader } from '@/shared/ui/Loader'
 //
 
 const CasesContent = () => {
   const { buttonId } = useModal()
   const { value } = useQuickFilter()
+  const { data: cases } = useGetAllCasesQuery()
 
   return (
     <ListLayout
@@ -25,16 +28,20 @@ const CasesContent = () => {
       totalInfoData={[
         {
           name: 'Всего кейсов',
-          value: '24',
+          value: `${cases?.length}`,
         },
       ]}
     >
-      <GridTable
-        columnDefinitions={casesDef}
-        rowData={casesData}
-        quickFilterText={value}
-        checkboxHidden={false}
-      />
+      {!cases ? (
+        <Loader />
+      ) : (
+        <GridTable
+          columnDefinitions={casesDef}
+          rowData={cases}
+          quickFilterText={value}
+          checkboxHidden={false}
+        />
+      )}
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {buttonId === 'add' && (

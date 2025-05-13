@@ -6,6 +6,7 @@ import { modalsReducer } from '@/features/modal/store/modalSlice'
 import { editingModeReducer } from '@/features/editingMode/store/editingModeSlice'
 import { quickFilterReducer } from '@/features/quickFilter/store/quickFilterSlice'
 import { authApi } from '@/shared/api/authApi'
+import { casesApi } from '@/features/cases/api/casesApi'
 
 export const store = configureStore({
   reducer: {
@@ -15,9 +16,11 @@ export const store = configureStore({
     modal: modalsReducer,
     editingMode: editingModeReducer,
     quickFilter: quickFilterReducer,
+    [casesApi.reducerPath]: casesApi.reducer,
   },
   devTools: true,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authApi.middleware, casesApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -1,11 +1,8 @@
-export interface ICasesData {
-	id: string
-	name: string
-	organizations: string[]
-	transactions: string
-	operations: string
-	balanceCase: {
-		status: string
-		value: string
-	}
+export interface CasesData {
+  id: string
+  name: string
+  orgs: [{ id: string; title: string }]
+  deals: number
+  operations: number
+  balance: string
 }
