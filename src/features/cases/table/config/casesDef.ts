@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-import { CasesData } from './casesTypes'
+import { ICasesData } from './casesTypes'
 
 import { CellLinkName } from '../cells/CellLinkName'
 import { CellLinkOrganizations } from '../cells/CellLinkOrganizations'
 import { CellBadge } from '../cells/cellBadge/CellBadge'
 
-export const casesDef: ColDef<CasesData>[] = [
+export const casesDef: ColDef<ICasesData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
   {
     field: 'name',

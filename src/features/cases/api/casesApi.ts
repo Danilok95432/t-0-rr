@@ -1,17 +1,17 @@
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { CasesData } from '../table/config/casesTypes'
+import { ICasesData } from '../table/config/casesTypes'
 
 export const casesApi = createApi({
   reducerPath: 'casesApi',
   tagTypes: ['Cases'],
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-    getAllCases: build.query<CasesData[], void>({
+    getAllCases: build.query<ICasesData[], void>({
       query: () => ({
         url: '/cases/list',
       }),
-      transformResponse: (response: { cases: CasesData[] }) => response.cases,
+      transformResponse: (response: { cases: ICasesData[] }) => response.cases,
       providesTags: ['Cases'],
     }),
   }),

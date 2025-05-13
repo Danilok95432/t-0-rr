@@ -1,8 +1,8 @@
 import { CustomCellRendererProps } from 'ag-grid-react'
-import { CasesData } from '../config/casesTypes'
+import { ICasesData } from '../config/casesTypes'
 
 interface ICellLinkOrganizationsParams extends CustomCellRendererProps {
-  data: CasesData
+  data: ICasesData
 }
 
 export const CellLinkOrganizations = ({ data }: ICellLinkOrganizationsParams) => {

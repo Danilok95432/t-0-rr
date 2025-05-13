@@ -1,4 +1,4 @@
-export interface CasesData {
+export interface ICasesData {
   id: string
   name: string
   orgs: [{ id: string; title: string }]
