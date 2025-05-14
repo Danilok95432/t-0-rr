@@ -8,6 +8,8 @@ import { quickFilterReducer } from '@/features/quickFilter/store/quickFilterSlic
 import { authApi } from '@/shared/api/authApi'
 import { casesApi } from '@/features/cases/api/casesApi'
 import { dealsApi } from '@/features/deals/api/dealsApi'
+import { organizationsApi } from '@/features/organizations/api/organizationsApi'
+import { counterpartiesApi } from '@/features/counterparties/api/counterpartiesApi'
 
 export const store = configureStore({
   reducer: {
@@ -17,12 +19,20 @@ export const store = configureStore({
     modal: modalsReducer,
     editingMode: editingModeReducer,
     quickFilter: quickFilterReducer,
+    [organizationsApi.reducerPath]: organizationsApi.reducer,
+    [counterpartiesApi.reducerPath]: counterpartiesApi.reducer,
     [casesApi.reducerPath]: casesApi.reducer,
     [dealsApi.reducerPath]: dealsApi.reducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, casesApi.middleware, dealsApi.middleware),
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      casesApi.middleware,
+      dealsApi.middleware,
+      organizationsApi.middleware,
+      counterpartiesApi.middleware
+    ),
 })
 
 export type RootState = ReturnType<typeof store.getState>

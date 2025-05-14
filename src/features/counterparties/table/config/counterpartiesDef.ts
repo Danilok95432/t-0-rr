@@ -14,6 +14,7 @@ export const counterpartiesDef: ColDef<ICounterpartiesData>[] = [
     headerName: 'Краткое название контрагента',
     cellRenderer: memo(CellLinkShortName),
     flex: 1,
+    tooltipField: 'shortName',
   },
   {
     field: 'fullName',
@@ -28,7 +29,6 @@ export const counterpartiesDef: ColDef<ICounterpartiesData>[] = [
     field: 'accounts',
     headerName: 'Счета контрагента',
     cellRenderer: memo(CellLinkAccounts),
-    valueFormatter: (params) => (!params.value.length ? 0 : params.value),
     flex: 2,
   },
   {
