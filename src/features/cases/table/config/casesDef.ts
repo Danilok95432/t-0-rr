@@ -9,11 +9,11 @@ import { CellBadge } from '../cells/cellBadge/CellBadge'
 export const casesDef: ColDef<ICasesData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
   {
-    field: 'name',
+    field: 'title',
     headerName: 'Название кейса',
     cellRenderer: memo(CellLinkName),
     flex: 2,
-    tooltipField: 'name',
+    tooltipField: 'title',
   },
   {
     field: 'orgs',

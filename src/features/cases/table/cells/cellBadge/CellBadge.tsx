@@ -8,13 +8,14 @@ interface ICellBadgeParams extends CustomCellRendererProps {
 }
 
 export const CellBadge = ({ value }: ICellBadgeParams) => {
+  const firstChar = value?.slice(0, 1)
+
   const mode = (value: string) => {
-    if (Number(value) > 0) return 'positive'
-    if (Number(value) < 0) return 'negative'
-    if (Number(value) === 0) return 'default'
-    return 'neutral'
+    if (value === '-') return 'negative'
+    if (value === '0') return 'default'
+    return 'positive'
   }
 
   if (value === null) return null
-  return <Badge label={value} mode={mode(value)} className='customBadgeCell' />
+  return <Badge label={value} mode={mode(firstChar || '')} className='customBadgeCell' />
 }
