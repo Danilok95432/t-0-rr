@@ -134,7 +134,7 @@ export type TFormNewCase = {
   name: string
 }
 
-export type TFormNewTransaction = {
+export type TFormNewDeals = {
   shortName: string
   fullName: string
   case: string

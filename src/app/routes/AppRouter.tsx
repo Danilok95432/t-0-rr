@@ -16,8 +16,8 @@ import { Articles } from '@/pages/Articles/Articles'
 import { Article } from '@/pages/Article/Article'
 import { Cases } from '@/pages/Cases/Cases'
 import { Case } from '@/pages/Case/Case'
-import { Transactions } from '@/pages/Transactions/Transactions'
-import { Transaction } from '@/pages/Transaction/Transaction'
+import { Deals } from '@/pages/Deals/Deals'
+import { Deal } from '@/pages/Deal/Deal'
 import { Imports } from '@/pages/Imports/Imports'
 import { Import } from '@/pages/Import/Import'
 import { SummaryCashFlow } from '@/pages/SummaryCashFlow/SummaryCashFlow'
@@ -49,8 +49,8 @@ export const AppRouter = () => {
           <Route path={RoutesConst.CASES} element={<Cases />} />
           <Route path={`${RoutesConst.CASE}/:id`} element={<Case />} />
           {/*  */}
-          <Route path={RoutesConst.TRANSACTIONS} element={<Transactions />} />
-          <Route path={`${RoutesConst.TRANSACTION}/:id`} element={<Transaction />} />
+          <Route path={RoutesConst.DEALS} element={<Deals />} />
+          <Route path={`${RoutesConst.DEAL}/:id`} element={<Deal />} />
           {/*  */}
           <Route path={RoutesConst.IMPORTS} element={<Imports />} />
           <Route path={`${RoutesConst.IMPORT}/:id`} element={<Import />} />

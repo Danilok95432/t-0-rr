@@ -1,0 +1,25 @@
+.dealData {
+  .title {
+    margin-bottom: 12px;
+  }
+
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(350px, 884px) repeat(2, 431px);
+    gap: 10px 22px;
+  }
+
+  &_textArea {
+    grid-row: 2 / 4;
+  }
+
+  .button_wrapper {
+    column-gap: 12px;
+    margin-top: 14px;
+    display: none;
+
+    &.isVisible {
+      display: flex;
+    }
+  }
+}

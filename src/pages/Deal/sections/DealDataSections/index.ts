@@ -1,0 +1,1 @@
+export { DealData } from './DealData'

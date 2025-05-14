@@ -1,21 +1,25 @@
 import { AnimatePresence } from 'motion/react'
 
 import { useModal } from '@/features/modal/hooks/useModal'
-import { NewTransaction } from '@/features/transactions/newTransaction'
-import { transactionsDef } from '@/features/transactions/table/config/transactionsDef'
+import { NewDeals } from '@/features/deals/newDeals'
+import { dealsDef } from '@/features/deals/table/config/dealsDef'
 import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
+import { useGetAllDealsQuery } from '@/features/deals/api/dealsApi'
+import { mapDeals } from '@/features/deals/lib/mapDeals'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
+import { Loader } from '@/shared/ui/Loader'
 
-//
-import { transactionsData } from '@/mock/transactions-data'
-//
+// import { transactionsData } from '@/mock/transactions-data'
 
 const TransactionsContent = () => {
   const { buttonId } = useModal()
   const { value } = useQuickFilter()
+  const { data } = useGetAllDealsQuery()
+
+  const deals = data?.map((deal) => mapDeals(deal))
 
   return (
     <ListLayout
@@ -23,21 +27,25 @@ const TransactionsContent = () => {
       totalInfoData={[
         {
           name: 'Всего сделок',
-          value: '24',
+          value: `${deals?.length}`,
         },
       ]}
     >
-      <GridTable
-        columnDefinitions={transactionsDef}
-        rowData={transactionsData}
-        quickFilterText={value}
-        checkboxHidden={false}
-      />
+      {!deals ? (
+        <Loader />
+      ) : (
+        <GridTable
+          columnDefinitions={dealsDef}
+          rowData={deals}
+          quickFilterText={value}
+          checkboxHidden={false}
+        />
+      )}
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {buttonId === 'add' && (
           <Modal title='Новая сделка'>
-            <NewTransaction />
+            <NewDeals />
           </Modal>
         )}
       </AnimatePresence>
