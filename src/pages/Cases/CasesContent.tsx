@@ -31,7 +31,7 @@ const CasesContent = () => {
       totalInfoData={[
         {
           name: 'Всего кейсов',
-          value: `${cases?.length}`,
+          value: !cases ? 'Загрузка...' : `${cases?.length}`,
         },
       ]}
     >

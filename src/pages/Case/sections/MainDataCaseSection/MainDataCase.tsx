@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useCallback, useEffect } from 'react'
 import classNames from 'classnames'
 import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
@@ -7,7 +8,6 @@ import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 
 import styles from './mainDataCase.module.scss'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { TFormEditCase } from '@/shared/types/forms'
 import { useEditCaseMutation } from '@/features/cases/api/casesApi'
 import { zodResolver } from '@hookform/resolvers/zod'
