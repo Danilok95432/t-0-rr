@@ -9,7 +9,7 @@ import { authApi } from '@/shared/api/authApi'
 import { casesApi } from '@/features/cases/api/casesApi'
 import { dealsApi } from '@/features/deals/api/dealsApi'
 import { organizationsApi } from '@/features/organizations/api/organizationsApi'
-import { counterpartiesApi } from '@/features/counterparties/api/counterpartiesApi'
+import { contragentsApi } from '@/features/contragents/api/contragentsApi'
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +20,7 @@ export const store = configureStore({
     editingMode: editingModeReducer,
     quickFilter: quickFilterReducer,
     [organizationsApi.reducerPath]: organizationsApi.reducer,
-    [counterpartiesApi.reducerPath]: counterpartiesApi.reducer,
+    [contragentsApi.reducerPath]: contragentsApi.reducer,
     [casesApi.reducerPath]: casesApi.reducer,
     [dealsApi.reducerPath]: dealsApi.reducer,
   },
@@ -31,7 +31,7 @@ export const store = configureStore({
       casesApi.middleware,
       dealsApi.middleware,
       organizationsApi.middleware,
-      counterpartiesApi.middleware
+      contragentsApi.middleware
     ),
 })
 

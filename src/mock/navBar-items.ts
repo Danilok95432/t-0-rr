@@ -10,9 +10,9 @@ export const navBarItems = [
     href: 'organizations',
   },
   {
-    id: 'counterparties',
+    id: 'contragents',
     title: 'Контрагенты',
-    href: 'counterparties',
+    href: 'contragents',
   },
   {
     id: 'accounts',

@@ -1,0 +1,1 @@
+export { NewContragent } from './NewContragent'

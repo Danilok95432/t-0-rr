@@ -1,8 +1,8 @@
 import { CustomCellRendererProps } from 'ag-grid-react'
-import { ICounterpartiesData } from '../config/counterpartiesTypes'
+import { IContragentsData } from '../config/contragentsTypes'
 
 interface ICellLinkAccountsParams extends CustomCellRendererProps {
-  data: ICounterpartiesData
+  data: IContragentsData
 }
 
 export const CellLinkAccounts = ({ data }: ICellLinkAccountsParams) => {

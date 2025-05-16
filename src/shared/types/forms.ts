@@ -105,7 +105,7 @@ export type TFormNewOrganization = {
   employeesComment: string
 }
 
-export type TFormNewCounterparty = {
+export type TFormNewContragent = {
   name: string
   inn: string
   fullName: string
@@ -134,12 +134,16 @@ export type TFormNewCase = {
   name: string
 }
 
+export type TFormEditCase = {
+  caseName: string
+}
+
 export type TFormNewDeals = {
   shortName: string
   fullName: string
   case: string
   ourOrganization: string
-  counterparty: string
+  contragent: string
   nameAgreement: string
   dateAgreement: Date | null
   planTransaction: string

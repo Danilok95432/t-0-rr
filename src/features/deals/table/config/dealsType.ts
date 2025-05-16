@@ -16,7 +16,7 @@ export interface IDealsData {
   shortName: string
   fullName: string
   organization: string
-  counterparty: string
+  contragent: string
   date: string
   amount: string
   paid: string

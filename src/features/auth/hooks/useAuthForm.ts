@@ -1,12 +1,12 @@
-import { useAppDispatch } from '@/app/store/hooks/useRedux'
-import { useLoginMutation } from '@/shared/api/authApi'
-import { TFormAuth } from '@/shared/types/forms'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
-import { AuthSchema } from '../authForm/authSchema'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { login } from '../store/authSlice'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AuthSchema } from '../authForm/authSchema'
+import { useAppDispatch } from '@/app/store/hooks/useRedux'
+import { TFormAuth } from '@/shared/types/forms'
+import { useLoginMutation } from '@/shared/api/authApi'
 
 export const useAuthForm = () => {
   const [loginMutation, { isLoading }] = useLoginMutation()

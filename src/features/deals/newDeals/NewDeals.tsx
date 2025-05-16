@@ -21,7 +21,7 @@ export const NewDeals: FC<IFormProps> = () => {
       fullName: '',
       case: '',
       ourOrganization: '',
-      counterparty: '',
+      contragent: '',
       nameAgreement: '',
       dateAgreement: null,
       planTransaction: '',
@@ -94,7 +94,7 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='counterparty'
+            name='contragent'
             control={control}
             render={({ field }) => (
               <SelectC

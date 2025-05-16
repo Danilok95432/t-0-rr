@@ -1,6 +1,6 @@
-import { CounterpartiesDTO, ICounterpartiesData } from '../table/config/counterpartiesTypes'
+import { ContragentsDTO, IContragentsData } from '../table/config/contragentsTypes'
 
-export const mapCounterparties = (counterpartiesBack: CounterpartiesDTO): ICounterpartiesData => {
+export const mapContragents = (counterpartiesBack: ContragentsDTO): IContragentsData => {
   return {
     id: counterpartiesBack.id,
     shortName: counterpartiesBack.short_name,

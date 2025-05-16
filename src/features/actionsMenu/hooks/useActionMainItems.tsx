@@ -14,7 +14,7 @@ const COMMON_PATHS = [
   'summary',
 ]
 
-const EDITING_PATHS = ['organization', 'counterparty', 'account', 'article', 'case', 'transaction']
+const EDITING_PATHS = ['organization', 'contragent', 'account', 'article', 'case', 'transaction']
 
 export const useActionMainItems = (): IActionItem[] => {
   const { isOpenFiltersMenu, handleOpenFilterMenu } = useFiltersMenu()

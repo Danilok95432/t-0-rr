@@ -29,7 +29,7 @@ export const AuthForm: FC<IFormProps> = () => {
             label='Имя пользователя'
             hasResetIcon
             value={field.value}
-            onChange={(text) => field.onChange(text)}
+            onChange={field.onChange}
           />
         )}
       />
@@ -45,7 +45,7 @@ export const AuthForm: FC<IFormProps> = () => {
             type='password'
             hasResetIcon
             value={field.value}
-            onChange={(text) => field.onChange(text)}
+            onChange={field.onChange}
           />
         )}
       />

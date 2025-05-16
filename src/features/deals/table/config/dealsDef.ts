@@ -18,7 +18,7 @@ export const dealsDef: ColDef<IDealsData>[] = [
     tooltipField: 'fullName',
   },
   { field: 'organization', headerName: 'Организация', tooltipField: 'organization' },
-  { field: 'counterparty', headerName: 'Контрагент', tooltipField: 'counterparty' },
+  { field: 'contragent', headerName: 'Контрагент', tooltipField: 'contragent' },
   { field: 'date', headerName: 'Дата сделки' },
   { field: 'amount', headerName: 'Сумма сделки' },
   { field: 'paid', headerName: 'Оплачено, сумма' },

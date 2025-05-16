@@ -1,20 +1,24 @@
 .mainDataCase {
-	.title {
-		margin-bottom: 12px;
-	}
+  .title {
+    margin-bottom: 12px;
+  }
 
-	.inner {
-		display: grid;
-		grid-template-columns: 431px;
-	}
+  .inner {
+    display: grid;
+    grid-template-columns: 431px;
+  }
 
-	.button_wrapper {
-		column-gap: 12px;
-		margin-top: 14px;
-		display: none;
+  .button_wrapper {
+    column-gap: 12px;
+    margin-top: 14px;
+    display: none;
 
-		&.isVisible {
-			display: flex;
-		}
-	}
+    &.isVisible {
+      display: flex;
+    }
+  }
+
+  .error {
+    color: var(--negative);
+  }
 }

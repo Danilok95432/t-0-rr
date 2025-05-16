@@ -1,0 +1,3 @@
+const mapOrganizations = () => {
+  return {}
+}

@@ -1,13 +1,13 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-import { ICounterpartiesData } from './counterpartiesTypes'
+import { IContragentsData } from './contragentsTypes'
 
 import { CellLinkFullName } from '../cells/CellLinkFullName'
 import { CellLinkShortName } from '../cells/CellLinkShortName'
 import { CellLinkAccounts } from '../cells/CellLinkAccounts'
 import { CellBadge } from '../cells/cellBadge/CellBadge'
 
-export const counterpartiesDef: ColDef<ICounterpartiesData>[] = [
+export const contragentsDef: ColDef<IContragentsData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
   {
     field: 'shortName',

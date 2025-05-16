@@ -8,7 +8,7 @@ import { Auth } from '@/pages/Auth/Auth'
 import { Operations } from '@/pages/Operations/Operations'
 import { Organizations } from '@/pages/Organizations/Organizations'
 import { Organization } from '@/pages/Organization/Organization'
-import { Counterparties } from '@/pages/Counterparties/Counterparties'
+import { Contragents } from '@/pages/Contragents/Contragents'
 import { Counterparty } from '@/pages/Counterparty/Counterparty'
 import { Accounts } from '@/pages/Accounts/Accounts'
 import { Account } from '@/pages/Account/Account'
@@ -37,7 +37,7 @@ export const AppRouter = () => {
           <Route path={RoutesConst.ORGANIZATIONS} element={<Organizations />} />
           <Route path={`${RoutesConst.ORGANIZATION}/:id`} element={<Organization />} />
           {/*  */}
-          <Route path={RoutesConst.COUNTERPARTIES} element={<Counterparties />} />
+          <Route path={RoutesConst.CONTRAGENTS} element={<Contragents />} />
           <Route path={`${RoutesConst.COUNTERPARTY}/:id`} element={<Counterparty />} />
           {/*  */}
           <Route path={RoutesConst.ACCOUNTS} element={<Accounts />} />

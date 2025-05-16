@@ -1,4 +1,4 @@
-export type CounterpartiesDTO = {
+export type ContragentsDTO = {
   id: string
   short_name: string
   contragent_name: string
@@ -17,7 +17,7 @@ export type CounterpartiesDTO = {
   }
 }
 
-export interface ICounterpartiesData {
+export interface IContragentsData {
   id: string
   shortName: string
   fullName: string

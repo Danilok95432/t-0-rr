@@ -6,7 +6,7 @@ export const mapDeals = (dealsBack: DealsDTO): IDealsData => {
     shortName: dealsBack.deal_short_name,
     fullName: dealsBack.deal_name,
     organization: dealsBack.org,
-    counterparty: dealsBack.contragent,
+    contragent: dealsBack.contragent,
     date: dealsBack.deal_date,
     amount: dealsBack.deal_summ,
     paid: dealsBack.deal_payed,

@@ -2,9 +2,9 @@ import { AnimatePresence } from 'motion/react'
 
 import { useModal } from '@/features/modal/hooks/useModal'
 
-import { NewCounterparty } from '@/features/counterparties/newCounterparty'
-import { counterpartiesDef } from '@/features/counterparties/table/config/counterpartiesDef'
-import { useGetAllCounterpartiesQuery } from '@/features/counterparties/api/counterpartiesApi'
+import { NewContragent } from '@/features/contragents/newCounterparty'
+import { contragentsDef } from '@/features/contragents/table/config/contragentsDef'
+import { useGetAllContragentsQuery } from '@/features/contragents/api/contragentsApi'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
@@ -13,16 +13,16 @@ import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 //
 // import { counterpartiesTotalInfo } from '@/mock/counterparties-total-info'
 // import { counterpartiesData } from '@/mock/counterparties-data'
-import { mapCounterparties } from '@/features/counterparties/lib/mapCounterparties'
+import { mapContragents } from '@/features/contragents/lib/mapContragents'
 import { Loader } from '@/shared/ui/Loader'
 //
 
-const CounterpartiesContent = () => {
+const ContragentsContent = () => {
   const { buttonId } = useModal()
   const { value } = useQuickFilter()
-  const { data } = useGetAllCounterpartiesQuery()
+  const { data } = useGetAllContragentsQuery()
 
-  const counterparties = data?.map((el) => mapCounterparties(el))
+  const counterparties = data?.map((el) => mapContragents(el))
 
   console.log(counterparties)
 
@@ -40,7 +40,7 @@ const CounterpartiesContent = () => {
         <Loader />
       ) : (
         <GridTable
-          columnDefinitions={counterpartiesDef}
+          columnDefinitions={contragentsDef}
           rowData={counterparties}
           quickFilterText={value}
           checkboxHidden={false}
@@ -50,7 +50,7 @@ const CounterpartiesContent = () => {
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {buttonId === 'add' && (
           <Modal title='Новый контрагент'>
-            <NewCounterparty />
+            <NewContragent />
           </Modal>
         )}
       </AnimatePresence>
@@ -64,4 +64,4 @@ const CounterpartiesContent = () => {
   )
 }
 
-export default CounterpartiesContent
+export default ContragentsContent

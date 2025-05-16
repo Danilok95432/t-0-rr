@@ -8,8 +8,8 @@ import {
 } from '@/features/articles/table/config/articlesTypes'
 import { casesDef } from '@/features/cases/table/config/casesDef'
 import { ICasesData } from '@/features/cases/table/config/casesTypes'
-import { counterpartiesDef } from '@/features/counterparties/table/config/counterpartiesDef'
-import { ICounterpartiesData } from '@/features/counterparties/table/config/counterpartiesTypes'
+import { contragentsDef } from '@/features/contragents/table/config/contragentsDef'
+import { IContragentsData } from '@/features/contragents/table/config/contragentsTypes'
 import { importDef } from '@/features/import/table/config/importDef'
 import { IImportData } from '@/features/import/table/config/importTypes'
 import { importsDef } from '@/features/imports/table/configs/importsDef'
@@ -25,7 +25,7 @@ export type TGridTableData = {
   columnDefinitions:
     | typeof operationsDef
     | typeof organizationDef
-    | typeof counterpartiesDef
+    | typeof contragentsDef
     | typeof accountsDef
     | typeof articleArrivalDef
     | typeof articleExpenseDef
@@ -36,7 +36,7 @@ export type TGridTableData = {
   rowData?:
     | IOrganizationsData[]
     | IOperationsData[]
-    | ICounterpartiesData[]
+    | IContragentsData[]
     | IAccountsData[]
     | IArticleArrivalData[]
     | IArticleExpenseData[]
