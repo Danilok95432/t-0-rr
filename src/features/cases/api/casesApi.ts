@@ -13,7 +13,13 @@ export const casesApi = createApi({
         url: '/cases/list',
       }),
       transformResponse: (response: { cases: CasesDTO[] }) => response.cases,
-      providesTags: ['Cases'],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Cases' as const, id })),
+              { type: 'Cases' as const },
+            ]
+          : [{ type: 'Cases' as const }],
     }),
     //
     getCaseInfo: build.query<string, string>({
@@ -24,7 +30,7 @@ export const casesApi = createApi({
         },
       }),
       transformResponse: (response: { case_name: string }) => response.case_name,
-      providesTags: ['Cases'],
+      providesTags: (id) => [{ type: 'Cases', id }],
     }),
     //
     addNewCase: build.mutation<string, FieldValues>({

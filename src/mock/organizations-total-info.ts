@@ -1,6 +1,6 @@
-export const organizationsTotalInfo = [
-	{
-		name: 'Всего организаций',
-		value: '6',
-	},
-]
+// export const organizationsTotalInfo = [
+// 	{
+// 		name: 'Всего организаций',
+// 		value: '6',
+// 	},
+// ]

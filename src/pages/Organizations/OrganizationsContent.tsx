@@ -1,18 +1,20 @@
 import { AnimatePresence } from 'motion/react'
 
 import { useModal } from '@/features/modal/hooks/useModal'
+import { NewOrganization } from '@/features/organizations/newOrganization'
+import { organizationDef } from '@/features/organizations/table/config/organizationDef'
+import { useGetAllOrganizationsQuery } from '@/features/organizations/api/organizationsApi'
+import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
+import { mapOrganizations } from '@/features/organizations/lib/mapOrganizations'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
 import { GridTable } from '@/shared/ui/GridTable'
-import { NewOrganization } from '@/features/organizations/newOrganization'
-import { useGetAllOrganizationsQuery } from '@/features/organizations/api/organizationsApi'
+import { Loader } from '@/shared/ui/Loader'
 
-import { organizationDef } from '@/features/organizations/table/config/organizationDef'
 //
-import { organizationsData } from '@/mock/organizations-data'
-import { organizationsTotalInfo } from '@/mock/organizations-total-info'
-import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
+// import { organizationsData } from '@/mock/organizations-data'
+// import { organizationsTotalInfo } from '@/mock/organizations-total-info'
 //
 
 const OrganizationsContent = () => {
@@ -20,16 +22,28 @@ const OrganizationsContent = () => {
   const { value } = useQuickFilter()
   const { data } = useGetAllOrganizationsQuery()
 
-  console.log(data)
+  const orgs = data?.map((el) => mapOrganizations(el))
 
   return (
-    <ListLayout title='Организации' totalInfoData={organizationsTotalInfo}>
-      <GridTable
-        columnDefinitions={organizationDef}
-        rowData={organizationsData}
-        quickFilterText={value}
-        checkboxHidden={false}
-      />
+    <ListLayout
+      title='Организации'
+      totalInfoData={[
+        {
+          name: 'Всего организаций',
+          value: !orgs ? 'Загрузка...' : `${orgs?.length}`,
+        },
+      ]}
+    >
+      {!orgs ? (
+        <Loader />
+      ) : (
+        <GridTable
+          columnDefinitions={organizationDef}
+          rowData={orgs}
+          quickFilterText={value}
+          checkboxHidden={false}
+        />
+      )}
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {buttonId === 'add' && (

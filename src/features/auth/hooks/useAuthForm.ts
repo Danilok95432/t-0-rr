@@ -34,12 +34,11 @@ export const useAuthForm = () => {
 
     try {
       const response = await loginMutation(formData).unwrap()
-      console.log('Успешная авторизация:', response)
       dispatch(login(response))
       reset()
       navigate('/')
     } catch (error) {
-      console.log('Ошибка авторизации:', error)
+      console.error('Ошибка авторизации:', error)
       setErrorStatus((error as { status?: number })?.status || null)
     }
   }
