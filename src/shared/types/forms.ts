@@ -131,7 +131,7 @@ export type TFormNewArticle = {
 }
 
 export type TFormNewCase = {
-  name: string
+  caseName: string
 }
 
 export type TFormEditCase = {

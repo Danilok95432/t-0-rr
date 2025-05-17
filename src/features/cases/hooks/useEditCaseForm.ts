@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TFormEditCase } from '@/shared/types/forms'
 import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
-import { EditCaseSchema } from '@/features/cases/editCase/editCaseSchema'
+import { CaseSchema } from '@/features/cases/table/config/caseSchema'
 import { useEditCaseMutation } from '@/features/cases/api/casesApi'
 
 export const useEditCaseForm = (id: string, caseName: string) => {
@@ -17,7 +17,7 @@ export const useEditCaseForm = (id: string, caseName: string) => {
     defaultValues: {
       caseName,
     },
-    resolver: zodResolver(EditCaseSchema),
+    resolver: zodResolver(CaseSchema),
     mode: 'onChange',
   })
   const [editCase] = useEditCaseMutation()

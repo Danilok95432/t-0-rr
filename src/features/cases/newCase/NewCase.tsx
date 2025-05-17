@@ -9,21 +9,28 @@ import { Button } from '@/shared/ui/Button'
 import styles from './new-case.module.scss'
 
 export const NewCase: FC<IFormProps> = () => {
-  const { control, handleSubmit, onSubmit } = useNewCaseForm()
+  const { control, handleSubmit, onSubmit, errors, isValid, isSubmitting } = useNewCaseForm()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewCase}>
       <div className={styles['main-info']}>
         <Controller
-          name='name'
+          name='caseName'
           control={control}
           render={({ field }) => (
-            <Input id='name' label='Название кейса' value={field.value} onChange={field.onChange} />
+            <Input
+              id='caseName'
+              label='Название кейса'
+              value={field.value}
+              onChange={field.onChange}
+            />
           )}
         />
+
+        <span className={styles.error}>{errors.caseName?.message}</span>
       </div>
 
-      <Button type='submit' label='Сохранить' mode='primary' />
+      <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid || isSubmitting} />
     </form>
   )
 }
