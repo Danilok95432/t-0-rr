@@ -1,6 +1,7 @@
 import { IOrganizationsData, OrganizationsDTO } from '../table/config/organizationsTypes'
 
 export const mapOrganizations = (orgBack: OrganizationsDTO): IOrganizationsData => {
+  console.log(orgBack)
   return {
     id: orgBack.id,
     shortName: orgBack.org_name,
@@ -9,9 +10,6 @@ export const mapOrganizations = (orgBack: OrganizationsDTO): IOrganizationsData 
     inn: orgBack.inn,
     ogrn: orgBack.ogrn,
     accounts: orgBack.accounts,
-    balanceAccounts: {
-      status: orgBack.balance,
-      value: orgBack.balance,
-    },
+    balanceAccounts: orgBack.balance,
   }
 }

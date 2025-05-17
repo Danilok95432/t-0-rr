@@ -16,7 +16,7 @@ import { importsDef } from '@/features/imports/table/configs/importsDef'
 import { IImportsData } from '@/features/imports/table/configs/importsTypes'
 import { operationsDef } from '@/features/operations/table/config/operationsDef'
 import { IOperationsData } from '@/features/operations/table/config/operationsTypes'
-import { organizationDef } from '@/features/organizations/table/config/organizationDef'
+import { organizationsDef } from '@/features/organizations/table/config/organizatiosDef'
 import { IOrganizationsData } from '@/features/organizations/table/config/organizationsTypes'
 import { dealsDef } from '@/features/deals/table/config/dealsDef'
 import { IDealsData } from '@/features/deals/table/config/dealsType'
@@ -24,7 +24,7 @@ import { IDealsData } from '@/features/deals/table/config/dealsType'
 export type TGridTableData = {
   columnDefinitions:
     | typeof operationsDef
-    | typeof organizationDef
+    | typeof organizationsDef
     | typeof contragentsDef
     | typeof accountsDef
     | typeof articleArrivalDef

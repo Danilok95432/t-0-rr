@@ -6,8 +6,8 @@ import { CellBadge } from '../cells/cellBadge/CellBadge'
 import { CellLinkName } from '../cells/CellLinkName'
 import { CellLinkAccounts } from '../cells/CellLinkAccounts'
 
-export const organizationDef: ColDef<IOrganizationsData>[] = [
-  { field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
+export const organizationsDef: ColDef<IOrganizationsData>[] = [
+  { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
   { field: 'shortName', headerName: 'Краткое название организации' },
   {
     field: 'fullName',
@@ -30,7 +30,6 @@ export const organizationDef: ColDef<IOrganizationsData>[] = [
     field: 'balanceAccounts',
     headerName: 'Баланс всех счетов',
     cellRenderer: memo(CellBadge),
-    valueFormatter: (params) => (params.value === null ? '' : params.value.value),
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
     maxWidth: 150,
   },

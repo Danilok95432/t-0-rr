@@ -2,7 +2,7 @@ import { AnimatePresence } from 'motion/react'
 
 import { useModal } from '@/features/modal/hooks/useModal'
 import { NewOrganization } from '@/features/organizations/newOrganization'
-import { organizationDef } from '@/features/organizations/table/config/organizationDef'
+import { organizationsDef } from '@/features/organizations/table/config/organizatiosDef'
 import { useGetAllOrganizationsQuery } from '@/features/organizations/api/organizationsApi'
 import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 import { mapOrganizations } from '@/features/organizations/lib/mapOrganizations'
@@ -38,7 +38,7 @@ const OrganizationsContent = () => {
         <Loader />
       ) : (
         <GridTable
-          columnDefinitions={organizationDef}
+          columnDefinitions={organizationsDef}
           rowData={orgs}
           quickFilterText={value}
           checkboxHidden={false}

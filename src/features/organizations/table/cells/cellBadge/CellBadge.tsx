@@ -4,12 +4,18 @@ import { Badge } from '@/shared/ui/Badge'
 import './badgeCellStyle.scss'
 
 interface ICellBadgeParams extends CustomCellRendererProps {
-	value: {
-		status: 'positive' | 'negative' | 'warning' | 'default' | 'neutral'
-		value: string
-	}
+  value: string | null
 }
 
 export const CellBadge = ({ value }: ICellBadgeParams) => {
-	return <Badge label={value.value} mode={value.status ?? 'neutral'} className='customBadgeCell' />
+  const firstChar = value?.slice(0, 1)
+
+  const mode = (value: string) => {
+    if (value === '-') return 'negative'
+    if (value === '0') return 'default'
+    return 'positive'
+  }
+
+  if (value === null) return null
+  return <Badge label={value} mode={mode(firstChar || '')} className='customBadgeCell' />
 }
