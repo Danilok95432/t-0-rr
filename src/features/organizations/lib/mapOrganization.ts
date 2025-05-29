@@ -1,6 +1,6 @@
-import { IOrganization, OrganizationDTO } from '../table/config/organizationsTypes'
+import { IOrganizationData, OrganizationDTO } from '../table/config/organizationsTypes'
 
-export const mapOrganization = (orgDTO: OrganizationDTO): IOrganization => {
+export const mapOrganization = (orgDTO: OrganizationDTO): IOrganizationData => {
   return {
     shortName: orgDTO.org_name,
     fullName: orgDTO.org_name_full,
@@ -13,9 +13,10 @@ export const mapOrganization = (orgDTO: OrganizationDTO): IOrganization => {
       bankName: account.bank_name,
       bik: account.bik,
       type: account.account_type_name,
-      account: account.account_name,
+      account: account.rschet,
       comment: account.comment,
     })),
+    employeesComment: orgDTO.comment,
     coming: orgDTO.balance_prihod,
     expenses: orgDTO.balance_rashod,
     difference: orgDTO.balance_diff,

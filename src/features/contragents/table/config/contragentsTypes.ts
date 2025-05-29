@@ -5,12 +5,10 @@ export type ContragentsDTO = {
   contragent_type: string
   inn: string
   accounts_total: number
-  accounts: [
-    {
-      id: string
-      contragent_rschet: string
-    }
-  ]
+  accounts: {
+    id: string
+    contragent_rschet: string
+  }[]
   reputation: {
     status: string
     value: string
@@ -23,9 +21,45 @@ export interface IContragentsData {
   fullName: string
   type: string
   inn: string
-  accounts: [{ id: string; contragent_rschet: string }]
+  accounts: {
+    id: string
+    contragentAccount: string
+  }[]
   reputation: {
     status: string
     value: string
   }
+}
+
+export type ContragentDTO = {
+  contragent_name: string
+  contragent_name_full: string
+  contragent_type_name: string
+  inn: string
+  accounts: {
+    id: string
+    account_name: string
+    contragent_bank: string
+    contragent_bik: string
+    contragent_rschet: string
+    contragent_korschet: string
+    account_type_name: string
+    comment: string
+  }[]
+}
+
+export type IContragentData = {
+  name: string
+  fullName: string
+  type: string
+  inn: string
+  accounts: {
+    id: string
+    accountName: string
+    bank: string
+    bik: string
+    account: string
+    corrAccount: string
+    comment: string
+  }[]
 }

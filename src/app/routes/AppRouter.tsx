@@ -9,7 +9,7 @@ import { Operations } from '@/pages/Operations/Operations'
 import { Organizations } from '@/pages/Organizations/Organizations'
 import { Organization } from '@/pages/Organization/Organization'
 import { Contragents } from '@/pages/Contragents/Contragents'
-import { Counterparty } from '@/pages/Counterparty/Counterparty'
+import { Contragent } from '@/pages/Contragent/Contragent'
 import { Accounts } from '@/pages/Accounts/Accounts'
 import { Account } from '@/pages/Account/Account'
 import { Articles } from '@/pages/Articles/Articles'
@@ -38,7 +38,7 @@ export const AppRouter = () => {
           <Route path={`${RoutesConst.ORGANIZATION}/:id`} element={<Organization />} />
           {/*  */}
           <Route path={RoutesConst.CONTRAGENTS} element={<Contragents />} />
-          <Route path={`${RoutesConst.COUNTERPARTY}/:id`} element={<Counterparty />} />
+          <Route path={`${RoutesConst.CONTRAGENT}/:id`} element={<Contragent />} />
           {/*  */}
           <Route path={RoutesConst.ACCOUNTS} element={<Accounts />} />
           <Route path={`${RoutesConst.ACCOUNT}/:id`} element={<Account />} />

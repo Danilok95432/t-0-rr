@@ -5,7 +5,7 @@ export type OrganizationsDTO = {
   org_type: string
   inn: string
   ogrn: string
-  accounts: [{ id: string; account_name: string }]
+  accounts: { id: string; account_name: string }[]
   balance: string
 }
 
@@ -16,7 +16,7 @@ export interface IOrganizationsData {
   type: string
   inn: string
   ogrn: string
-  accounts: [{ id: string; account_name: string }]
+  accounts: { id: string; accountName: string }[]
   balanceAccounts: string
 }
 
@@ -35,12 +35,13 @@ export type OrganizationDTO = {
     account_type_name: string
     comment: string
   }[]
+  comment: string
   balance_prihod: string
   balance_rashod: string
   balance_diff: string
 }
 
-export interface IOrganization {
+export interface IOrganizationData {
   shortName: string
   fullName: string
   inn: string
@@ -55,6 +56,7 @@ export interface IOrganization {
     account: string
     comment: string
   }[]
+  employeesComment: string
   coming: string
   expenses: string
   difference: string

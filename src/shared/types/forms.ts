@@ -96,20 +96,20 @@ export type TFormFilterOperationsMenu = {
   rememberChoice: boolean
 }
 
-export type TFormNewOrganization = {
-  name: string
-  inn: string
-  fullName: string
-  ogrn: string
-  legalAddress: string
-  employeesComment: string
+export type TFormOrganization = {
+  shortName?: string
+  inn?: string
+  fullName?: string
+  ogrn?: string
+  legalAddress?: string
+  employeesComment?: string
 }
 
-export type TFormNewContragent = {
+export type TFormContragent = {
   name: string
   inn: string
   fullName: string
-  type: string
+  type: string[]
 }
 
 export type TFormNewAccount = {

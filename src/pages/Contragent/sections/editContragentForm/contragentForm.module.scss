@@ -1,11 +1,12 @@
-.mainDataCase {
+.mainDataContragent {
   .title {
     margin-bottom: 12px;
   }
 
   .inner {
     display: grid;
-    grid-template-columns: 431px;
+    grid-template-columns: repeat(3, minmax(auto, 431px));
+    gap: 10px 22px;
   }
 
   .button_wrapper {

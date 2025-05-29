@@ -23,11 +23,10 @@ export const NewCase: FC<IFormProps> = () => {
               label='Название кейса'
               value={field.value}
               onChange={field.onChange}
+              error={errors.caseName?.message}
             />
           )}
         />
-
-        <span className={styles.error}>{errors.caseName?.message}</span>
       </div>
 
       <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid || isSubmitting} />

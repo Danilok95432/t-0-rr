@@ -6,10 +6,10 @@ import styles from './orgAccounts.module.scss'
 interface IOrgAccountsSectionProps {
   accounts: {
     id: string
-    account: string
     accountName: string
     bankName: string
     bik: string
+    account: string
     type: string
     comment: string
   }[]

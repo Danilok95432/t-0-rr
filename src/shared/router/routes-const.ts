@@ -3,7 +3,7 @@ export enum RoutesConst {
   ORGANIZATIONS = 'organizations',
   ORGANIZATION = 'organization',
   CONTRAGENTS = 'contragents',
-  COUNTERPARTY = 'counterparty',
+  CONTRAGENT = 'contragent',
   ACCOUNTS = 'accounts',
   ACCOUNT = 'account',
   ARTICLES = 'articles',

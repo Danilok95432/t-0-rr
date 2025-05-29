@@ -13,8 +13,7 @@ interface ICaseFormProps {
   caseName: string
 }
 
-export const CaseForm: FC<ICaseFormProps> = (props) => {
-  const { id, caseName } = props
+export const CaseForm: FC<ICaseFormProps> = ({ id, caseName }) => {
   const {
     isEditingModeActive,
     control,
@@ -43,11 +42,10 @@ export const CaseForm: FC<ICaseFormProps> = (props) => {
               hasResetIcon={false}
               disabled={!isEditingModeActive}
               onChange={field.onChange}
+              error={errors.caseName?.message}
             />
           )}
         />
-
-        <span className={styles.error}>{errors.caseName?.message}</span>
       </div>
 
       <div

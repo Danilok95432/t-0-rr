@@ -1,5 +1,5 @@
 import { ItemLayout } from '@/shared/layouts/ItemLayout'
-import { OrgMainDataSection } from './sections/OrgMainDataSection'
+import { EditOrganizationForm } from '../../features/organizations/editOrg'
 import { OrgAccountsSection } from './sections/OrgAccountsSection'
 import { useGetOrganizationInfoQuery } from '@/features/organizations/api/organizationsApi'
 import { useParams } from 'react-router'
@@ -12,8 +12,6 @@ const OrganizationContent = () => {
 
   const organization = data && mapOrganization(data)
 
-  console.log(organization)
-
   return !organization ? (
     <Loader />
   ) : (
@@ -22,7 +20,7 @@ const OrganizationContent = () => {
       pathToBack='organizations'
       title={organization?.shortName}
     >
-      <OrgMainDataSection organization={organization} id={id} />
+      <EditOrganizationForm organization={organization} id={id} />
       <OrgAccountsSection accounts={organization?.accounts || []} />
     </ItemLayout>
   )

@@ -1,0 +1,1 @@
+export { AccountsContragent } from './AccountsContragent'

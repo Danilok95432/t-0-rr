@@ -22,6 +22,7 @@ export const Input: FC<IInputProps> = (props) => {
     onChange,
     maxLength,
     disabled = false,
+    error,
   } = props
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +59,8 @@ export const Input: FC<IInputProps> = (props) => {
         autoFocus={false}
         disabled={disabled}
       />
+
+      <span className={styles.error}>{error}</span>
 
       {/* основной лейбл */}
       {label && (

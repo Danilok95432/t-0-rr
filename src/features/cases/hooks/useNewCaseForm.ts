@@ -23,7 +23,6 @@ export const useNewCaseForm = () => {
   })
 
   const onSubmit: SubmitHandler<TFormNewCase> = async (data) => {
-    console.log(data)
     const formData = new FormData()
     formData.append('title', data.caseName)
 
@@ -32,7 +31,7 @@ export const useNewCaseForm = () => {
       reset()
       handleCloseModal()
     } catch (error) {
-      console.error(error)
+      console.error('Ошибка добавления кейса:', error)
     }
   }
 

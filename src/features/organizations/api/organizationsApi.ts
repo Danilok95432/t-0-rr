@@ -1,6 +1,7 @@
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { OrganizationDTO, OrganizationsDTO } from '../table/config/organizationsTypes'
+import { FieldValues } from 'react-hook-form'
 
 export const organizationsApi = createApi({
   reducerPath: 'organizationsApi',
@@ -30,7 +31,30 @@ export const organizationsApi = createApi({
       }),
       providesTags: (_, __, id) => [{ type: 'Organizations', id }],
     }),
+    //
+    addNewOrg: build.mutation<string, FieldValues>({
+      query: (formData) => ({
+        url: '/orgs/getnew',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Organizations'],
+    }),
+    //
+    editOrg: build.mutation<string, FieldValues>({
+      query: (formData) => ({
+        url: '/orgs/save',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Organizations'],
+    }),
   }),
 })
 
-export const { useGetAllOrganizationsQuery, useGetOrganizationInfoQuery } = organizationsApi
+export const {
+  useGetAllOrganizationsQuery,
+  useGetOrganizationInfoQuery,
+  useAddNewOrgMutation,
+  useEditOrgMutation,
+} = organizationsApi

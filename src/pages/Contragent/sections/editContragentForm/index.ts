@@ -1,0 +1,1 @@
+export { EditContragentForm } from './EditContragentForm'

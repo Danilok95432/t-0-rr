@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
-import { ContragentsDTO } from '../table/config/contragentsTypes'
+import { ContragentDTO, ContragentsDTO } from '../table/config/contragentsTypes'
 
 export const contragentsApi = createApi({
   reducerPath: 'contragentsApi',
@@ -12,9 +12,25 @@ export const contragentsApi = createApi({
         url: '/contragents/list',
       }),
       transformResponse: (response: { contragents: ContragentsDTO[] }) => response.contragents,
-      providesTags: ['Contragents'],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Contragents' as const, id })),
+              { type: 'Contragents' as const },
+            ]
+          : [{ type: 'Contragents' as const }],
+    }),
+    //
+    getContragentInfo: build.query<ContragentDTO, string>({
+      query: (id) => ({
+        url: '/contragents/view',
+        params: {
+          id,
+        },
+      }),
+      providesTags: (_, __, id) => [{ type: 'Contragents', id }],
     }),
   }),
 })
 
-export const { useGetAllContragentsQuery } = contragentsApi
+export const { useGetAllContragentsQuery, useGetContragentInfoQuery } = contragentsApi
