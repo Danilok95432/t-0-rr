@@ -17,7 +17,7 @@ export const useEditContragentForm = (id: string, contragent: IContragentData) =
       name: contragent.name,
       fullName: contragent.fullName,
       inn: contragent.inn,
-      type: contragent.type.find((opt) => opt.value === '1') || null,
+      type: contragent.type.find((opt) => opt.value === '3') || null,
     },
     mode: 'onChange',
   })
@@ -35,7 +35,7 @@ export const useEditContragentForm = (id: string, contragent: IContragentData) =
     formData.append('contragent_name', data.name)
     formData.append('contragent_name_full', data.fullName)
     formData.append('inn', data.inn)
-    formData.append('contragent_type_name', JSON.stringify(data.type))
+    formData.append('contragent_type_name', data.type?.value || '')
 
     try {
       await editContragent(formData).unwrap()
