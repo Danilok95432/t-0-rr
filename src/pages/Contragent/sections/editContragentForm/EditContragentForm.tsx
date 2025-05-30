@@ -1,16 +1,16 @@
-import { FC } from 'react'
+import { type FC } from 'react'
+import { Controller } from 'react-hook-form'
 import classNames from 'classnames'
-import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
 import { IContragentData } from '@/features/contragents/table/config/contragentsTypes'
+import { useEditContragentForm } from '@/features/contragents/hooks/useEditContragentForm'
 
 import { Input } from '@/shared/ui/Input'
 import { SelectC } from '@/shared/ui/Select'
 import { TextArea } from '@/shared/ui/TextArea'
 import { Button } from '@/shared/ui/Button'
+import { TSelectOption } from '@/shared/ui/Select/types'
 
 import styles from './contragentForm.module.scss'
-import { Controller, useForm } from 'react-hook-form'
-import { TFormContragent } from '@/shared/types/forms'
 
 interface EditContragentFormProps {
   id: string
@@ -18,25 +18,20 @@ interface EditContragentFormProps {
 }
 
 export const EditContragentForm: FC<EditContragentFormProps> = ({ id, contragent }) => {
-  const { isEditingModeActive, handleDeactivateEditingMode } = useEditingMode()
   const {
+    isEditingModeActive,
     control,
+    errors,
     handleSubmit,
-    reset,
-    formState: { errors, isValid, isSubmitting },
-  } = useForm<TFormContragent>({
-    defaultValues: {
-      name: contragent.name,
-      fullName: contragent.fullName,
-      inn: contragent.inn,
-      type: [contragent.type],
-    },
-    mode: 'onChange',
-  })
+    onSubmit,
+    handleCancel,
+    isSubmitting,
+    isValid,
+    handleDeactivateEditingMode,
+  } = useEditContragentForm(id, contragent)
 
-  console.log(contragent.type)
   return (
-    <form className={styles.mainDataContragent}>
+    <form className={styles.mainDataContragent} onSubmit={handleSubmit(onSubmit)}>
       <h3 className={styles.title}>Основные данные контрагента</h3>
 
       <div className={styles.inner}>
@@ -78,10 +73,12 @@ export const EditContragentForm: FC<EditContragentFormProps> = ({ id, contragent
           render={({ field }) => {
             return (
               <SelectC
-                values={field.value[0]}
+                values={field.value ? [field.value] : []}
                 options={contragent.type}
                 label='Тип контрагента'
-                // onChange={field.onChange(selected[0]?.value)}
+                onChange={(selected: TSelectOption[]) => {
+                  field.onChange(selected[0] || null)
+                }}
                 disabled={!isEditingModeActive}
               />
             )
@@ -107,8 +104,14 @@ export const EditContragentForm: FC<EditContragentFormProps> = ({ id, contragent
       <div
         className={classNames(styles.button_wrapper, { [styles.isVisible]: isEditingModeActive })}
       >
-        <Button mode='primary' label='Сохранить изменения' onClick={handleDeactivateEditingMode} />
-        <Button mode='secondary' label='Отменить' onClick={handleDeactivateEditingMode} />
+        <Button
+          type='submit'
+          mode='primary'
+          label='Сохранить изменения'
+          onClick={handleDeactivateEditingMode}
+          disabled={!isValid || isSubmitting}
+        />
+        <Button mode='secondary' label='Отменить' onClick={handleCancel} />
       </div>
     </form>
   )

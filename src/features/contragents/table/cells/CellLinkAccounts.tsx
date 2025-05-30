@@ -13,7 +13,7 @@ export const CellLinkAccounts = ({ data }: ICellLinkAccountsParams) => {
       <span>Всего: {data.accounts.length}</span>{' '}
       {data.accounts.map((el, index) => (
         <a href='#' key={index} style={linkStyle}>
-          {el.contragent_rschet}{' '}
+          {el.contragentAccount}{' '}
         </a>
       ))}
     </div>

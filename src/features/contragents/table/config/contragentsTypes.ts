@@ -34,7 +34,7 @@ export interface IContragentsData {
 export type ContragentDTO = {
   contragent_name: string
   contragent_name_full: string
-  contragent_type_name: string
+  contragent_type_name: IContragentType[]
   inn: string
   accounts: {
     id: string
@@ -51,7 +51,7 @@ export type ContragentDTO = {
 export type IContragentData = {
   name: string
   fullName: string
-  type: string
+  type: IContragentType[]
   inn: string
   accounts: {
     id: string
@@ -62,4 +62,9 @@ export type IContragentData = {
     corrAccount: string
     comment: string
   }[]
+}
+
+export type IContragentType = {
+  label: string
+  value: string
 }

@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { ContragentDTO, ContragentsDTO } from '../table/config/contragentsTypes'
+import { FieldValues } from 'react-hook-form'
 
 export const contragentsApi = createApi({
   reducerPath: 'contragentsApi',
@@ -30,7 +31,30 @@ export const contragentsApi = createApi({
       }),
       providesTags: (_, __, id) => [{ type: 'Contragents', id }],
     }),
+    //
+    addNewContragent: build.mutation<string, FieldValues>({
+      query: (formData) => ({
+        url: '/contragents/getnew',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Contragents'],
+    }),
+    //
+    editContragent: build.mutation<string, FieldValues>({
+      query: (formData) => ({
+        url: '/contragents/save',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Contragents'],
+    }),
   }),
 })
 
-export const { useGetAllContragentsQuery, useGetContragentInfoQuery } = contragentsApi
+export const {
+  useGetAllContragentsQuery,
+  useGetContragentInfoQuery,
+  useEditContragentMutation,
+  useAddNewContragentMutation,
+} = contragentsApi

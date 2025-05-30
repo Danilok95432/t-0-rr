@@ -1,3 +1,5 @@
+import { TSelectOption } from '../ui/Select/types'
+
 export interface IFormProps {
   labelBadge?: string
 }
@@ -109,7 +111,7 @@ export type TFormContragent = {
   name: string
   inn: string
   fullName: string
-  type: string[]
+  type: TSelectOption | null
 }
 
 export type TFormNewAccount = {
