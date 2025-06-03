@@ -35,7 +35,7 @@ export const useEditContragentForm = (id: string, contragent: IContragentData) =
     formData.append('contragent_name', data.name)
     formData.append('contragent_name_full', data.fullName)
     formData.append('inn', data.inn)
-    formData.append('contragent_type_name', data.type?.value || '')
+    formData.append('contragent_type', data.type?.value || '')
 
     try {
       await editContragent(formData).unwrap()

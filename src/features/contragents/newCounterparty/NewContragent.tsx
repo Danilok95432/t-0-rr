@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/features/modal/hooks/useModal'
 import { IFormProps } from '@/shared/types/forms'
-import { TFormNewContragent } from '@/shared/types/forms'
+import { TFormContragent } from '@/shared/types/forms'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
@@ -14,16 +14,16 @@ import styles from './new-contragent.module.scss'
 export const NewContragent: FC<IFormProps> = () => {
   const { handleCloseModal } = useModal()
 
-  const { control, handleSubmit, reset } = useForm<TFormNewContragent>({
+  const { control, handleSubmit, reset } = useForm<TFormContragent>({
     defaultValues: {
       name: '',
       inn: '',
       fullName: '',
-      type: '',
+      type: [],
     },
   })
 
-  const onSubmit: SubmitHandler<TFormNewContragent> = (data) => {
+  const onSubmit: SubmitHandler<TFormContragent> = (data) => {
     console.log(data)
     reset()
     handleCloseModal()
@@ -79,7 +79,7 @@ export const NewContragent: FC<IFormProps> = () => {
             control={control}
             render={({ field }) => (
               <SelectC
-                values={field.value ? [{ value: field.value, label: field.value }] : []}
+                values={field.value ? [field.value] : []}
                 options={[]}
                 label='Тип контрагента'
                 onChange={field.onChange}

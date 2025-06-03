@@ -71,6 +71,8 @@ export const EditContragentForm: FC<EditContragentFormProps> = ({ id, contragent
           name='type'
           control={control}
           render={({ field }) => {
+            console.log(contragent.type)
+
             return (
               <SelectC
                 values={field.value ? [field.value] : []}

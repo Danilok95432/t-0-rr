@@ -111,7 +111,7 @@ export type TFormContragent = {
   name: string
   inn: string
   fullName: string
-  type: TSelectOption | null
+  type: TSelectOption[] | null
 }
 
 export type TFormNewAccount = {
