@@ -36,16 +36,7 @@ export type ContragentDTO = {
   contragent_name_full: string
   contragent_type_name: IContragentType[]
   inn: string
-  accounts: {
-    id: string
-    account_name: string
-    contragent_bank: string
-    contragent_bik: string
-    contragent_rschet: string
-    contragent_korschet: string
-    account_type_name: string
-    comment: string
-  }[]
+  accounts: IContragentAccountsData[]
 }
 
 export type IContragentData = {
@@ -53,18 +44,21 @@ export type IContragentData = {
   fullName: string
   type: IContragentType[]
   inn: string
-  accounts: {
-    id: string
-    accountName: string
-    bank: string
-    bik: string
-    account: string
-    corrAccount: string
-    comment: string
-  }[]
+  accounts: IContragentAccountsData[]
 }
 
 export type IContragentType = {
   label: string
   value: string
+}
+
+export type IContragentAccountsData = {
+  id: string
+  account_name: string
+  contragent_bank: string
+  contragent_bik: string
+  contragent_rschet: string
+  contragent_korschet: string
+  account_type_name: string
+  comment: string
 }

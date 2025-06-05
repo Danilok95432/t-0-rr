@@ -115,13 +115,13 @@ export type TFormContragent = {
 }
 
 export type TFormNewAccount = {
-  name: string
-  organization: string
+  account_name: string
+  contragent_bank: string
+  contragent_bik: string
+  contragent_rschet: string
+  contragent_korschet: string
+  account_type_name: string
   comment: string
-  type: string
-  bank: string
-  paymentAccount: string
-  bik: string
 }
 
 export type TFormNewArticle = {

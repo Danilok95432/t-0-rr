@@ -9,7 +9,6 @@ import { Loader } from '@/shared/ui/Loader'
 const ContragentContent = () => {
   const { id = '0' } = useParams()
   const { data } = useGetContragentInfoQuery(id)
-  console.log(data)
 
   const contragent = data && mapContragent(data)
 
@@ -23,7 +22,7 @@ const ContragentContent = () => {
       title={contragent?.name}
     >
       <EditContragentForm contragent={contragent} id={id} />
-      <AccountsContragent accounts={contragent?.accounts || []} />
+      <AccountsContragent accounts={contragent?.accounts} />
     </ItemLayout>
   )
 }

@@ -71,11 +71,10 @@ export const EditContragentForm: FC<EditContragentFormProps> = ({ id, contragent
           name='type'
           control={control}
           render={({ field }) => {
-            console.log(contragent.type)
 
             return (
               <SelectC
-                values={field.value ? [field.value] : []}
+                values={field.value ? field.value : []}
                 options={contragent.type}
                 label='Тип контрагента'
                 onChange={(selected: TSelectOption[]) => {

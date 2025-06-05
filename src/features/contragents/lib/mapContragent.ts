@@ -8,11 +8,12 @@ export const mapContragent = (contragentDTO: ContragentDTO): IContragentData => 
     inn: contragentDTO.inn,
     accounts: contragentDTO.accounts.map((account) => ({
       id: account.id,
-      accountName: account.account_name,
-      bank: account.contragent_bank,
-      bik: account.contragent_bik,
-      account: account.contragent_rschet,
-      corrAccount: account.contragent_korschet,
+      account_name: account.account_name,
+      contragent_bank: account.contragent_bank,
+      contragent_bik: account.contragent_bik,
+      contragent_rschet: account.contragent_rschet,
+      contragent_korschet: account.contragent_korschet,
+      account_type_name: account.account_type_name,
       comment: account.comment,
     })),
   }

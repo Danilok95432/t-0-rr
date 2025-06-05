@@ -2,9 +2,15 @@ import { CardCounterparty } from '@/widgets/CardCounterparty'
 import { Badge } from '@/shared/ui/Badge'
 
 import styles from './accountsContragent.module.scss'
+import { IContragentAccountsData } from '@/features/contragents/table/config/contragentsTypes'
+import { FC } from 'react'
 
-export const AccountsContragent = () => {
-  const invoiceCounter = '5' /* будем получать динамически*/
+type AccountsContragentProps = {
+  accounts: IContragentAccountsData[]
+}
+
+export const AccountsContragent:FC<AccountsContragentProps> = ({ accounts }) => {
+  const invoiceCounter = accounts.length.toString()
 
   return (
     <section className={styles.accountsContragent}>
@@ -14,7 +20,13 @@ export const AccountsContragent = () => {
       </div>
 
       <ul className={styles.list}>
-        <CardCounterparty />
+        {
+          accounts.map((account) => {
+            return(
+              <CardCounterparty key={account.id} id={account.id} account={account} />
+            )
+          })
+        }
       </ul>
     </section>
   )
