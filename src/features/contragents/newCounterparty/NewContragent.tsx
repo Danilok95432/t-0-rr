@@ -79,7 +79,7 @@ export const NewContragent: FC<IFormProps> = () => {
             control={control}
             render={({ field }) => (
               <SelectC
-                values={field.value ? [field.value] : []}
+                values={field.value ? field.value : []}
                 options={[]}
                 label='Тип контрагента'
                 onChange={field.onChange}

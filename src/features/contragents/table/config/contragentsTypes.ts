@@ -7,7 +7,7 @@ export type ContragentsDTO = {
   accounts_total: number
   accounts: {
     id: string
-    contragent_rschet: string
+    contragentAccount: string
   }[]
   reputation: {
     status: string

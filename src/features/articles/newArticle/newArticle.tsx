@@ -15,10 +15,10 @@ export const NewArticle: FC<IFormProps> = () => {
 
 	const { control, handleSubmit, reset } = useForm<TFormNewArticle>({
 		defaultValues: {
-			name: '',
+			article_name: '',
 			direction: '',
 			parent: '',
-			type: '',
+			article_exp_name: '',
 			comment: '',
 		},
 	})
@@ -34,11 +34,11 @@ export const NewArticle: FC<IFormProps> = () => {
 			<div className={styles['main-info']}>
 				<div className={styles.left}>
 					<Controller
-						name='name'
+						name='article_name'
 						control={control}
 						render={({ field }) => (
 							<Input
-								id='name'
+								id='article_name'
 								label='Название статьи'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
@@ -88,7 +88,7 @@ export const NewArticle: FC<IFormProps> = () => {
 					/>
 
 					<Controller
-						name='type'
+						name='article_exp_name'
 						control={control}
 						render={({ field }) => (
 							<SelectC

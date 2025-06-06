@@ -16,13 +16,13 @@ export const NewAccount: FC<IFormProps> = () => {
 
 	const { control, handleSubmit, reset } = useForm<TFormNewAccount>({
 		defaultValues: {
-			name: '',
-			organization: '',
+			account_name: '',
+			contragent_bank: '',
+			contragent_bik: '',
+			contragent_rschet: '',
+			contragent_korschet: '',
+			account_type_name: '',
 			comment: '',
-			type: '',
-			bank: '',
-			paymentAccount: '',
-			bik: '',
 		},
 	})
 
@@ -37,18 +37,18 @@ export const NewAccount: FC<IFormProps> = () => {
 			<div className={styles['main-info']}>
 				<div className={styles.left}>
 					<Controller
-						name='name'
+						name='account_name'
 						control={control}
 						render={({ field }) => (
 							<Input
-								id='name'
+								id='account_name'
 								label='Название счёта'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
 							/>
 						)}
 					/>
-
+					{/*
 					<Controller
 						name='organization'
 						control={control}
@@ -61,6 +61,7 @@ export const NewAccount: FC<IFormProps> = () => {
 							/>
 						)}
 					/>
+					*/}
 
 					<Controller
 						name='comment'
@@ -78,7 +79,7 @@ export const NewAccount: FC<IFormProps> = () => {
 
 				<div className={styles.right}>
 					<Controller
-						name='type'
+						name='account_type_name'
 						control={control}
 						render={({ field }) => (
 							<SelectC
@@ -91,11 +92,11 @@ export const NewAccount: FC<IFormProps> = () => {
 					/>
 
 					<Controller
-						name='bank'
+						name='contragent_bank'
 						control={control}
 						render={({ field }) => (
 							<Input
-								id='bank'
+								id='contragent_bank'
 								label='Банк'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
@@ -104,11 +105,11 @@ export const NewAccount: FC<IFormProps> = () => {
 					/>
 
 					<Controller
-						name='paymentAccount'
+						name='contragent_rschet'
 						control={control}
 						render={({ field }) => (
 							<Input
-								id='paymentAccount'
+								id='contragent_rschet'
 								label='Расчетный счет'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
@@ -117,11 +118,11 @@ export const NewAccount: FC<IFormProps> = () => {
 					/>
 
 					<Controller
-						name='bik'
+						name='contragent_bik'
 						control={control}
 						render={({ field }) => (
 							<Input
-								id='bik'
+								id='contragent_bik'
 								label='БИК'
 								value={field.value}
 								onChange={(text) => field.onChange(text)}
