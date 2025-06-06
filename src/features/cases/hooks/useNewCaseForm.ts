@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useAddNewCaseMutation } from '../api/casesApi'
+import { useAddNewCaseQuery, useEditCaseMutation } from '../api/casesApi'
 import { type TFormNewCase } from '@/shared/types/forms'
 import { useModal } from '@/features/modal/hooks/useModal'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,7 +7,8 @@ import { CaseSchema } from '../table/config/caseSchema'
 
 export const useNewCaseForm = () => {
   const { handleCloseModal } = useModal()
-  const [addNewCase] = useAddNewCaseMutation()
+  const { refetch: getNewId } = useAddNewCaseQuery()
+  const [saveNewCase] = useEditCaseMutation()
 
   const {
     control,
@@ -23,11 +24,13 @@ export const useNewCaseForm = () => {
   })
 
   const onSubmit: SubmitHandler<TFormNewCase> = async (data) => {
+    const newIdResponse = await getNewId().unwrap()
     const formData = new FormData()
-    formData.append('title', data.caseName)
-
+    formData.append('case_name', data.caseName)
+    if (newIdResponse)
+      formData.append('id', newIdResponse.id)
     try {
-      await addNewCase(formData).unwrap()
+      await saveNewCase(formData)
       reset()
       handleCloseModal()
     } catch (error) {

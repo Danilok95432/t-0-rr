@@ -32,13 +32,12 @@ export const organizationsApi = createApi({
       providesTags: (_, __, id) => [{ type: 'Organizations', id }],
     }),
     //
-    addNewOrg: build.mutation<string, FieldValues>({
-      query: (formData) => ({
+    addNewOrg: build.query<{status: string, id: string}, void>({
+      query: () => ({
         url: '/orgs/getnew',
-        method: 'POST',
-        body: formData,
+        method: 'GET',
       }),
-      invalidatesTags: ['Organizations'],
+      providesTags: ['Organizations'],
     }),
     //
     editOrg: build.mutation<string, FieldValues>({
@@ -55,6 +54,6 @@ export const organizationsApi = createApi({
 export const {
   useGetAllOrganizationsQuery,
   useGetOrganizationInfoQuery,
-  useAddNewOrgMutation,
+  useAddNewOrgQuery,
   useEditOrgMutation,
 } = organizationsApi

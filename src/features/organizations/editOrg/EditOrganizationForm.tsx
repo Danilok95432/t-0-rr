@@ -71,7 +71,7 @@ export const EditOrganizationForm: FC<EditOrganizationFormProps> = ({ id, organi
           render={({ field }) => (
             <Input
               id='ogrn'
-              label='ОРГН / ОГРНИП'
+              label='ОГРН / ОГРНИП'
               value={field.value}
               hasResetIcon={false}
               disabled={!isEditingModeActive}

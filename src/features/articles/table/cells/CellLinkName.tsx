@@ -3,7 +3,7 @@ import { CustomCellRendererProps } from 'ag-grid-react'
 
 interface ICellLinkNameParams extends CustomCellRendererProps {
 	data: {
-		name: string
+		title: string
 		id: string
 	}
 }
@@ -13,7 +13,7 @@ export const CellLinkName = ({ data }: ICellLinkNameParams) => {
 
 	return (
 		<Link to={`/article/${data.id}`} style={linkStyle}>
-			{data.name}
+			{data.title}
 		</Link>
 	)
 }

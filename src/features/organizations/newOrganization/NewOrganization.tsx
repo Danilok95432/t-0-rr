@@ -11,6 +11,7 @@ import styles from './new-organization.module.scss'
 
 export const NewOrganization: FC<IFormProps> = () => {
   const { control, handleSubmit, onSubmit, errors, isValid, isSubmitting } = useAddOrgForm()
+  console.log(isValid, isSubmitting, errors)
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOrganization}>
       <div className={styles['main-info']}>
@@ -51,6 +52,7 @@ export const NewOrganization: FC<IFormProps> = () => {
                 label='Юридический адрес организации'
                 value={field.value}
                 onChange={field.onChange}
+                error={errors.legalAddress?.message}
               />
             )}
           />
@@ -77,7 +79,7 @@ export const NewOrganization: FC<IFormProps> = () => {
             render={({ field }) => (
               <Input
                 id='ogrn'
-                label='ОРГН / ОГРНИП'
+                label='ОГРН / ОГРНИП'
                 value={field.value}
                 onChange={field.onChange}
                 maxLength={20}

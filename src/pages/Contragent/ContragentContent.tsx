@@ -12,7 +12,6 @@ const ContragentContent = () => {
 
   const contragent = data && mapContragent(data)
 
-  console.log(contragent)
   return !contragent ? (
     <Loader />
   ) : (

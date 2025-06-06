@@ -1,60 +1,130 @@
 import classNames from 'classnames'
-import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 
 import styles from './mainArticle.module.scss'
-import { SelectC } from '@/shared/ui/Select'
 import { TextArea } from '@/shared/ui/TextArea'
+import { IArticleInfo } from '@/features/articles/table/config/articlesTypes'
+import { FC } from 'react'
+import { useEditArticleForm } from '@/features/articles/hooks/useEditArticleForm'
+import { Controller } from 'react-hook-form'
 
-export const MainArticleSection = () => {
-	const { isEditingModeActive, handleDeactivateEditingMode } = useEditingMode()
+interface MainArticleSectionProps {
+  id: string
+  article: IArticleInfo
+}
 
-	return (
-		<section className={styles.mainArticle}>
-			<h3 className={styles.title}>Данные статьи</h3>
+export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article }) => {
+  const {
+    isEditingModeActive,
+    control,
+    errors,
+    handleSubmit,
+    onSubmit,
+    handleCancel,
+    isSubmitting,
+    isValid,
+    handleDeactivateEditingMode,
+  } = useEditArticleForm(id, article)
 
-			<div className={styles.inner}>
-				<Input id='name' label='Название статьи' hasResetIcon disabled={!isEditingModeActive} />
+  return (
+    <section className={styles.mainArticle}>
+      <h3 className={styles.title}>Данные статьи</h3>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.inner}>
+          <Controller
+            name='article_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='article_name'
+                label='Название статьи'
+                value={field.value}
+                hasResetIcon={false}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.article_name?.message}
+              />
+            )}
+          />
+          <Controller
+            name='direction'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='direction'
+                label='Направление статьи'
+                value={field.value}
+                hasResetIcon={false}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.direction?.message}
+              />
+            )}
+          />
+          <Controller
+            name='comment'
+            control={control}
+            render={({ field }) => (
+              <TextArea
+                id='comment'
+                label='Комментарий'
+                value={field.value}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.comment?.message}
+                className={styles.articleTextArea}
+              />
+            )}
+          />
+          <Controller
+            name='parent'
+            control={control}
+            render={({ field }) => {
+              return (
+                <Input
+									id='parent'
+									label='Родительская статья'
+									value={field.value}
+									hasResetIcon={false}
+									disabled={!isEditingModeActive}
+									onChange={field.onChange}
+									error={errors.parent?.message}
+								/>
+              )
+            }}
+          />
+          <Controller
+            name='article_exp_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='article_exp_name'
+                label='Тип расходов'
+                value={field.value}
+                hasResetIcon={false}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.article_exp_name?.message}
+              />
+            )}
+          />
+        </div>
 
-				<SelectC
-					options={[]}
-					values={[]}
-					onChange={() => {}}
-					label='Направление статьи'
-					disabled={!isEditingModeActive}
-				/>
-
-				<TextArea
-					label='Комментарий'
-					disabled={!isEditingModeActive}
-					className={styles.articleTextArea}
-				/>
-
-				<SelectC
-					options={[]}
-					values={[]}
-					onChange={() => {}}
-					label='Родительская статья'
-					disabled={!isEditingModeActive}
-				/>
-
-				<SelectC
-					options={[]}
-					values={[]}
-					onChange={() => {}}
-					label='Тип расходов'
-					disabled={!isEditingModeActive}
-				/>
-			</div>
-
-			<div
-				className={classNames(styles.button_wrapper, { [styles.isVisible]: isEditingModeActive })}
-			>
-				<Button mode='primary' label='Сохранить изменения' onClick={handleDeactivateEditingMode} />
-				<Button mode='secondary' label='Отменить' onClick={handleDeactivateEditingMode} />
-			</div>
-		</section>
-	)
+        <div
+          className={classNames(styles.button_wrapper, { [styles.isVisible]: isEditingModeActive })}
+        >
+          <Button
+            type='submit'
+            mode='primary'
+            label='Сохранить изменения'
+            onClick={handleDeactivateEditingMode}
+            disabled={!isValid || isSubmitting}
+          />
+          <Button mode='secondary' label='Отменить' onClick={handleCancel} />
+        </div>
+      </form>
+    </section>
+  )
 }

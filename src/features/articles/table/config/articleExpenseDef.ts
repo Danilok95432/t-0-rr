@@ -6,6 +6,6 @@ import { CellLinkName } from '../cells/CellLinkName'
 export const articleExpenseDef: ColDef<IArticleExpenseData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
 	{ field: 'level', headerName: 'Уровень' },
-	{ field: 'name', headerName: 'Название статьи расхода', cellRenderer: memo(CellLinkName) },
+	{ field: 'title', headerName: 'Название статьи расхода', cellRenderer: memo(CellLinkName) },
 	{ field: 'type', headerName: 'Тип расходов' },
 ]

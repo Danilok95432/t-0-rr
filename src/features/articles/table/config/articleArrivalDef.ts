@@ -6,5 +6,5 @@ import { CellLinkName } from '../cells/CellLinkName'
 export const articleArrivalDef: ColDef<IArticleArrivalData>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
 	{ field: 'level', headerName: 'Уровень', minWidth: 120, maxWidth: 120 },
-	{ field: 'name', headerName: 'Название статьи прихода', cellRenderer: memo(CellLinkName) },
+	{ field: 'title', headerName: 'Название статьи прихода', cellRenderer: memo(CellLinkName) },
 ]

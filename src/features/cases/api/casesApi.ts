@@ -33,13 +33,12 @@ export const casesApi = createApi({
       providesTags: (id) => [{ type: 'Cases', id }],
     }),
     //
-    addNewCase: build.mutation<string, FieldValues>({
-      query: (formData) => ({
+    addNewCase: build.query<{status: string, id: string}, void>({
+      query: () => ({
         url: '/cases/getnew',
-        method: 'POST',
-        body: formData,
+        method: 'GET',
       }),
-      invalidatesTags: ['Cases'],
+      providesTags: ['Cases'],
     }),
     //
     editCase: build.mutation<string, FieldValues>({
@@ -56,6 +55,6 @@ export const casesApi = createApi({
 export const {
   useGetAllCasesQuery,
   useGetCaseInfoQuery,
-  useAddNewCaseMutation,
+  useAddNewCaseQuery,
   useEditCaseMutation,
 } = casesApi

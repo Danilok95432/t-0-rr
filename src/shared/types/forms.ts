@@ -125,10 +125,10 @@ export type TFormNewAccount = {
 }
 
 export type TFormNewArticle = {
-  name: string
+  article_name: string
   direction: string
   parent: string
-  type: string
+  article_exp_name: string
   comment: string
 }
 

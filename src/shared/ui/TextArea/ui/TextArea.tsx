@@ -7,7 +7,7 @@ import { Icon } from '@/shared/ui/Icon'
 import styles from './textArea.module.scss'
 
 export const TextArea: FC<ITextAreaProps> = (props) => {
-  const { id, value, label, placeholder, className, onChange, disabled = false /* error */ } = props
+  const { id, value, label, placeholder, className, onChange, disabled = false, error} = props
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange?.(event.target.value)
@@ -28,7 +28,7 @@ export const TextArea: FC<ITextAreaProps> = (props) => {
         disabled={disabled}
       />
 
-      {/* <span className={styles.error}>{error}</span> */}
+      <span className={styles.error}>{error}</span>
 
       {disabled && <Icon iconId='lock' className={styles.textArea__icon_lock} />}
     </div>

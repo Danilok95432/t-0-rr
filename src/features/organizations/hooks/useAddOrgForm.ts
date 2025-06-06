@@ -1,5 +1,5 @@
 import { useModal } from '@/features/modal/hooks/useModal'
-import { useAddNewOrgMutation } from '../api/organizationsApi'
+import { useAddNewOrgQuery, useEditOrgMutation } from '../api/organizationsApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { TFormOrganization } from '@/shared/types/forms'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,7 +7,8 @@ import { OrgSchema } from '../table/config/orgSchema'
 
 export const useAddOrgForm = () => {
   const { handleCloseModal } = useModal()
-  const [addNewOrg] = useAddNewOrgMutation()
+  const { refetch: getNewId } = useAddNewOrgQuery()
+  const [saveNewOrg] = useEditOrgMutation()
 
   const {
     control,
@@ -28,15 +29,19 @@ export const useAddOrgForm = () => {
   })
 
   const onSubmit: SubmitHandler<TFormOrganization> = async (data) => {
+    const newIdResponse = await getNewId().unwrap()
     const formData = new FormData()
     formData.append('org_name', data.shortName || '')
     formData.append('org_inn', data.inn || '')
+    formData.append('org_ogrn', data.ogrn || '')
     formData.append('org_name_full', data.fullName || '')
     formData.append('org_legal_address', data.legalAddress || '')
     formData.append('comment', data.employeesComment || '')
+    if (newIdResponse)
+      formData.append('id', newIdResponse.id)
 
     try {
-      await addNewOrg(formData).unwrap()
+      await saveNewOrg(formData)
       reset()
       handleCloseModal()
     } catch (error) {

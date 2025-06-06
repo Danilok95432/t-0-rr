@@ -12,13 +12,14 @@ import { GridTable } from '@/shared/ui/GridTable'
 
 import styles from './articles.module.scss'
 //
-import { articleArrivalData } from '@/mock/articleArrival-data'
-import { articleExpenseData } from '@/mock/articleExpense-data'
+import { useGetAllArticlesQuery } from '@/features/articles/api/articlesApi'
 //
 
 const ArticlesContent = () => {
 	const { buttonId } = useModal()
 	const { value } = useQuickFilter()
+
+	const { data: articlesData } = useGetAllArticlesQuery()
 
 	return (
 		<ListLayout title='Статьи'>
@@ -28,7 +29,7 @@ const ArticlesContent = () => {
 
 					<GridTable
 						columnDefinitions={articleArrivalDef}
-						rowData={articleArrivalData}
+						rowData={articlesData?.prihod}
 						checkboxHidden={false}
 						quickFilterText={value}
 					/>
@@ -39,7 +40,7 @@ const ArticlesContent = () => {
 
 					<GridTable
 						columnDefinitions={articleExpenseDef}
-						rowData={articleExpenseData}
+						rowData={articlesData?.rashod}
 						checkboxHidden={false}
 						quickFilterText={value}
 					/>
