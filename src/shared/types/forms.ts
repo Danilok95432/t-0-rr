@@ -111,7 +111,8 @@ export type TFormContragent = {
   name: string
   inn: string
   fullName: string
-  type: TSelectOption[] | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type?: TSelectOption[] | any
 }
 
 export type TFormNewAccount = {

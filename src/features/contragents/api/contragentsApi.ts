@@ -32,13 +32,12 @@ export const contragentsApi = createApi({
       providesTags: (_, __, id) => [{ type: 'Contragents', id }],
     }),
     //
-    addNewContragent: build.mutation<string, FieldValues>({
-      query: (formData) => ({
+    addNewContragent: build.query<{status: string, id: string}, void>({
+      query: () => ({
         url: '/contragents/getnew',
-        method: 'POST',
-        body: formData,
+        method: 'GET',
       }),
-      invalidatesTags: ['Contragents'],
+      providesTags: ['Contragents'],
     }),
     //
     editContragent: build.mutation<string, FieldValues>({
@@ -56,5 +55,5 @@ export const {
   useGetAllContragentsQuery,
   useGetContragentInfoQuery,
   useEditContragentMutation,
-  useAddNewContragentMutation,
+  useAddNewContragentQuery,
 } = contragentsApi

@@ -1,8 +1,6 @@
 import { FC } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { useModal } from '@/features/modal/hooks/useModal'
+import { Controller } from 'react-hook-form'
 import { IFormProps } from '@/shared/types/forms'
-import { TFormContragent } from '@/shared/types/forms'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
@@ -10,25 +8,10 @@ import { TextArea } from '@/shared/ui/TextArea'
 import { SelectC } from '@/shared/ui/Select'
 
 import styles from './new-contragent.module.scss'
+import { useAddContragentForm } from '../hooks/useAddContragentForm'
 
 export const NewContragent: FC<IFormProps> = () => {
-  const { handleCloseModal } = useModal()
-
-  const { control, handleSubmit, reset } = useForm<TFormContragent>({
-    defaultValues: {
-      name: '',
-      inn: '',
-      fullName: '',
-      type: [],
-    },
-  })
-
-  const onSubmit: SubmitHandler<TFormContragent> = (data) => {
-    console.log(data)
-    reset()
-    handleCloseModal()
-  }
-
+  const { control, handleSubmit, onSubmit, errors, isValid, isSubmitting } = useAddContragentForm()
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewContragent}>
       <div className={styles['main-info']}>
@@ -42,6 +25,7 @@ export const NewContragent: FC<IFormProps> = () => {
                 label='Краткое название контрагента'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
+                error={errors.name?.message}
               />
             )}
           />
@@ -55,6 +39,7 @@ export const NewContragent: FC<IFormProps> = () => {
                 label='Полное наименование организации'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
+                error={errors.fullName?.message}
               />
             )}
           />
@@ -70,6 +55,7 @@ export const NewContragent: FC<IFormProps> = () => {
                 label='ИНН'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
+                error={errors.inn?.message}
               />
             )}
           />
@@ -80,7 +66,7 @@ export const NewContragent: FC<IFormProps> = () => {
             render={({ field }) => (
               <SelectC
                 values={field.value ? field.value : []}
-                options={[]}
+                options={[{label: "Тип контрагента не выбран", value: "0"}, {label: 'Физлицо', value: '1'}, {label: 'Юрлицо', value: '2'}]}
                 label='Тип контрагента'
                 onChange={field.onChange}
               />
@@ -89,7 +75,7 @@ export const NewContragent: FC<IFormProps> = () => {
         </div>
       </div>
 
-      <Button type='submit' label='Сохранить' mode='primary' />
+      <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid || isSubmitting} />
     </form>
   )
 }

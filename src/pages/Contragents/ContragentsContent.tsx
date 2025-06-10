@@ -24,8 +24,6 @@ const ContragentsContent = () => {
 
   const counterparties = data?.map((el) => mapContragents(el))
 
-  console.log(counterparties)
-
   return (
     <ListLayout
       title='Контрагенты'

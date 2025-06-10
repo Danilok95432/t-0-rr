@@ -11,7 +11,6 @@ import styles from './new-organization.module.scss'
 
 export const NewOrganization: FC<IFormProps> = () => {
   const { control, handleSubmit, onSubmit, errors, isValid, isSubmitting } = useAddOrgForm()
-  console.log(isValid, isSubmitting, errors)
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOrganization}>
       <div className={styles['main-info']}>

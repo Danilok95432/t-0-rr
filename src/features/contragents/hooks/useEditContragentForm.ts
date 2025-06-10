@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { IContragentData } from '../table/config/contragentsTypes'
 import { useEditContragentMutation } from '../api/contragentsApi'
 import { useCallback } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ContragentSchema } from '../table/config/contragentSchema'
 
 export const useEditContragentForm = (id: string, contragent: IContragentData) => {
   const { isEditingModeActive, handleDeactivateEditingMode } = useEditingMode()
@@ -19,6 +21,7 @@ export const useEditContragentForm = (id: string, contragent: IContragentData) =
       inn: contragent.inn,
       type: contragent.type,
     },
+    resolver: zodResolver(ContragentSchema),
     mode: 'onChange',
   })
 
@@ -29,13 +32,12 @@ export const useEditContragentForm = (id: string, contragent: IContragentData) =
   }, [reset])
 
   const onSubmit: SubmitHandler<TFormContragent> = async (data) => {
-    console.log(data)
     const formData = new FormData()
     formData.append('id', id)
     formData.append('contragent_name', data.name)
     formData.append('contragent_name_full', data.fullName)
     formData.append('inn', data.inn)
-    formData.append('contragent_type', typeof(data.type) === 'string' ? data.type : (data?.type && data?.type?.length > 0 ? data.type[0].value : ''))
+    formData.append('contragent_type', typeof(data.type) === 'string' ? data.type : (data?.type && data?.type?.length > 0 ? data.type[0].value : data?.type?.value))
 
     try {
       await editContragent(formData).unwrap()
