@@ -1,10 +1,18 @@
 import { TotalInfo } from '@/widgets/TotalInfo'
 import styles from './movements.module.scss'
+import { FC } from 'react'
 
-export const MovementsAccount = () => {
+interface MovementsAccountProps {
+  transferInfo: {
+		expence_org_transfers: string
+		income_org_transfers: string
+	}
+}
+
+export const MovementsAccount:FC<MovementsAccountProps> = ({ transferInfo }) => {
 	const movements = [
-		{ name: 'Входящие перемещения', value: '+ 56 118 627.40 ₽', id: 'coming' },
-		{ name: 'Исходящие перемещения', value: '- 43 343 953.55 ₽', id: 'expenditure' },
+		{ name: 'Входящие перемещения', value: transferInfo.income_org_transfers, id: 'coming' },
+		{ name: 'Исходящие перемещения', value: transferInfo.expence_org_transfers, id: 'expenditure' },
 	]
 	return (
 		<section className={styles.movementsAccount}>

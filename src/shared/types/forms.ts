@@ -115,7 +115,8 @@ export type TFormContragent = {
   type?: TSelectOption[] | any
 }
 
-export type TFormNewAccount = {
+
+export type TFormNewContragentAccount = {
   account_name: string
   contragent_bank: string
   contragent_bik: string
@@ -123,6 +124,23 @@ export type TFormNewAccount = {
   contragent_korschet: string
   account_type_name: string
   comment: string
+}
+
+
+export type TFormNewAccount = {
+  account_name: string
+	org_name?: string 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+	orgs?: TSelectOption[] | any
+  id_org?: TSelectOption[] | string
+	account_type_name?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+	account_types?: TSelectOption[] | any
+  id_account_type?: TSelectOption[] | string
+	bank_name: string
+  comment?: string
+	rschet: string
+	bik: string
 }
 
 export type TFormNewArticle = {

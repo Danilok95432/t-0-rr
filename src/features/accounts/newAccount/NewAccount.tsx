@@ -1,8 +1,5 @@
 import { FC } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { useModal } from '@/features/modal/hooks/useModal'
-import { IFormProps } from '@/shared/types/forms'
-import { TFormNewAccount } from '@/shared/types/forms'
+import { Controller } from 'react-hook-form'
 
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
@@ -10,129 +7,139 @@ import { TextArea } from '@/shared/ui/TextArea'
 import { SelectC } from '@/shared/ui/Select'
 
 import styles from './new-account.module.scss'
+import { useNewAccountForm } from '../hooks/useNewAccountForm'
+import classNames from 'classnames'
+import { TSelectOption } from '@/shared/ui/Select/types'
+import { IFormProps } from '@/shared/types/forms'
+
 
 export const NewAccount: FC<IFormProps> = () => {
-	const { handleCloseModal } = useModal()
+  const { control, handleSubmit, onSubmit, errors, isValid, isSubmitting } = useNewAccountForm()
 
-	const { control, handleSubmit, reset } = useForm<TFormNewAccount>({
-		defaultValues: {
-			account_name: '',
-			contragent_bank: '',
-			contragent_bik: '',
-			contragent_rschet: '',
-			contragent_korschet: '',
-			account_type_name: '',
-			comment: '',
-		},
-	})
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewAccount}>
+      <div className={styles['main-info']}>
+        <div className={styles.left}>
+          <Controller
+            name='account_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='account_name'
+                label='Название счёта'
+                value={field.value}
+                hasResetIcon={false}
+                onChange={field.onChange}
+                error={errors.account_name?.message}
+              />
+            )}
+          />
+          <Controller
+            name='orgs'
+            control={control}
+            render={({ field }) => {
+              return (
+                <SelectC
+                  values={field.value ? field.value : []}
+                  options={[]}
+                  label='Организация'
+                  onChange={(selected: TSelectOption[]) => {
+                    field.onChange(selected[0] || null)
+                  }}
+                />
+              )
+            }}
+          />
 
-	const onSubmit: SubmitHandler<TFormNewAccount> = (data) => {
-		console.log(data)
-		reset()
-		handleCloseModal()
-	}
+          <Controller
+            name='comment'
+            control={control}
+            render={({ field }) => (
+              <TextArea
+                id='comment'
+                label='Комментарий'
+                value={field.value}
+                onChange={(text) => field.onChange(text)}
+              />
+            )}
+          />
+        </div>
 
-	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={styles.addNewAccount}>
-			<div className={styles['main-info']}>
-				<div className={styles.left}>
-					<Controller
-						name='account_name'
-						control={control}
-						render={({ field }) => (
-							<Input
-								id='account_name'
-								label='Название счёта'
-								value={field.value}
-								onChange={(text) => field.onChange(text)}
-							/>
-						)}
-					/>
-					{/*
-					<Controller
-						name='organization'
-						control={control}
-						render={({ field }) => (
-							<Input
-								id='organization'
-								label='Организация'
-								value={field.value}
-								onChange={(text) => field.onChange(text)}
-							/>
-						)}
-					/>
-					*/}
+        <div className={styles.right}>
+          <Controller
+            name='account_types'
+            control={control}
+            render={({ field }) => {
+              return (
+                <SelectC
+                  values={field.value ? field.value : []}
+                  options={[]}
+                  label='Тип счета'
+                  onChange={(selected: TSelectOption[]) => {
+                    field.onChange(selected[0] || null)
+                  }}
+                />
+              )
+            }}
+          />
 
-					<Controller
-						name='comment'
-						control={control}
-						render={({ field }) => (
-							<TextArea
-								id='comment'
-								label='Комментарий'
-								value={field.value}
-								onChange={(text) => field.onChange(text)}
-							/>
-						)}
-					/>
-				</div>
+          <Controller
+            name='bank_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='bank_name'
+                label='Банк'
+                value={field.value}
+                hasResetIcon={false}
+                onChange={field.onChange}
+                error={errors.bank_name?.message}
+              />
+            )}
+          />
 
-				<div className={styles.right}>
-					<Controller
-						name='account_type_name'
-						control={control}
-						render={({ field }) => (
-							<SelectC
-								values={field.value ? [{ value: field.value, label: field.value }] : []}
-								options={[]}
-								label='Тип счёта'
-								onChange={field.onChange}
-							/>
-						)}
-					/>
+          <Controller
+            name='rschet'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='rschet'
+                label='Расчетный счет'
+                value={field.value}
+                hasResetIcon={false}
+                onChange={field.onChange}
+                error={errors.rschet?.message}
+              />
+            )}
+          />
 
-					<Controller
-						name='contragent_bank'
-						control={control}
-						render={({ field }) => (
-							<Input
-								id='contragent_bank'
-								label='Банк'
-								value={field.value}
-								onChange={(text) => field.onChange(text)}
-							/>
-						)}
-					/>
+          <Controller
+            name='bik'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='bik'
+                label='Бик'
+                value={field.value}
+                hasResetIcon={false}
+                onChange={field.onChange}
+                error={errors.bik?.message}
+              />
+            )}
+          />
+        </div>
+      </div>
 
-					<Controller
-						name='contragent_rschet'
-						control={control}
-						render={({ field }) => (
-							<Input
-								id='contragent_rschet'
-								label='Расчетный счет'
-								value={field.value}
-								onChange={(text) => field.onChange(text)}
-							/>
-						)}
-					/>
-
-					<Controller
-						name='contragent_bik'
-						control={control}
-						render={({ field }) => (
-							<Input
-								id='contragent_bik'
-								label='БИК'
-								value={field.value}
-								onChange={(text) => field.onChange(text)}
-							/>
-						)}
-					/>
-				</div>
-			</div>
-
-			<Button type='submit' label='Сохранить' mode='primary' />
-		</form>
-	)
+      <div
+        className={classNames(styles.button_wrapper)}
+      >
+        <Button
+          type='submit'
+          mode='primary'
+          label='Сохранить изменения'
+          disabled={!isValid || isSubmitting}
+        />
+      </div>
+    </form>
+  )
 }

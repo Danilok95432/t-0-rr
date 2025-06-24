@@ -8,12 +8,13 @@ import { ListLayout } from '@/shared/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { Modal } from '@/shared/ui/Modal'
 import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
-
-import { accountsData } from '@/mock/accounts-data'
+import { useGetAllAccountsQuery } from '@/features/accounts/api/accountsApi'
 
 const AccountsContent = () => {
   const { buttonId } = useModal()
   const { value } = useQuickFilter()
+
+  const { data: accountsData } = useGetAllAccountsQuery()
 
   return (
     <ListLayout
@@ -27,7 +28,7 @@ const AccountsContent = () => {
     >
       <GridTable
         columnDefinitions={accountsDef}
-        rowData={accountsData}
+        rowData={accountsData?.accounts}
         quickFilterText={value}
         checkboxHidden={false}
       />

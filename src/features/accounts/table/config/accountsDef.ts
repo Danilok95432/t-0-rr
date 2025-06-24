@@ -6,19 +6,19 @@ import { CellBadge } from '../cells/cellBadge/CellBadge'
 
 export const accountsDef: ColDef<IAccountsData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
-  { field: 'type', headerName: 'Тип счёта' },
+  { field: 'account_type_name', headerName: 'Тип счёта' },
   {
-    field: 'fullName',
+    field: 'account_name',
     headerName: 'Наименование счёта',
     cellRenderer: memo(CellLinkName),
-    tooltipField: 'fullName',
+    tooltipField: 'account_name',
   },
-  { field: 'organization', headerName: 'Организация', flex: 2, tooltipField: 'organization' },
-  { field: 'bank', headerName: 'Банк', flex: 2, tooltipField: 'bank' },
-  { field: 'paymentAccount', headerName: 'Расчетный счет', tooltipField: 'paymentAccount' },
-  { field: 'bic', headerName: 'БИК' },
+  { field: 'org_name', headerName: 'Организация', flex: 2, tooltipField: 'org_name' },
+  { field: 'bank_name', headerName: 'Банк', flex: 2, tooltipField: 'bank_name' },
+  { field: 'rschet', headerName: 'Расчетный счет', tooltipField: 'rschet' },
+  { field: 'bik', headerName: 'БИК' },
   {
-    field: 'balanceAccounts',
+    field: 'balance',
     headerName: 'Баланс счёта',
     cellRenderer: memo(CellBadge),
     valueFormatter: (params) => (params.value === null ? '' : params.value.value),

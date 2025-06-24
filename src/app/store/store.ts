@@ -11,6 +11,7 @@ import { dealsApi } from '@/features/deals/api/dealsApi'
 import { organizationsApi } from '@/features/organizations/api/organizationsApi'
 import { contragentsApi } from '@/features/contragents/api/contragentsApi'
 import { articlesApi } from '@/features/articles/api/articlesApi'
+import { accountsApi } from '@/features/accounts/api/accountsApi'
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     [casesApi.reducerPath]: casesApi.reducer,
     [dealsApi.reducerPath]: dealsApi.reducer,
     [articlesApi.reducerPath]: articlesApi.reducer,
+    [accountsApi.reducerPath]: accountsApi.reducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
@@ -35,6 +37,7 @@ export const store = configureStore({
       organizationsApi.middleware,
       contragentsApi.middleware,
       articlesApi.middleware,
+      accountsApi.middleware,
     ),
 })
 

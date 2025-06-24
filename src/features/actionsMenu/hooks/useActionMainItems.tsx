@@ -5,13 +5,8 @@ import { IActionItem } from '../types'
 
 const COMMON_PATHS = [
   'operations',
-  'accounts',
-  'articles',
-  'cases',
   'transactions',
-  'imports',
   'import',
-  'summary',
 ]
 
 const EDITING_PATHS = ['organization', 'contragent', 'account', 'article', 'case', 'transaction']
@@ -31,6 +26,7 @@ export const useActionMainItems = (): IActionItem[] => {
     {
       id: 'add',
       onClick: handleOpenModal,
+      showOnPaths: [...COMMON_PATHS, ...EDITING_PATHS, 'deals', 'cases', 'articles', 'accounts', 'contragents', 'organizations',]
     },
     {
       id: 'search',
@@ -41,12 +37,12 @@ export const useActionMainItems = (): IActionItem[] => {
     {
       id: 'import',
       onClick: handleOpenModal,
-      showOnPaths: COMMON_PATHS,
+      showOnPaths: [...COMMON_PATHS, 'deals',],
     },
     {
       id: 'unload',
       onClick: handleOpenModal,
-      showOnPaths: [...COMMON_PATHS, 'organizations', 'counterparties'],
+      showOnPaths: [...COMMON_PATHS, 'summary', 'imports', 'deals', 'cases', 'articles', 'accounts', 'contragents', 'organizations',],
     },
     {
       id: 'graph',

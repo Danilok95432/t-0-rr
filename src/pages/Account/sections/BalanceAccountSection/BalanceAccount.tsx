@@ -1,11 +1,20 @@
 import { TotalInfo } from '@/widgets/TotalInfo'
 import styles from './balance-account.module.scss'
+import { FC } from 'react'
 
-export const BalanceAccount = () => {
+interface BalanceAccountProps {
+  balanceInfo: {
+		prihod: string
+		rashod: string
+		balance: string
+	}
+}
+
+export const BalanceAccount:FC<BalanceAccountProps> = ({ balanceInfo }) => {
 	const balance = [
-		{ name: 'Приход за всё время', value: '+ 56 118 627.40 ₽', id: 'coming' },
-		{ name: 'Расход за всё время', value: '- 43 343 953.55 ₽', id: 'expenditure' },
-		{ name: 'Актуальный баланс', value: '220 000 088.00 ₽', id: 'movements' },
+		{ name: 'Приход за всё время', value: balanceInfo.prihod, id: 'coming' },
+		{ name: 'Расход за всё время', value: balanceInfo.rashod, id: 'expenditure' },
+		{ name: 'Актуальный баланс', value: balanceInfo.balance, id: 'movements' },
 	]
 	return (
 		<section className={styles.balanceAccount}>

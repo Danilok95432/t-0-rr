@@ -1,5 +1,5 @@
 import { useEditingMode } from '@/features/editingMode/hooks/useEditingMode'
-import { TFormNewAccount } from '@/shared/types/forms'
+import { TFormNewContragentAccount } from '@/shared/types/forms'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IContragentAccountsData } from '../table/config/contragentsTypes'
 import { useCallback } from 'react'
@@ -11,7 +11,7 @@ export const useEditAccountForm = (id: string, account: IContragentAccountsData)
     handleSubmit,
     reset,
     formState: { errors, isValid, isSubmitting },
-  } = useForm<TFormNewAccount>({
+  } = useForm<TFormNewContragentAccount>({
     defaultValues: {
       account_name: account.account_name,
       contragent_bank: account.contragent_bank,
@@ -28,7 +28,7 @@ export const useEditAccountForm = (id: string, account: IContragentAccountsData)
     reset()
   }, [reset])
 
-  const onSubmit: SubmitHandler<TFormNewAccount> = async (data) => {
+  const onSubmit: SubmitHandler<TFormNewContragentAccount> = async (data) => {
     console.log(data, id)
   }
 

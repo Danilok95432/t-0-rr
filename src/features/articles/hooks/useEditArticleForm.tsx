@@ -23,7 +23,7 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
     mode: 'onChange',
   })
 
-  const [editContragent] = useEditArticleMutation()
+  const [editArticle] = useEditArticleMutation()
 
   const resetForm = useCallback(() => {
     reset()
@@ -38,7 +38,7 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
     formData.append('article_exp_name', data.article_exp_name)
     formData.append('parent', data.parent)
     try {
-      await editContragent(formData).unwrap()
+      await editArticle(formData).unwrap()
     } catch (error) {
       console.log('Ошибка обновления статьи:', error)
     }
