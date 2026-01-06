@@ -15,6 +15,7 @@ export const contragentsDef: ColDef<IContragentsData>[] = [
     cellRenderer: memo(CellLinkShortName),
     flex: 1,
     tooltipField: 'shortName',
+    maxWidth: 230
   },
   {
     field: 'fullName',
@@ -23,8 +24,8 @@ export const contragentsDef: ColDef<IContragentsData>[] = [
     flex: 2,
     tooltipField: 'fullName',
   },
-  { field: 'type', headerName: 'Тип', flex: 1 },
-  { field: 'inn', headerName: 'ИНН', flex: 1 },
+  { field: 'type', headerName: 'Тип', flex: 1, maxWidth: 240 },
+  { field: 'inn', headerName: 'ИНН', flex: 1, maxWidth: 120 },
   {
     field: 'accounts',
     headerName: 'Счета контрагента',

@@ -1,3 +1,5 @@
+import { TSelectOption, TSelectOptionDirection, TSelectOptionParent } from "@/shared/ui/Select/types"
+
 export interface IArticleArrivalData {
 	id: string
 	level: string
@@ -18,11 +20,14 @@ export interface IArticleData {
 
 export interface IArticleInfo {
 	article_name: string
+	article_exps_list: TSelectOptionDirection[]
 	direction: string
+	directions_list: TSelectOption[]
 	parent: {
 		id: string
 		article_name: string
 	}
+	parents_list: TSelectOptionParent[]
 	article_exp_name: string
 	comment: string
 }

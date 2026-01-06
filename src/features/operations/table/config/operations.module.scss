@@ -1,0 +1,9 @@
+:global(#amount-column .ag-header-cell-label),
+:global([col-id="amount-column"] .ag-header-cell-label) {
+  justify-content: flex-end !important;
+}
+
+.amountHeader .ag-header-cell-label .ag-header-cell-text {
+  /* Если нужно дополнительно стилизовать текст */
+  text-align: right;
+}

@@ -19,37 +19,41 @@ export const AuthForm: FC<IFormProps> = () => {
       </div>
 
       {errorStatus === 401 && <span className={styles.error_auth}>Неверный логин или пароль</span>}
-
-      <Controller
-        name='user_name'
-        control={control}
-        render={({ field }) => (
-          <Input
-            id='user_name'
-            label='Имя пользователя'
-            hasResetIcon
-            value={field.value}
-            onChange={field.onChange}
+      <div className={styles.controllersRow}>
+        <div className={styles.controllerEl}>
+          <Controller
+            name='user_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='user_name'
+                label='Имя пользователя'
+                hasResetIcon
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
           />
-        )}
-      />
-      <span className={styles.error_name}>{errors.user_name?.message}</span>
-
-      <Controller
-        name='password'
-        control={control}
-        render={({ field }) => (
-          <Input
-            id='password'
-            label='Пароль'
-            type='password'
-            hasResetIcon
-            value={field.value}
-            onChange={field.onChange}
+          <span className={styles.error_name}>{errors.user_name?.message}</span>
+        </div>
+        <div className={styles.controllerEl}>
+          <Controller
+            name='password'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='password'
+                label='Пароль'
+                type='password'
+                hasResetIcon
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
           />
-        )}
-      />
-      <span className={styles.error_pass}>{errors.password?.message}</span>
+          <span className={styles.error_pass}>{errors.password?.message}</span>
+        </div>
+      </div>
 
       <Button
         type='submit'

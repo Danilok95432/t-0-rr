@@ -1,4 +1,4 @@
-import { TSelectOption } from '../ui/Select/types'
+import { TSelectOption, TSelectOptionDirection, TSelectOptionParent } from '../ui/Select/types'
 
 export interface IFormProps {
   labelBadge?: string
@@ -10,20 +10,22 @@ export type TFormAuth = {
 }
 
 export type TFormNewOperation = {
-  organization: string
-  organizationAccount: string
-  counterparty: string
-  counterpartyAccount: string
-  date: Date | null
-  bankID: string
-  sumOperation: string
-  nameOperation: string
-  employeesComment: string
-  case: string
-  direction: string
-  typeExpense: string
-  article: string
-  payer: string
+  orgs_list: TSelectOption[]
+	accounts_list: (TSelectOption & { id_org: string })[]
+	contragents_list: (TSelectOption & { inn: string })[]
+	contragent_accounts_list: (TSelectOption & { id_contragent: string })[]
+	deals_list: (TSelectOption & { id_case: string, id_org: string })[]
+	cases_list: TSelectOption[]
+	directions_list: TSelectOption[]
+	articles_list: (TSelectOption & { id_direction: string, id_article_exp: string })[]
+	rashods_list: TSelectOption[]
+  article_exps_list: (TSelectOption & { direction: string })[]
+	date: Date
+	bank_id: string
+  imported: boolean
+	summ: string
+	itemname: string
+	comment: string
 }
 
 export type TFormUnloadOperations = {
@@ -81,7 +83,7 @@ export type TFormProcessingOperation = TFormNewOperation & {
 }
 
 export type TFormUploadingOperations = {
-  fileType?: '1cExchange' | 'YSet' | 'custom'
+  fileType?: '1cExchange' | 'YSet' | 'custom' | 'txt'
   files: Array<{
     file: File
   }>
@@ -145,8 +147,11 @@ export type TFormNewAccount = {
 
 export type TFormNewArticle = {
   article_name: string
+  article_exps_list: TSelectOptionDirection[]
   direction: string
+  directions_list: TSelectOption[]
   parent: string
+  parents_list: TSelectOptionParent[]
   article_exp_name: string
   comment: string
 }

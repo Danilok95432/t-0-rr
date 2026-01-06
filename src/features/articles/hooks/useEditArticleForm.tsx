@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useCallback } from 'react'
 import { IArticleInfo } from '../table/config/articlesTypes'
 import { useEditArticleMutation } from '../api/articlesApi'
+import { getFirstValue } from '@/shared/helpers/helpers'
 
 export const useEditArticleForm = (id: string, article: IArticleInfo) => {
   const { isEditingModeActive, handleDeactivateEditingMode } = useEditingMode()
@@ -11,6 +12,7 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isValid, isSubmitting },
   } = useForm<TFormNewArticle>({
     defaultValues: {
@@ -18,7 +20,7 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
       direction: article.direction,
       article_exp_name: article.article_exp_name,
       comment: article.comment,
-      parent: article.parent.article_name
+      parent: article.parent.article_name,
     },
     mode: 'onChange',
   })
@@ -34,9 +36,10 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
     const formData = new FormData()
     formData.append('id', id)
     formData.append('article_name', data.article_name)
-    formData.append('direction', data.direction)
-    formData.append('article_exp_name', data.article_exp_name)
-    formData.append('parent', data.parent)
+    formData.append('parent', getFirstValue(data.directions_list))
+    formData.append('article_exp_name', getFirstValue(data.article_exps_list))
+    formData.append('direction', getFirstValue(data.parents_list))
+    formData.append('comment', data.comment)
     try {
       await editArticle(formData).unwrap()
     } catch (error) {
@@ -59,5 +62,7 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
     isSubmitting,
     isValid,
     handleDeactivateEditingMode,
+    setValue,
+    reset,
   }
 }

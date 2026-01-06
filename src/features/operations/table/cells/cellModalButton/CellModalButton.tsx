@@ -11,7 +11,6 @@ interface ICellModalButtonParams extends CustomCellRendererProps {
 
 export const CellModalButton = (params: ICellModalButtonParams) => {
 	const { handleOpenModal } = useModal()
-
 	return (
 		<Button
 			id={`processing-${params.data.id}`}

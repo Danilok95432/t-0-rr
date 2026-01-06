@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { FieldValues } from 'react-hook-form'
 import { IAccountInfo, IAccountsResponse } from '../table/config/accountsTypes'
+import { TSelectOption } from '@/shared/ui/Select/types'
 
 export const accountsApi = createApi({
   reducerPath: 'accountsApi',
@@ -25,9 +26,22 @@ export const accountsApi = createApi({
       providesTags: (_, __, id) => [{ type: 'Accounts', id }],
     }),
     //
-    addNewAccount: build.query<{status: string, id: string}, void>({
+    addNewAccount: build.query<{ status: string; id: string }, void>({
       query: () => ({
         url: '/cases/getnew',
+        method: 'GET',
+      }),
+      providesTags: ['Accounts'],
+    }),
+    getNewLists: build.query<
+      {
+        account_types: TSelectOption[]
+        orgs: TSelectOption[]
+      },
+      void
+    >({
+      query: () => ({
+        url: '/accounts/getnew_lists',
         method: 'GET',
       }),
       providesTags: ['Accounts'],
@@ -49,4 +63,5 @@ export const {
   useGetAccountInfoQuery,
   useEditAccountMutation,
   useAddNewAccountQuery,
+  useGetNewListsQuery,
 } = accountsApi

@@ -6,16 +6,24 @@ export const useModal = () => {
   const dispatch = useAppDispatch()
   const { isOpenModal, buttonId } = useAppSelector((state) => state.modal)
 
-  const handleOpenModal = (event: MouseEvent<HTMLButtonElement>) => {
+  // открыть модалку по id кнопки
+  const openModalById = useCallback(
+    (id: string) => {
+      dispatch(openModal(id))
+    },
+    [dispatch]
+  )
+
+  // старый обработчик для кнопок
+  const handleOpenModal = (event: MouseEvent<HTMLElement>) => {
     const idButton = event.currentTarget.getAttribute('id')
-    dispatch(openModal(idButton ?? ''))
+    openModalById(idButton ?? '')
   }
 
   const handleCloseModal = useCallback(() => {
     dispatch(closeModal())
   }, [dispatch])
 
-  // Обработчик Esc
   useEffect(() => {
     if (isOpenModal) {
       const closeByEscape = (event: KeyboardEvent) => {
@@ -25,10 +33,9 @@ export const useModal = () => {
       }
 
       document.addEventListener('keydown', closeByEscape)
-
       return () => document.removeEventListener('keydown', closeByEscape)
     }
   }, [isOpenModal, handleCloseModal])
 
-  return { isOpenModal, buttonId, handleOpenModal, handleCloseModal }
+  return { isOpenModal, buttonId, handleOpenModal, openModalById, handleCloseModal }
 }

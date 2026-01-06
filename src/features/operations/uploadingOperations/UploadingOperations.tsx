@@ -1,4 +1,5 @@
-import { FC } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, useState, useEffect } from 'react'
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form'
 import { IFormProps } from '@/shared/types/forms'
 import { TFormUploadingOperations } from '@/shared/types/forms'
@@ -8,133 +9,153 @@ import { Badge } from '@/shared/ui/Badge'
 import { RadioButton } from '@/shared/ui/RadioButton'
 import { DropZone } from '@/shared/ui/DropZone'
 
-// import { downloadReportItems } from '@/mock/download-report'
-// import { downloadErrorItems } from '@/mock/download-error'
-
 import styles from './uploading-operations.module.scss'
 
 export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
-	const { control, handleSubmit, watch } = useForm<TFormUploadingOperations>({
-		defaultValues: {
-			fileType: undefined,
-			files: [],
-		},
-	})
+  const { control, handleSubmit, watch } = useForm<TFormUploadingOperations>({
+    defaultValues: {
+      fileType: undefined,
+      files: [],
+    },
+  })
 
-	const { fields, append, remove } = useFieldArray({
-		control,
-		name: 'files',
-	})
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'files',
+  })
 
-	const onSubmit: SubmitHandler<TFormUploadingOperations> = (data) => {
-		console.log(data)
-	}
+  const onSubmit: SubmitHandler<TFormUploadingOperations> = (data) => {
+    console.log(data)
+  }
 
-	const handleDropFile = (acceptedFiles: File[]) => {
-		append(
-			acceptedFiles.map((file) => ({
-				file,
-			}))
-		)
-	}
+  const [acceptTypes, setAcceptTypes] = useState<boolean>(false)
 
-	const handleRemoveFile = (index: number) => {
-		remove(index)
-	}
+  // MIME-типы для txt файлов
+  const acceptedTypes = ['text/plain', 'text/csv', 'application/vnd.ms-excel']
 
-	const selectedFileType = watch('fileType')
+  // Можно добавить проверку по расширению в дополнение к MIME-типу
+  const acceptedExtensions = ['.txt', '.csv']
 
-	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={styles.uploadOperation}>
-			{labelBadge && <Badge label={labelBadge} />}
+  const handleDropFile = (acceptedFiles: File[]) => {
+    append(
+      acceptedFiles.map((file) => ({
+        file,
+      }))
+    )
+  }
 
-			<div className={styles['uploadOperation__body']}>
-				<h3 className={styles.uploadOperation__title}>Выбор типа файла импорта</h3>
-				<Controller
-					name='fileType'
-					control={control}
-					render={({ field }) => (
-						<fieldset>
-							<div className={styles['uploadOperation__type-file']}>
-								<RadioButton
-									label='1С Exchange'
-									id='1cExchange'
-									name={field.name}
-									value='1cExchange'
-									checked={field.value === '1cExchange'}
-									onChange={() => field.onChange('1cExchange')}
-								/>
-								<RadioButton
-									label='Yandex Set'
-									id='YSet'
-									name={field.name}
-									value='YSet'
-									checked={field.value === 'YSet'}
-									onChange={() => field.onChange('YSet')}
-								/>
-								<RadioButton
-									label='Собственный формат'
-									id='custom'
-									name={field.name}
-									value='custom'
-									checked={field.value === 'custom'}
-									onChange={() => field.onChange('custom')}
-								/>
+  const handleRemoveFile = (index: number) => {
+    remove(index)
+  }
 
-								<a href='#' className={styles['uploadOperation__type-file-link']}>
-									Настройка собственного формата
-								</a>
-							</div>
-						</fieldset>
-					)}
-				/>
+  const selectedFileType = watch('fileType')
 
-				<div className={styles['uploadOperation__action-loading']}>
-					<h3 className={styles.uploadOperation__title}>Загрузка файла</h3>
-					<DropZone onDrop={handleDropFile} onRemoveFile={handleRemoveFile} files={fields} />
-				</div>
+  // Проверяем файлы при изменении fields или selectedFileType
+  useEffect(() => {
+    if (fields.length === 0) {
+      setAcceptTypes(false)
+      return
+    }
 
-				{!selectedFileType && !!fields.length && (
-					<span className={styles['uploadOperation__error']}>
-						Для того, чтобы загрузить данные операций, необходимо выбрать формат импортируемого
-						файла
-					</span>
-				)}
-			</div>
+    // Проверяем все файлы на соответствие типам
+    const allFilesValid = fields.every(
+      (field) =>
+        acceptedTypes.includes(field.file.type) ||
+        acceptedExtensions.some((ext) => field.file.name.toLowerCase().endsWith(ext))
+    )
 
-			{/* В случае успешной загрузки */}
-			{/* <div className={styles.downloadReport}>
-				<h3 className={styles.downloadReport__title}>Импорт проведен успешно!</h3>
+    setAcceptTypes(allFilesValid)
+  }, [acceptedExtensions, acceptedTypes, fields, selectedFileType])
 
-				<p className={styles.downloadReport__subtitle}>Отчет о загрузке</p>
-				<ul className={styles['downloadReport__main-info']}>
-					{downloadReportItems.map((item) => (
-						<li className={styles.downloadReport__values}>
-							<span>{item.title}</span>
-							<span>{item.value}</span>
-						</li>
-					))}
-				</ul>
-				<ul className={styles['downloadReport__error-info']}>
-					{downloadErrorItems.map((item) => (
-						<li className={styles.downloadReport__values}>
-							<span>{item.title}</span>
-							<span>{item.value}</span>
-						</li>
-					))}
-				</ul>
-			</div>
-			<a href=''>
-				<Button mode='primary' label='Перейти на страницу результата импорта' />
-			</a> */}
-			{/*  */}
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.uploadOperation}>
+      {labelBadge && <Badge label={labelBadge} />}
 
-			<Button
-				mode='primary'
-				type='submit'
-				label='Загрузить операцию'
-				disabled={!selectedFileType || !fields.length}
-			/>
-		</form>
-	)
+      <div className={styles['uploadOperation__body']}>
+        <h3 className={styles.uploadOperation__title}>Выбор типа файла импорта</h3>
+        <Controller
+          name='fileType'
+          control={control}
+          render={({ field }) => (
+            <fieldset>
+              <div className={styles['uploadOperation__type-file']}>
+                <RadioButton
+                  label='1С Exchange'
+                  id='1cExchange'
+                  name={field.name}
+                  value='1cExchange'
+                  checked={true}
+                  onChange={() => field.onChange('1cExchange')}
+                />
+              </div>
+            </fieldset>
+          )}
+        />
+
+        <div className={styles['uploadOperation__action-loading']}>
+          <h3 className={styles.uploadOperation__title}>Загрузка файла</h3>
+          <DropZone
+            onDrop={handleDropFile}
+            onRemoveFile={handleRemoveFile}
+            files={fields}
+            accept={setAcceptTypes}
+            acceptedTypes={acceptedTypes}
+          />
+        </div>
+
+        {/* Показываем успешный импорт только если: 
+					1. Есть файлы
+					2. Выбран тип файла
+					3. Все файлы валидны */}
+        {fields.length > 0 && selectedFileType && acceptTypes && (
+          <div className={styles.importAcceptBlock}>
+            <span className={styles.title}>Импорт проведен успешно!</span>
+            <div className={styles.infoBlock}>
+              <span>Отчет о загрузке</span>
+              <div className={styles.info}>
+                <div className={styles.leftSide}>
+                  <p>Операций загружено: </p>
+                  <p>Из них приход: </p>
+                  <p>Из них расход: </p>
+                  <br />
+                  <p>Ошибка, дубль: </p>
+                  <p>Ошибка формата: </p>
+                </div>
+                <div className={styles.rightSide}>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <br />
+                  <p>1</p>
+                  <p>1</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Показываем ошибку если:
+					1. Есть файлы
+					2. ИЛИ не выбран тип файла
+					3. ИЛИ файлы не валидны */}
+        {fields.length > 0 && (!selectedFileType || !acceptTypes) && (
+          <span className={styles.errorTitle}>
+            Импорт некорректен:{' '}
+            {!selectedFileType ? 'тип файла не выбран' : 'файл неверного формата или поврежден'}
+          </span>
+        )}
+      </div>
+
+      <Button
+        mode='primary'
+        type='submit'
+        label='Загрузить операцию'
+        // Кнопка активна только если:
+        // 1. Выбран тип файла
+        // 2. Есть файлы
+        // 3. Все файлы валидны
+        disabled={!selectedFileType || fields.length === 0 || !acceptTypes}
+      />
+    </form>
+  )
 }

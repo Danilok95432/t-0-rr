@@ -1,0 +1,24 @@
+:global(#amount-column .ag-header-cell-label),
+:global([col-id="amount-column"] .ag-header-cell-label) {
+  justify-content: flex-end !important;
+}
+
+:global(#case-column .ag-header-cell-label),
+:global([col-id="case-column"] .ag-header-cell-label) {
+  justify-content: flex-end !important;
+}
+
+:global(#paid-column .ag-header-cell-label),
+:global([col-id="paid-column"] .ag-header-cell-label) {
+  justify-content: flex-end !important;
+}
+
+:global(#appears-column .ag-header-cell-label),
+:global([col-id="appears-column"] .ag-header-cell-label) {
+  justify-content: flex-end !important;
+}
+
+.amountHeader .ag-header-cell-label .ag-header-cell-text {
+  /* Если нужно дополнительно стилизовать текст */
+  text-align: right;
+}

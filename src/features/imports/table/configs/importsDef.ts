@@ -9,13 +9,14 @@ export const importsDef: ColDef<IImportsData>[] = [
     field: 'dateAndTime',
     headerName: 'Дата и время импорта',
     cellRenderer: memo(CellLinkDateTime),
+    maxWidth: 180
   },
-  { field: 'organization', headerName: 'Организация', tooltipField: 'organization' },
+  { field: 'organization', headerName: 'Организация', tooltipField: 'organization', maxWidth: 170 },
   {
     field: 'accounts',
     headerName: 'Счета',
     tooltipField: 'accounts',
   },
   { field: 'file', headerName: 'Файл', tooltipField: 'file' },
-  { field: 'standard', headerName: 'Эталон', cellStyle: { color: 'var(--link)' } },
+  { field: 'standard', headerName: 'Эталон', cellStyle: { color: 'var(--link)' }, maxWidth: 270 },
 ]

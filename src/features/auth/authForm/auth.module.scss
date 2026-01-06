@@ -1,8 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  row-gap: 25px;
-  width: 500px;
+  width: 350px;
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
@@ -14,9 +13,7 @@
 .error_auth,
 .error_name,
 .error_pass {
-  position: absolute;
   color: var(--negative);
-  left: 20px;
 }
 
 .error_auth {
@@ -24,17 +21,11 @@
   top: 58px;
 }
 
-.error_name {
-  top: 130px;
-}
-
-.error_pass {
-  bottom: 57px;
-}
-
 .button {
-  padding-inline: 50px;
-  align-self: center;
+  font-size: 14px;
+  height: auto;
+  margin: 0 auto;
+  padding: 8px 24px;
 }
 
 .title {
@@ -45,6 +36,20 @@
   display: flex;
   align-items: center;
   padding-left: 30px;
+  margin: 0 auto 20px auto;
+  width: max-content;
+}
+
+.controllersRow {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  .controllerEl {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 
 .title::before,

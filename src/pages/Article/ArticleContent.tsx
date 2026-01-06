@@ -11,7 +11,7 @@ const ArticleContent = () => {
   return !articleData ? (
     <Loader />
   ) : (
-    <ItemLayout labelButton='Вернуться к списку статей' pathToBack='articles'>
+    <ItemLayout labelButton='Вернуться к списку статей' pathToBack='articles' title={`Статья «${articleData?.article_name}»`}>
       <MainArticleSection id={id} article={articleData} />
     </ItemLayout>
   )

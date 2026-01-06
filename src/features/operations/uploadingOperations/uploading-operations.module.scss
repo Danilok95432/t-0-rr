@@ -41,6 +41,51 @@
 	}
 }
 
+.errorTitle {
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--negative);
+}
+
+.importAcceptBlock {
+	padding: 15px 0 0;
+	border-top: 1px solid #e1e1e1;
+	.title {
+		font-size: 16px;
+		color: var(--positive-02);
+		margin-bottom: 8px;
+	}
+	.infoBlock {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		span {
+			font-size: 14px;
+			font-weight: 500;
+		}
+		.info {
+			display: flex;
+			flex-direction: row;
+			align-items: start;
+			gap: 20px;
+			.leftSide, .rightSide {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				p {
+					margin: 0;
+					font-size: 12px;
+				}
+			}
+			.leftSide {
+				p {
+					min-width: 140px;
+				}
+			}
+		}
+	}
+}
+
 .downloadReport {
 	border-bottom: var(--border);
 	padding-bottom: 15px;

@@ -6,6 +6,8 @@ import { CellLinkName } from '../cells/CellLinkName'
 import { CellLinkOrganizations } from '../cells/CellLinkOrganizations'
 import { CellBadge } from '../cells/cellBadge/CellBadge'
 
+import styles from './cases.module.scss'
+
 export const casesDef: ColDef<ICasesData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
   {
@@ -14,6 +16,7 @@ export const casesDef: ColDef<ICasesData>[] = [
     cellRenderer: memo(CellLinkName),
     flex: 2,
     tooltipField: 'title',
+    maxWidth: 375
   },
   {
     field: 'orgs',
@@ -27,12 +30,15 @@ export const casesDef: ColDef<ICasesData>[] = [
       return params.data.orgs.map((el: Record<string, string>) => el.title).join('')
     },
   },
-  { field: 'deals', headerName: 'Сделок' },
-  { field: 'operations', headerName: 'Операций' },
+  { field: 'deals', headerName: 'Сделок', maxWidth: 235 },
+  { field: 'operations', headerName: 'Операций', maxWidth: 160 },
   {
     field: 'balance',
     headerName: 'Баланс кейса',
     cellRenderer: memo(CellBadge),
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
+    colId: 'amount-column',
+    headerClass: styles.amountHeader,
+    maxWidth: 130
   },
 ]

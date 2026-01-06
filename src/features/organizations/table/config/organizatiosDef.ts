@@ -16,9 +16,9 @@ export const organizationsDef: ColDef<IOrganizationsData>[] = [
     tooltipField: 'fullName',
     flex: 2,
   },
-  { field: 'type', headerName: 'Тип' },
-  { field: 'inn', headerName: 'ИНН' },
-  { field: 'ogrn', headerName: 'ОГРН' },
+  { field: 'type', headerName: 'Тип', maxWidth: 230 },
+  { field: 'inn', headerName: 'ИНН', maxWidth: 120 },
+  { field: 'ogrn', headerName: 'ОГРН', maxWidth: 140 },
   {
     field: 'accounts',
     headerName: 'Счета организации',

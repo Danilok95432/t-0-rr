@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-import { IOperationsData } from './operationsTypes'
+import { OperationsData } from './operationsTypes'
 
 import { CellIcon } from '../cells/CellIcon'
 import { CellIconHeader } from '../cells/CellIconHeader'
@@ -10,11 +10,13 @@ import { CellCase } from '../cells/cellCase/CellCase'
 import { CellArticle } from '../cells/cellArticle/CellArticle'
 import { CellOrg } from '../cells/cellOrg/cellOrg'
 
-export const operationsDef: ColDef<IOperationsData>[] = [
+import styles from './operations.module.scss'
+
+export const operationsDef: ColDef<OperationsData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
-  { field: 'date', headerName: 'Дата', minWidth: 100, maxWidth: 100 },
+  { field: 'itemdate', headerName: 'Дата', minWidth: 100, maxWidth: 100 },
   {
-    field: 'iconType',
+    field: 'id_direction',
     cellRenderer: memo(CellIcon),
     headerName: '',
     headerComponent: memo(CellIconHeader),
@@ -23,33 +25,47 @@ export const operationsDef: ColDef<IOperationsData>[] = [
     sortable: false,
   },
   {
-    field: 'organization',
+    field: 'org_name',
     headerName: 'Организация и счет',
     cellRenderer: CellOrg,
+    tooltipField: 'org_name',
+    maxWidth: 180,
     tooltipValueGetter: (params) => [
-      params.data?.organization.name,
-      params.data?.organization.account,
+      params.data?.org_name,
+      params.data?.account_name,
     ],
   },
-  { field: 'counterparty', headerName: 'Контрагент', tooltipField: 'counterparty' },
+  { field: 'contragent_name', headerName: 'Контрагент', tooltipField: 'contragent_name', maxWidth: 350 },
   {
-    field: 'nameOperation',
+    field: 'itemname',
     headerName: 'Наименование операции',
     cellRenderer: memo(CellModalButton),
     minWidth: 200,
     flex: 1,
     autoHeight: false,
-    tooltipField: 'nameOperation',
+    tooltipField: 'itemname',
   },
   {
-    field: 'caseAndDeal',
     headerName: 'Кейс и сделка',
     cellRenderer: memo(CellCase),
+    maxWidth: 250,
+    valueGetter: (params) => ({
+      case: params.data?.case_name,
+      deal: params.data?.deal_name
+    }),
+    tooltipValueGetter: (params) => 
+      `${params.data?.case_name}\n${params.data?.deal_name}`
   },
   {
-    field: 'article',
     headerName: 'Статья и подстатья',
+    maxWidth: 250,
     cellRenderer: CellArticle,
+    valueGetter: (params) => ({
+      case: params.data?.main_article_name,
+      deal: params.data?.sub_article_name
+    }),
+    tooltipValueGetter: (params) => 
+      `${params.data?.case_name}\n${params.data?.deal_name}`
     // filter: true,
     // valueGetter: (params) => params.data?.article,
     // filterValueGetter: (value) => value.data?.article.article,
@@ -58,11 +74,16 @@ export const operationsDef: ColDef<IOperationsData>[] = [
     // },
   },
   {
-    field: 'amount',
+    colId: 'amount-column',
     headerName: 'Сумма',
     cellRenderer: memo(CellBadge),
+    valueGetter: (params) => ({
+      status: params.data?.id_direction === '1' ? 'negative' : (params.data?.id_direction === '2' ? 'positive' : 'neutral'),
+      value: params.data?.summ
+    }),
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
     maxWidth: 150,
+    headerClass: styles.amountHeader,
   },
 ]
 

@@ -14,6 +14,7 @@ const TransactionContent = () => {
       <ItemLayout
         labelButton='Вернуться к списку сделок'
         pathToBack='deals'
+        title={`Сделка «${dealInfo?.deal_name}»`}
       >
         <EditDealForm deal={dealInfo} id={id} />
       </ItemLayout>

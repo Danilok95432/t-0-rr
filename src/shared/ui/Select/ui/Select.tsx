@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from 'react'
+import { FC, useState, useCallback, useEffect, useMemo } from 'react'
 import classNames from 'classnames'
 import Select from 'react-dropdown-select'
 import { ISelectCProps, TSelectOption } from '../types'
@@ -8,57 +8,76 @@ import { Icon } from '@/shared/ui/Icon'
 import './select.scss'
 
 export const SelectC: FC<ISelectCProps> = (props) => {
-	const {
-		options,
-		values,
-		onChange,
-		label,
-		placeholder = '',
-		className,
-		disabled,
-		searchable,
-	} = props
-	const [isFocused, setIsFocused] = useState(false)
+  const {
+    options,
+    values,
+    value,            // 👈 новый проп
+    onChange,
+    label,
+    placeholder = '',
+    className,
+    disabled,
+    searchable,
+  } = props
 
-	const handleChange = useCallback(
-		/* если новое значение пустое и старое значение пустое, то ничего не делаем */
-		(newValues: TSelectOption[]) => {
-			if (newValues.length === 0 && values.length === 0) {
-				return
-			}
+  const [isFocused, setIsFocused] = useState(false)
 
-			onChange(newValues)
-		},
-		[onChange, values]
-	)
+  // Мемоизированные "текущие значения" для селекта
+  const computedValues = useMemo<TSelectOption[]>(() => {
+    // если в форме ещё ничего нет, а default value передали — показываем его
+    if ((!values || values.length === 0) && value) {
+      return [value]
+    }
+    return values ?? []
+  }, [values, value])
 
-	return (
-		<div className={classNames('select-wrapper', className)}>
-			<Select
-				values={values}
-				options={options}
-				onChange={handleChange}
-				className='select'
-				placeholder={placeholder}
-				searchable={searchable}
-				multi={false}
-				disabled={disabled}
-				onDropdownOpen={() => setIsFocused(true)}
-				onDropdownClose={() => setIsFocused(false)}
-				searchBy='label'
-			/>
-			{/* Основной лейбл */}
-			{label && (
-				<label
-					className={classNames('select-label', {
-						'select-label--focused': isFocused || values.length > 0,
-					})}
-				>
-					{label}
-				</label>
-			)}
-			{/* Иконка замочка */}
-			{disabled && <Icon iconId='lock' className='select__icon_lock' />}
-		</div>
-	)
+  // Если передали default value и поле ещё пустое — один раз проставляем его наружу
+  useEffect(() => {
+    if (!value) return
+
+    const hasValue = Array.isArray(values) && values.length > 0
+    if (!hasValue) {
+      // проставляем в форму / наружу
+      onChange([value])
+    }
+  }, [value, values, onChange])
+
+  const handleChange = useCallback(
+    (newValues: TSelectOption[]) => {
+      onChange(newValues)
+    },
+    [onChange]
+  )
+
+  const hasAnyValue = computedValues && computedValues.length > 0
+
+  return (
+    <div className={classNames('select-wrapper', className)}>
+      <Select
+        values={computedValues}
+        options={options}
+        onChange={handleChange}
+        className='select'
+        placeholder={placeholder}
+        searchable={searchable}
+        multi={false}
+        disabled={disabled}
+        onDropdownOpen={() => setIsFocused(true)}
+        onDropdownClose={() => setIsFocused(false)}
+        searchBy='label'
+      />
+
+      {label && (
+        <label
+          className={classNames('select-label', {
+            'select-label--focused': isFocused || hasAnyValue,
+          })}
+        >
+          {label}
+        </label>
+      )}
+
+      {disabled && <Icon iconId='lock' className='select__icon_lock' />}
+    </div>
+  )
 }

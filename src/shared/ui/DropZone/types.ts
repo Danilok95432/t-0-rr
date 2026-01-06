@@ -5,4 +5,6 @@ export interface IDropZoneProps {
 	}>
 	onDrop: (file: File[]) => void
 	onRemoveFile: (index: number) => void
+	accept?: (flag: boolean) => void
+	acceptedTypes?: string[]
 }

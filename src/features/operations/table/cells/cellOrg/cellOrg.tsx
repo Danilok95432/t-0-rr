@@ -1,18 +1,15 @@
 import type { CustomCellRendererProps } from 'ag-grid-react'
 import styles from './cell-org.module.scss'
 
-interface ICellArticleParams extends CustomCellRendererProps {
-  value: {
-    name: string
-    account: string
-  }
-}
-
-export const CellOrg = ({ value }: ICellArticleParams) => {
+export const CellOrg = (props: CustomCellRendererProps) => {
+  // Получаем данные из params.data
+  const orgName = props.data?.org_name
+  const accountName = props.data?.account_name
+  
   return (
-    <>
-      <p className={styles.titleOrg}>{value.name}</p>
-      <p className={styles.account}>{value.account}</p>
-    </>
+    <div className={styles.cellContainer}>
+      <p className={styles.titleOrg}>{orgName}</p>
+      {accountName && <p className={styles.account}>{accountName}</p>}
+    </div>
   )
 }

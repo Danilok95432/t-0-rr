@@ -1,17 +1,23 @@
 import { FC, useMemo, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
-import { ColDef, DataTypeDefinition, RowSelectionOptions, type Theme } from 'ag-grid-community'
+import { ColDef, DataTypeDefinition, RowClickedEvent, RowSelectionOptions, type Theme } from 'ag-grid-community'
 import { AG_GRID_LOCALE_RU } from '../config/ag-grid-locale'
 import { TGridTableData } from '../types'
 import { customTheme } from '../config/tableTheme'
 
 import '../config/checkbox-style.css'
 
-export const GridTable: FC<TGridTableData> = ({
+type GridTableProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRowClicked?: (event: RowClickedEvent<any>) => void
+}
+
+export const GridTable: FC<TGridTableData & GridTableProps> = ({
   rowData,
   columnDefinitions,
   checkboxHidden = true,
   quickFilterText,
+  onRowClicked
 }) => {
   const gridRef = useRef<AgGridReact>(null)
   const theme = useMemo<Theme | 'legacy'>(() => {
@@ -62,6 +68,7 @@ export const GridTable: FC<TGridTableData> = ({
         tooltipHideDelay={2000}
         localeText={localeText}
         loading={false}
+        onRowClicked={onRowClicked}
       />
     </>
   )

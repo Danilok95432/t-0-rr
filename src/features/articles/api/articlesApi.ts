@@ -2,6 +2,11 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { FieldValues } from 'react-hook-form'
 import { IArticleData, IArticleInfo } from '../table/config/articlesTypes'
+import {
+  TSelectOption,
+  TSelectOptionDirection,
+  TSelectOptionParent,
+} from '@/shared/ui/Select/types'
 
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
@@ -25,13 +30,26 @@ export const articlesApi = createApi({
       providesTags: (_, __, id) => [{ type: 'Articles', id }],
     }),
     //
-    addNewArticle: build.mutation<string, FieldValues>({
-      query: (formData) => ({
+    addNewArticle: build.query<{ status: string; id: string }, void>({
+      query: () => ({
         url: '/articles/getnew',
-        method: 'POST',
-        body: formData,
+        method: 'GET',
       }),
-      invalidatesTags: ['Articles'],
+      providesTags: ['Articles'],
+    }),
+    getNewArticleLists: build.query<
+      {
+        directions: TSelectOption[]
+        article_exps: TSelectOptionDirection[]
+        parent_articles_list: TSelectOptionParent[]
+      },
+      void
+    >({
+      query: () => ({
+        url: '/articles/getnew_lists',
+        method: 'GET',
+      }),
+      providesTags: ['Articles'],
     }),
     //
     editArticle: build.mutation<string, FieldValues>({
@@ -49,5 +67,6 @@ export const {
   useGetAllArticlesQuery,
   useGetArticleInfoQuery,
   useEditArticleMutation,
-  useAddNewArticleMutation,
+  useAddNewArticleQuery,
+  useGetNewArticleListsQuery,
 } = articlesApi

@@ -11,10 +11,12 @@ import { useNewAccountForm } from '../hooks/useNewAccountForm'
 import classNames from 'classnames'
 import { TSelectOption } from '@/shared/ui/Select/types'
 import { IFormProps } from '@/shared/types/forms'
+import { useGetNewListsQuery } from '../api/accountsApi'
 
 
 export const NewAccount: FC<IFormProps> = () => {
   const { control, handleSubmit, onSubmit, errors, isValid, isSubmitting } = useNewAccountForm()
+  const { data } = useGetNewListsQuery()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewAccount}>
@@ -41,7 +43,7 @@ export const NewAccount: FC<IFormProps> = () => {
               return (
                 <SelectC
                   values={field.value ? field.value : []}
-                  options={[]}
+                  options={data?.orgs ?? []}
                   label='Организация'
                   onChange={(selected: TSelectOption[]) => {
                     field.onChange(selected[0] || null)
@@ -73,7 +75,7 @@ export const NewAccount: FC<IFormProps> = () => {
               return (
                 <SelectC
                   values={field.value ? field.value : []}
-                  options={[]}
+                  options={data?.account_types ?? []}
                   label='Тип счета'
                   onChange={(selected: TSelectOption[]) => {
                     field.onChange(selected[0] || null)
