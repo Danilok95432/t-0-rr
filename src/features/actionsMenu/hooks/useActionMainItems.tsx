@@ -7,9 +7,12 @@ const COMMON_PATHS = [
   'operations',
   'transactions',
   'import',
+  'standarts',
+  'standart'
 ]
 
-const EDITING_PATHS = ['organization', 'contragent', 'account', 'article', 'case', 'transaction']
+const EDITING_PATHS = ['organization', 'contragent', 'account', 'article', 'case', 'transaction', 'deal']
+const DELETE_PATHS = ['import']
 
 export const useActionMainItems = (): IActionItem[] => {
   const { isOpenFiltersMenu, handleOpenFilterMenu } = useFiltersMenu()
@@ -32,12 +35,12 @@ export const useActionMainItems = (): IActionItem[] => {
       id: 'search',
       onClick: handleOpenFilterMenu,
       isActive: isOpenFiltersMenu,
-      showOnPaths: ['operations', 'summary'],
+      showOnPaths: ['operations', 'summary', 'standarts', 'standart'],
     },
     {
       id: 'import',
       onClick: handleOpenModal,
-      showOnPaths: [...COMMON_PATHS, 'deals',],
+      showOnPaths: [...COMMON_PATHS, 'deals', 'imports'],
     },
     {
       id: 'unload',
@@ -48,5 +51,10 @@ export const useActionMainItems = (): IActionItem[] => {
       id: 'graph',
       showOnPaths: COMMON_PATHS,
     },
+    {
+      id: 'delete',
+      onClick: handleOpenModal,
+      showOnPaths: DELETE_PATHS,
+    }
   ]
 }

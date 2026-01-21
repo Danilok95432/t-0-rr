@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, useRef } from 'react'
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form'
 import { IFormProps } from '@/shared/types/forms'
 import { TFormUploadingOperations } from '@/shared/types/forms'
@@ -10,11 +10,19 @@ import { RadioButton } from '@/shared/ui/RadioButton'
 import { DropZone } from '@/shared/ui/DropZone'
 
 import styles from './uploading-operations.module.scss'
+import { useImportOperationsMutation } from '@/features/imports/api/importsApi'
+import { useModal } from '@/features/modal/hooks/useModal'
 
 export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
-  const { control, handleSubmit, watch } = useForm<TFormUploadingOperations>({
+  const [importOperations, { isLoading, isError, isSuccess, reset }] = useImportOperationsMutation()
+  const { handleCloseModal } = useModal()
+  
+  // Используем ref для отслеживания предыдущих файлов, чтобы не отправлять повторно
+  const previousFilesRef = useRef<string[]>([])
+  
+  const { control, handleSubmit, watch, setValue } = useForm<TFormUploadingOperations>({
     defaultValues: {
-      fileType: undefined,
+      fileType: '1cExchange', // Устанавливаем значение по умолчанию
       files: [],
     },
   })
@@ -24,19 +32,47 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
     name: 'files',
   })
 
-  const onSubmit: SubmitHandler<TFormUploadingOperations> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<TFormUploadingOperations> = async (data) => {
+    if (!data.fileType || fields.length === 0) return
+
+    // Создаем FormData
+    const formData = new FormData()
+
+    // Добавляем тип импорта
+    formData.append('importType', data.fileType)
+
+    // Добавляем все файлы
+    fields.forEach((field) => {
+      formData.append(`files`, field.file)
+    })
+
+    try {
+      await importOperations(formData).unwrap()
+    } catch (error) {
+      console.error('Ошибка при отправке файлов:', error)
+    }
   }
 
   const [acceptTypes, setAcceptTypes] = useState<boolean>(false)
+  const [importReport, setImportReport] = useState<{
+    loaded: string;
+    income: string;
+    expense: string;
+    duplicateError: string;
+    formatError: string;
+  } | null>(null)
 
-  // MIME-типы для txt файлов
-  const acceptedTypes = ['text/plain', 'text/csv', 'application/vnd.ms-excel']
+  // ПРАВИЛЬНЫЕ MIME-типы для txt и csv файлов
+  const acceptedTypes = ['text/plain', 'text/csv']
 
-  // Можно добавить проверку по расширению в дополнение к MIME-типу
+  // Расширения для дополнительной проверки
   const acceptedExtensions = ['.txt', '.csv']
 
   const handleDropFile = (acceptedFiles: File[]) => {
+    // Сбрасываем статус импорта при добавлении новых файлов
+    reset()
+    setImportReport(null)
+    
     append(
       acceptedFiles.map((file) => ({
         file,
@@ -46,9 +82,35 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
 
   const handleRemoveFile = (index: number) => {
     remove(index)
+    // Сбрасываем статус импорта при удалении файлов
+    reset()
+    setImportReport(null)
+    previousFilesRef.current = []
   }
 
   const selectedFileType = watch('fileType')
+
+  // Функция для отправки файла
+  const sendFile = async (file: File) => {
+    if (!selectedFileType || !file) return
+
+    const formData = new FormData()
+    formData.append('importType', selectedFileType)
+    formData.append('files', file)
+
+    try {
+      const result = await importOperations(formData).unwrap()
+      setImportReport({
+        loaded: result.operations,
+        income: result.dohod,
+        expense: result.rashod,
+        duplicateError: result.dublicate,
+        formatError: result.error_format,
+      })
+    } catch (error) {
+      console.error('Ошибка при отправке файла:', error)
+    }
+  }
 
   // Проверяем файлы при изменении fields или selectedFileType
   useEffect(() => {
@@ -57,15 +119,62 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
       return
     }
 
-    // Проверяем все файлы на соответствие типам
-    const allFilesValid = fields.every(
-      (field) =>
-        acceptedTypes.includes(field.file.type) ||
-        acceptedExtensions.some((ext) => field.file.name.toLowerCase().endsWith(ext))
-    )
+    // Улучшенная проверка файлов
+    const allFilesValid = fields.every((field) => {
+      const file = field.file
+
+      // Проверка MIME-типа
+      if (acceptedTypes.includes(file.type)) {
+        return true
+      }
+
+      // Проверка расширения файла
+      const fileName = file.name.toLowerCase()
+      if (acceptedExtensions.some((ext) => fileName.endsWith(ext))) {
+        return true
+      }
+
+      // Дополнительная проверка для .csv файлов (иногда у них тип 'application/vnd.ms-excel')
+      if (fileName.endsWith('.csv')) {
+        return true
+      }
+
+      return false
+    })
 
     setAcceptTypes(allFilesValid)
-  }, [acceptedExtensions, acceptedTypes, fields, selectedFileType])
+    
+    // Автоматически отправляем файлы, если они валидны и есть выбранный тип
+    if (allFilesValid && selectedFileType && fields.length > 0) {
+      // Проверяем, изменились ли файлы, чтобы не отправлять повторно
+      const currentFileNames = fields.map(field => `${field.file.name}-${field.file.size}`)
+      
+      if (JSON.stringify(previousFilesRef.current) !== JSON.stringify(currentFileNames)) {
+        previousFilesRef.current = currentFileNames
+        
+        // Отправляем каждый файл
+        fields.forEach(field => {
+          sendFile(field.file)
+        })
+      }
+    }
+  }, [fields, selectedFileType])
+
+  // Обработчик для радио-кнопки
+  const handleRadioChange = (value: string) => {
+    setValue('fileType', value)
+    
+    // Если есть валидные файлы, отправляем их заново с новым типом
+    if (fields.length > 0 && acceptTypes) {
+      reset()
+      setImportReport(null)
+      previousFilesRef.current = []
+      
+      fields.forEach(field => {
+        sendFile(field.file)
+      })
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.uploadOperation}>
@@ -85,7 +194,7 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
                   name={field.name}
                   value='1cExchange'
                   checked={true}
-                  onChange={() => field.onChange('1cExchange')}
+                  onChange={() => handleRadioChange('1cExchange')}
                 />
               </div>
             </fieldset>
@@ -103,11 +212,21 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
           />
         </div>
 
-        {/* Показываем успешный импорт только если: 
-					1. Есть файлы
-					2. Выбран тип файла
-					3. Все файлы валидны */}
-        {fields.length > 0 && selectedFileType && acceptTypes && (
+        {/* Показываем статус отправки */}
+        {isLoading && (
+          <div className={styles.loadingBlock}>
+            <span>Идет импорт файлов...</span>
+          </div>
+        )}
+
+        {isError && (
+          <div className={styles.errorBlock}>
+            <span>Ошибка при импорте файлов</span>
+          </div>
+        )}
+
+        {/* Показываем отчет об импорте после успешной отправки */}
+        {isSuccess && importReport && (
           <div className={styles.importAcceptBlock}>
             <span className={styles.title}>Импорт проведен успешно!</span>
             <div className={styles.infoBlock}>
@@ -122,22 +241,30 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
                   <p>Ошибка формата: </p>
                 </div>
                 <div className={styles.rightSide}>
-                  <p>1</p>
-                  <p>1</p>
-                  <p>1</p>
+                  <p>{importReport.loaded}</p>
+                  <p>{importReport.income}</p>
+                  <p>{importReport.expense}</p>
                   <br />
-                  <p>1</p>
-                  <p>1</p>
+                  <p>{importReport.duplicateError}</p>
+                  <p>{importReport.formatError}</p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
+        {/* Показываем сообщение о готовности файлов к отправке */}
+        {fields.length > 0 && selectedFileType && acceptTypes && !isLoading && !isSuccess && !importReport && (
+          <div className={styles.infoBlock}>
+            <span>Файлы проверены и готовы к импорту</span>
+            <p>Импорт начнется автоматически...</p>
+          </div>
+        )}
+
         {/* Показываем ошибку если:
-					1. Есть файлы
-					2. ИЛИ не выбран тип файла
-					3. ИЛИ файлы не валидны */}
+            1. Есть файлы
+            2. ИЛИ не выбран тип файла
+            3. ИЛИ файлы не валидны */}
         {fields.length > 0 && (!selectedFileType || !acceptTypes) && (
           <span className={styles.errorTitle}>
             Импорт некорректен:{' '}
@@ -146,15 +273,16 @@ export const UploadingOperations: FC<IFormProps> = ({ labelBadge }) => {
         )}
       </div>
 
+      {/* Кнопка для повторной отправки или дополнительных действий */}
       <Button
         mode='primary'
         type='submit'
-        label='Загрузить операцию'
-        // Кнопка активна только если:
-        // 1. Выбран тип файла
-        // 2. Есть файлы
-        // 3. Все файлы валидны
-        disabled={!selectedFileType || fields.length === 0 || !acceptTypes}
+        label={isLoading ? 'Идет импорт...' : 'Завершить'}
+
+        
+        // Кнопка активна, если есть валидные файлы и выбран тип
+        disabled={!selectedFileType || fields.length === 0 || !acceptTypes || isLoading}
+        onClick={handleCloseModal}
       />
     </form>
   )

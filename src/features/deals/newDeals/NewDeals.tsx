@@ -2,7 +2,6 @@ import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useModal } from '@/features/modal/hooks/useModal'
 import { IFormProps } from '@/shared/types/forms'
-import { TFormNewDeals } from '@/shared/types/forms'
 
 import { Input } from '@/shared/ui/Input'
 import { TextArea } from '@/shared/ui/TextArea'
@@ -11,27 +10,52 @@ import { Button } from '@/shared/ui/Button'
 import { InputDate } from '@/shared/ui/InputDate'
 
 import styles from './new-deals.module.scss'
+import { useAddNewDealQuery, useGetDealInfoQuery, useSaveDealInfoMutation } from '../api/dealsApi'
+import { DealInfoSave } from '../table/config/dealsType'
+import { formatDateToYYYYMMDD } from '@/shared/helpers/helpers'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { DealSchema } from '../table/config/dealSchema'
 
 export const NewDeals: FC<IFormProps> = () => {
   const { handleCloseModal } = useModal()
+  const { data: newOperationData } = useAddNewDealQuery()
 
-  const { control, handleSubmit, reset } = useForm<TFormNewDeals>({
+  const newId = newOperationData?.id
+
+  const { data: dealsLists } = useGetDealInfoQuery(newId ?? '') 
+
+  const [saveNewDeal] = useSaveDealInfoMutation()
+
+  const { control, handleSubmit, reset, formState: { isValid }, } = useForm<DealInfoSave>({
     defaultValues: {
-      shortName: '',
-      fullName: '',
-      case: '',
-      ourOrganization: '',
-      contragent: '',
-      nameAgreement: '',
-      dateAgreement: null,
-      planTransaction: '',
+      deal_name_full: '',
+      deal_short_name: '',
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(DealSchema as any)
   })
 
-  const onSubmit: SubmitHandler<TFormNewDeals> = (data) => {
-    console.log(data)
-    reset()
+  const onSubmit: SubmitHandler<DealInfoSave> = async (data) => {
+    const formData = new FormData()
+    if (newId) formData.append('id', newId)
+    formData.append('deal_date', formatDateToYYYYMMDD(data?.deal_date))
+    formData.append('deal_short_name', data?.deal_short_name)
+    formData.append('deal_name_full', data?.deal_name_full)
+    formData.append('id_org', data?.id_org)
+    formData.append('id_case', data?.id_case)
+    formData.append('id_contragent', data?.id_contragent)
+    formData.append('dogorov_name', data?.dogorov_name)
+    formData.append('deal_plan_rashod', data?.deal_plan_rashod)
+
+    try {
+      await saveNewDeal(formData)
+      reset()
+      handleCloseModal()
+    } catch (error) {
+      console.error('Ошибка добавления операции:', error)
+    }
     handleCloseModal()
+    reset()
   }
 
   return (
@@ -39,11 +63,11 @@ export const NewDeals: FC<IFormProps> = () => {
       <div className={styles['main-info']}>
         <div className={styles.left}>
           <Controller
-            name='shortName'
+            name='deal_short_name'
             control={control}
             render={({ field }) => (
               <Input
-                id='shortName'
+                id='deal_short_name'
                 label='Краткое название сделки'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
@@ -52,11 +76,11 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='fullName'
+            name='deal_name_full'
             control={control}
             render={({ field }) => (
               <TextArea
-                id='fullName'
+                id='deal_name_full'
                 label='Полное название сделки'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
@@ -66,12 +90,12 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='case'
+            name='id_case'
             control={control}
             render={({ field }) => (
               <SelectC
                 values={field.value ? [{ value: field.value, label: field.value }] : []}
-                options={[]}
+                options={dealsLists?.cases_list ?? []}
                 label='Кейс'
                 onChange={field.onChange}
               />
@@ -81,12 +105,12 @@ export const NewDeals: FC<IFormProps> = () => {
 
         <div className={styles.right}>
           <Controller
-            name='ourOrganization'
+            name='id_org'
             control={control}
             render={({ field }) => (
               <SelectC
                 values={field.value ? [{ value: field.value, label: field.value }] : []}
-                options={[]}
+                options={dealsLists?.orgs_list ?? []}
                 label='Организация с нашей стороны'
                 onChange={field.onChange}
               />
@@ -94,12 +118,12 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='contragent'
+            name='id_contragent'
             control={control}
             render={({ field }) => (
               <SelectC
                 values={field.value ? [{ value: field.value, label: field.value }] : []}
-                options={[]}
+                options={dealsLists?.contragents_list ?? []}
                 label='Контрагент'
                 onChange={field.onChange}
               />
@@ -107,11 +131,11 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='nameAgreement'
+            name='dogorov_name'
             control={control}
             render={({ field }) => (
               <Input
-                id='nameAgreement'
+                id='dogorov_name'
                 label='Название Договора'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
@@ -120,7 +144,7 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='dateAgreement'
+            name='deal_date'
             control={control}
             render={({ field }) => (
               <InputDate
@@ -133,11 +157,11 @@ export const NewDeals: FC<IFormProps> = () => {
           />
 
           <Controller
-            name='planTransaction'
+            name='deal_plan_rashod'
             control={control}
             render={({ field }) => (
               <Input
-                id='planTransaction'
+                id='deal_plan_rashod'
                 label='Плановый расход сделки в рублях'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
@@ -147,7 +171,7 @@ export const NewDeals: FC<IFormProps> = () => {
         </div>
       </div>
 
-      <Button type='submit' label='Сохранить' mode='primary' />
+      <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid} />
     </form>
   )
 }

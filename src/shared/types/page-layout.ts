@@ -3,6 +3,9 @@ export interface IItemLayoutProps {
   labelButton?: string
   pathToBack?: string
   title?: string
+  isStandart?: boolean
+  customText?: string
+  customLength?: string
 }
 
 export interface IListLayoutProps {

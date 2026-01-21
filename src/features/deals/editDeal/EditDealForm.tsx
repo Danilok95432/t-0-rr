@@ -1,4 +1,5 @@
-import { type FC } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState, type FC } from 'react'
 import { Controller } from 'react-hook-form'
 import classNames from 'classnames'
 
@@ -11,6 +12,8 @@ import styles from './index.module.scss'
 import { DealInfo } from '../table/config/dealsType'
 import { InputDate } from '@/shared/ui/InputDate'
 import { transformStringToDate } from '@/shared/helpers/helpers'
+import { useGetDealInfoQuery } from '../api/dealsApi'
+import { SelectC } from '@/shared/ui/Select'
 
 interface EditDealFormProps {
   id: string
@@ -28,7 +31,31 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
     isSubmitting,
     isValid,
     handleDeactivateEditingMode,
+    reset,
   } = useEditDealForm(id, deal)
+
+  const { data: dealsLists } = useGetDealInfoQuery(id ?? '')
+
+  const [, setIsInitialized] = useState(false)
+  useEffect(() => {
+    if (!deal) return
+
+    const casesOpts = deal.cases_list ?? []
+    const orgsOpts = deal.orgs_list ?? []
+    const contragentsOpt = deal.contragents_list ?? []
+
+    const caseOption = casesOpts[0]
+    const orgOption = orgsOpts[0]
+    const contragentOption = contragentsOpt[0]
+
+    reset({
+      cases_list: caseOption ? [caseOption] : [],
+      orgs_list: orgOption ? [orgOption] : [],
+      contragents_list: contragentOption ? [contragentOption] : [],
+    } as any)
+
+    setIsInitialized(true)
+  }, [deal, reset])
 
   return (
     <form className={styles.dealData} onSubmit={handleSubmit(onSubmit)}>
@@ -51,17 +78,15 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           )}
         />
         <Controller
-          name='case.case_name'
+          name='cases_list'
           control={control}
           render={({ field }) => (
-            <Input
-              id='case'
+            <SelectC
+              values={field.value ?? []}
+              options={dealsLists?.cases_list ?? []}
               label='Кейс'
-              value={field.value}
-              hasResetIcon={false}
               disabled={!isEditingModeActive}
               onChange={field.onChange}
-              error={errors.case?.message}
             />
           )}
         />
@@ -96,17 +121,15 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           )}
         />
         <Controller
-          name='org.org_name'
+          name='orgs_list'
           control={control}
           render={({ field }) => (
-            <Input
-              id='org'
+            <SelectC
+              values={field.value ?? []}
+              options={dealsLists?.orgs_list ?? []}
               label='Организация с нашей стороны'
-              value={field.value}
-              hasResetIcon={false}
               disabled={!isEditingModeActive}
               onChange={field.onChange}
-              error={errors.org?.message}
             />
           )}
         />
@@ -124,17 +147,15 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           )}
         />
         <Controller
-          name='contragent.contragent_name'
+          name='contragents_list'
           control={control}
           render={({ field }) => (
-            <Input
-              id='contragent'
+            <SelectC
+              values={field.value ?? []}
+              options={dealsLists?.contragents_list ?? []}
               label='Контрагент'
-              value={field.value}
-              hasResetIcon={false}
               disabled={!isEditingModeActive}
               onChange={field.onChange}
-              error={errors.contragent?.message}
             />
           )}
         />

@@ -10,6 +10,7 @@ export type TActionId =
 	| 'mail'
 	| 'faq'
 	| 'settings'
+	| 'delete'
 
 export interface IActionItem {
 	id: TActionId

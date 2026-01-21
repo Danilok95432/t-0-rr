@@ -23,6 +23,8 @@ import { Import } from '@/pages/Import/Import'
 import { SummaryCashFlow } from '@/pages/SummaryCashFlow/SummaryCashFlow'
 import { ArticlesAndOrganizations } from '@/pages/ArticlesAndOrganizations/ArticlesAndOrganizations'
 import { CasesAndDeals } from '@/pages/CasesAndDeals/CasesAndDeals'
+import { Standarts } from '@/pages/Standarts/Standarts'
+import { Standart } from '@/pages/Standart/Standart'
 
 export const AppRouter = () => {
   return (
@@ -54,6 +56,8 @@ export const AppRouter = () => {
           {/*  */}
           <Route path={RoutesConst.IMPORTS} element={<Imports />} />
           <Route path={`${RoutesConst.IMPORT}/:id`} element={<Import />} />
+          <Route path={RoutesConst.STANDARTS} element={<Standarts />} />
+          <Route path={`${RoutesConst.STANDART}/:id`} element={<Standart />} />
 
           <Route path={RoutesConst.SUMMARY} element={<SummaryCashFlow />}>
             <Route index element={<ArticlesAndOrganizations />} />

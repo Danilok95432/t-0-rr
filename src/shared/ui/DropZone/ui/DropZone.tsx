@@ -16,25 +16,39 @@ export const DropZone: FC<IDropZoneProps> = ({
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>('')
 
+  // Улучшенный валидатор
   const validator = (file: File) => {
     if (!acceptedTypes || acceptedTypes.length === 0) {
       return null
     }
     
-    if (!acceptedTypes.includes(file.type)) {
-      return {
-        code: 'invalid-file-type',
-        message: `Недопустимый тип файла. Разрешены: ${acceptedTypes.join(', ')}`
-      }
+    // Проверяем MIME-тип
+    if (acceptedTypes.includes(file.type)) {
+      return null
     }
     
-    return null
+    // Проверяем расширение файла
+    const fileName = file.name.toLowerCase()
+    if (fileName.endsWith('.txt') || fileName.endsWith('.csv')) {
+      return null
+    }
+    
+    return {
+      code: 'invalid-file-type',
+      message: `Недопустимый тип файла. Разрешены: TXT, CSV`
+    }
   }
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     onDrop,
     validator,
     onError: (err) => setErrorMessage(err.message),
+    // Явно указываем accept для лучшей совместимости
+    accept: {
+      'text/plain': ['.txt'],
+      'text/csv': ['.csv'],
+      'application/vnd.ms-excel': ['.csv'], // Для старых систем
+    }
   })
 
   // Очищаем ошибку при успешной загрузке
@@ -57,17 +71,32 @@ export const DropZone: FC<IDropZoneProps> = ({
 
   // Проверяем текущие файлы
   useEffect(() => {
-    if (!accept || !acceptedTypes || !files) return
+    if (!files) return
     
-    const allFilesValid = files.every(file => 
-      acceptedTypes.includes(file.file.type)
-    )
+    const allFilesValid = files.every(file => {
+      const fileName = file.file.name.toLowerCase()
+      
+      // Проверка MIME-типа
+      if (acceptedTypes?.includes(file.file.type)) {
+        return true
+      }
+      
+      // Проверка расширения
+      if (fileName.endsWith('.txt') || fileName.endsWith('.csv')) {
+        return true
+      }
+      
+      return false
+    })
     
-    accept(allFilesValid)
+    // Передаем результат валидации в родительский компонент
+    if (accept) {
+      accept(allFilesValid)
+    }
     
     // Если файлы есть, но невалидные - показываем ошибку
     if (files.length > 0 && !allFilesValid) {
-      setErrorMessage('Загружен файл неверного формата')
+      setErrorMessage('Загружен файл неверного формата. Разрешены только TXT и CSV')
     }
   }, [files, acceptedTypes, accept])
 

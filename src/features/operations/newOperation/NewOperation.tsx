@@ -44,6 +44,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 
   const selectedDirection = useWatch({ control, name: 'directions_list' }) as any
   const selectedArticleExp = useWatch({ control, name: 'article_exps_list' }) as any
+  const name = useWatch({ control, name: 'itemname' }) as any
 
   const selectedOrg = useWatch({ control, name: 'orgs_list' }) as any
   const selectedContragent = useWatch({ control, name: 'contragents_list' }) as any
@@ -404,7 +405,8 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
         disabled={
           selectedOrg === undefined ||
           selectedContragent === undefined ||
-          selectedDirection === undefined
+          selectedDirection === undefined ||
+          name === ''
         }
       />
     </form>

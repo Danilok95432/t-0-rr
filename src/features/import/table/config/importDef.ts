@@ -1,15 +1,15 @@
 import { memo } from 'react'
 import { type ColDef } from 'ag-grid-community'
-import { IImportData } from './importTypes'
 import { CellIconHeader } from '../cells/CellIconHeader'
 import { CellIcon } from '../cells/CellIcon'
 
 import styles from './import.module.scss'
+import { IImportsOperation } from '@/features/imports/table/configs/importsTypes'
 
-export const importDef: ColDef<IImportData>[] = [
+export const importDef: ColDef<IImportsOperation>[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
 	{
-		field: 'iconType',
+		field: 'id_direction',
 		cellRenderer: memo(CellIcon),
 		headerName: '',
 		headerComponent: memo(CellIconHeader),
@@ -17,25 +17,25 @@ export const importDef: ColDef<IImportData>[] = [
 		maxWidth: 60,
 		sortable: false,
 	},
-	{ field: 'counterparty', headerName: 'Контрагент', tooltipField: 'counterparty', maxWidth: 170, },
+	{ field: 'contragent', headerName: 'Контрагент', tooltipField: 'contragent', maxWidth: 170, },
 	{
-		field: 'nameOperation',
+		field: 'operation',
 		headerName: 'Наименование операции',
 		flex: 3,
 		cellStyle: { color: 'var(--link)' },
-		tooltipField: 'nameOperation',
+		tooltipField: 'operation',
 	},
-	{ field: 'determinedAccount', headerName: 'Определен счёт', tooltipField: 'determinedAccount', maxWidth: 260, },
+	{ field: 'account', headerName: 'Определен счёт', tooltipField: 'account', maxWidth: 260, },
 	{
-		field: 'organization',
+		field: 'org',
 		headerName: 'Организация',
 		cellStyle: { color: 'var(--link)' },
-		tooltipField: 'organization',
+		tooltipField: 'org',
 		maxWidth: 260,
 	},
 	{
 		colId: 'amount-column',
-		field: 'amount',
+		field: 'sum',
 		headerName: 'Сумма',
 		headerClass: styles.amountHeader,
 		maxWidth: 105,

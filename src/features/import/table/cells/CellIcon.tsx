@@ -7,5 +7,9 @@ interface ICellIconParams extends CustomCellRendererProps {
 }
 
 export const CellIcon = ({ value }: ICellIconParams) => {
-	return value && <Icon iconId={value} width='28px' height='28px' />
+	let objValue = 'round'
+	if (value === '2') objValue = 'minus'
+	else if (value === '1') objValue = 'plus'
+	else objValue = 'round'
+	return value && <Icon iconId={objValue} width='28px' height='28px' />
 }

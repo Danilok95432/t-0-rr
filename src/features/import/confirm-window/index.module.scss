@@ -1,0 +1,63 @@
+.confirmWindow {
+	display: flex;
+	flex-direction: column;
+  gap: 10px;
+	margin-top: 5px;
+  .text {
+    font-size: 14px;
+    color: var(--negative);
+  }
+  .controlsRow {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    .deleteBtn {
+      background: var(--negative);
+    }
+  }
+	&__body {
+		margin-block: 15px;
+		padding-block: 15px;
+		border-block: var(--border);
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+
+	&__title {
+		font-size: 12px;
+		font-weight: 500;
+	}
+
+	&__type-file {
+		display: flex;
+		column-gap: 30px;
+
+		&-link {
+			color: var(--link);
+
+			&:hover {
+				color: var(--link-hover);
+			}
+		}
+	}
+
+	&__action-loading {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+
+	&__error {
+		color: var(--negative);
+	}
+}
+
+.errorTitle {
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--negative);
+}

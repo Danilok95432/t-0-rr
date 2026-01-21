@@ -36,10 +36,10 @@ export const useEditArticleForm = (id: string, article: IArticleInfo) => {
     const formData = new FormData()
     formData.append('id', id)
     formData.append('article_name', data.article_name)
-    formData.append('parent', getFirstValue(data.directions_list))
-    formData.append('article_exp_name', getFirstValue(data.article_exps_list))
-    formData.append('direction', getFirstValue(data.parents_list))
-    formData.append('comment', data.comment)
+    formData.append('parent', data.parent !== undefined ? data.parent : getFirstValue(data.parents_list))
+    formData.append('article_exp', data.article_exp_name !== undefined ? data.article_exp_name : getFirstValue(data.article_exps_list))
+    formData.append('direction', data.direction !== undefined ? data.direction : getFirstValue(data.directions_list))
+    formData.append('comment', data?.comment)
     try {
       await editArticle(formData).unwrap()
     } catch (error) {

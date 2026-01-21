@@ -39,6 +39,7 @@ export const navBarItems = [
     title: 'Импорты',
     href: 'imports',
   },
-
   { id: 'summary', title: 'Сводка ДДС', href: 'summary' },
+  // { id: 'report', title: 'Отчет', href: 'report'},
+  { id: 'standarts', title: 'Эталоны', href: 'standarts'},
 ]

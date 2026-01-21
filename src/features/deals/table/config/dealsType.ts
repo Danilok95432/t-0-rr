@@ -1,3 +1,5 @@
+import { TSelectOption } from "@/shared/ui/Select/types"
+
 export type DealsDTO = {
   id: string
   deal_short_name: string
@@ -26,12 +28,26 @@ export interface IDealsData {
 
 export type DealInfo = {
   deal_name: string
-  case: CaseDealInfo
+  case: string
   dogovor_name: string
   deal_name_full: string
-  org: OrgDealInfo
-  contragent: ContragentDealInfo
+  org: string
+  cases_list: TSelectOption[]
+  orgs_list: TSelectOption[]
+  contragents_list: TSelectOption[]
+  contragent: string
   deal_date: string
+  deal_plan_rashod: string
+}
+
+export type DealInfoSave = {
+  deal_short_name: string
+  deal_name_full: string
+  id_case: string
+  id_org: string
+  id_contragent: string
+  dogorov_name: string
+  deal_date: Date
   deal_plan_rashod: string
 }
 

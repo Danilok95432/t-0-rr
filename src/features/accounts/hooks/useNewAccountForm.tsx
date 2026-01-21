@@ -2,6 +2,8 @@ import { TFormNewAccount } from '@/shared/types/forms'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddNewAccountQuery, useEditAccountMutation } from '../api/accountsApi'
 import { useModal } from '@/features/modal/hooks/useModal'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AccountSchema } from '../table/config/accountSchema'
 
 export const useNewAccountForm = () => {
   const { handleCloseModal } = useModal()
@@ -15,7 +17,6 @@ export const useNewAccountForm = () => {
     formState: { errors, isValid, isSubmitting },
   } = useForm<TFormNewAccount>({
     defaultValues: {
-      account_name: '',
       account_types: '',
       bank_name: '',
       comment: '',
@@ -24,10 +25,11 @@ export const useNewAccountForm = () => {
       bik: '',
     },
     mode: 'onChange',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(AccountSchema as any)
   })
 
   const onSubmit: SubmitHandler<TFormNewAccount> = async (data) => {
-    console.log(data)
     const newIdResponse = await getNewId().unwrap()
     const formData = new FormData()
     formData.append('account_name', data.account_name)

@@ -18,11 +18,13 @@ loadAGGrid()
 
 // Импорт SVG спрайтов
 import 'virtual:svg-icons/register'
+import { ToastContainer } from 'react-toastify'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+        <ToastContainer />
         <App />
       </Provider>
     </BrowserRouter>

@@ -15,4 +15,7 @@ export enum RoutesConst {
   IMPORTS = 'imports',
   IMPORT = 'import',
   SUMMARY = 'summary',
+  STANDARTS = 'standarts',
+  STANDART = 'standart',
+  REPORT = 'report',
 }

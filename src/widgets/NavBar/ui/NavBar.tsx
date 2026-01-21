@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router'
 import { navBarItems } from '@/mock/navBar-items'
+import cn from 'classnames'
 
 import styles from './navBar.module.scss'
 
@@ -8,7 +9,7 @@ export const NavBar = () => {
 		<nav className={styles.nav}>
 			<ul className={styles.list}>
 				{navBarItems.map((navItem) => (
-					<li className={styles.item} key={navItem.id}>
+					<li className={cn(styles.item, {[styles.leftMargin]: navItem.href === 'imports'})} key={navItem.id}>
 						<NavLink
 							to={navItem.href}
 							aria-label={navItem.title}

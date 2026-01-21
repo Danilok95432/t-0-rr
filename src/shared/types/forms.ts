@@ -83,7 +83,7 @@ export type TFormProcessingOperation = TFormNewOperation & {
 }
 
 export type TFormUploadingOperations = {
-  fileType?: '1cExchange' | 'YSet' | 'custom' | 'txt'
+  fileType?: '1cExchange' | 'YSet' | 'custom' | 'txt' | string
   files: Array<{
     file: File
   }>

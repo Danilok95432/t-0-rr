@@ -22,8 +22,9 @@ import {
   useGetSummaryQuery,
 } from '@/features/operations/api/operationsApi'
 import type { OperationsData } from '@/features/operations/table/config/operationsTypes'
+import { LIMIT_TABLE_DATA } from '@/shared/lib/const'
 
-const LIMIT = 100
+const LIMIT = LIMIT_TABLE_DATA
 
 const OperationsContent = () => {
   const { buttonId, openModalById } = useModal()

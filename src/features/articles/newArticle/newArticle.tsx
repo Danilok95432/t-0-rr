@@ -13,7 +13,7 @@ import { useAddArticleForm } from '../hooks/useAddArticleForm'
 import { useGetNewArticleListsQuery } from '../api/articlesApi'
 
 export const NewArticle: FC<IFormProps> = () => {
-  const { control, handleSubmit, onSubmit, setValue } = useAddArticleForm()
+  const { control, handleSubmit, onSubmit, setValue, isValid } = useAddArticleForm()
   const { data } = useGetNewArticleListsQuery()
 
   const parentOptions = useMemo(
@@ -182,7 +182,7 @@ export const NewArticle: FC<IFormProps> = () => {
         </div>
       </div>
 
-      <Button type='submit' label='Сохранить' mode='primary' />
+      <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid} />
     </form>
   )
 }
