@@ -1,37 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useMemo } from 'react'
-import { Controller, FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form'
-import { TFormFilterOperationsMenu } from '@/shared/types/forms'
+import React from 'react'
+import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useFiltersMenu } from '@/features/filtersMenu/hooks/useFiltersMenu'
 import { SelectC } from '@/shared/ui/Select'
 import { Button } from '@/shared/ui/Button'
 import { CheckBox } from '@/shared/ui/CheckBox'
-import styles from './filter-operations.module.scss'
+import styles from './filter-deals.module.scss'
 import {
   useGetAllFiltersQuery,
   useSaveFiltersMutation,
 } from '@/features/filtersMenu/api/filtersApi'
-import type { MultiSelOption, SelOption } from '@/shared/types/forms'
+import type { MultiSelOption, SelOption, TFormFilterDealsMenu } from '@/shared/types/forms'
 import { useFilters } from '@/features/filtersMenu/context/filtersContext'
 import { ControlledDateInput } from '@/widgets/ControlledDateInput/controlled-date-input'
+import { Input } from '@/shared/ui/Input'
 
-export const FilterOperations = () => {
+export const FilterDeals = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
   const { data: filterData } = useGetAllFiltersQuery()
   const [saveFilters] = useSaveFiltersMutation()
   const { filters: contextFilters, setFilters } = useFilters()
 
-  const EMPTY_VALUES: TFormFilterOperationsMenu = {
+  const EMPTY_VALUES: TFormFilterDealsMenu = {
     rememberChoice: false,
-    dateFrom: undefined,
-    dateTo: undefined,
+    dateDogovor: undefined,
+    dateApply: undefined,
     org: [],
-    account: [],
     contragent: [],
-    directions: [],
-    article: '',
     cases: '',
-    deals: '',
+    deal_name: '',
   }
 
   const parseServerDate = (value?: string): Date | undefined => {
@@ -47,25 +44,23 @@ export const FilterOperations = () => {
     return isNaN(date.getTime()) ? undefined : date
   }
 
-  const getSavedValues = React.useCallback((): Partial<TFormFilterOperationsMenu> => {
-    const defaultValues: Partial<TFormFilterOperationsMenu> = {
+  const getSavedValues = React.useCallback((): Partial<TFormFilterDealsMenu> => {
+    const defaultValues: Partial<TFormFilterDealsMenu> = {
       rememberChoice: false,
     }
 
     if (filterData) {
-      if (filterData.dateFrom) {
-        defaultValues.dateFrom = parseServerDate(filterData.dateFrom)
+      if (filterData.dateDogovor) {
+        defaultValues.dateDogovor = parseServerDate(filterData.dateDogovor)
       }
 
-      if (filterData.dateTo) {
-        defaultValues.dateTo = parseServerDate(filterData.dateTo)
+      if (filterData.dateApply) {
+        defaultValues.dateApply = parseServerDate(filterData.dateApply)
       }
 
       const multiSelectFields = [
         { key: 'org' as const, data: filterData.org },
-        { key: 'account' as const, data: filterData.account },
         { key: 'contragent' as const, data: filterData.contragent },
-        { key: 'directions' as const, data: filterData.directions },
       ]
 
       multiSelectFields.forEach(({ key, data }) => {
@@ -75,11 +70,7 @@ export const FilterOperations = () => {
         }
       })
 
-      const singleSelectFields = [
-        { key: 'article' as const, data: filterData.article },
-        { key: 'cases' as const, data: filterData.cases },
-        { key: 'deals' as const, data: filterData.deals },
-      ]
+      const singleSelectFields = [{ key: 'cases' as const, data: filterData.cases }]
 
       singleSelectFields.forEach(({ key, data }) => {
         if (data?.length) {
@@ -91,7 +82,7 @@ export const FilterOperations = () => {
     return defaultValues
   }, [filterData])
 
-  const getInitialValues = (): TFormFilterOperationsMenu => {
+  const getInitialValues = (): TFormFilterDealsMenu => {
     const savedValues = getSavedValues()
 
     return {
@@ -102,71 +93,19 @@ export const FilterOperations = () => {
     }
   }
 
-  const methods = useForm<TFormFilterOperationsMenu>({
+  const methods = useForm<TFormFilterDealsMenu>({
     mode: 'onBlur',
     defaultValues: getInitialValues(),
   })
 
-  const { control, handleSubmit, setValue, getValues, reset } = methods
-
-  const selectedDirection = useWatch({ control, name: 'directions' }) as any
-  const selectedOrg = useWatch({ control, name: 'org' }) as any
-  const selectedCase = useWatch({ control, name: 'cases' }) as any
-
-  const selectedOrgId = selectedOrg && selectedOrg.length > 0 ? selectedOrg[0] : undefined
-  const selectedCaseId =
-    selectedCase && selectedCase.length > 0 ? selectedCase[0]?.value : undefined
-  const selectedDirectionId =
-    selectedDirection && selectedDirection.length > 0 ? selectedDirection[0] : undefined
-
-  const filteredArticles = useMemo(() => {
-    if (!filterData?.article) return []
-
-    return filterData.article.filter((article: any) => {
-      const matchDirection = selectedDirectionId
-        ? String(article.id_direction) === String(selectedDirectionId)
-        : true
-
-      return matchDirection
-    })
-  }, [filterData?.article, selectedDirectionId])
-
-  const filteredOrgAccounts = useMemo(() => {
-    if (!selectedOrgId || !filterData?.account) return []
-    return filterData.account.filter((acc: any) => acc.id_org === selectedOrgId)
-  }, [selectedOrgId, filterData?.account])
-
-  const filteredDeals = useMemo(() => {
-    if (!filterData?.deals) return []
-    if (!selectedOrgId) return []
-    return filterData.deals.filter((deal: any) => {
-      const orgMatch = deal.id_org === selectedOrgId
-      if (!orgMatch) return false
-      if (selectedCaseId) {
-        return deal.id_case === selectedCaseId
-      }
-      return true
-    })
-  }, [filterData?.deals, selectedOrgId, selectedCaseId])
-
-  useEffect(() => {
-    setValue('account', [] as any, { shouldDirty: true })
-  }, [selectedOrgId, setValue])
-
-  useEffect(() => {
-    setValue('article', [] as any, { shouldDirty: true })
-  }, [selectedDirectionId, setValue])
-
-  useEffect(() => {
-    setValue('deals', [] as any, { shouldDirty: true })
-  }, [selectedOrgId, setValue])
+  const { control, handleSubmit, getValues, reset } = methods
 
   React.useEffect(() => {
     const initialValues = getInitialValues()
     reset(initialValues)
   }, [filterData, contextFilters, reset])
 
-  const dateToISOString = (date: Date | string | undefined): string => {
+  const dateApplyISOString = (date: Date | string | undefined): string => {
     if (!date) return ''
 
     try {
@@ -194,7 +133,7 @@ export const FilterOperations = () => {
     }
   }
 
-  const extractValuesForSave = (data: TFormFilterOperationsMenu) => {
+  const extractValuesForSave = (data: TFormFilterDealsMenu) => {
     const result: Record<string, string> = {}
 
     const extractValue = (value: unknown): string[] => {
@@ -221,7 +160,7 @@ export const FilterOperations = () => {
       }
 
       if (value instanceof Date) {
-        const isoString = dateToISOString(value)
+        const isoString = dateApplyISOString(value)
         return isoString ? [isoString] : []
       }
 
@@ -245,12 +184,12 @@ export const FilterOperations = () => {
     return result
   }
 
-  const onSubmit: SubmitHandler<TFormFilterOperationsMenu> = async (data) => {
+  const onSubmit: SubmitHandler<TFormFilterDealsMenu> = async (data) => {
     try {
       const processedData = {
         ...data,
-        dateFrom: data.dateFrom ? dateToISOString(data.dateFrom) : undefined,
-        dateTo: data.dateTo ? dateToISOString(data.dateTo) : undefined,
+        dateDogovor: data.dateDogovor ? dateApplyISOString(data.dateDogovor) : undefined,
+        dateApply: data.dateApply ? dateApplyISOString(data.dateApply) : undefined,
       }
 
       setFilters(processedData)
@@ -339,15 +278,12 @@ export const FilterOperations = () => {
     const values = getValues()
 
     const hasAnyFilter =
-      values.dateFrom ||
-      values.dateTo ||
+      values.dateDogovor ||
+      values.dateApply ||
       values.org?.length ||
-      values.account?.length ||
       values.contragent?.length ||
-      values.directions?.length ||
-      values.article ||
       values.cases ||
-      values.deals
+      values.deal_name
 
     if (!hasAnyFilter) return
 
@@ -361,16 +297,16 @@ export const FilterOperations = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.filterOperations}>
         <ControlledDateInput
           className={styles.date}
-          name='dateFrom'
+          name='dateDogovor'
           dateFormat='yyyy-MM-dd'
-          placeholder='Дата от'
+          placeholder='Дата договора'
         />
 
         <ControlledDateInput
           className={styles.date}
-          name='dateTo'
+          name='dateApply'
           dateFormat='yyyy-MM-dd'
-          placeholder='Дата до'
+          placeholder='Дата совершения'
         />
 
         <Controller
@@ -381,21 +317,6 @@ export const FilterOperations = () => {
               options={getOptions(filterData?.org)}
               values={getSelectValues(field.value, true, filterData?.org)}
               label='Организации'
-              onChange={handleMultiSelectChange(field)}
-              className={styles.select}
-              multiselect
-            />
-          )}
-        />
-
-        <Controller
-          name='account'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={filteredOrgAccounts}
-              values={getSelectValues(field.value, true, filterData?.account)}
-              label='Счета организаций'
               onChange={handleMultiSelectChange(field)}
               className={styles.select}
               multiselect
@@ -419,35 +340,6 @@ export const FilterOperations = () => {
         />
 
         <Controller
-          name='directions'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={getOptions(filterData?.directions)}
-              values={getSelectValues(field.value, true, filterData?.directions)}
-              label='Направления'
-              onChange={handleMultiSelectChange(field)}
-              className={styles.select}
-              multiselect
-            />
-          )}
-        />
-
-        <Controller
-          name='article'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={filteredArticles}
-              values={getSelectValues(field.value, false, filterData?.article)}
-              label='Статья и подстатья'
-              onChange={field.onChange}
-              className={styles.select}
-            />
-          )}
-        />
-
-        <Controller
           name='cases'
           control={control}
           render={({ field }) => (
@@ -462,15 +354,16 @@ export const FilterOperations = () => {
         />
 
         <Controller
-          name='deals'
+          name='deal_name'
           control={control}
           render={({ field }) => (
-            <SelectC
-              options={filteredDeals}
-              values={getSelectValues(field.value, false, filterData?.deals)}
-              label='Сделка'
+            <Input
+              id='deal_name'
+              label='Название сделки'
+              value={field.value}
+              hasResetIcon={false}
               onChange={field.onChange}
-              className={styles.select}
+              className={styles.nameInput}
             />
           )}
         />

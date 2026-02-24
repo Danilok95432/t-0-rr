@@ -40,7 +40,7 @@ export const dealsApi = createApi({
         url: `deals/delete`,
         method: 'DELETE',
         body: {
-          id_deal: id,
+          id: id,
         },
         
       }),

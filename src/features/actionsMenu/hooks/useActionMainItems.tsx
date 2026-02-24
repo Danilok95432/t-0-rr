@@ -35,7 +35,7 @@ export const useActionMainItems = (): IActionItem[] => {
       id: 'search',
       onClick: handleOpenFilterMenu,
       isActive: isOpenFiltersMenu,
-      showOnPaths: ['operations', 'summary', 'standarts', 'standart'],
+      showOnPaths: ['operations', 'summary', 'standarts', 'standart', 'deals'],
     },
     {
       id: 'import',

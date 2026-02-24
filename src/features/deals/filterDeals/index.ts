@@ -1,0 +1,1 @@
+export { FilterDeals } from './FilterDeals'

@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useMemo, FC } from 'react'
+import { useState, useMemo, FC, useEffect } from 'react'
 import classNames from 'classnames'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { PlusIconSVG } from '@/shared/ui/icons/plusIconSVG'
 import { useEditDealForm } from '@/features/deals/hooks/useEditDealForm'
-import { Controller } from 'react-hook-form'
 import { DealInfo, PaymentData } from '@/features/deals/table/config/dealsType'
 import { GridTable } from '@/shared/ui/GridTable'
 import { ColDef } from 'ag-grid-community'
@@ -22,13 +21,19 @@ interface EditDealFormProps {
 }
 
 export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
-  const { control, errors, handleSubmit, onSubmit } = useEditDealForm(id, deal)
+  const { errors, handleSubmit, onSubmit } = useEditDealForm(id, deal)
   const { data } = useGetDealPlanQuery(id ?? '')
 
-  const [rowData, setRowData] = useState<PaymentData[]>(data?.paymentData ?? [])
+  const [rowData, setRowData] = useState<PaymentData[]>([])
 
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editFormData, setEditFormData] = useState<Partial<PaymentData>>({})
+
+  useEffect(() => {
+    if (data?.paymentData) {
+      setRowData(data.paymentData)
+    }
+  }, [data])
 
   const handleEdit = (row: PaymentData) => {
     setEditingId(row.id)
@@ -74,8 +79,8 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
         <div className={styles.actionButtons}>
           <Button
             mode='table'
-            tableMode='approve'
             disabled
+            tableMode='approve'
             onClick={() => handleSave(row.id)}
             icon={<CheckIconSVG />}
           />
@@ -87,8 +92,8 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
       <div className={styles.actionButtons}>
         <Button
           mode='table'
-          tableMode='edit'
           disabled
+          tableMode='edit'
           onClick={() => handleEdit(row)}
           icon={<PencilIconSVG />}
         />
@@ -186,20 +191,13 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
       <h3 className={styles.title}>Плановые платежи по Договору</h3>
 
       <div className={styles.inner}>
-        <Controller
-          name='deal_plan_rashod'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='deal_plan_rashod'
-              label='Плановая сумма сделки'
-              value={field.value}
-              hasResetIcon={false}
-              disabled={true}
-              onChange={field.onChange}
-              error={errors.deal_name?.message}
-            />
-          )}
+        <Input
+          id='sum'
+          label='Плановая сумма сделки'
+          value={data?.sum}
+          hasResetIcon={false}
+          disabled={true}
+          error={errors.deal_name?.message}
         />
 
         <div className={styles.tableWrapper}>

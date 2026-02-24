@@ -14,6 +14,8 @@ import { LIMIT_TABLE_DATA } from '@/shared/lib/const'
 import { DealsDTO } from '@/features/deals/table/config/dealsType'
 import { useNavigate } from 'react-router'
 import { RowClickedEvent } from 'ag-grid-community'
+import { FiltersMenu } from '@/shared/ui/FiltersMenu'
+import { FilterDeals } from '@/features/deals/filterDeals'
 
 const LIMIT = LIMIT_TABLE_DATA
 
@@ -150,6 +152,10 @@ const TransactionsContent = () => {
           onRowClicked={handleRowClick}
         />
       )}
+
+      <FiltersMenu>
+        <FilterDeals />
+      </FiltersMenu>
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {buttonId === 'add' && (

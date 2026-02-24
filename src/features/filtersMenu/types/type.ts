@@ -9,7 +9,7 @@ export interface MultiSelOption {
   selected: boolean
 }
 
-export interface FilterData {
+export interface FilterOperationData {
   org: MultiSelOption[]
   account: MultiSelOption[]
   contragent: MultiSelOption[]
@@ -19,4 +19,13 @@ export interface FilterData {
   cases: SelOption[]
   dateFrom: string
   dateTo: string
+}
+
+export interface FilterDealData {
+  org: MultiSelOption[]
+  contragent: MultiSelOption[]
+  deal_name: string
+  cases: SelOption[]
+  dateDogovor: string
+  dateApply: string
 }

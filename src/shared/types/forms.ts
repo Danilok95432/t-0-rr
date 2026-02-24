@@ -113,6 +113,16 @@ export interface TFormFilterOperationsMenu {
   rememberChoice: boolean
 }
 
+export interface TFormFilterDealsMenu {
+  dateDogovor?: Date | string | undefined
+  dateApply?: Date | string | undefined
+  org?: string[]
+  contragent?: string[]
+  cases?: string
+  deal_name?: string
+  rememberChoice: boolean
+}
+
 export type TFormOrganization = {
   shortName?: string
   inn?: string
