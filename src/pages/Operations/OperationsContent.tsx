@@ -18,17 +18,20 @@ import { Modal } from '@/shared/ui/Modal'
 import { RowClickedEvent } from 'ag-grid-community'
 
 import {
+  GetAllOperationsArgs,
   useGetAllOperationsQuery,
-  useGetSummaryQuery,
 } from '@/features/operations/api/operationsApi'
 import type { OperationsData } from '@/features/operations/table/config/operationsTypes'
 import { LIMIT_TABLE_DATA } from '@/shared/lib/const'
+import { useFilters } from '@/features/filtersMenu/context/filtersContext'
 
 const LIMIT = LIMIT_TABLE_DATA
 
 const OperationsContent = () => {
-  const { buttonId, openModalById } = useModal()
+   const { buttonId, openModalById } = useModal()
   const { value } = useQuickFilter()
+  const { filters } = useFilters()
+  const filtersKey = filters ? JSON.stringify(filters) : ''
 
   const [step, setStep] = useState(0)
   const [operations, setOperations] = useState<OperationsData[]>([])
@@ -36,12 +39,140 @@ const OperationsContent = () => {
 
   const scrollTopRef = useRef(0)
 
-  const { data, isFetching, isLoading } = useGetAllOperationsQuery({
-    searchtext: value,
-    step,
-    limit: LIMIT,
-  })
-  const { data: summary } = useGetSummaryQuery(value)
+  const extractValues = (value: unknown): string[] => {
+    if (!value) return []
+    
+    if (Array.isArray(value)) {
+      return value.map(item => {
+        if (typeof item === 'string') return item
+        if (item && typeof item === 'object' && 'value' in item) {
+          return item.value as string
+        }
+        return ''
+      }).filter(Boolean)
+    }
+    
+    if (value && typeof value === 'object' && 'value' in value) {
+      return [value.value as string]
+    }
+    
+    if (typeof value === 'string') {
+      return [value]
+    }
+    
+    if (value instanceof Date) {
+      const isoString = value.toISOString().split('T')[0]
+      return [isoString]
+    }
+    
+    return []
+  }
+
+  const dateToISOString = (date: Date | string | undefined): string => {
+    if (!date) return ''
+    
+    try {
+      const dateObj = date instanceof Date ? date : new Date(date)
+      
+      if (isNaN(dateObj.getTime())) return ''
+      
+      const year = dateObj.getFullYear()
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0')
+      const day = String(dateObj.getDate()).padStart(2, '0')
+      
+      return `${year}-${month}-${day}`
+    } catch (error) {
+      console.error('Error converting date to ISO:', error)
+      return ''
+    }
+  }
+
+  // Преобразуем фильтры в параметры запроса
+  const getQueryParams = (): GetAllOperationsArgs => {
+    const params: GetAllOperationsArgs = {
+      searchtext: value || '',
+      step,
+      limit: LIMIT
+    }
+
+    if (filters) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { rememberChoice, ...filterParams } = filters
+      
+      if (filterParams.dateFrom) {
+        const dateFromValue = dateToISOString(filterParams.dateFrom)
+        if (dateFromValue) {
+          params.dateFrom = dateFromValue
+        }
+      }
+      
+      if (filterParams.dateTo) {
+        const dateToValue = dateToISOString(filterParams.dateTo)
+        if (dateToValue) {
+          params.dateTo = dateToValue
+        }
+      }
+      
+      if (filterParams.org) {
+        const orgValues = extractValues(filterParams.org)
+        if (orgValues.length > 0) {
+          params.org = orgValues.join(',')
+        }
+      }
+      
+      if (filterParams.account) {
+        const accountValues = extractValues(filterParams.account)
+        if (accountValues.length > 0) {
+          params.account = accountValues.join(',')
+        }
+      }
+      
+      if (filterParams.contragent) {
+        const contragentValues = extractValues(filterParams.contragent)
+        if (contragentValues.length > 0) {
+          params.contragent = contragentValues.join(',')
+        }
+      }
+      
+      if (filterParams.directions) {
+        const directionsValues = extractValues(filterParams.directions)
+        if (directionsValues.length > 0) {
+          params.directions = directionsValues.join(',')
+        }
+      }
+      
+      if (filterParams.article) {
+        const articleValue = extractValues(filterParams.article)[0]
+        if (articleValue) {
+          params.article = articleValue
+        }
+      }
+      
+      if (filterParams.cases) {
+        const casesValue = extractValues(filterParams.cases)[0]
+        if (casesValue) {
+          params.cases = casesValue
+        }
+      }
+      
+      if (filterParams.deals) {
+        const dealsValue = extractValues(filterParams.deals)[0]
+        if (dealsValue) {
+          params.deals = dealsValue
+        }
+      }
+    }
+    return params
+  }
+
+  // Используем skip в запросе, чтобы не выполнять его до инициализации фильтров
+  const { data, isFetching, isLoading } = useGetAllOperationsQuery(
+    getQueryParams(),
+  )
+  
+  // const { data: summary } = useGetSummaryQuery(value, {
+  //   skip: !isInitialized, // Также для summary
+  // })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const pageData = data?.cards ?? []
@@ -50,7 +181,6 @@ const OperationsContent = () => {
     (params: RowClickedEvent<OperationsData>) => {
       const target = params.event?.target as HTMLElement | null
 
-      // не реагируем на клик по чекбоксу
       if (target?.closest('.ag-selection-checkbox')) {
         return
       }
@@ -59,7 +189,7 @@ const OperationsContent = () => {
 
       openModalById(`processing-${params.data.id}`)
     },
-    [openModalById]
+    [openModalById],
   )
 
   useEffect(() => {
@@ -67,7 +197,7 @@ const OperationsContent = () => {
     setOperations([])
     setHasMore(true)
     scrollTopRef.current = 0
-  }, [value])
+  }, [value, filtersKey])
 
   useEffect(() => {
     if (!pageData.length) return
@@ -113,10 +243,12 @@ const OperationsContent = () => {
   return (
     <ListLayout
       title='Операции'
+      noSearch
+      wideRow
       totalInfoData={[
         {
           name: 'Всего операций',
-          value: `${operations.length}`,
+          value: `${data?.count}`,
         },
         {
           name: 'Перемещения',
@@ -124,15 +256,15 @@ const OperationsContent = () => {
         },
         {
           name: 'Приход',
-          value: `${summary?.summ_inc ?? 0}`,
+          value: `${data?.summ_inc ?? 0}`,
         },
         {
           name: 'Расход',
-          value: `${summary?.summ_out ?? 0}`,
+          value: `${data?.summ_out ?? 0}`,
         },
         {
           name: 'Разница',
-          value: `${summary?.summ_diff ?? 0}`,
+          value: `${data?.summ_diff ?? 0}`,
         },
       ]}
     >

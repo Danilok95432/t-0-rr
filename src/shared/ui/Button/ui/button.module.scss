@@ -1,62 +1,116 @@
 .button {
-	border: none;
-	border-radius: 3px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  border: none;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	&__primary,
-	&__secondary {
-		width: fit-content;
-		height: 32px;
-		font-size: 12px;
-		font-weight: 600;
-		padding: 8px 16px;
+  &__primary,
+  &__secondary {
+    width: fit-content;
+    height: 32px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+  }
+
+	&__table {
+		width: 28px;
+    height: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6.5px;
 	}
 
-	&__primary {
+  &__edit {
 		color: var(--base-01);
-		background-color: var(--link);
-
+    background-color: #e5e5e7;
 		&:hover {
-			background-color: var(--link-hover);
-		}
+      background-color: var(--link-hover);
+    }
 
-		&:disabled:hover {
-			opacity: 0.56;
-		}
-	}
+    &:disabled:hover {
+      opacity: 0.56;
+    }
+  }
 
-	&__secondary {
-		color: var(--text-01);
-		background-color: transparent;
-		border: var(--border);
-
+  &__delete {
+		color: var(--base-01);
+    background-color: #f5e6e1;
 		&:hover {
-			border: 1px solid var(--text-03);
-		}
+      background-color: var(--link-hover);
+    }
 
-		&:disabled:hover {
-			background-color: transparent;
-			border: var(--border);
-		}
-	}
+    &:disabled:hover {
+      opacity: 0.56;
+    }
+  }
 
-	&__clear {
-		background-color: transparent;
-	}
+  &__approve {
+		color: var(--base-01);
+		background-color: #e8f5f1;
+		&:hover {
+      background-color: var(--link-hover);
+    }
 
-	&:disabled {
-		opacity: 0.56;
-		cursor: not-allowed;
-	}
+    &:disabled:hover {
+      opacity: 0.56;
+    }
+  }
 
-	.wrapper {
-		display: flex;
-		align-items: center;
-		column-gap: 4px;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
-	}
+  &__primary {
+    color: var(--base-01);
+    background-color: var(--link);
+
+    &:hover {
+      background-color: var(--link-hover);
+    }
+
+    &:disabled:hover {
+      opacity: 0.56;
+    }
+  }
+
+  &__warning_delete {
+    color: var(--base-01);
+    background-color: var(--negative);
+    width: fit-content;
+    height: 32px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+  }
+
+  &__secondary {
+    color: var(--text-01);
+    background-color: transparent;
+    border: var(--border);
+
+    &:hover {
+      border: 1px solid var(--text-03);
+    }
+
+    &:disabled:hover {
+      background-color: transparent;
+      border: var(--border);
+    }
+  }
+
+  &__clear {
+    background-color: transparent;
+  }
+
+  &:disabled {
+    opacity: 0.56;
+    cursor: not-allowed;
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }

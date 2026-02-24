@@ -89,14 +89,27 @@ export type TFormUploadingOperations = {
   }>
 }
 
-export type TFormFilterOperationsMenu = {
-  dateRange: string
-  organization: string
-  accounts: string
-  counterparty: string
-  direction: string
-  article: string
-  case: string
+export interface Option {
+  value: string
+  label: string
+}
+
+export type SelOption = Option
+
+export interface MultiSelOption extends Option {
+  selected?: boolean
+}
+
+export interface TFormFilterOperationsMenu {
+  dateFrom?: Date | string | undefined
+  dateTo?: Date | string | undefined
+  org?: string[]
+  account?: string[]
+  contragent?: string[]
+  directions?: string[]
+  article?: string
+  cases?: string
+  deals?: string
   rememberChoice: boolean
 }
 

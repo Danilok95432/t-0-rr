@@ -1,3 +1,5 @@
+import { MultiSelOption } from "@/features/filtersMenu/types/type"
+
 export type TSelectOption = {
   value: string
   label: string
@@ -17,13 +19,14 @@ export type TSelectOptionParent = {
 }
 
 export interface ISelectCProps {
-  options: TSelectOption[]
-  values: TSelectOption[]
-  value?: TSelectOption | null
-  onChange: (value: TSelectOption[]) => void
+  options: TSelectOption[] | MultiSelOption[]
+  values: TSelectOption[] | MultiSelOption[]
+  value?: TSelectOption | MultiSelOption | null
+  onChange: (value: TSelectOption[] | MultiSelOption[]) => void
   label?: string
   placeholder?: string
   className?: string
   disabled?: boolean
   searchable?: boolean
+  multiselect?: boolean
 }

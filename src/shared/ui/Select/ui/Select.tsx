@@ -6,6 +6,7 @@ import { ISelectCProps, TSelectOption } from '../types'
 import { Icon } from '@/shared/ui/Icon'
 
 import './select.scss'
+import { MultiSelOption } from '@/features/filtersMenu/types/type'
 
 export const SelectC: FC<ISelectCProps> = (props) => {
   const {
@@ -18,12 +19,13 @@ export const SelectC: FC<ISelectCProps> = (props) => {
     className,
     disabled,
     searchable,
+    multiselect = false,
   } = props
 
   const [isFocused, setIsFocused] = useState(false)
 
   // Мемоизированные "текущие значения" для селекта
-  const computedValues = useMemo<TSelectOption[]>(() => {
+  const computedValues = useMemo<TSelectOption[] | MultiSelOption[]>(() => {
     // если в форме ещё ничего нет, а default value передали — показываем его
     if ((!values || values.length === 0) && value) {
       return [value]
@@ -43,7 +45,7 @@ export const SelectC: FC<ISelectCProps> = (props) => {
   }, [value, values, onChange])
 
   const handleChange = useCallback(
-    (newValues: TSelectOption[]) => {
+    (newValues: TSelectOption[] | MultiSelOption[]) => {
       onChange(newValues)
     },
     [onChange]
@@ -60,7 +62,7 @@ export const SelectC: FC<ISelectCProps> = (props) => {
         className='select'
         placeholder={placeholder}
         searchable={searchable}
-        multi={false}
+        multi={multiselect}
         disabled={disabled}
         onDropdownOpen={() => setIsFocused(true)}
         onDropdownClose={() => setIsFocused(false)}

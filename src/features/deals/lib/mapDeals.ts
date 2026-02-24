@@ -1,16 +1,16 @@
-import { DealsDTO, IDealsData } from '../table/config/dealsType'
+import { DealsDTO } from '../table/config/dealsType'
 
-export const mapDeals = (dealsBack: DealsDTO): IDealsData => {
+export const mapDeals = (dealsBack: DealsDTO): DealsDTO => {
   return {
     id: dealsBack.id,
-    shortName: dealsBack.deal_short_name,
-    fullName: dealsBack.deal_name,
-    organization: dealsBack.org,
+    deal_short_name: dealsBack.deal_short_name,
+    deal_name: dealsBack.deal_name,
+    org: dealsBack.org,
     contragent: dealsBack.contragent,
-    date: dealsBack.deal_date,
-    amount: dealsBack.deal_summ,
-    paid: dealsBack.deal_payed,
-    arrears: dealsBack.deal_dolg,
+    deal_date: dealsBack.deal_date,
+    deal_summ: dealsBack.deal_summ,
+    deal_payed: dealsBack.deal_payed,
+    deal_dolg: dealsBack.deal_dolg,
     case: dealsBack.case,
   }
 }

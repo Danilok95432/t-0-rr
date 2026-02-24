@@ -1,5 +1,7 @@
 import { ItemLayout } from '@/shared/layouts/ItemLayout'
 import { StandartSection } from './sections/standart-section/StandartContent'
+import { useGetStandartInfoQuery } from '@/features/standarts/api/standartsApi'
+import { useParams } from 'react-router'
 
 const formatDateTime = (date: Date): string => {
   const day = String(date.getDate()).padStart(2, '0')
@@ -12,7 +14,9 @@ const formatDateTime = (date: Date): string => {
 }
 
 const StandartContent = () => {
+  const { id } = useParams()
   const currentDateTime = formatDateTime(new Date())
+  const { data: standartData } = useGetStandartInfoQuery(id ?? '')
 
   return (
     <ItemLayout 
@@ -20,8 +24,8 @@ const StandartContent = () => {
       pathToBack='standarts' 
       title={`Эталон ${currentDateTime}`}
       isStandart
-      customLength='0'
-      customText='Всего операций импортировано:'
+      customLength={String(standartData?.length)}
+      customText={`Всего операций импортировано:`}
     >
       <StandartSection />
     </ItemLayout>

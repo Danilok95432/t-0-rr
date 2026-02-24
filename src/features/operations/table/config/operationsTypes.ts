@@ -42,6 +42,7 @@ export interface OperationsResponse {
   summ_diff: number
   summ_inc: number
   summ_out: number
+  count: number
 }
 
 export interface OperationsSummary {

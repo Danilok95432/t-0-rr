@@ -39,7 +39,7 @@ export const ConfirmWindow: FC<IFormProps & ConfirmWindowProps> = ({ labelBadge,
         type='submit'
         className={styles.cancelBtn}
         label={'Отмена'}
-        onClick={handleCloseModal}
+        onClick={() => { handleCloseModal(); console.log(1) }}
       />
       </div>
     </div>

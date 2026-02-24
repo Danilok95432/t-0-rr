@@ -13,6 +13,14 @@ export type DealsDTO = {
   case: string
 }
 
+export interface PaymentData {
+  id: string
+  date: string
+  name: string
+  sum: string
+  isEditing?: boolean
+}
+
 export interface IDealsData {
   id: string
   shortName: string
@@ -24,6 +32,11 @@ export interface IDealsData {
   paid: string
   arrears: string
   case: string
+}
+
+export type DealPlan = {
+  sum: string
+  paymentData: PaymentData[]
 }
 
 export type DealInfo = {

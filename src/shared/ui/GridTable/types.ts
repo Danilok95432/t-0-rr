@@ -19,10 +19,11 @@ import { IOperationsData, OperationsData } from '@/features/operations/table/con
 import { organizationsDef } from '@/features/organizations/table/config/organizatiosDef'
 import { IOrganizationsData } from '@/features/organizations/table/config/organizationsTypes'
 import { dealsDef } from '@/features/deals/table/config/dealsDef'
-import { IDealsData } from '@/features/deals/table/config/dealsType'
+import { DealsDTO, IDealsData, PaymentData } from '@/features/deals/table/config/dealsType'
 import { IStandartData, IStandartInfo } from '@/features/standarts/table/configs/standartsTypes'
 import { standartDef } from '@/features/standarts/table/configs/standartsDef'
 import { standartInfoDef } from '@/features/standart/table/configs/standartDef'
+import { dealsSumDef } from '@/features/deals/table/config/dealSumDef'
 
 export type TGridTableData = {
   columnDefinitions:
@@ -34,11 +35,13 @@ export type TGridTableData = {
     | typeof articleExpenseDef
     | typeof casesDef
     | typeof dealsDef
+    | typeof dealsSumDef
     | typeof importsDef
     | typeof importDef
     | typeof standartDef
     | typeof standartInfoDef
   rowData?:
+    | PaymentData[]
     | OperationsData[]
     | IOrganizationsData[]
     | IOperationsData[]
@@ -47,6 +50,7 @@ export type TGridTableData = {
     | IArticleArrivalData[]
     | IArticleExpenseData[]
     | IDealsData[]
+    | DealsDTO[]
     | ICasesData[]
     | IImportsData[]
     | IImportsOperation[]

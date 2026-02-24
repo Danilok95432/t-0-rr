@@ -12,4 +12,6 @@ export interface IListLayoutProps {
   title?: string
   children?: React.ReactNode
   totalInfoData?: Record<string, string>[]
+  noSearch?: boolean
+  wideRow?: boolean
 }

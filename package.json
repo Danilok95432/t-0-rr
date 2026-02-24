@@ -12,6 +12,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.6.1",
     "@types/react-router-dom": "^5.3.3",

@@ -15,6 +15,7 @@ import { accountsApi } from '@/features/accounts/api/accountsApi'
 import { operationsApi } from '@/features/operations/api/operationsApi'
 import { importsApi } from '@/features/imports/api/importsApi'
 import { standartsApi } from '@/features/standarts/api/standartsApi'
+import { filtersApi } from '@/features/filtersMenu/api/filtersApi'
 
 export const store = configureStore({
   reducer: {
@@ -33,6 +34,7 @@ export const store = configureStore({
     [accountsApi.reducerPath]: accountsApi.reducer,
     [importsApi.reducerPath]: importsApi.reducer,
     [standartsApi.reducerPath]: standartsApi.reducer,
+    [filtersApi.reducerPath]: filtersApi.reducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
@@ -47,6 +49,7 @@ export const store = configureStore({
       operationsApi.middleware,
       importsApi.middleware,
       standartsApi.middleware,
+      filtersApi.middleware,
     ),
 })
 

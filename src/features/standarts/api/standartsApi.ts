@@ -22,12 +22,12 @@ export const standartsApi = createApi({
     }),
     getStandartInfo: build.query<IStandartInfo[], string>({
       query: (id) => ({
-        url: '/standarts/info',
+        url: '/imports/etalon_list',
         params: {
-          id_standart: id,
+          id,
         },
       }),
-      transformResponse: (response: { standart: IStandartInfo[] }) => response.standart,
+      transformResponse: (response: { etalons: IStandartInfo[] }) => response.etalons,
       providesTags: (_, __, id) => [{ type: 'Standarts', id }],
     }),
     addNewStandart: build.query<{ status: string; id: string }, void>({
@@ -40,9 +40,9 @@ export const standartsApi = createApi({
     //
     getStandartsCSV: build.query<Blob, string>({
       query: (id) => ({
-        url: `standarts/standarts_csv`,
+        url: `imports/etalon_list_csv`,
         params: {
-          id_standart: id,
+          id,
         },
         responseHandler: async (response) => await response.blob(),
       }),

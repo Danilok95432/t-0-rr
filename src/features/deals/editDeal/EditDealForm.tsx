@@ -12,8 +12,11 @@ import styles from './index.module.scss'
 import { DealInfo } from '../table/config/dealsType'
 import { InputDate } from '@/shared/ui/InputDate'
 import { transformStringToDate } from '@/shared/helpers/helpers'
-import { useGetDealInfoQuery } from '../api/dealsApi'
+import { useDeleteDealMutation, useGetDealInfoQuery } from '../api/dealsApi'
 import { SelectC } from '@/shared/ui/Select'
+import { AnimatePresence } from 'motion/react'
+import { Modal } from '@/shared/ui/Modal'
+import { ConfirmWindow } from '@/features/import/confirm-window/confirm-window'
 
 interface EditDealFormProps {
   id: string
@@ -21,6 +24,7 @@ interface EditDealFormProps {
 }
 
 export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
+  const [isDelete, setIsDelete] = useState<boolean>(false)
   const {
     isEditingModeActive,
     control,
@@ -35,6 +39,7 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
   } = useEditDealForm(id, deal)
 
   const { data: dealsLists } = useGetDealInfoQuery(id ?? '')
+  const [deleteDeal] = useDeleteDealMutation()
 
   const [, setIsInitialized] = useState(false)
   useEffect(() => {
@@ -56,6 +61,10 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
 
     setIsInitialized(true)
   }, [deal, reset])
+
+  const handleDelete = async () => {
+    await deleteDeal(id)
+  }
 
   return (
     <form className={styles.dealData} onSubmit={handleSubmit(onSubmit)}>
@@ -186,8 +195,20 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           onClick={handleDeactivateEditingMode}
           disabled={!isValid || isSubmitting}
         />
+        <Button mode='warning_delete' label='Удалить сделку' onClick={() => setIsDelete(true)} />
         <Button mode='secondary' label='Отменить' onClick={handleCancel} />
       </div>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {isDelete && (
+          <Modal title='Удалить сделку'>
+            <ConfirmWindow
+              labelBadge='Это действие удалит сделку без возможности восстановления. Вы уверены, что хотите продолжить?'
+              submitHandle={handleDelete}
+              link={'/deals'}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
     </form>
   )
 }

@@ -19,5 +19,5 @@ export const standartDef: ColDef<IStandartData>[] = [
     maxWidth: 370,
   },
   { field: 'file', headerName: 'Файл', tooltipField: 'file', cellClass: styles.file },
-  { field: 'employee', headerName: 'Сотрудник', maxWidth: 170, },
+  { field: 'employee', headerName: 'Сотрудник', maxWidth: 250, },
 ]

@@ -10,6 +10,15 @@ export interface GetAllOperationsArgs {
   searchtext: string
   step: number
   limit: number
+  dateFrom?: string
+  dateTo?: string
+  org?: string  // Теперь строка вместо string[]
+  account?: string
+  contragent?: string
+  directions?: string
+  article?: string
+  cases?: string
+  deals?: string
 }
 
 export const operationsApi = createApi({
@@ -18,12 +27,21 @@ export const operationsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getAllOperations: build.query<OperationsResponse, GetAllOperationsArgs>({
-      query: ({ searchtext, step, limit }) => ({
+      query: ({ searchtext, step, limit, dateFrom, dateTo, org, account, contragent, directions, article, cases, deals }) => ({
         url: '/cards/list',
         params: {
           searchtext,
           step,
           limit,
+          dateFrom,
+          dateTo,
+          org,
+          account,
+          contragent,
+          directions,
+          article,
+          cases,
+          deals,
         },
       }),
       providesTags: (result) =>

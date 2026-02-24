@@ -8,8 +8,8 @@ export interface IStandartData {
 
 export interface IStandartInfo {
 	id: string
-	accountContragent: string
-  accountOrg: string
+	contragent: string
+  org: string
   operation: string
   sum: string
 }

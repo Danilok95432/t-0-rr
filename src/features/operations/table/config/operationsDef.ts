@@ -61,11 +61,13 @@ export const operationsDef: ColDef<OperationsData>[] = [
     maxWidth: 250,
     cellRenderer: CellArticle,
     valueGetter: (params) => ({
-      case: params.data?.main_article_name,
-      deal: params.data?.sub_article_name
+      article: params.data?.main_article_name,
+      subArticle: params.data?.sub_article_name
     }),
+    field: 'main_article_name',
+    tooltipField: 'main_article_name',
     tooltipValueGetter: (params) => 
-      `${params.data?.case_name}\n${params.data?.deal_name}`
+      `${params.data?.main_article_name}\n${params.data?.sub_article_name}`
     // filter: true,
     // valueGetter: (params) => params.data?.article,
     // filterValueGetter: (value) => value.data?.article.article,
@@ -78,8 +80,8 @@ export const operationsDef: ColDef<OperationsData>[] = [
     headerName: 'Сумма',
     cellRenderer: memo(CellBadge),
     valueGetter: (params) => ({
-      status: params.data?.id_direction === '1' ? 'negative' : (params.data?.id_direction === '2' ? 'positive' : 'neutral'),
-      value: params.data?.summ
+      status: params.data?.id_direction === '2' ? 'negative' : (params.data?.id_direction === '1' ? 'positive' : 'neutral'),
+      value: params.data?.id_direction === '2' ? `- ${params.data?.summ}` : `${params.data?.summ}`
     }),
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
     maxWidth: 150,

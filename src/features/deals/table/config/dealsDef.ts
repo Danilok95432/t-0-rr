@@ -1,30 +1,30 @@
 import { type ColDef } from 'ag-grid-community'
-import { IDealsData } from './dealsType'
+import { DealsDTO } from './dealsType'
 import { CellLinkShortName } from '../cells/CellLinkShortName'
 import { CellLinkFullName } from '../cells/CellLinkFullName'
 
 import styles from './deals.module.scss'
 
-export const dealsDef: ColDef<IDealsData>[] = [
+export const dealsDef: ColDef<DealsDTO>[] = [
   { field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
   {
-    field: 'shortName',
+    field: 'deal_short_name',
     headerName: 'Краткое название сделки',
     cellRenderer: CellLinkShortName,
-    tooltipField: 'shortName',
+    tooltipField: 'deal_short_name',
     maxWidth: 180,
   },
   {
-    field: 'fullName',
+    field: 'deal_name',
     headerName: 'Полное наименование сделки',
     cellRenderer: CellLinkFullName,
-    tooltipField: 'fullName',
+    tooltipField: 'deal_name',
   },
-  { field: 'organization', headerName: 'Организация', tooltipField: 'organization', maxWidth: 140 },
+  { field: 'org', headerName: 'Организация', tooltipField: 'org', maxWidth: 140 },
   { field: 'contragent', headerName: 'Контрагент', tooltipField: 'contragent' },
-  { field: 'date', headerName: 'Дата сделки', maxWidth: 110 },
+  { field: 'deal_date', headerName: 'Дата сделки', maxWidth: 110 },
   {
-    field: 'amount',
+    field: 'deal_summ',
     headerName: 'Сумма сделки',
     maxWidth: 190,
     colId: 'amount-column',
@@ -32,7 +32,7 @@ export const dealsDef: ColDef<IDealsData>[] = [
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
   },
   {
-    field: 'paid',
+    field: 'deal_payed',
     headerName: 'Оплачено, сумма',
     maxWidth: 190,
     colId: 'paid-column',
@@ -40,7 +40,7 @@ export const dealsDef: ColDef<IDealsData>[] = [
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
   },
   {
-    field: 'arrears',
+    field: 'deal_dolg',
     headerName: 'Задолженность',
     maxWidth: 190,
     colId: 'appears-column',

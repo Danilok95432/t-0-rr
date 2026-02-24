@@ -3,6 +3,7 @@ import { useGetDealInfoQuery } from '@/features/deals/api/dealsApi'
 import { useParams } from 'react-router-dom'
 import { EditDealForm } from '@/features/deals/editDeal/EditDealForm'
 import { Loader } from '@/shared/ui/Loader'
+import { DealTableSum } from './sections/DealTableSum/DealTableSum'
 
 const TransactionContent = () => {
   const { id = '0' } = useParams()
@@ -17,6 +18,7 @@ const TransactionContent = () => {
         title={`Сделка «${dealInfo?.deal_name}»`}
       >
         <EditDealForm deal={dealInfo} id={id} />
+        <DealTableSum deal={dealInfo} id={id} />
       </ItemLayout>
     )
 }

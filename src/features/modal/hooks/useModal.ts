@@ -22,12 +22,16 @@ export const useModal = () => {
 
   const handleCloseModal = useCallback(() => {
     dispatch(closeModal())
+    setTimeout(() => {
+    (document.activeElement as HTMLElement)?.blur()
+  }, 0)
   }, [dispatch])
 
   useEffect(() => {
     if (isOpenModal) {
       const closeByEscape = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
+          event.preventDefault()
           handleCloseModal()
         }
       }

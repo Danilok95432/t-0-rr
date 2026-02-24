@@ -62,7 +62,7 @@ export const StandartSection = () => {
 
         const link = document.createElement('a')
         link.href = url
-        link.setAttribute('download', `operations.csv`)
+        link.setAttribute('download', `etalon_standart_${id}.csv`)
         document.body.appendChild(link)
         link.click()
 

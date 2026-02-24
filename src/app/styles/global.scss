@@ -71,3 +71,13 @@ ul {
 		height: 10px;
 	}
 }
+
+.no-focus-outline:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
