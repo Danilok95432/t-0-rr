@@ -14,4 +14,5 @@ export interface IInputProps {
   error?: string
   maxLength?: number
   disabled?: boolean
+  autoFocus?: boolean
 }

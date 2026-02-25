@@ -23,6 +23,7 @@ export const Input: FC<IInputProps> = (props) => {
     maxLength,
     disabled = false,
     error,
+    autoFocus,
   } = props
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +57,7 @@ export const Input: FC<IInputProps> = (props) => {
         onChange={handleChange}
         maxLength={maxLength}
         autoComplete='off'
-        autoFocus={false}
+        autoFocus={autoFocus}
         disabled={disabled}
       />
 

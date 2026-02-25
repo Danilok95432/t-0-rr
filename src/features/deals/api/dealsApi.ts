@@ -1,20 +1,20 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { DealInfo, DealPlan, DealsDTO } from '../table/config/dealsType'
-import { FieldValues } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form'
 
 export const dealsApi = createApi({
   reducerPath: 'dealsApi',
   tagTypes: ['Deals'],
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-    getAllDeals: build.query<DealsDTO[], { step: number, limit?: number }>({
+    getAllDeals: build.query<DealsDTO[], { step: number; limit?: number }>({
       query: ({ step, limit }) => ({
         url: '/deals/list',
         params: {
           step,
           limit,
-        }
+        },
       }),
       transformResponse: (response: { deals: DealsDTO[] }) => response.deals,
       providesTags: ['Deals'],
@@ -42,7 +42,6 @@ export const dealsApi = createApi({
         body: {
           id: id,
         },
-        
       }),
       invalidatesTags: ['Deals'],
     }),
@@ -65,20 +64,15 @@ export const dealsApi = createApi({
       providesTags: (_, __, id) => [{ type: 'Deals', id }],
     }),
     addNewDealPlan: build.query<{ status: string; id: string }, void>({
-      query: () => ({
-        url: '/deals_plan/getnew',
-        method: 'GET',
-      }),
-      providesTags: ['Deals'],
+      query: () => '/deals_plan/getnew',
     }),
     deleteDealPlan: build.mutation<null, string>({
       query: (id) => ({
         url: `deals_plan/delete`,
         method: 'DELETE',
         body: {
-          id_deal_plan: id,
+          id: id,
         },
-        
       }),
       invalidatesTags: ['Deals'],
     }),
@@ -94,4 +88,14 @@ export const dealsApi = createApi({
   }),
 })
 
-export const { useGetAllDealsQuery, useAddNewDealPlanQuery, useDeleteDealPlanMutation, useGetDealPlanQuery, useSaveDealPlanMutation, useDeleteDealMutation, useGetDealInfoQuery, useAddNewDealQuery, useSaveDealInfoMutation } = dealsApi
+export const {
+  useGetAllDealsQuery,
+  useLazyAddNewDealPlanQuery,
+  useDeleteDealPlanMutation,
+  useGetDealPlanQuery,
+  useSaveDealPlanMutation,
+  useDeleteDealMutation,
+  useGetDealInfoQuery,
+  useAddNewDealQuery,
+  useSaveDealInfoMutation,
+} = dealsApi

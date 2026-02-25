@@ -15,6 +15,7 @@ export type DealsDTO = {
 
 export interface PaymentData {
   id: string
+  id_deal_plan?: string
   date: string
   name: string
   sum: string

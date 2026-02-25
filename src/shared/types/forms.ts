@@ -114,8 +114,8 @@ export interface TFormFilterOperationsMenu {
 }
 
 export interface TFormFilterDealsMenu {
-  dateDogovor?: Date | string | undefined
-  dateApply?: Date | string | undefined
+  deal_date?: Date | string | undefined
+  // dateApply?: Date | string | undefined
   org?: string[]
   contragent?: string[]
   cases?: string

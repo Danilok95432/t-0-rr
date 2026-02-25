@@ -15,6 +15,13 @@ export const filtersApi = createApi({
       providesTags: ['Filters'],
       //
     }),
+    getAllFiltersDeal: build.query<FilterDealData, void>({
+      query: () => ({
+        url: '/filters/deals_get_data',
+      }),
+      providesTags: ['Filters'],
+      //
+    }),
     saveFilters: build.mutation<string, FieldValues>({
       query: (formData) => ({
         url: '/filters/save',
@@ -23,7 +30,15 @@ export const filtersApi = createApi({
       }),
       invalidatesTags: ['Filters'],
     }),
+    saveFiltersDeal: build.mutation<string, FieldValues>({
+      query: (formData) => ({
+        url: '/filters/deals_save',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Filters'],
+    }),
   }),
 })
 
-export const { useGetAllFiltersQuery, useSaveFiltersMutation } = filtersApi
+export const { useGetAllFiltersQuery, useSaveFiltersMutation, useGetAllFiltersDealQuery, useSaveFiltersDealMutation } = filtersApi

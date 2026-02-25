@@ -26,6 +26,6 @@ export interface FilterDealData {
   contragent: MultiSelOption[]
   deal_name: string
   cases: SelOption[]
-  dateDogovor: string
+  deal_date: string
   dateApply: string
 }

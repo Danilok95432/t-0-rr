@@ -7,8 +7,8 @@ import { Button } from '@/shared/ui/Button'
 import { CheckBox } from '@/shared/ui/CheckBox'
 import styles from './filter-deals.module.scss'
 import {
-  useGetAllFiltersQuery,
-  useSaveFiltersMutation,
+  useGetAllFiltersDealQuery,
+  useSaveFiltersDealMutation,
 } from '@/features/filtersMenu/api/filtersApi'
 import type { MultiSelOption, SelOption, TFormFilterDealsMenu } from '@/shared/types/forms'
 import { useFilters } from '@/features/filtersMenu/context/filtersContext'
@@ -17,14 +17,13 @@ import { Input } from '@/shared/ui/Input'
 
 export const FilterDeals = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
-  const { data: filterData } = useGetAllFiltersQuery()
-  const [saveFilters] = useSaveFiltersMutation()
+  const { data: filterData } = useGetAllFiltersDealQuery()
+  const [saveFilters] = useSaveFiltersDealMutation()
   const { filters: contextFilters, setFilters } = useFilters()
 
   const EMPTY_VALUES: TFormFilterDealsMenu = {
     rememberChoice: false,
-    dateDogovor: undefined,
-    dateApply: undefined,
+    deal_date: undefined,
     org: [],
     contragent: [],
     cases: '',
@@ -50,12 +49,8 @@ export const FilterDeals = () => {
     }
 
     if (filterData) {
-      if (filterData.dateDogovor) {
-        defaultValues.dateDogovor = parseServerDate(filterData.dateDogovor)
-      }
-
-      if (filterData.dateApply) {
-        defaultValues.dateApply = parseServerDate(filterData.dateApply)
+      if (filterData.deal_date) {
+        defaultValues.deal_date = parseServerDate(filterData.deal_date)
       }
 
       const multiSelectFields = [
@@ -188,8 +183,7 @@ export const FilterDeals = () => {
     try {
       const processedData = {
         ...data,
-        dateDogovor: data.dateDogovor ? dateApplyISOString(data.dateDogovor) : undefined,
-        dateApply: data.dateApply ? dateApplyISOString(data.dateApply) : undefined,
+        deal_date: data.deal_date ? dateApplyISOString(data.deal_date) : undefined,
       }
 
       setFilters(processedData)
@@ -278,8 +272,7 @@ export const FilterDeals = () => {
     const values = getValues()
 
     const hasAnyFilter =
-      values.dateDogovor ||
-      values.dateApply ||
+      values.deal_date ||
       values.org?.length ||
       values.contragent?.length ||
       values.cases ||
@@ -297,17 +290,17 @@ export const FilterDeals = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.filterOperations}>
         <ControlledDateInput
           className={styles.date}
-          name='dateDogovor'
+          name='deal_date'
           dateFormat='yyyy-MM-dd'
           placeholder='Дата договора'
         />
 
-        <ControlledDateInput
+        {/* <ControlledDateInput
           className={styles.date}
           name='dateApply'
           dateFormat='yyyy-MM-dd'
           placeholder='Дата совершения'
-        />
+        /> */}
 
         <Controller
           name='org'
