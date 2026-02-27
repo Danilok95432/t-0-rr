@@ -3,7 +3,7 @@ import { useModal } from '@/features/modal/hooks/useModal'
 import { NewDeals } from '@/features/deals/newDeals'
 import { dealsDef } from '@/features/deals/table/config/dealsDef'
 import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
-import { useGetAllDealsQuery } from '@/features/deals/api/dealsApi'
+import { GetAllDealsArgs, useGetAllDealsQuery } from '@/features/deals/api/dealsApi'
 import { mapDeals } from '@/features/deals/lib/mapDeals'
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { Modal } from '@/shared/ui/Modal'
@@ -16,12 +16,17 @@ import { useNavigate } from 'react-router'
 import { RowClickedEvent } from 'ag-grid-community'
 import { FiltersMenu } from '@/shared/ui/FiltersMenu'
 import { FilterDeals } from '@/features/deals/filterDeals'
+import {
+  DealsFiltersProvider,
+  useDealsFilters,
+} from '@/features/filtersMenu/context/dealsFiltersContext'
 
 const LIMIT = LIMIT_TABLE_DATA
 
 const TransactionsContent = () => {
   const { buttonId } = useModal()
   const { value: quickFilterValue } = useQuickFilter()
+  const { filters } = useDealsFilters()
 
   const [step, setStep] = useState(0)
   const [dealsList, setDealsList] = useState<DealsDTO[]>([])
@@ -30,9 +35,106 @@ const TransactionsContent = () => {
   const scrollTopRef = useRef(0)
   const isInitialMount = useRef(true)
 
-  const { data, isFetching, isLoading } = useGetAllDealsQuery({
-    step,
-  })
+  const extractValues = (value: unknown): string[] => {
+    if (!value) return []
+
+    if (Array.isArray(value)) {
+      return value
+        .map((item) => {
+          if (typeof item === 'string') return item
+          if (item && typeof item === 'object' && 'value' in item) {
+            return item.value as string
+          }
+          return ''
+        })
+        .filter(Boolean)
+    }
+
+    if (value && typeof value === 'object' && 'value' in value) {
+      return [value.value as string]
+    }
+
+    if (typeof value === 'string') {
+      return [value]
+    }
+
+    if (value instanceof Date) {
+      const isoString = value.toISOString().split('T')[0]
+      return [isoString]
+    }
+
+    return []
+  }
+
+  const dateToISOString = (date: Date | string | undefined): string => {
+    if (!date) return ''
+
+    try {
+      const dateObj = date instanceof Date ? date : new Date(date)
+
+      if (isNaN(dateObj.getTime())) return ''
+
+      const year = dateObj.getFullYear()
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0')
+      const day = String(dateObj.getDate()).padStart(2, '0')
+
+      return `${year}-${month}-${day}`
+    } catch (error) {
+      console.error('Error converting date to ISO:', error)
+      return ''
+    }
+  }
+
+  const getQueryParams = (): GetAllDealsArgs => {
+    const params: GetAllDealsArgs = {
+      searchtext: '',
+      step,
+      limit: LIMIT,
+    }
+
+    if (filters) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { rememberChoice, ...filterParams } = filters
+
+      if (filterParams.deal_date) {
+        const dateDateValue = dateToISOString(filterParams.deal_date)
+        if (dateDateValue) {
+          params.deal_date = dateDateValue
+        }
+      }
+
+      if (filterParams.org) {
+        const orgValues = extractValues(filterParams.org)
+        if (orgValues.length > 0) {
+          params.org = orgValues.join(',')
+        }
+      }
+
+      if (filterParams.contragent) {
+        const contragentValues = extractValues(filterParams.contragent)
+        if (contragentValues.length > 0) {
+          params.contragent = contragentValues.join(',')
+        }
+      }
+
+      if (filterParams.cases) {
+        const casesValue = extractValues(filterParams.cases)[0]
+        if (casesValue) {
+          params.cases = casesValue
+        }
+      }
+
+      if (filterParams.deal_name) {
+        const dealsValue = filterParams.deal_name
+        if (dealsValue) {
+          params.deal_name = dealsValue
+        }
+      }
+    }
+    return params
+  }
+
+  const { data, isFetching, isLoading } = useGetAllDealsQuery(getQueryParams())
 
   const pageData = useMemo(() => {
     return data?.map((deal) => mapDeals(deal)) || []
@@ -152,7 +254,6 @@ const TransactionsContent = () => {
           onRowClicked={handleRowClick}
         />
       )}
-
       <FiltersMenu>
         <FilterDeals />
       </FiltersMenu>
@@ -168,4 +269,12 @@ const TransactionsContent = () => {
   )
 }
 
-export default TransactionsContent
+const DealsPage = () => {
+  return (
+    <DealsFiltersProvider>
+      <TransactionsContent />
+    </DealsFiltersProvider>
+  )
+}
+
+export default DealsPage

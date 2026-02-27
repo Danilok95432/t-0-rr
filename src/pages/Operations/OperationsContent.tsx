@@ -23,14 +23,17 @@ import {
 } from '@/features/operations/api/operationsApi'
 import type { OperationsData } from '@/features/operations/table/config/operationsTypes'
 import { LIMIT_TABLE_DATA } from '@/shared/lib/const'
-import { useFilters } from '@/features/filtersMenu/context/filtersContext'
+import {
+  OperationsFiltersProvider,
+  useOperationsFilters,
+} from '@/features/filtersMenu/context/operationsFilterContext'
 
 const LIMIT = LIMIT_TABLE_DATA
 
 const OperationsContent = () => {
-   const { buttonId, openModalById } = useModal()
+  const { buttonId, openModalById } = useModal()
   const { value } = useQuickFilter()
-  const { filters } = useFilters()
+  const { filters } = useOperationsFilters()
   const filtersKey = filters ? JSON.stringify(filters) : ''
 
   const [step, setStep] = useState(0)
@@ -41,45 +44,47 @@ const OperationsContent = () => {
 
   const extractValues = (value: unknown): string[] => {
     if (!value) return []
-    
+
     if (Array.isArray(value)) {
-      return value.map(item => {
-        if (typeof item === 'string') return item
-        if (item && typeof item === 'object' && 'value' in item) {
-          return item.value as string
-        }
-        return ''
-      }).filter(Boolean)
+      return value
+        .map((item) => {
+          if (typeof item === 'string') return item
+          if (item && typeof item === 'object' && 'value' in item) {
+            return item.value as string
+          }
+          return ''
+        })
+        .filter(Boolean)
     }
-    
+
     if (value && typeof value === 'object' && 'value' in value) {
       return [value.value as string]
     }
-    
+
     if (typeof value === 'string') {
       return [value]
     }
-    
+
     if (value instanceof Date) {
       const isoString = value.toISOString().split('T')[0]
       return [isoString]
     }
-    
+
     return []
   }
 
   const dateToISOString = (date: Date | string | undefined): string => {
     if (!date) return ''
-    
+
     try {
       const dateObj = date instanceof Date ? date : new Date(date)
-      
+
       if (isNaN(dateObj.getTime())) return ''
-      
+
       const year = dateObj.getFullYear()
       const month = String(dateObj.getMonth() + 1).padStart(2, '0')
       const day = String(dateObj.getDate()).padStart(2, '0')
-      
+
       return `${year}-${month}-${day}`
     } catch (error) {
       console.error('Error converting date to ISO:', error)
@@ -92,69 +97,69 @@ const OperationsContent = () => {
     const params: GetAllOperationsArgs = {
       searchtext: value || '',
       step,
-      limit: LIMIT
+      limit: LIMIT,
     }
 
     if (filters) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { rememberChoice, ...filterParams } = filters
-      
+
       if (filterParams.dateFrom) {
         const dateFromValue = dateToISOString(filterParams.dateFrom)
         if (dateFromValue) {
           params.dateFrom = dateFromValue
         }
       }
-      
+
       if (filterParams.dateTo) {
         const dateToValue = dateToISOString(filterParams.dateTo)
         if (dateToValue) {
           params.dateTo = dateToValue
         }
       }
-      
+
       if (filterParams.org) {
         const orgValues = extractValues(filterParams.org)
         if (orgValues.length > 0) {
           params.org = orgValues.join(',')
         }
       }
-      
+
       if (filterParams.account) {
         const accountValues = extractValues(filterParams.account)
         if (accountValues.length > 0) {
           params.account = accountValues.join(',')
         }
       }
-      
+
       if (filterParams.contragent) {
         const contragentValues = extractValues(filterParams.contragent)
         if (contragentValues.length > 0) {
           params.contragent = contragentValues.join(',')
         }
       }
-      
+
       if (filterParams.directions) {
         const directionsValues = extractValues(filterParams.directions)
         if (directionsValues.length > 0) {
           params.directions = directionsValues.join(',')
         }
       }
-      
+
       if (filterParams.article) {
         const articleValue = extractValues(filterParams.article)[0]
         if (articleValue) {
           params.article = articleValue
         }
       }
-      
+
       if (filterParams.cases) {
         const casesValue = extractValues(filterParams.cases)[0]
         if (casesValue) {
           params.cases = casesValue
         }
       }
-      
+
       if (filterParams.deals) {
         const dealsValue = extractValues(filterParams.deals)[0]
         if (dealsValue) {
@@ -166,10 +171,8 @@ const OperationsContent = () => {
   }
 
   // Используем skip в запросе, чтобы не выполнять его до инициализации фильтров
-  const { data, isFetching, isLoading } = useGetAllOperationsQuery(
-    getQueryParams(),
-  )
-  
+  const { data, isFetching, isLoading } = useGetAllOperationsQuery(getQueryParams())
+
   // const { data: summary } = useGetSummaryQuery(value, {
   //   skip: !isInitialized, // Также для summary
   // })
@@ -328,4 +331,12 @@ const OperationsContent = () => {
   )
 }
 
-export default OperationsContent
+const OperationsPage = () => {
+  return (
+    <OperationsFiltersProvider>
+      <OperationsContent />
+    </OperationsFiltersProvider>
+  )
+}
+
+export default OperationsPage

@@ -3,12 +3,23 @@ import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { DealInfo, DealPlan, DealsDTO } from '../table/config/dealsType'
 import { FieldValues } from 'react-hook-form'
 
+export interface GetAllDealsArgs {
+  searchtext: string
+  step: number
+  limit: number
+  deal_date?: string
+  org?: string  // Теперь строка вместо string[]
+  contragent?: string
+  cases?: string
+  deal_name?: string
+}
+
 export const dealsApi = createApi({
   reducerPath: 'dealsApi',
   tagTypes: ['Deals'],
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-    getAllDeals: build.query<DealsDTO[], { step: number; limit?: number }>({
+    getAllDeals: build.query<DealsDTO[], GetAllDealsArgs>({
       query: ({ step, limit }) => ({
         url: '/deals/list',
         params: {

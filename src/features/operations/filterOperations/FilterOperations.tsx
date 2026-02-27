@@ -12,14 +12,14 @@ import {
   useSaveFiltersMutation,
 } from '@/features/filtersMenu/api/filtersApi'
 import type { MultiSelOption, SelOption } from '@/shared/types/forms'
-import { useFilters } from '@/features/filtersMenu/context/filtersContext'
 import { ControlledDateInput } from '@/widgets/ControlledDateInput/controlled-date-input'
+import { useOperationsFilters } from '@/features/filtersMenu/context/operationsFilterContext'
 
 export const FilterOperations = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
   const { data: filterData } = useGetAllFiltersQuery()
   const [saveFilters] = useSaveFiltersMutation()
-  const { filters: contextFilters, setFilters } = useFilters()
+  const { filters: contextFilters, setFilters } = useOperationsFilters()
 
   const EMPTY_VALUES: TFormFilterOperationsMenu = {
     rememberChoice: false,

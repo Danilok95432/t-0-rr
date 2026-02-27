@@ -11,15 +11,15 @@ import {
   useSaveFiltersDealMutation,
 } from '@/features/filtersMenu/api/filtersApi'
 import type { MultiSelOption, SelOption, TFormFilterDealsMenu } from '@/shared/types/forms'
-import { useFilters } from '@/features/filtersMenu/context/filtersContext'
 import { ControlledDateInput } from '@/widgets/ControlledDateInput/controlled-date-input'
 import { Input } from '@/shared/ui/Input'
+import { useDealsFilters } from '@/features/filtersMenu/context/dealsFiltersContext'
 
 export const FilterDeals = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
   const { data: filterData } = useGetAllFiltersDealQuery()
   const [saveFilters] = useSaveFiltersDealMutation()
-  const { filters: contextFilters, setFilters } = useFilters()
+  const { filters: contextFilters, setFilters } = useDealsFilters()
 
   const EMPTY_VALUES: TFormFilterDealsMenu = {
     rememberChoice: false,
