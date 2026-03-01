@@ -8,7 +8,7 @@ export interface GetAllDealsArgs {
   step: number
   limit: number
   deal_date?: string
-  org?: string  // Теперь строка вместо string[]
+  org?: string 
   contragent?: string
   cases?: string
   deal_name?: string
@@ -20,11 +20,16 @@ export const dealsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getAllDeals: build.query<DealsDTO[], GetAllDealsArgs>({
-      query: ({ step, limit }) => ({
+      query: ({ step, limit, deal_date, deal_name, org, contragent, cases }) => ({
         url: '/deals/list',
         params: {
           step,
           limit,
+          deal_date,
+          org,
+          contragent,
+          cases,
+          deal_name,
         },
       }),
       transformResponse: (response: { deals: DealsDTO[] }) => response.deals,

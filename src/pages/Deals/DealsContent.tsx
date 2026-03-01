@@ -91,7 +91,6 @@ const TransactionsContent = () => {
       step,
       limit: LIMIT,
     }
-
     if (filters) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { rememberChoice, ...filterParams } = filters
