@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { AnimatePresence } from 'motion/react'
 import { useModal } from '@/features/modal/hooks/useModal'
 import { NewDeals } from '@/features/deals/newDeals'

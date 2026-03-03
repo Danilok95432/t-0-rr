@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Controller, FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form'
 import { TFormFilterOperationsMenu } from '@/shared/types/forms'
 import { useFiltersMenu } from '@/features/filtersMenu/hooks/useFiltersMenu'
@@ -8,6 +9,7 @@ import { Button } from '@/shared/ui/Button'
 import { CheckBox } from '@/shared/ui/CheckBox'
 import styles from './filter-operations.module.scss'
 import {
+  useClearFiltersMutation,
   useGetAllFiltersQuery,
   useSaveFiltersMutation,
 } from '@/features/filtersMenu/api/filtersApi'
@@ -17,9 +19,11 @@ import { useOperationsFilters } from '@/features/filtersMenu/context/operationsF
 
 export const FilterOperations = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
-  const { data: filterData } = useGetAllFiltersQuery()
+  const { data: filterData, refetch: refetchFilters } = useGetAllFiltersQuery()
   const [saveFilters] = useSaveFiltersMutation()
   const { filters: contextFilters, setFilters } = useOperationsFilters()
+
+  const [clearFilters] = useClearFiltersMutation()
 
   const EMPTY_VALUES: TFormFilterOperationsMenu = {
     rememberChoice: false,
@@ -273,10 +277,24 @@ export const FilterOperations = () => {
     }
   }
 
-  const handleReset = () => {
-    // reset(EMPTY_VALUES)
-    // setFilters(null)
-    handleCloseFilterMenu()
+  const [resetKey, setResetKey] = useState(0)
+
+  const handleReset = async () => {
+    try {
+      await clearFilters().unwrap()
+      await refetchFilters()
+
+      hasAppliedSavedFilters.current = true
+
+      reset(EMPTY_VALUES)
+      setFilters(null)
+
+      setResetKey((k) => k + 1) // ⬅ ВАЖНО
+
+      handleCloseFilterMenu()
+    } catch (error) {
+      console.error('Ошибка при сбросе фильтров:', error)
+    }
   }
 
   const findLabelByValue = (
@@ -378,6 +396,7 @@ export const FilterOperations = () => {
           control={control}
           render={({ field }) => (
             <SelectC
+              key={`org-${resetKey}`}
               options={getOptions(filterData?.org)}
               values={getSelectValues(field.value, true, filterData?.org)}
               label='Организации'
@@ -393,6 +412,7 @@ export const FilterOperations = () => {
           control={control}
           render={({ field }) => (
             <SelectC
+              key={`account-${resetKey}`}
               options={filteredOrgAccounts}
               values={getSelectValues(field.value, true, filterData?.account)}
               label='Счета организаций'
@@ -408,6 +428,7 @@ export const FilterOperations = () => {
           control={control}
           render={({ field }) => (
             <SelectC
+              key={`contragent-${resetKey}`}
               options={getOptions(filterData?.contragent)}
               values={getSelectValues(field.value, true, filterData?.contragent)}
               label='Контрагент'
@@ -423,6 +444,7 @@ export const FilterOperations = () => {
           control={control}
           render={({ field }) => (
             <SelectC
+              key={`directions-${resetKey}`}
               options={getOptions(filterData?.directions)}
               values={getSelectValues(field.value, true, filterData?.directions)}
               label='Направления'
@@ -489,7 +511,7 @@ export const FilterOperations = () => {
 
         <div className={styles['buttons-wrapper']}>
           <Button mode='primary' label='Применить' type='submit' />
-          <Button mode='secondary' label='Сбросить фильтр' type='button' disabled onClick={handleReset} />
+          <Button mode='secondary' label='Сбросить фильтр' type='button' onClick={handleReset} />
         </div>
       </form>
     </FormProvider>
