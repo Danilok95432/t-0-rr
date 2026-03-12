@@ -7,4 +7,5 @@ export interface IDropZoneProps {
 	onRemoveFile: (index: number) => void
 	accept?: (flag: boolean) => void
 	acceptedTypes?: string[]
+	maxFiles?: number
 }

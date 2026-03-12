@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import { AnimatePresence } from 'motion/react'
 
 import { useModal } from '@/features/modal/hooks/useModal'
@@ -34,13 +35,13 @@ const OperationsContent = () => {
   const { buttonId, openModalById } = useModal()
   const { value } = useQuickFilter()
   const { filters } = useOperationsFilters()
-  const filtersKey = filters ? JSON.stringify(filters) : ''
 
   const [step, setStep] = useState(0)
   const [operations, setOperations] = useState<OperationsData[]>([])
   const [hasMore, setHasMore] = useState(true)
 
   const scrollTopRef = useRef(0)
+  const isInitialMount = useRef(true)
 
   const extractValues = (value: unknown): string[] => {
     if (!value) return []
@@ -170,15 +171,36 @@ const OperationsContent = () => {
     return params
   }
 
-  // Используем skip в запросе, чтобы не выполнять его до инициализации фильтров
   const { data, isFetching, isLoading } = useGetAllOperationsQuery(getQueryParams())
 
-  // const { data: summary } = useGetSummaryQuery(value, {
-  //   skip: !isInitialized, // Также для summary
-  // })
+  // Мемоизируем данные для таблицы
+  const pageData = useMemo(() => {
+    return data?.cards ?? []
+  }, [data])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const pageData = data?.cards ?? []
+  // Мемоизируем сумму для totalInfo
+  const totalInfoData = useMemo(() => [
+    {
+      name: 'Всего операций',
+      value: `${data?.count ?? 0}`,
+    },
+    {
+      name: 'Перемещения',
+      value: ``,
+    },
+    {
+      name: 'Приход',
+      value: `${data?.summ_inc ?? 0}`,
+    },
+    {
+      name: 'Расход',
+      value: `${data?.summ_out ?? 0}`,
+    },
+    {
+      name: 'Разница',
+      value: `${data?.summ_diff ?? 0}`,
+    },
+  ], [data])
 
   const handleRowClick = useCallback(
     (params: RowClickedEvent<OperationsData>) => {
@@ -195,15 +217,28 @@ const OperationsContent = () => {
     [openModalById],
   )
 
+  // Сброс состояния при изменении поиска или фильтров
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
+    }
+
     setStep(0)
     setOperations([])
     setHasMore(true)
     scrollTopRef.current = 0
-  }, [value, filtersKey])
+  }, [value, filters]) // Зависим от filters, а не filtersKey
 
+  // Обновление списка операций при изменении данных или шага
   useEffect(() => {
-    if (!pageData.length) return
+    if (!pageData.length) {
+      if (step === 0) {
+        setOperations([])
+      }
+      return
+    }
+
     setOperations((prev) => {
       if (step === 0) {
         return pageData
@@ -212,64 +247,63 @@ const OperationsContent = () => {
       const newItems = pageData.filter((op) => !existingIds.has(op.id))
       return [...prev, ...newItems]
     })
+
     if (pageData.length < LIMIT) {
       setHasMore(false)
+    } else {
+      setHasMore(true)
     }
-  }, [pageData, step])
+  }, [pageData, step]) // Убрана operations из зависимостей
 
+  // Восстановление позиции скролла
   useEffect(() => {
     if (step === 0) return
     const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
     if (!viewport) return
     viewport.scrollTop = scrollTopRef.current
-  }, [operations.length, step])
+  }, [step]) // Убрана operations.length из зависимостей
 
-  useEffect(() => {
-    if (!hasMore) return
+  // Обработчик скролла с useCallback
+  const handleScroll = useCallback(() => {
+    if (isFetching || isLoading || !hasMore) return
+
     const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
     if (!viewport) return
-    const handleScroll = () => {
-      if (isFetching || isLoading || !hasMore) return
-      const { scrollTop, scrollHeight, clientHeight } = viewport
-      const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
-      scrollTopRef.current = scrollTop
-      if (distanceToBottom < 200) {
-        setStep((prev) => prev + LIMIT)
-      }
+
+    const { scrollTop, scrollHeight, clientHeight } = viewport
+    const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
+    scrollTopRef.current = scrollTop
+
+    if (distanceToBottom < 200) {
+      setStep((prev) => prev + LIMIT)
     }
+  }, [hasMore, isFetching, isLoading])
+
+  // Добавление/удаление обработчика скролла
+  useEffect(() => {
+    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
+    if (!viewport) return
+
     viewport.addEventListener('scroll', handleScroll)
     return () => {
       viewport.removeEventListener('scroll', handleScroll)
     }
-  }, [hasMore, isFetching, isLoading])
+  }, [handleScroll])
+
+  // Инициализация данных при первом рендере или изменении фильтров
+  useEffect(() => {
+    if (pageData.length > 0 && operations.length === 0 && step === 0) {
+      setOperations(pageData)
+      setHasMore(pageData.length >= LIMIT)
+    }
+  }, [pageData, operations.length, step])
 
   return (
     <ListLayout
       title='Операции'
       noSearch
       wideRow
-      totalInfoData={[
-        {
-          name: 'Всего операций',
-          value: `${data?.count}`,
-        },
-        {
-          name: 'Перемещения',
-          value: ``,
-        },
-        {
-          name: 'Приход',
-          value: `${data?.summ_inc ?? 0}`,
-        },
-        {
-          name: 'Расход',
-          value: `${data?.summ_out ?? 0}`,
-        },
-        {
-          name: 'Разница',
-          value: `${data?.summ_diff ?? 0}`,
-        },
-      ]}
+      totalInfoData={totalInfoData}
     >
       <FiltersMenu>
         <FilterOperations />
@@ -315,7 +349,7 @@ const OperationsContent = () => {
       </AnimatePresence>
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-        {buttonId.split('-')[0] === 'processing' && (
+        {buttonId?.split('-')[0] === 'processing' && (
           <Modal title='Обработка операции'>
             <ProcessingOperation
               id={

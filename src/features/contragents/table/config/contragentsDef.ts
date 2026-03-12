@@ -8,14 +8,26 @@ import { CellLinkAccounts } from '../cells/CellLinkAccounts'
 import { CellBadge } from '../cells/cellBadge/CellBadge'
 
 export const contragentsDef: ColDef<IContragentsData>[] = [
-  { field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
+  {
+    field: 'id',
+    headerName: 'ID',
+    minWidth: 60,
+    maxWidth: 70,
+    comparator: (valueA, valueB) => {
+      const numA = Number(valueA)
+      const numB = Number(valueB)
+
+      if (numA === numB) return 0
+      return numA > numB ? 1 : -1
+    },
+  },
   {
     field: 'shortName',
     headerName: 'Краткое название контрагента',
     cellRenderer: memo(CellLinkShortName),
     flex: 1,
     tooltipField: 'shortName',
-    maxWidth: 230
+    maxWidth: 230,
   },
   {
     field: 'fullName',

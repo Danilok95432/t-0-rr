@@ -13,6 +13,7 @@ export const DropZone: FC<IDropZoneProps> = ({
   onRemoveFile,
   accept,
   acceptedTypes,
+  maxFiles = 1, // 👈 новый пропс с значением по умолчанию 1
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>('')
 
@@ -39,10 +40,31 @@ export const DropZone: FC<IDropZoneProps> = ({
     }
   }
 
+  // Проверка на максимальное количество файлов
+  const handleDrop = (acceptedFiles: File[]) => {
+    // Проверяем, не превысит ли добавление новых файлов лимит
+    if (files && files.length + acceptedFiles.length > maxFiles) {
+      setErrorMessage(`Можно загрузить не более ${maxFiles} ${getFilesWord(maxFiles)}`)
+      return
+    }
+    
+    // Если все хорошо, вызываем onDrop
+    onDrop(acceptedFiles)
+  }
+
+  // Вспомогательная функция для склонения слова "файл"
+  const getFilesWord = (count: number): string => {
+    if (count % 10 === 1 && count % 100 !== 11) {
+      return 'файла'
+    }
+    return 'файлов'
+  }
+
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
-    onDrop,
+    onDrop: handleDrop,
     validator,
     onError: (err) => setErrorMessage(err.message),
+    maxFiles, // 👈 передаем лимит в react-dropzone
     // Явно указываем accept для лучшей совместимости
     accept: {
       'text/plain': ['.txt'],
@@ -105,24 +127,28 @@ export const DropZone: FC<IDropZoneProps> = ({
       {/* Сообщение об ошибке */}
       {errorMessage && (
         <div className={styles.errorContainer}>
-          <Icon iconId="warning" className={styles.errorIcon} />
-          <span className={styles.errorText}>{errorMessage}</span>
+          <span className={styles.errorText}>{`Ошибка загрузки. Превышен лимит загруженных файлов. Лимит: ${maxFiles}`}</span>
         </div>
       )}
 
-      {/* Файл не загружен */}
-      {!files?.length ? (
+      {/* Файл не загружен или можно добавить еще файлы */}
+      {(!files?.length || (maxFiles > 1 && files.length < maxFiles)) ? (
         <section className={styles.container}>
           <div {...getRootProps({ className: 'dropzone' })}>
             <input {...getInputProps()} />
             <p className={styles.dropzone__label}>
               <span>Выберите файл</span> или перетащите файл сюда
+              {maxFiles > 1 && (
+                <span className={styles.dropzone__hint}>
+                  {` (можно загрузить до ${maxFiles} ${getFilesWord(maxFiles)})`}
+                </span>
+              )}
             </p>
           </div>
         </section>
       ) : (
         <>
-          {/* Файл загружен */}
+          {/* Файлы загружены */}
           {files.map((file, index) => (
             <div className={styles['uploadFile-wrapper']} key={file.id}>
               <Icon iconId='file' className={styles['uploadFile-icon']} />

@@ -17,6 +17,69 @@
   }
 
   .select {
+    &__values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      flex: 1;
+    }
+
+    &__tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0px 5px;
+      border-radius: 2px;
+      line-height: 21px;
+      margin: 3px 0px 3px 5px;
+      background: rgb(0, 116, 217);
+      color: rgb(255, 255, 255);
+
+      &-remove {
+        margin-left: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        color: #fff;
+      }
+    }
+
+    &__hidden-count {
+      display: inline-flex;
+      align-items: center;
+      padding: 0px 8px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-02);
+    }
+
+    &__placeholder {
+      color: #adb5bd;
+    }
+  }
+
+  // Стили для тултипа
+  .select__hidden-count[title] {
+    position: relative;
+
+    &:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 1000;
+      pointer-events: none;
+      margin-bottom: 4px;
+    }
+  }
+
+  .select {
     width: 100%;
     min-height: 41px;
     height: 55px;
@@ -51,7 +114,8 @@
         margin-top: 8px;
 
         span {
-          display: ruby;
+          display: flex;
+          gap: 5px;
           margin-right: 3px;
           margin-left: 0;
           overflow: hidden;
@@ -79,7 +143,9 @@
         padding-block: 6px;
         row-gap: 4px;
         width: 100%;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 11px 11px 0 rgba(0, 0, 0, 0.04),
+        box-shadow:
+          0 0 10px 0 rgba(0, 0, 0, 0.2),
+          0 11px 11px 0 rgba(0, 0, 0, 0.04),
           0 25px 15px 0 rgba(0, 0, 0, 0.03);
         z-index: 15;
       }
@@ -128,4 +194,3 @@
     }
   }
 }
-

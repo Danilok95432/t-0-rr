@@ -8,9 +8,13 @@ export const contragentsApi = createApi({
   tagTypes: ['Contragents'],
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-    getAllContragents: build.query<ContragentsDTO[], void>({
-      query: () => ({
+    getAllContragents: build.query<ContragentsDTO[], { step?: number, limit?: number}>({
+      query: ({ step, limit}) => ({
         url: '/contragents/list',
+        params: {
+          step,
+          limit
+        }
       }),
       transformResponse: (response: { contragents: ContragentsDTO[] }) => response.contragents,
       providesTags: (result) =>

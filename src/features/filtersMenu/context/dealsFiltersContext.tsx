@@ -45,7 +45,7 @@ const convertDealsFilterData = (filterData: any): TFormFilterDealsMenu | null =>
 
   singleSelectFields.forEach(({ key, data }) => {
     if (data?.length > 0) {
-      defaultValues[key] = data[0].value
+      defaultValues[key] = ''
     }
   })
 

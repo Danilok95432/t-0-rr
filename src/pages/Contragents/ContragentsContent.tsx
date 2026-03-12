@@ -15,14 +15,34 @@ import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 // import { counterpartiesData } from '@/mock/counterparties-data'
 import { mapContragents } from '@/features/contragents/lib/mapContragents'
 import { Loader } from '@/shared/ui/Loader'
+import { useCallback } from 'react'
+import { useNavigate } from 'react-router'
+import { RowClickedEvent } from 'ag-grid-community'
+import { IContragentsData } from '@/features/contragents/table/config/contragentsTypes'
 //
 
 const ContragentsContent = () => {
   const { buttonId } = useModal()
   const { value } = useQuickFilter()
-  const { data } = useGetAllContragentsQuery()
+  const { data } = useGetAllContragentsQuery({step: 0, limit: 1000})
+  const navigate = useNavigate()
 
   const counterparties = data?.map((el) => mapContragents(el))
+
+  const handleRowClick = useCallback(
+    (params: RowClickedEvent<IContragentsData>) => {
+      const target = params.event?.target as HTMLElement | null
+
+      if (target?.closest('.ag-selection-checkbox')) {
+        return
+      }
+
+      if (!params.data?.id) return
+
+      navigate(`/contragent/${params.data.id}`)
+    },
+    [navigate],
+  )
 
   return (
     <ListLayout
@@ -42,6 +62,7 @@ const ContragentsContent = () => {
           rowData={counterparties}
           quickFilterText={value}
           checkboxHidden={false}
+          onRowClicked={handleRowClick}
         />
       )}
 

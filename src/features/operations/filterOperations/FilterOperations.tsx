@@ -87,7 +87,7 @@ export const FilterOperations = () => {
 
       singleSelectFields.forEach(({ key, data }) => {
         if (data?.length) {
-          defaultValues[key] = data[0].value
+          defaultValues[key] = ''
         }
       })
     }
@@ -403,6 +403,8 @@ export const FilterOperations = () => {
               onChange={handleMultiSelectChange(field)}
               className={styles.select}
               multiselect
+              maxDisplayedTags={2}
+              displayedTagSuffix={'+ {count}'}
             />
           )}
         />
@@ -419,6 +421,8 @@ export const FilterOperations = () => {
               onChange={handleMultiSelectChange(field)}
               className={styles.select}
               multiselect
+              maxDisplayedTags={1}
+              displayedTagSuffix={'+ {count}'}
             />
           )}
         />
@@ -435,6 +439,8 @@ export const FilterOperations = () => {
               onChange={handleMultiSelectChange(field)}
               className={styles.select}
               multiselect
+              maxDisplayedTags={1}
+              displayedTagSuffix={'+ {count}'}
             />
           )}
         />

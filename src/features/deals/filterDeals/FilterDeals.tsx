@@ -72,7 +72,7 @@ export const FilterDeals = () => {
 
       singleSelectFields.forEach(({ key, data }) => {
         if (data?.length) {
-          defaultValues[key] = data[0].value
+          defaultValues[key] = ''
         }
       })
     }
@@ -331,6 +331,8 @@ export const FilterDeals = () => {
               onChange={handleMultiSelectChange(field)}
               className={styles.select}
               multiselect
+              maxDisplayedTags={2}
+              displayedTagSuffix={'+ {count}'}
             />
           )}
         />

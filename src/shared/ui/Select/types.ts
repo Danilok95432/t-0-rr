@@ -1,8 +1,11 @@
-import { MultiSelOption } from "@/features/filtersMenu/types/type"
+import { MultiSelOption } from '@/features/filtersMenu/types/type'
 
 export type TSelectOption = {
   value: string
   label: string
+  __originalLabel?: string
+  __hiddenCount?: number
+  __hiddenItems?: string[]
 }
 
 export type TSelectOptionDirection = {
@@ -29,4 +32,6 @@ export interface ISelectCProps {
   disabled?: boolean
   searchable?: boolean
   multiselect?: boolean
+  maxDisplayedTags?: number
+  displayedTagSuffix?: string
 }

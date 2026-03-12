@@ -7,6 +7,9 @@ export interface MultiSelOption {
   label: string
   value: string
   selected: boolean
+  __originalLabel?: string
+  __hiddenCount?: number
+  __hiddenItems?: string[]
 }
 
 export interface FilterOperationData {

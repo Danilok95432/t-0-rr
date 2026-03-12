@@ -53,9 +53,9 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
   useEffect(() => {
     if (planData?.paymentData) {
       // Убеждаемся, что все строки имеют isEditing = false при загрузке
-      const dataWithEditingFalse = planData.paymentData.map(row => ({
+      const dataWithEditingFalse = planData.paymentData.map((row) => ({
         ...row,
-        isEditing: false
+        isEditing: false,
       }))
       setRowData(dataWithEditingFalse)
     }
@@ -65,13 +65,13 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
   const handleEdit = useCallback((row: PaymentData) => {
     setEditingId(row.id)
     setEditFormData(row)
-    
+
     // Обновляем isEditing для строки
-    setRowData(prev => 
-      prev.map(r => ({
+    setRowData((prev) =>
+      prev.map((r) => ({
         ...r,
-        isEditing: r.id === row.id ? true : false
-      }))
+        isEditing: r.id === row.id ? true : false,
+      })),
     )
   }, [])
 
@@ -79,96 +79,125 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
   const handleCancelEdit = useCallback(() => {
     setEditingId(null)
     setEditFormData({})
-    
+
     // Сбрасываем isEditing для всех строк
-    setRowData(prev => 
-      prev.map(r => ({
+    setRowData((prev) =>
+      prev.map((r) => ({
         ...r,
-        isEditing: false
-      }))
+        isEditing: false,
+      })),
     )
   }, [])
 
-  // Обработчик сохранения (для существующих и новых строк)
-  const handleSave = useCallback(async (rowId: string) => {
-    const rowToSave = rowData.find((row) => row.id === rowId)
-    if (!rowToSave) return
+  const formatDateToISO = (dateString: string): string => {
+    if (!dateString) return ''
 
-    setIsLoading(true)
-    try {
-      // Определяем, это новая строка или существующая
-      const isNewRow = !rowToSave.id_deal_plan
-      const formData = new FormData()
-      formData.append('id', id)
-      formData.append('id_deal_plan', isNewRow ? String(rowToSave?.id) || '' : String(rowToSave.id_deal_plan) || String(rowToSave.id))
-      formData.append('date', editFormData.date || rowToSave.date)
-      formData.append('name', editFormData.name || rowToSave.name)
-      formData.append('sum', editFormData.sum || rowToSave.sum)
-      
-      const saveData: SaveDealPlanData = {
-        id: Number(id), // id сделки из пропса
-        id_deal_plan: isNewRow ? String(rowToSave?.id) || '' : String(rowToSave.id_deal_plan) || String(rowToSave.id),
-        date: editFormData.date || rowToSave.date,
-        name: editFormData.name || rowToSave.name,
-        sum: editFormData.sum || rowToSave.sum,
-      }
+    // Разбиваем строку по точке
+    const [day, month, year] = dateString.split('.')
 
-      await saveDealPlan(formData).unwrap()
-
-      // Обновляем локальное состояние и выходим из режима редактирования
-      setRowData((prev) =>
-        prev.map((row) =>
-          row.id === rowId
-            ? {
-                ...row,
-                date: editFormData.date || row.date,
-                name: editFormData.name || row.name,
-                sum: editFormData.sum || row.sum,
-                id_deal_plan: saveData.id_deal_plan,
-                isEditing: false, // Важно! Выключаем режим редактирования
-              }
-            : {
-                ...row,
-                isEditing: false // Убеждаемся, что у всех строк isEditing = false
-              },
-        ),
-      )
-      
-      // Выходим из режима редактирования
-      setEditingId(null)
-      setEditFormData({})
-    } catch (error) {
-      console.error('Ошибка при сохранении:', error)
-    } finally {
-      setIsLoading(false)
+    // Проверяем, что все части присутствуют
+    if (!day || !month || !year) {
+      console.warn('Invalid date format. Expected DD.MM.YYYY')
+      return dateString
     }
-  }, [rowData, editFormData, id, saveDealPlan])
 
-  // Обработчик удаления
-  const handleDelete = useCallback(async (rowId: string) => {
-    const rowToDelete = rowData.find((row) => row.id === rowId)
-    if (!rowToDelete) return
-    setIsLoading(true)
-    try {
-      // Если есть id_deal_plan, удаляем через API
-      if (rowToDelete.id) {
-        await deleteDealPlan(rowToDelete.id).unwrap()
-      }
+    // Собираем в формате YYYY-MM-DD
+    return `${year}-${month}-${day}`
+  }
 
-      // Удаляем из локального состояния
-      setRowData((prev) => prev.filter((row) => row.id !== rowId))
-      
-      // Если удаляем редактируемую строку, выходим из режима редактирования
-      if (editingId === rowId) {
+  // Обработчик сохранения (для существующих и новых строк)
+  const handleSave = useCallback(
+    async (rowId: string) => {
+      const rowToSave = rowData.find((row) => row.id === rowId)
+      if (!rowToSave) return
+
+      setIsLoading(true)
+      try {
+        // Определяем, это новая строка или существующая
+        const isNewRow = !rowToSave.id_deal_plan
+        const formData = new FormData()
+        formData.append('id', id)
+        formData.append(
+          'id_deal_plan',
+          isNewRow
+            ? String(rowToSave?.id) || ''
+            : String(rowToSave.id_deal_plan) || String(rowToSave.id),
+        )
+        formData.append('date', formatDateToISO(editFormData.date ?? '') || formatDateToISO(rowToSave.date))
+        formData.append('name', editFormData.name || rowToSave.name)
+        formData.append('sum', editFormData.sum || rowToSave.sum)
+        console.log(editFormData.date, rowToSave.date)
+        const saveData: SaveDealPlanData = {
+          id: Number(id), // id сделки из пропса
+          id_deal_plan: isNewRow
+            ? String(rowToSave?.id) || ''
+            : String(rowToSave.id_deal_plan) || String(rowToSave.id),
+          date: editFormData.date || rowToSave.date,
+          name: editFormData.name || rowToSave.name,
+          sum: editFormData.sum || rowToSave.sum,
+        }
+
+        await saveDealPlan(formData).unwrap()
+
+        // Обновляем локальное состояние и выходим из режима редактирования
+        setRowData((prev) =>
+          prev.map((row) =>
+            row.id === rowId
+              ? {
+                  ...row,
+                  date: editFormData.date || row.date,
+                  name: editFormData.name || row.name,
+                  sum: editFormData.sum || row.sum,
+                  id_deal_plan: saveData.id_deal_plan,
+                  isEditing: false, // Важно! Выключаем режим редактирования
+                }
+              : {
+                  ...row,
+                  isEditing: false, // Убеждаемся, что у всех строк isEditing = false
+                },
+          ),
+        )
+
+        // Выходим из режима редактирования
         setEditingId(null)
         setEditFormData({})
+      } catch (error) {
+        console.error('Ошибка при сохранении:', error)
+      } finally {
+        setIsLoading(false)
       }
-    } catch (error) {
-      console.error('Ошибка при удалении:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [rowData, deleteDealPlan, editingId])
+    },
+    [rowData, editFormData, id, saveDealPlan],
+  )
+
+  // Обработчик удаления
+  const handleDelete = useCallback(
+    async (rowId: string) => {
+      const rowToDelete = rowData.find((row) => row.id === rowId)
+      if (!rowToDelete) return
+      setIsLoading(true)
+      try {
+        // Если есть id_deal_plan, удаляем через API
+        if (rowToDelete.id) {
+          await deleteDealPlan(rowToDelete.id).unwrap()
+        }
+
+        // Удаляем из локального состояния
+        setRowData((prev) => prev.filter((row) => row.id !== rowId))
+
+        // Если удаляем редактируемую строку, выходим из режима редактирования
+        if (editingId === rowId) {
+          setEditingId(null)
+          setEditFormData({})
+        }
+      } catch (error) {
+        console.error('Ошибка при удалении:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [rowData, deleteDealPlan, editingId],
+  )
 
   // Обработчик добавления новой строки
   const handleAddRow = useCallback(async () => {
@@ -188,10 +217,7 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
       }
 
       // Сбрасываем isEditing у всех строк и добавляем новую с isEditing = true
-      setRowData((prev) => [
-        ...prev.map(r => ({ ...r, isEditing: false })),
-        newRow
-      ])
+      setRowData((prev) => [...prev.map((r) => ({ ...r, isEditing: false })), newRow])
       setEditingId(data?.id)
       setEditFormData(newRow)
     } catch (error) {
@@ -209,14 +235,14 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
   // Компоненты для рендеринга ячеек
   const DateCellRenderer = useMemo(() => {
     const Renderer = (params: any) => {
-      const [localValue, setLocalValue] = useState(params.value || '');
-      const isEditing = editingId === params.data.id;
-      
+      const [localValue, setLocalValue] = useState(params.value || '')
+      const isEditing = editingId === params.data.id
+
       useEffect(() => {
         if (isEditing) {
-          setLocalValue(editFormData.date || params.value || '');
+          setLocalValue(editFormData.date || params.value || '')
         }
-      }, [isEditing, editFormData.date, params.value]);
+      }, [isEditing, editFormData.date, params.value])
 
       if (isEditing) {
         return (
@@ -225,9 +251,9 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
               id={`date-${params.data.id}`}
               value={localValue}
               onChange={(e) => {
-                const newValue = e?.target.value ?? '';
-                setLocalValue(newValue);
-                handleCellChange('date', newValue);
+                const newValue = e?.target.value ?? ''
+                setLocalValue(newValue)
+                handleCellChange('date', newValue)
               }}
               hasResetIcon={false}
               autoFocus
@@ -236,20 +262,20 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
         )
       }
       return params.value
-    };
-    return Renderer;
-  }, [editingId, editFormData.date, handleCellChange]);
+    }
+    return Renderer
+  }, [editingId, editFormData.date, handleCellChange])
 
   const NameCellRenderer = useMemo(() => {
     const Renderer = (params: any) => {
-      const [localValue, setLocalValue] = useState(params.value || '');
-      const isEditing = editingId === params.data.id;
-      
+      const [localValue, setLocalValue] = useState(params.value || '')
+      const isEditing = editingId === params.data.id
+
       useEffect(() => {
         if (isEditing) {
-          setLocalValue(editFormData.name || params.value || '');
+          setLocalValue(editFormData.name || params.value || '')
         }
-      }, [isEditing, editFormData.name, params.value]);
+      }, [isEditing, editFormData.name, params.value])
 
       if (isEditing) {
         return (
@@ -258,9 +284,9 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
               id={`name-${params.data.id}`}
               value={localValue}
               onChange={(e) => {
-                const newValue = e?.target.value ?? '';
-                setLocalValue(newValue);
-                handleCellChange('name', newValue);
+                const newValue = e?.target.value ?? ''
+                setLocalValue(newValue)
+                handleCellChange('name', newValue)
               }}
               hasResetIcon={false}
               autoFocus
@@ -269,20 +295,20 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
         )
       }
       return params.value
-    };
-    return Renderer;
-  }, [editingId, editFormData.name, handleCellChange]);
+    }
+    return Renderer
+  }, [editingId, editFormData.name, handleCellChange])
 
   const SumCellRenderer = useMemo(() => {
     const Renderer = (params: any) => {
-      const [localValue, setLocalValue] = useState(params.value?.toString() || '');
-      const isEditing = editingId === params.data.id;
-      
+      const [localValue, setLocalValue] = useState(params.value?.toString() || '')
+      const isEditing = editingId === params.data.id
+
       useEffect(() => {
         if (isEditing) {
-          setLocalValue(editFormData.sum?.toString() || params.value?.toString() || '');
+          setLocalValue(editFormData.sum?.toString() || params.value?.toString() || '')
         }
-      }, [isEditing, editFormData.sum, params.value]);
+      }, [isEditing, editFormData.sum, params.value])
 
       if (isEditing) {
         return (
@@ -291,9 +317,9 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
               id={`sum-${params.data.id}`}
               value={localValue}
               onChange={(e) => {
-                const newValue = e?.target.value ?? '';
-                setLocalValue(newValue);
-                handleCellChange('sum', newValue);
+                const newValue = e?.target.value ?? ''
+                setLocalValue(newValue)
+                handleCellChange('sum', newValue)
               }}
               hasResetIcon={false}
               autoFocus
@@ -302,9 +328,9 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
         )
       }
       return <span className={styles.amountCell}>{params.value}</span>
-    };
-    return Renderer;
-  }, [editingId, editFormData.sum, handleCellChange]);
+    }
+    return Renderer
+  }, [editingId, editFormData.sum, handleCellChange])
 
   // Рендерер для ячейки действий
   const ActionCellRenderer = useMemo(() => {
@@ -351,9 +377,9 @@ export const DealTableSum: FC<EditDealFormProps> = ({ id, deal }) => {
           />
         </div>
       )
-    };
-    return Renderer;
-  }, [editingId, isLoading, handleEdit, handleDelete, handleSave, handleCancelEdit]);
+    }
+    return Renderer
+  }, [editingId, isLoading, handleEdit, handleDelete, handleSave, handleCancelEdit])
 
   const columnDefinitions = useMemo<ColDef[]>(
     () => [
