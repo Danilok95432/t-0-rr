@@ -1,3 +1,4 @@
+import { SelOption } from "@/shared/types/forms"
 import { TSelectOption } from "@/shared/ui/Select/types"
 
 export type DealsDTO = {
@@ -50,17 +51,17 @@ export type DealInfo = {
   orgs_list: TSelectOption[]
   contragents_list: TSelectOption[]
   contragent: string
-  deal_date: string
+  deal_date: Date
   deal_plan_rashod: string
 }
 
 export type DealInfoSave = {
   deal_short_name: string
   deal_name_full: string
-  id_case: string
-  id_org: string
-  id_contragent: string
-  dogorov_name: string
+  id_case: SelOption[]
+  id_org: SelOption[]
+  id_contragent: SelOption[]
+  dogovor_name: string
   deal_date: Date
   deal_plan_rashod: string
 }

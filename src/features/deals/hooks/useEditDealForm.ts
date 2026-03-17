@@ -7,65 +7,63 @@ import { formatDateToYYYYMMDD, getFirstValue } from '@/shared/helpers/helpers'
 
 export const useEditDealForm = (id: string, deal: DealInfo) => {
   const { isEditingModeActive, handleDeactivateEditingMode } = useEditingMode()
+  
+  // Подготавливаем правильные defaultValues
+  const defaultValues = {
+    deal_name: deal.deal_name || '',
+    cases_list: deal.cases_list || [],
+    dogovor_name: deal.dogovor_name || '',
+    deal_name_full: deal.deal_name_full || '',
+    orgs_list: deal.orgs_list || [],
+    contragents_list: deal.contragents_list || [],
+    deal_date: deal.deal_date || '',
+    deal_plan_rashod: deal.deal_plan_rashod || '',
+  }
+
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors, isValid, isSubmitting },
   } = useForm<DealInfo>({
-    defaultValues: {
-      deal_name: deal.deal_name,
-      case: deal.case,
-      dogovor_name: deal.dogovor_name,
-      deal_name_full: deal.deal_name_full,
-      org: deal.org,
-      contragent: deal.contragent,
-      deal_date: deal.deal_date,
-      deal_plan_rashod: deal.deal_plan_rashod,
-    },
+    defaultValues,
     mode: 'onChange',
   })
 
   const [saveNewDeal] = useSaveDealInfoMutation()
 
+  // Функция для полного сброса формы
   const resetForm = useCallback(() => {
-    reset()
-  }, [reset])
+    reset(defaultValues)
+  }, [reset, deal]) // Добавляем deal в зависимости
 
   const onSubmit: SubmitHandler<DealInfo> = async (data) => {
+    
     const formData = new FormData()
     formData.append('id', id)
-    formData.append('deal_date', formatDateToYYYYMMDD(data?.deal_date))
-    formData.append('deal_short_name', data?.deal_name)
-    formData.append('deal_name_full', data?.deal_name_full)
-    formData.append(
-      'id_org',
-      data.orgs_list !== undefined ? data.org : getFirstValue(data.orgs_list)
-    )
-    formData.append(
-      'id_case',
-      data.cases_list !== undefined ? data.case : getFirstValue(data.cases_list)
-    )
-    formData.append(
-      'id_contragent',
-      data.contragents_list !== undefined ? data.contragent : getFirstValue(data.contragents_list)
-    )
-    formData.append('dogorov_name', data?.dogovor_name)
-    formData.append('deal_plan_rashod', data?.deal_plan_rashod)
+    formData.append('deal_date', data?.deal_date !== undefined ? formatDateToYYYYMMDD(data?.deal_date) : formatDateToYYYYMMDD(new Date()))
+    formData.append('deal_short_name', data?.deal_name || '')
+    formData.append('deal_name_full', data?.deal_name_full || '')
+    formData.append('id_org', getFirstValue(data.orgs_list) || '')
+    formData.append('id_case', getFirstValue(data.cases_list) || '')
+    formData.append('id_contragent', getFirstValue(data.contragents_list) || '')
+    formData.append('dogovor_name', data?.dogovor_name || '')
+    formData.append('deal_plan_rashod', data?.deal_plan_rashod || '')
 
     try {
       await saveNewDeal(formData)
-      reset()
+      resetForm() // Используем resetForm вместо reset
+      handleDeactivateEditingMode()
     } catch (error) {
       console.error('Ошибка добавления операции:', error)
     }
-    reset()
   }
 
   const handleCancel = () => {
     handleDeactivateEditingMode()
     resetForm()
   }
+
   return {
     isEditingModeActive,
     control,
@@ -76,6 +74,6 @@ export const useEditDealForm = (id: string, deal: DealInfo) => {
     onSubmit,
     handleDeactivateEditingMode,
     handleCancel,
-    reset,
+    reset: resetForm, // Возвращаем resetForm вместо reset
   }
 }

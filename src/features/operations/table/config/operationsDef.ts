@@ -14,7 +14,31 @@ import styles from './operations.module.scss'
 
 export const operationsDef: ColDef<OperationsData>[] = [
   { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
-  { field: 'itemdate', headerName: 'Дата', minWidth: 100, maxWidth: 100 },
+  {
+    field: 'itemdate',
+    headerName: 'Дата',
+    minWidth: 100,
+    maxWidth: 100,
+    valueFormatter: (params) => {
+      if (!params.value) return '';
+      
+      try {
+        const date = new Date(params.value);
+        if (isNaN(date.getTime())) {
+          const [year, month, day] = params.value.split('-');
+          return `${day}.${month}.${year}`;
+        }
+        
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        
+        return `${day}.${month}.${year}`;
+      } catch {
+        return params.value;
+      }
+    }
+  },
   {
     field: 'id_direction',
     cellRenderer: memo(CellIcon),
@@ -30,12 +54,14 @@ export const operationsDef: ColDef<OperationsData>[] = [
     cellRenderer: CellOrg,
     tooltipField: 'org_name',
     maxWidth: 180,
-    tooltipValueGetter: (params) => [
-      params.data?.org_name,
-      params.data?.account_name,
-    ],
+    tooltipValueGetter: (params) => [params.data?.org_name, params.data?.account_name],
   },
-  { field: 'contragent_name', headerName: 'Контрагент', tooltipField: 'contragent_name', maxWidth: 350 },
+  {
+    field: 'contragent_name',
+    headerName: 'Контрагент',
+    tooltipField: 'contragent_name',
+    maxWidth: 350,
+  },
   {
     field: 'itemname',
     headerName: 'Наименование операции',
@@ -51,10 +77,9 @@ export const operationsDef: ColDef<OperationsData>[] = [
     maxWidth: 250,
     valueGetter: (params) => ({
       case: params.data?.case_name,
-      deal: params.data?.deal_name
+      deal: params.data?.deal_name,
     }),
-    tooltipValueGetter: (params) => 
-      `${params.data?.case_name}\n${params.data?.deal_name}`
+    tooltipValueGetter: (params) => `${params.data?.case_name}\n${params.data?.deal_name}`,
   },
   {
     headerName: 'Статья и подстатья',
@@ -62,12 +87,12 @@ export const operationsDef: ColDef<OperationsData>[] = [
     cellRenderer: CellArticle,
     valueGetter: (params) => ({
       article: params.data?.main_article_name,
-      subArticle: params.data?.sub_article_name
+      subArticle: params.data?.sub_article_name,
     }),
     field: 'main_article_name',
     tooltipField: 'main_article_name',
-    tooltipValueGetter: (params) => 
-      `${params.data?.main_article_name}\n${params.data?.sub_article_name}`
+    tooltipValueGetter: (params) =>
+      `${params.data?.main_article_name}\n${params.data?.sub_article_name}`,
     // filter: true,
     // valueGetter: (params) => params.data?.article,
     // filterValueGetter: (value) => value.data?.article.article,
@@ -80,12 +105,16 @@ export const operationsDef: ColDef<OperationsData>[] = [
     headerName: 'Сумма',
     cellRenderer: memo(CellBadge),
     valueGetter: (params) => ({
-      status: params.data?.id_direction === '2' ? 'negative' : (params.data?.id_direction === '1' ? 'positive' : 'neutral'),
-      value: params.data?.id_direction === '2' ? `- ${params.data?.summ}` : `${params.data?.summ}`
+      status:
+        params.data?.id_direction === '2'
+          ? 'negative'
+          : params.data?.id_direction === '1'
+            ? 'positive'
+            : 'neutral',
+      value: params.data?.id_direction === '2' ? `- ${params.data?.summ}` : `${params.data?.summ}`,
     }),
     cellStyle: { display: 'flex', justifyContent: 'end', alignItems: 'center' },
     maxWidth: 150,
     headerClass: styles.amountHeader,
   },
 ]
-

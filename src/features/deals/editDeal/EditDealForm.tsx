@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState, type FC } from 'react'
+import { useState, type FC } from 'react'
 import { Controller } from 'react-hook-form'
 import classNames from 'classnames'
 
@@ -11,7 +10,6 @@ import { Button } from '@/shared/ui/Button'
 import styles from './index.module.scss'
 import { DealInfo } from '../table/config/dealsType'
 import { InputDate } from '@/shared/ui/InputDate'
-import { transformStringToDate } from '@/shared/helpers/helpers'
 import { useDeleteDealMutation, useGetDealInfoQuery } from '../api/dealsApi'
 import { SelectC } from '@/shared/ui/Select'
 import { AnimatePresence } from 'motion/react'
@@ -35,32 +33,13 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
     isSubmitting,
     isValid,
     handleDeactivateEditingMode,
-    reset,
   } = useEditDealForm(id, deal)
 
   const { data: dealsLists } = useGetDealInfoQuery(id ?? '')
   const [deleteDeal] = useDeleteDealMutation()
 
-  const [, setIsInitialized] = useState(false)
-  useEffect(() => {
-    if (!deal) return
-
-    const casesOpts = deal.cases_list ?? []
-    const orgsOpts = deal.orgs_list ?? []
-    const contragentsOpt = deal.contragents_list ?? []
-
-    const caseOption = casesOpts[0]
-    const orgOption = orgsOpts[0]
-    const contragentOption = contragentsOpt[0]
-
-    reset({
-      cases_list: caseOption ? [caseOption] : [],
-      orgs_list: orgOption ? [orgOption] : [],
-      contragents_list: contragentOption ? [contragentOption] : [],
-    } as any)
-
-    setIsInitialized(true)
-  }, [deal, reset])
+  // Убираем useEffect с reset, который всё портит!
+  // Вместо этого используем данные напрямую из deal
 
   const handleDelete = async () => {
     await deleteDeal(id)
@@ -147,11 +126,9 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           control={control}
           render={({ field }) => (
             <InputDate
-              label='Дата заключения договора'
-              date={transformStringToDate(field.value)}
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-              popperPlacement='bottom-start'
+              date={field.value}
+              label='Дата операции'
+              onChange={(date) => field.onChange(date)}
             />
           )}
         />
