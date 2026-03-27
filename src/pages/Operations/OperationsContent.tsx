@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import { AnimatePresence } from 'motion/react'
 
@@ -16,7 +15,7 @@ import { ListLayout } from '@/shared/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
 import { FiltersMenu } from '@/shared/ui/FiltersMenu'
 import { Modal } from '@/shared/ui/Modal'
-import { RowClickedEvent } from 'ag-grid-community'
+import { GridApi, RowClickedEvent } from 'ag-grid-community'
 
 import {
   GetAllOperationsArgs,
@@ -179,28 +178,85 @@ const OperationsContent = () => {
   }, [data])
 
   // Мемоизируем сумму для totalInfo
-  const totalInfoData = useMemo(() => [
-    {
-      name: 'Всего операций',
-      value: `${data?.count ?? 0}`,
-    },
-    {
-      name: 'Перемещения',
-      value: ``,
-    },
-    {
-      name: 'Приход',
-      value: `${data?.summ_inc ?? 0}`,
-    },
-    {
-      name: 'Расход',
-      value: `${data?.summ_out ?? 0}`,
-    },
-    {
-      name: 'Разница',
-      value: `${data?.summ_diff ?? 0}`,
-    },
-  ], [data])
+  const totalInfoData = useMemo(
+    () => [
+      {
+        name: 'Всего операций',
+        value: `${data?.count ?? 0}`,
+      },
+      {
+        name: 'Перемещения',
+        value: ``,
+      },
+      {
+        name: 'Приход',
+        value: `${data?.summ_inc ?? 0}`,
+      },
+      {
+        name: 'Расход',
+        value: `${data?.summ_out ?? 0}`,
+      },
+      {
+        name: 'Разница',
+        value: `${data?.summ_diff ?? 0}`,
+      },
+    ],
+    [data],
+  )
+
+  // ------------ Скролл настройки ------------
+  const gridApiRef = useRef<GridApi | null>(null)
+
+  const scrollStateRef = useRef({
+    rowIndex: 0,
+    offset: 0,
+  })
+
+  const handleGridReady = (api: GridApi) => {
+    gridApiRef.current = api
+  }
+
+  const saveScrollPosition = () => {
+    const api = gridApiRef.current
+    if (!api) return
+
+    const firstRow = api.getFirstDisplayedRowIndex()
+    const rowNode = api.getDisplayedRowAtIndex(firstRow)
+
+    scrollStateRef.current = {
+      rowIndex: firstRow,
+      offset: rowNode?.rowTop ?? 0,
+    }
+  }
+
+  const restoreScrollPosition = () => {
+    const api = gridApiRef.current
+    if (!api) return
+
+    requestAnimationFrame(() => {
+      api.ensureIndexVisible(scrollStateRef.current.rowIndex, 'top')
+    })
+  }
+
+  const handleScrollLoad = useCallback(() => {
+    if (isFetching || isLoading || !hasMore) return
+
+    const api = gridApiRef.current
+    if (!api) return
+
+    const lastRow = api.getLastDisplayedRowIndex()
+    const totalRows = operations.length
+
+    if (lastRow >= totalRows - 5) {
+      saveScrollPosition()
+      setStep((prev) => prev + LIMIT)
+    }
+  }, [isFetching, isLoading, hasMore, operations.length])
+
+  useEffect(() => {
+    if (operations.length === 0) return
+    restoreScrollPosition()
+  }, [operations.length])
 
   const handleRowClick = useCallback(
     (params: RowClickedEvent<OperationsData>) => {
@@ -211,11 +267,16 @@ const OperationsContent = () => {
       }
 
       if (!params.data?.id) return
-
+      saveScrollPosition()
       openModalById(`processing-${params.data.id}`)
     },
     [openModalById],
   )
+
+  useEffect(() => {
+    if (buttonId !== null) return
+    restoreScrollPosition()
+  }, [buttonId])
 
   // Сброс состояния при изменении поиска или фильтров
   useEffect(() => {
@@ -255,41 +316,6 @@ const OperationsContent = () => {
     }
   }, [pageData, step]) // Убрана operations из зависимостей
 
-  // Восстановление позиции скролла
-  useEffect(() => {
-    if (step === 0) return
-    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
-    if (!viewport) return
-    viewport.scrollTop = scrollTopRef.current
-  }, [step]) // Убрана operations.length из зависимостей
-
-  // Обработчик скролла с useCallback
-  const handleScroll = useCallback(() => {
-    if (isFetching || isLoading || !hasMore) return
-
-    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
-    if (!viewport) return
-
-    const { scrollTop, scrollHeight, clientHeight } = viewport
-    const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
-    scrollTopRef.current = scrollTop
-
-    if (distanceToBottom < 200) {
-      setStep((prev) => prev + LIMIT)
-    }
-  }, [hasMore, isFetching, isLoading])
-
-  // Добавление/удаление обработчика скролла
-  useEffect(() => {
-    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
-    if (!viewport) return
-
-    viewport.addEventListener('scroll', handleScroll)
-    return () => {
-      viewport.removeEventListener('scroll', handleScroll)
-    }
-  }, [handleScroll])
-
   // Инициализация данных при первом рендере или изменении фильтров
   useEffect(() => {
     if (pageData.length > 0 && operations.length === 0 && step === 0) {
@@ -299,12 +325,7 @@ const OperationsContent = () => {
   }, [pageData, operations.length, step])
 
   return (
-    <ListLayout
-      title='Операции'
-      noSearch
-      wideRow
-      totalInfoData={totalInfoData}
-    >
+    <ListLayout title='Операции' noSearch wideRow totalInfoData={totalInfoData}>
       <FiltersMenu>
         <FilterOperations />
       </FiltersMenu>
@@ -314,6 +335,8 @@ const OperationsContent = () => {
         columnDefinitions={operationsDef}
         quickFilterText={value}
         onRowClicked={handleRowClick}
+        onGridReady={handleGridReady}
+        onScrollEnd={handleScrollLoad}
       />
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>

@@ -13,31 +13,50 @@ import { CellOrg } from '../cells/cellOrg/cellOrg'
 import styles from './operations.module.scss'
 
 export const operationsDef: ColDef<OperationsData>[] = [
-  { field: 'id', headerName: 'ID', minWidth: 80, maxWidth: 80 },
+  {
+    field: 'id',
+    headerName: 'ID',
+    minWidth: 80,
+    maxWidth: 80,
+    comparator: (valueA, valueB) => {
+      // Преобразуем строковые ID в числа для корректного сравнения
+      const numA = Number(valueA)
+      const numB = Number(valueB)
+
+      // Если оба значения валидные числа
+      if (!isNaN(numA) && !isNaN(numB)) {
+        return numA - numB
+      }
+
+      // Если не числа, сравниваем как строки (fallback)
+      return String(valueA).localeCompare(String(valueB))
+    },
+  },
   {
     field: 'itemdate',
     headerName: 'Дата',
     minWidth: 100,
     maxWidth: 100,
+    sort: 'desc',
     valueFormatter: (params) => {
-      if (!params.value) return '';
-      
+      if (!params.value) return ''
+
       try {
-        const date = new Date(params.value);
+        const date = new Date(params.value)
         if (isNaN(date.getTime())) {
-          const [year, month, day] = params.value.split('-');
-          return `${day}.${month}.${year}`;
+          const [year, month, day] = params.value.split('-')
+          return `${day}.${month}.${year}`
         }
-        
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        
-        return `${day}.${month}.${year}`;
+
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+
+        return `${day}.${month}.${year}`
       } catch {
-        return params.value;
+        return params.value
       }
-    }
+    },
   },
   {
     field: 'id_direction',

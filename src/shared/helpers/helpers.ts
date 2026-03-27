@@ -65,6 +65,10 @@ export const formatDateToYYYYMMDD = (
   }
 }
 
+export const booleanToNumberString = (bool: boolean | undefined): string => {
+	return bool ? '1' : '0'
+}
+
 export const getFirstValue = (field: TSelectOption[]): string => {
   if (!field) return ''
 

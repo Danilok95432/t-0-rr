@@ -18,7 +18,6 @@ interface FiltersProviderProps<T> {
   filterData: any // данные с сервера
   isLoading: boolean
   convertFilterData: (data: any) => T | null
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryHook?: () => any // опционально, если нужно получать данные внутри
 }
 
@@ -50,6 +49,7 @@ export const BaseFiltersProvider = <T,>({
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useBaseFilters = <T,>(): BaseFiltersContextType<T> => {
   const context = useContext(FiltersContext)
   if (!context) {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */ 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from 'classnames'
 
 import { Button } from '@/shared/ui/Button'
@@ -12,6 +12,12 @@ import { useEditArticleForm } from '@/features/articles/hooks/useEditArticleForm
 import { Controller, useWatch } from 'react-hook-form'
 import { SelectC } from '@/shared/ui/Select'
 import { TSelectOption } from '@/shared/ui/Select/types'
+import { ConfirmWindow } from '@/features/import/confirm-window/confirm-window'
+import { Modal } from '@/shared/ui/Modal'
+import { AnimatePresence } from 'motion/react'
+import { useModal } from '@/features/modal/hooks/useModal'
+import { useDeleteArticleMutation } from '@/features/articles/api/articlesApi'
+import { toast } from 'react-toastify'
 
 interface MainArticleSectionProps {
   id: string
@@ -33,20 +39,16 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
     reset,
   } = useEditArticleForm(id, article)
 
-  // списки опций из бэка
-  const parentOptions = useMemo(
-    () => article?.parents_list ?? [],
-    [article?.parents_list]
-  )
+  const { buttonId } = useModal()
 
-  const directionOptions = useMemo(
-    () => article?.directions_list ?? [],
-    [article?.directions_list]
-  )
+  // списки опций из бэка
+  const parentOptions = useMemo(() => article?.parents_list ?? [], [article?.parents_list])
+
+  const directionOptions = useMemo(() => article?.directions_list ?? [], [article?.directions_list])
 
   const articleExpOptions = useMemo(
     () => article?.article_exps_list ?? [],
-    [article?.article_exps_list]
+    [article?.article_exps_list],
   )
 
   // ВАЖНО: в форме для этих полей лежит массив опций, а не строка
@@ -74,9 +76,7 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
 
     // direction из родителя
     if (directionValue !== parentObj.direction) {
-      const newDir = (directionOptions as any[]).find(
-        (d) => d.value === parentObj.direction
-      )
+      const newDir = (directionOptions as any[]).find((d) => d.value === parentObj.direction)
       if (newDir) {
         setValue('directions_list', [newDir] as any, {
           shouldDirty: true,
@@ -87,9 +87,7 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
 
     // article_exp из родителя
     if (expValue !== parentObj.article_exp) {
-      const newExp = (articleExpOptions as any[]).find(
-        (e) => e.value === parentObj.article_exp
-      )
+      const newExp = (articleExpOptions as any[]).find((e) => e.value === parentObj.article_exp)
       if (newExp) {
         setValue('article_exps_list', [newExp] as any, {
           shouldDirty: true,
@@ -115,9 +113,7 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
     if (!expObj) return
 
     if (directionValue !== expObj.direction) {
-      const newDir = (directionOptions as any[]).find(
-        (d) => d.value === expObj.direction
-      )
+      const newDir = (directionOptions as any[]).find((d) => d.value === expObj.direction)
       if (newDir) {
         setValue('directions_list', [newDir] as any, {
           shouldDirty: true,
@@ -139,9 +135,7 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
   // фильтрация типов расходов по направлению
   const filteredArticleExpOptions = useMemo(() => {
     if (!directionValue) return articleExpOptions
-    return (articleExpOptions as any[]).filter(
-      (opt) => opt.direction === directionValue
-    )
+    return (articleExpOptions as any[]).filter((opt) => opt.direction === directionValue)
   }, [articleExpOptions, directionValue])
 
   const [, setIsInitialized] = useState(false)
@@ -168,6 +162,17 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
 
     setIsInitialized(true)
   }, [article, reset])
+
+  const [deleteArticles] = useDeleteArticleMutation()
+
+  const handleDelete = () => {
+    if (article.use_cards) {
+      toast.error(`Удалить статью нельзя, так как статья используется`, {
+        position: 'bottom-right',
+      })
+    }
+    else deleteArticles(id ?? '')
+  }
 
   return (
     <section className={styles.mainArticle}>
@@ -267,6 +272,22 @@ export const MainArticleSection: FC<MainArticleSectionProps> = ({ id, article })
           <Button mode='secondary' label='Отменить' onClick={handleCancel} />
         </div>
       </form>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {buttonId === 'delete' && (
+          <Modal title='Удалить статью'>
+            <ConfirmWindow
+              labelBadge={
+                article.use_cards
+                  ? 'Удалить статью нельзя, так как статья используется'
+                  : 'Вы собираетесь удалить эту статью. Подтвердите действие'
+              }
+              notAllow={article.use_cards}
+              submitHandle={handleDelete}
+              link={'/articles'}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

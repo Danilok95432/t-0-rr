@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import { IFiltersMenuProps } from '../types'
 
@@ -10,8 +10,8 @@ import styles from './filters-menu.module.scss'
 
 export const FiltersMenu: FC<IFiltersMenuProps> = ({ children }) => {
 	const { isOpenFiltersMenu, handleCloseFilterMenu } = useFiltersMenu()
+	const contentRef = useRef<HTMLDivElement>(null)
 
-	// Обработчик Esc
 	useEffect(() => {
 		if (isOpenFiltersMenu) {
 			const closeByEscape = (event: KeyboardEvent) => {
@@ -25,10 +25,32 @@ export const FiltersMenu: FC<IFiltersMenuProps> = ({ children }) => {
 		}
 	}, [isOpenFiltersMenu, handleCloseFilterMenu])
 
+	useEffect(() => {
+		if (isOpenFiltersMenu) {
+			const handleClickOutside = (event: MouseEvent) => {
+				if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
+					handleCloseFilterMenu()
+				}
+			}
+
+			const timer = setTimeout(() => {
+				document.addEventListener('mousedown', handleClickOutside)
+			}, 0)
+
+			return () => {
+				clearTimeout(timer)
+				document.removeEventListener('mousedown', handleClickOutside)
+			}
+		}
+	}, [isOpenFiltersMenu, handleCloseFilterMenu])
+
 	return (
 		<div className={styles.filters}>
 			<div className={classNames(styles.overlay, { [styles.isOpen]: isOpenFiltersMenu })}>
-				<div className={classNames(styles.content, { [styles.isOpen]: isOpenFiltersMenu })}>
+				<div 
+					ref={contentRef}
+					className={classNames(styles.content, { [styles.isOpen]: isOpenFiltersMenu })}
+				>
 					{children}
 
 					<Button

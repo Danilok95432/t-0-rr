@@ -19,6 +19,16 @@ export const articlesApi = createApi({
       }),
       providesTags: ['Articles'],
     }),
+    deleteArticle: build.mutation<null, string>({
+      query: (id) => ({
+        url: `articles/delete`,
+        method: 'DELETE',
+        body: {
+          id: id,
+        },
+      }),
+      invalidatesTags: ['Articles'],
+    }),
     //
     getArticleInfo: build.query<IArticleInfo, string>({
       query: (id) => ({
@@ -69,4 +79,5 @@ export const {
   useEditArticleMutation,
   useAddNewArticleQuery,
   useGetNewArticleListsQuery,
+  useDeleteArticleMutation,
 } = articlesApi

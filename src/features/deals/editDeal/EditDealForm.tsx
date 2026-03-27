@@ -127,7 +127,7 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           render={({ field }) => (
             <InputDate
               date={field.value}
-              label='Дата операции'
+              label='Дата сделки'
               onChange={(date) => field.onChange(date)}
             />
           )}

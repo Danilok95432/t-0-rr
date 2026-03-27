@@ -7,12 +7,12 @@ import { formatDateToYYYYMMDD, getFirstValue } from '@/shared/helpers/helpers'
 
 export const useEditDealForm = (id: string, deal: DealInfo) => {
   const { isEditingModeActive, handleDeactivateEditingMode } = useEditingMode()
-  
+
   // Подготавливаем правильные defaultValues
   const defaultValues = {
     deal_name: deal.deal_name || '',
     cases_list: deal.cases_list || [],
-    dogovor_name: deal.dogovor_name || '',
+    dogovor_name: deal.dogovor_name === 'undefined' ? 'значение не задано' : deal.dogovor_name ?? '',
     deal_name_full: deal.deal_name_full || '',
     orgs_list: deal.orgs_list || [],
     contragents_list: deal.contragents_list || [],
@@ -35,13 +35,18 @@ export const useEditDealForm = (id: string, deal: DealInfo) => {
   // Функция для полного сброса формы
   const resetForm = useCallback(() => {
     reset(defaultValues)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, deal]) // Добавляем deal в зависимости
 
   const onSubmit: SubmitHandler<DealInfo> = async (data) => {
-    
     const formData = new FormData()
     formData.append('id', id)
-    formData.append('deal_date', data?.deal_date !== undefined ? formatDateToYYYYMMDD(data?.deal_date) : formatDateToYYYYMMDD(new Date()))
+    formData.append(
+      'deal_date',
+      data?.deal_date !== undefined && formatDateToYYYYMMDD(data?.deal_date) !== 'Invalid Date'
+        ? formatDateToYYYYMMDD(data?.deal_date)
+        : formatDateToYYYYMMDD(new Date()),
+    )
     formData.append('deal_short_name', data?.deal_name || '')
     formData.append('deal_name_full', data?.deal_name_full || '')
     formData.append('id_org', getFirstValue(data.orgs_list) || '')

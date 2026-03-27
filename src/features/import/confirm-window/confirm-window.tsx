@@ -11,9 +11,10 @@ import { useNavigate } from 'react-router'
 type ConfirmWindowProps = {
   submitHandle: () => void
   link?: string
+  notAllow?: boolean
 }
 
-export const ConfirmWindow: FC<IFormProps & ConfirmWindowProps> = ({ labelBadge, submitHandle, link }) => {
+export const ConfirmWindow: FC<IFormProps & ConfirmWindowProps> = ({ labelBadge, submitHandle, link, notAllow }) => {
   const { handleCloseModal } = useModal()
   const navigate = useNavigate()
 
@@ -32,6 +33,7 @@ export const ConfirmWindow: FC<IFormProps & ConfirmWindowProps> = ({ labelBadge,
         className={styles.deleteBtn}
         type='submit'
         label={'Удалить'}
+        disabled={notAllow}
         onClick={handleClick}
       />
       <Button

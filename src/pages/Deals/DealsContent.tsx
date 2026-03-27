@@ -14,7 +14,7 @@ import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { LIMIT_TABLE_DATA } from '@/shared/lib/const'
 import { DealsDTO } from '@/features/deals/table/config/dealsType'
 import { useNavigate } from 'react-router'
-import { RowClickedEvent } from 'ag-grid-community'
+import { GridApi, RowClickedEvent } from 'ag-grid-community'
 import { FiltersMenu } from '@/shared/ui/FiltersMenu'
 import { FilterDeals } from '@/features/deals/filterDeals'
 import {
@@ -140,6 +140,60 @@ const TransactionsContent = () => {
     return data?.map((deal) => mapDeals(deal)) || []
   }, [data])
   const navigate = useNavigate()
+
+  const gridApiRef = useRef<GridApi | null>(null)
+  
+    const scrollStateRef = useRef({
+      rowIndex: 0,
+      offset: 0,
+    })
+  
+    const handleGridReady = (api: GridApi) => {
+      gridApiRef.current = api
+    }
+  
+    const saveScrollPosition = () => {
+      const api = gridApiRef.current
+      if (!api) return
+  
+      const firstRow = api.getFirstDisplayedRowIndex()
+      const rowNode = api.getDisplayedRowAtIndex(firstRow)
+  
+      scrollStateRef.current = {
+        rowIndex: firstRow,
+        offset: rowNode?.rowTop ?? 0,
+      }
+    }
+  
+    const restoreScrollPosition = () => {
+      const api = gridApiRef.current
+      if (!api) return
+  
+      requestAnimationFrame(() => {
+        api.ensureIndexVisible(scrollStateRef.current.rowIndex, 'top')
+      })
+    }
+  
+    const handleScrollLoad = useCallback(() => {
+      if (isFetching || isLoading || !hasMore) return
+  
+      const api = gridApiRef.current
+      if (!api) return
+  
+      const lastRow = api.getLastDisplayedRowIndex()
+      const totalRows = pageData.length
+  
+      if (lastRow >= totalRows - 5) {
+        saveScrollPosition()
+        setStep((prev) => prev + LIMIT)
+      }
+    }, [isFetching, isLoading, hasMore, pageData.length])
+  
+    useEffect(() => {
+      if (pageData.length === 0) return
+      restoreScrollPosition()
+    }, [pageData.length])
+
   const handleRowClick = useCallback(
     (params: RowClickedEvent<DealsDTO>) => {
       const target = params.event?.target as HTMLElement | null
@@ -149,11 +203,15 @@ const TransactionsContent = () => {
       }
 
       if (!params.data?.id) return
-
       navigate(`/deal/${params.data.id}`)
     },
     [navigate],
   )
+
+  useEffect(() => {
+      if (buttonId !== null) return
+      restoreScrollPosition()
+    }, [buttonId])
 
   // Сброс состояния при изменении фильтра
   useEffect(() => {
@@ -190,41 +248,6 @@ const TransactionsContent = () => {
     }
   }, [pageData, step]) // Убрана dealsList из зависимостей
 
-  // Восстановление позиции скролла
-  useEffect(() => {
-    if (step === 0) return
-    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
-    if (!viewport) return
-    viewport.scrollTop = scrollTopRef.current
-  }, [step]) // Убрана dealsList.length из зависимостей
-
-  // Обработчик скролла с useCallback
-  const handleScroll = useCallback(() => {
-    if (isFetching || isLoading || !hasMore) return
-
-    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
-    if (!viewport) return
-
-    const { scrollTop, scrollHeight, clientHeight } = viewport
-    const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
-    scrollTopRef.current = scrollTop
-
-    if (distanceToBottom < 200) {
-      setStep((prev) => prev + LIMIT)
-    }
-  }, [hasMore, isFetching, isLoading])
-
-  // Добавление/удаление обработчика скролла
-  useEffect(() => {
-    const viewport = document.querySelector('.ag-body-viewport') as HTMLElement | null
-    if (!viewport) return
-
-    viewport.addEventListener('scroll', handleScroll)
-    return () => {
-      viewport.removeEventListener('scroll', handleScroll)
-    }
-  }, [handleScroll])
-
   // Инициализация данных при первом рендере
   useEffect(() => {
     if (pageData.length > 0 && dealsList.length === 0) {
@@ -252,6 +275,8 @@ const TransactionsContent = () => {
           quickFilterText={quickFilterValue}
           checkboxHidden={false}
           onRowClicked={handleRowClick}
+          onGridReady={handleGridReady}
+          onScrollEnd={handleScrollLoad}
         />
       )}
       <FiltersMenu>

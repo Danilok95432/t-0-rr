@@ -127,6 +127,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
   }, [selectedOrgId, selectedCaseId, setValue, isInitialized])
 
   const onSubmit: SubmitHandler<TFormNewOperation> = async (data) => {
+    console.log(getFirstValue(data.deals_list), getFirstValue(data.cases_list))
     const formData = new FormData()
     formData.append('id', id)
     formData.append('id_org', getFirstValue(data.orgs_list))
@@ -341,6 +342,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
                 className={styles.sumInput}
                 hasResetIcon={false}
                 maxLength={35}
+                isSum
               />
             )}
           />

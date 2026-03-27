@@ -16,6 +16,7 @@ import type { MultiSelOption, SelOption, TFormFilterDealsMenu } from '@/shared/t
 import { ControlledDateInput } from '@/widgets/ControlledDateInput/controlled-date-input'
 import { Input } from '@/shared/ui/Input'
 import { useDealsFilters } from '@/features/filtersMenu/context/dealsFiltersContext'
+import { booleanToNumberString } from '@/shared/helpers/helpers'
 
 export const FilterDeals = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
@@ -72,7 +73,10 @@ export const FilterDeals = () => {
 
       singleSelectFields.forEach(({ key, data }) => {
         if (data?.length) {
-          defaultValues[key] = ''
+          if (filterData?.rememberChoice === '1') {
+            defaultValues[key] = data[0].value
+          }
+          else defaultValues[key] = ''
         }
       })
     }
@@ -200,6 +204,7 @@ export const FilterDeals = () => {
             formData.append(key, value)
           }
         })
+        formData.append('rememberChoice', booleanToNumberString(data.rememberChoice))
         await saveFilters(formData).unwrap()
       }
 

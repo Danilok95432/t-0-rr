@@ -15,4 +15,5 @@ export interface IInputProps {
   maxLength?: number
   disabled?: boolean
   autoFocus?: boolean
+  isSum?: boolean
 }

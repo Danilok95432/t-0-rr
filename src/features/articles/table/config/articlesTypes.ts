@@ -30,4 +30,5 @@ export interface IArticleInfo {
 	parents_list: TSelectOptionParent[]
 	article_exp_name: string
 	comment: string
+	use_cards?: boolean
 }

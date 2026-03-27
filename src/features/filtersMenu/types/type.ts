@@ -22,6 +22,7 @@ export interface FilterOperationData {
   cases: SelOption[]
   dateFrom: string
   dateTo: string
+  rememberChoice?: string
 }
 
 export interface FilterDealData {
@@ -31,4 +32,5 @@ export interface FilterDealData {
   cases: SelOption[]
   deal_date: string
   dateApply: string
+  rememberChoice?: string
 }

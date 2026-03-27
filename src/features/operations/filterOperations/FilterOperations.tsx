@@ -16,6 +16,7 @@ import {
 import type { MultiSelOption, SelOption } from '@/shared/types/forms'
 import { ControlledDateInput } from '@/widgets/ControlledDateInput/controlled-date-input'
 import { useOperationsFilters } from '@/features/filtersMenu/context/operationsFilterContext'
+import { booleanToNumberString } from '@/shared/helpers/helpers'
 
 export const FilterOperations = () => {
   const { handleCloseFilterMenu } = useFiltersMenu()
@@ -87,7 +88,10 @@ export const FilterOperations = () => {
 
       singleSelectFields.forEach(({ key, data }) => {
         if (data?.length) {
-          defaultValues[key] = ''
+          if (filterData?.rememberChoice === '1') {
+            defaultValues[key] = data[0].value
+          }
+          else defaultValues[key] = ''
         }
       })
     }
@@ -268,6 +272,7 @@ export const FilterOperations = () => {
             formData.append(key, value)
           }
         })
+        formData.append('rememberChoice', booleanToNumberString(data.rememberChoice))
         await saveFilters(formData).unwrap()
       }
 

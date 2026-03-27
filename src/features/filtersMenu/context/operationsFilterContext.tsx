@@ -72,6 +72,7 @@ export const OperationsFiltersProvider: React.FC<{ children: ReactNode }> = ({ c
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useOperationsFilters = () => {
   return useBaseFilters<TFormFilterOperationsMenu>()
 }
