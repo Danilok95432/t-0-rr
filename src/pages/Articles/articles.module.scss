@@ -3,12 +3,15 @@
 	height: 100%;
 	display: flex;
 	column-gap: 18px;
+	margin-bottom: 30px;
 }
 
 .left,
 .right {
 	width: 50%;
 	max-width: 891px;
+	max-height: 80vh;
+	margin-bottom: 30px;
 }
 
 .title {

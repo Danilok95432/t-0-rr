@@ -127,14 +127,13 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
   }, [selectedOrgId, selectedCaseId, setValue, isInitialized])
 
   const onSubmit: SubmitHandler<TFormNewOperation> = async (data) => {
-    console.log(getFirstValue(data.deals_list), getFirstValue(data.cases_list))
     const formData = new FormData()
     formData.append('id', id)
     formData.append('id_org', getFirstValue(data.orgs_list))
     formData.append('id_account', getFirstValue(data.accounts_list))
     formData.append('id_contragent', getFirstValue(data.contragents_list))
     formData.append('id_contragent_account', getFirstValue(data.contragent_accounts_list))
-    formData.append('id_deal', getFirstValue(data.deals_list))
+    formData.append('id_deal', data.deals_list[0].id_case === '0' ? '0' : getFirstValue(data.deals_list))
     formData.append('id_case', getFirstValue(data.cases_list))
     formData.append('id_direction', getFirstValue(data.directions_list))
     formData.append('id_article', getFirstValue(data.articles_list))

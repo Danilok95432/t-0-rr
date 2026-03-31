@@ -1,9 +1,8 @@
-import { TFormNewArticle } from '@/shared/types/forms'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddNewArticleQuery, useEditArticleMutation } from '../api/articlesApi'
 import { useModal } from '@/features/modal/hooks/useModal'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArticleSchema } from '../table/config/articleSchema'
+import { type ArticleInputs, ArticleSchema } from '../table/config/articleSchema'
 
 export const useAddArticleForm = () => {
   const { handleCloseModal } = useModal()
@@ -16,7 +15,7 @@ export const useAddArticleForm = () => {
     reset,
     formState: { errors, isValid, isSubmitting },
     setValue,
-  } = useForm<TFormNewArticle>({
+  } = useForm<ArticleInputs>({
     defaultValues: {
       direction: '',
       article_exp_name: '',
@@ -28,14 +27,14 @@ export const useAddArticleForm = () => {
     resolver: zodResolver(ArticleSchema as any)
   })
 
-  const onSubmit: SubmitHandler<TFormNewArticle> = async (data) => {
+  const onSubmit: SubmitHandler<ArticleInputs> = async (data) => {
     const newIdResponse = await getNewId().unwrap()
     const formData = new FormData()
     formData.append('article_name', data.article_name)
-    formData.append('parent', data.parent)
-    formData.append('article_exp', data.article_exp_name)
-    formData.append('direction', data.direction)
-    formData.append('comment', data?.comment)
+    formData.append('parent', data.parent ?? '')
+    formData.append('article_exp', data.article_exp_name ?? '')
+    formData.append('direction', data.direction ?? '')
+    formData.append('comment', data?.comment ?? '')
     if (newIdResponse) formData.append('id', newIdResponse.id)
     try {
       await saveNewArticle(formData)
