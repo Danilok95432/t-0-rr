@@ -19,6 +19,8 @@ export interface GetAllOperationsArgs {
   article?: string
   cases?: string
   deals?: string
+  order_by?: 'id' | 'date' | 'org' | 'contragent' | 'itemname' | 'case' | 'article' | 'summ'
+  order_dir?: 0 | 1
 }
 
 export const operationsApi = createApi({
@@ -27,7 +29,7 @@ export const operationsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getAllOperations: build.query<OperationsResponse, GetAllOperationsArgs>({
-      query: ({ searchtext, step, limit, dateFrom, dateTo, org, account, contragent, directions, article, cases, deals }) => ({
+      query: ({ searchtext, step, limit, dateFrom, dateTo, org, account, contragent, directions, article, cases, deals, order_by, order_dir }) => ({
         url: '/cards/list',
         params: {
           searchtext,
@@ -42,6 +44,8 @@ export const operationsApi = createApi({
           article,
           cases,
           deals,
+          order_by, 
+          order_dir
         },
       }),
       providesTags: (result) =>

@@ -8,6 +8,7 @@ import {
   GridReadyEvent,
   GridApi,
   type Theme,
+  SortChangedEvent,
 } from 'ag-grid-community'
 
 import { AG_GRID_LOCALE_RU } from '../config/ag-grid-locale'
@@ -20,6 +21,7 @@ type GridTableProps = {
   onRowClicked?: (event: RowClickedEvent<any>) => void
   onGridReady?: (api: GridApi) => void
   onScrollEnd?: () => void
+  onSortChanged?: (event: SortChangedEvent) => void
 }
 
 export const GridTable: FC<TGridTableData & GridTableProps> = ({
@@ -30,6 +32,7 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
   onRowClicked,
   onGridReady,
   onScrollEnd,
+  onSortChanged,
 }) => {
   const gridRef = useRef<AgGridReact>(null)
 
@@ -76,6 +79,7 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
       onRowClicked={onRowClicked}
       onGridReady={handleGridReady}
       onBodyScrollEnd={onScrollEnd}
+      onSortChanged={onSortChanged}
 
       // 🔥 КРИТИЧНО
       getRowId={(params) => params.data.id}

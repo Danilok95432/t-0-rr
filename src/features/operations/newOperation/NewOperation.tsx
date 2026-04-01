@@ -145,7 +145,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
     formData.append('id_direction', getFirstValue(data.directions_list))
     formData.append('id_article', getFirstValue(data.articles_list))
     formData.append('id_rashod', getFirstValue(data.rashods_list))
-    formData.append('itemdate', formatDateToYYYYMMDD(data?.date))
+    formData.append('itemdate', data?.date !== undefined ? formatDateToYYYYMMDD(data?.date) : formatDateToYYYYMMDD(new Date()))
     formData.append('bank_id', data?.bank_id)
     formData.append('summ', data?.summ)
     formData.append('itemname', data?.itemname)

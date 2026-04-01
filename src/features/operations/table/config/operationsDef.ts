@@ -91,6 +91,7 @@ export const operationsDef: ColDef<OperationsData>[] = [
     tooltipField: 'itemname',
   },
   {
+    colId: 'case_name',
     headerName: 'Кейс и сделка',
     cellRenderer: memo(CellCase),
     maxWidth: 250,
