@@ -44,6 +44,7 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
 
   const selectedDirection = useWatch({ control, name: 'directions_list' }) as any
   const selectedArticleExp = useWatch({ control, name: 'article_exps_list' }) as any
+  const selectedDeals = useWatch({ control, name: 'deals_list' }) as any
   const name = useWatch({ control, name: 'itemname' }) as any
 
   const selectedOrg = useWatch({ control, name: 'orgs_list' }) as any
@@ -95,19 +96,20 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
   const filteredContragentAccounts = useMemo(() => {
     if (!selectedContragentId || !data?.contragent_accounts_list) return []
     return data.contragent_accounts_list.filter(
-      (acc: any) => acc.id_contragent === selectedContragentId
+      (acc: any) => acc.id_contragent === selectedContragentId,
     )
   }, [selectedContragentId, data?.contragent_accounts_list])
 
-  const defaultArticleExpOption = data?.article_exps_list
-    ? data.article_exps_list.find((opt) => {
-        const label = opt.label?.toLowerCase().trim()
-        if (data.imported) {
-          return label === 'косвенные'
-        }
-        return label === 'прямые'
-      }) ?? null
-    : null
+  const defaultArticleExpOption = useMemo(() => {
+    if (!data?.article_exps_list) return null
+
+    const hasSelectedDeals = Array.isArray(selectedDeals) && selectedDeals.length > 0
+    const targetLabel = hasSelectedDeals ? 'прямые' : 'косвенные'
+
+    return (
+      data.article_exps_list.find((opt) => opt.label?.toLowerCase().trim() === targetLabel) ?? null
+    )
+  }, [data?.article_exps_list, selectedDeals])
 
   const filteredDeals = useMemo(() => {
     if (!data?.deals_list) return []
@@ -133,6 +135,15 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
     setValue('deals_list', [] as any, { shouldDirty: true })
   }, [selectedOrgId, selectedCaseId, setValue])
 
+  useEffect(() => {
+    if (!defaultArticleExpOption) return
+
+    setValue('article_exps_list', [defaultArticleExpOption] as any, {
+      shouldDirty: true,
+      shouldValidate: true,
+    })
+  }, [defaultArticleExpOption, setValue])
+
   const onSubmit: SubmitHandler<TFormNewOperation> = async (data) => {
     const formData = new FormData()
     if (newId) formData.append('id', newId)
@@ -145,7 +156,12 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
     formData.append('id_direction', getFirstValue(data.directions_list))
     formData.append('id_article', getFirstValue(data.articles_list))
     formData.append('id_rashod', getFirstValue(data.rashods_list))
-    formData.append('itemdate', data?.date !== undefined ? formatDateToYYYYMMDD(data?.date) : formatDateToYYYYMMDD(new Date()))
+    formData.append(
+      'itemdate',
+      data?.date !== undefined
+        ? formatDateToYYYYMMDD(data?.date)
+        : formatDateToYYYYMMDD(new Date()),
+    )
     formData.append('bank_id', data?.bank_id)
     formData.append('summ', data?.summ)
     formData.append('itemname', data?.itemname)

@@ -17,6 +17,7 @@ import styles from './processing-operation.module.scss'
 import { useEditOperationQuery, useSaveOperationMutation } from '../api/operationsApi'
 import { Loader } from '@/shared/ui/Loader'
 import { formatDateToYYYYMMDD, getFirstValue } from '@/shared/helpers/helpers'
+import { type TSelectOption } from '@/shared/ui/Select/types'
 
 type reqProps = {
   id: string
@@ -33,6 +34,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
   const [saveNewOperation] = useSaveOperationMutation()
 
   const selectedDirection = useWatch({ control, name: 'directions_list' }) as any
+  const selectedDeals = useWatch({ control, name: 'deals_list' }) as (TSelectOption & { id_case: string; id_org: string})[]
   const selectedArticleExp = useWatch({ control, name: 'article_exps_list' }) as any
 
   const selectedOrg = useWatch({ control, name: 'orgs_list' }) as any
@@ -84,7 +86,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
   const filteredContragentAccounts = useMemo(() => {
     if (!selectedContragentId || !data?.contragent_accounts_list) return []
     return data.contragent_accounts_list.filter(
-      (acc: any) => acc.id_contragent === selectedContragentId
+      (acc: any) => acc.id_contragent === selectedContragentId,
     )
   }, [selectedContragentId, data?.contragent_accounts_list])
 
@@ -96,15 +98,17 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     })
   }, [data?.deals_list, selectedOrgId, selectedCaseId])
 
-  const defaultArticleExpOption = data?.article_exps_list
-    ? data.article_exps_list.find((opt) => {
-        const label = opt.label?.toLowerCase().trim()
-        if (data.imported) {
-          return label === 'косвенные'
-        }
-        return label === 'прямые'
-      }) ?? null
-    : null
+  const defaultArticleExpOption = useMemo(() => {
+    if (!data?.article_exps_list) return null
+
+    const hasSelectedDeals =
+      Array.isArray(selectedDeals) && selectedDeals.length > 0 && selectedDeals[0].id_case !== '0'
+    const targetLabel = hasSelectedDeals ? 'прямые' : 'косвенные'
+
+    return (
+      data.article_exps_list.find((opt) => opt.label?.toLowerCase().trim() === targetLabel) ?? null
+    )
+  }, [data?.article_exps_list, selectedDeals])
 
   useEffect(() => {
     if (!isInitialized) return
@@ -112,9 +116,9 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
   }, [isInitialized, selectedOrgId, setValue])
 
   useEffect(() => {
-  if (!isInitialized) return
-  setValue('articles_list', [] as any, { shouldDirty: true })
-}, [isInitialized, selectedDirectionId, selectedArticleExpId, setValue])
+    if (!isInitialized) return
+    setValue('articles_list', [] as any, { shouldDirty: true })
+  }, [isInitialized, selectedDirectionId, selectedArticleExpId, setValue])
 
   useEffect(() => {
     if (!isInitialized) return
@@ -126,6 +130,15 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     setValue('deals_list', [] as any, { shouldDirty: true })
   }, [selectedOrgId, selectedCaseId, setValue, isInitialized])
 
+  useEffect(() => {
+    if (!defaultArticleExpOption) return
+
+    setValue('article_exps_list', [defaultArticleExpOption] as any, {
+      shouldDirty: true,
+      shouldValidate: true,
+    })
+  }, [defaultArticleExpOption, setValue])
+
   const onSubmit: SubmitHandler<TFormNewOperation> = async (data) => {
     const formData = new FormData()
     formData.append('id', id)
@@ -133,12 +146,20 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     formData.append('id_account', getFirstValue(data.accounts_list))
     formData.append('id_contragent', getFirstValue(data.contragents_list))
     formData.append('id_contragent_account', getFirstValue(data.contragent_accounts_list))
-    formData.append('id_deal', data.deals_list[0].id_case === '0' ? '0' : getFirstValue(data.deals_list))
+    formData.append(
+      'id_deal',
+      data.deals_list[0]?.id_case === '0' ? '0' : getFirstValue(data.deals_list),
+    )
     formData.append('id_case', getFirstValue(data.cases_list))
     formData.append('id_direction', getFirstValue(data.directions_list))
     formData.append('id_article', getFirstValue(data.articles_list))
     formData.append('id_rashod', getFirstValue(data.rashods_list))
-    formData.append('itemdate', data?.date !== undefined ? formatDateToYYYYMMDD(data?.date) : formatDateToYYYYMMDD(new Date()))
+    formData.append(
+      'itemdate',
+      data?.date !== undefined
+        ? formatDateToYYYYMMDD(data?.date)
+        : formatDateToYYYYMMDD(new Date()),
+    )
     formData.append('bank_id', data?.bank_id)
     formData.append('summ', data?.summ)
     formData.append('itemname', data?.itemname)
@@ -163,7 +184,6 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     const caseOptions = data.cases_list ?? []
     const dealOptions = data.deals_list ?? []
     const directionOptions = data.directions_list ?? []
-    const articleExpsOptions = data.article_exps_list ?? []
     const articleOptions = data.articles_list ?? []
     const rashodOptions = data.rashods_list ?? []
 
@@ -171,7 +191,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     const contragentOption = contragentOptions[0]
     const caseOption = caseOptions[0]
     const directionOption = directionOptions[0]
-    const articleExpsOption = articleExpsOptions[0]
+    const articleExpsOption = defaultArticleExpOption
     const articleOption = articleOptions[0]
     const rashodOption = rashodOptions[0]
 
@@ -179,7 +199,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     let orgAccounts = accountOptions
     if (orgOption) {
       orgAccounts = accountOptions.filter(
-        (acc: any) => String(acc.id_org) === String(orgOption.value)
+        (acc: any) => String(acc.id_org) === String(orgOption.value),
       )
     }
     const accountOption = orgAccounts[0]
@@ -188,7 +208,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     let contragentAccounts = contragentAccountOptions
     if (contragentOption) {
       contragentAccounts = contragentAccountOptions.filter(
-        (acc: any) => String(acc.id_contragent) === String(contragentOption.value)
+        (acc: any) => String(acc.id_contragent) === String(contragentOption.value),
       )
     }
     const contragentAccountOption = contragentAccounts[0]
@@ -199,7 +219,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
       dealsForOrgCase = dealOptions.filter(
         (deal: any) =>
           String(deal.id_org) === String(orgOption.value) &&
-          String(deal.id_case) === String(caseOption.value)
+          String(deal.id_case) === String(caseOption.value),
       )
     }
     const dealOption = dealsForOrgCase[0]

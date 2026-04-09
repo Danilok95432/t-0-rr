@@ -10,7 +10,7 @@ import { CheckBox } from '@/shared/ui/CheckBox'
 
 import styles from './unloading-operations.module.scss'
 
-export const UnloadingOperations: FC<IFormProps> = ({ labelBadge }) => {
+export const UnloadingOperations: FC<IFormProps> = ({ labelBadge, elements }) => {
 	const { control, handleSubmit } = useForm<TFormUnloadOperations>({
 		defaultValues: {
 			mainFilter: undefined,
@@ -34,6 +34,8 @@ export const UnloadingOperations: FC<IFormProps> = ({ labelBadge }) => {
 			saveSettings: false,
 		},
 	})
+
+	console.log(elements)
 
 	const onSubmit: SubmitHandler<TFormUnloadOperations> = (data) => {
 		console.log(data)

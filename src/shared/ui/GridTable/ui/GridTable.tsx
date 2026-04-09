@@ -9,6 +9,7 @@ import {
   GridApi,
   type Theme,
   SortChangedEvent,
+  SelectionChangedEvent,
 } from 'ag-grid-community'
 
 import { AG_GRID_LOCALE_RU } from '../config/ag-grid-locale'
@@ -22,6 +23,7 @@ type GridTableProps = {
   onGridReady?: (api: GridApi) => void
   onScrollEnd?: () => void
   onSortChanged?: (event: SortChangedEvent) => void
+  onSelectionChanged?: (selectedIds: Array<string | number>) => void
 }
 
 export const GridTable: FC<TGridTableData & GridTableProps> = ({
@@ -33,29 +35,43 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
   onGridReady,
   onScrollEnd,
   onSortChanged,
+  onSelectionChanged,
 }) => {
+  const handleSelectionChanged = (event: SelectionChangedEvent) => {
+    const selectedIds = event.api.getSelectedRows().map((row: { id: string | number }) => row.id)
+    onSelectionChanged?.(selectedIds)
+  }
   const gridRef = useRef<AgGridReact>(null)
 
   const theme = useMemo<Theme | 'legacy'>(() => customTheme, [])
 
-  const rowSelection = useMemo<RowSelectionOptions>(() => ({
-    mode: 'multiRow',
-    headerCheckbox: checkboxHidden,
-    checkboxes: checkboxHidden,
-  }), [checkboxHidden])
+  const rowSelection = useMemo<RowSelectionOptions>(
+    () => ({
+      mode: 'multiRow',
+      headerCheckbox: checkboxHidden,
+      checkboxes: checkboxHidden,
+    }),
+    [checkboxHidden],
+  )
 
-  const dataTypeDefinitions = useMemo(() => ({
-    object: {
-      baseDataType: 'object' as const,
-      extendsDataType: 'object' as const,
-      valueParser: (params: any) => ({ name: params.newValue }),
-      valueFormatter: (params: any) => (params.value == null ? '' : params.value.name),
-    },
-  }), [])
+  const dataTypeDefinitions = useMemo(
+    () => ({
+      object: {
+        baseDataType: 'object' as const,
+        extendsDataType: 'object' as const,
+        valueParser: (params: any) => ({ name: params.newValue }),
+        valueFormatter: (params: any) => (params.value == null ? '' : params.value.name),
+      },
+    }),
+    [],
+  )
 
-  const defaultColDef = useMemo<ColDef>(() => ({
-    flex: 1,
-  }), [])
+  const defaultColDef = useMemo<ColDef>(
+    () => ({
+      flex: 1,
+    }),
+    [],
+  )
 
   const handleGridReady = (params: GridReadyEvent) => {
     onGridReady?.(params.api)
@@ -80,7 +96,7 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
       onGridReady={handleGridReady}
       onBodyScrollEnd={onScrollEnd}
       onSortChanged={onSortChanged}
-
+      onSelectionChanged={handleSelectionChanged}
       // 🔥 КРИТИЧНО
       getRowId={(params) => params.data.id}
     />

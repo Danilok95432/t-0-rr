@@ -2,6 +2,7 @@ import { TSelectOption, TSelectOptionDirection, TSelectOptionParent } from '../u
 
 export interface IFormProps {
   labelBadge?: string
+  elements?: (string | number)[]
 }
 
 export type TFormAuth = {
