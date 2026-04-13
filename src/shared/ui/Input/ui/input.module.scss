@@ -2,6 +2,11 @@
   position: relative;
 }
 
+input.searchInput {
+  height: 40px;
+  padding: 10px 27px 10px 8px;
+}
+
 .input {
   width: 100%;
   border: var(--border);

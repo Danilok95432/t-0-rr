@@ -30,6 +30,7 @@ export const ListLayout: FC<IListLayoutProps> = ({
             className={styles.input}
             value={value}
             onChange={handleChange}
+            isSearch
           />
         )}
 

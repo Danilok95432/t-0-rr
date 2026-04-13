@@ -3,6 +3,43 @@
 	height: 32px;
 }
 
+.actionButtonWrapper {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+}
+
+.actionButton {
+	position: relative;
+}
+
+.tooltip {
+	position: absolute;
+	left: 8px;
+	top: calc(100% + 24px);
+	transform: translateY(-50%);
+	white-space: nowrap;
+	padding: 4px 6px;
+	border-radius: 3px;
+	background: #F1F2F3;
+	border: 1px solid #E1E1E1;
+	color: #000;
+	font-size: 12px;
+	line-height: 1;
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity 0.2s ease,
+		visibility 0.2s ease;
+	pointer-events: none;
+	z-index: 100;
+}
+
+.actionButtonWrapper:hover .tooltip {
+	opacity: 1;
+	visibility: visible;
+}
+
 .editing {
 	background: url('../../../shared/assets/icons/edit.svg') center / cover no-repeat;
 

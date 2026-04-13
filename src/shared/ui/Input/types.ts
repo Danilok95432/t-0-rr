@@ -16,4 +16,5 @@ export interface IInputProps {
   disabled?: boolean
   autoFocus?: boolean
   isSum?: boolean
+  isSearch?: boolean
 }

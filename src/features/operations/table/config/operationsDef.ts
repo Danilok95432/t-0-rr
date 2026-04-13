@@ -99,7 +99,16 @@ export const operationsDef: ColDef<OperationsData>[] = [
       case: params.data?.case_name,
       deal: params.data?.deal_name,
     }),
-    tooltipValueGetter: (params) => `${params.data?.case_name}\n${params.data?.deal_name}`,
+    tooltipValueGetter: (params) => {
+      const caseName = params.data?.case_name
+      const dealName = params.data?.deal_name
+
+      if (caseName == null || dealName == null) {
+        return null
+      }
+
+      return `${caseName}\n${dealName}`
+    },
   },
   {
     headerName: 'Статья и подстатья',

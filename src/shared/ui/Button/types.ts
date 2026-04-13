@@ -4,6 +4,7 @@ export interface IButtonProps {
 	id?: string
 	className?: string
 	label?: string
+	title?: string
 	type?: 'button' | 'submit' | 'reset'
 	mode?: 'primary' | 'secondary' | 'clear' | 'table' | 'warning_delete'
 	tableMode?: 'edit' | 'delete' | 'approve'

@@ -16,12 +16,14 @@ export const Button: FC<IButtonProps> = (props) => {
     onClick,
     disabled,
     tableMode = 'base',
+    title,
   } = props
 
   return (
     <button
       id={id}
       type={type}
+      title={title}
       className={classNames(
         styles.button,
         className,

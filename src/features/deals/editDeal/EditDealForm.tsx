@@ -15,6 +15,7 @@ import { SelectC } from '@/shared/ui/Select'
 import { AnimatePresence } from 'motion/react'
 import { Modal } from '@/shared/ui/Modal'
 import { ConfirmWindow } from '@/features/import/confirm-window/confirm-window'
+import { useModal } from '@/features/modal/hooks/useModal'
 
 interface EditDealFormProps {
   id: string
@@ -40,143 +41,156 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
 
   // Убираем useEffect с reset, который всё портит!
   // Вместо этого используем данные напрямую из deal
-
+  const { buttonId } = useModal()
   const handleDelete = async () => {
     await deleteDeal(id)
   }
 
   return (
-    <form className={styles.dealData} onSubmit={handleSubmit(onSubmit)}>
-      <h3 className={styles.title}>Основные данные организации</h3>
+    <>
+      <form className={styles.dealData} onSubmit={handleSubmit(onSubmit)}>
+        <h3 className={styles.title}>Основные данные организации</h3>
 
-      <div className={styles.inner}>
-        <Controller
-          name='deal_name'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='deal_name'
-              label='Краткое название сделки'
-              value={field.value}
-              hasResetIcon={false}
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-              error={errors.deal_name?.message}
-            />
-          )}
-        />
-        <Controller
-          name='cases_list'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              values={field.value ?? []}
-              options={dealsLists?.cases_list ?? []}
-              label='Кейс'
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        <Controller
-          name='dogovor_name'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='dogovor_name'
-              label='Договор'
-              value={field.value}
-              hasResetIcon={false}
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-              error={errors.dogovor_name?.message}
-            />
-          )}
-        />
-        <Controller
-          name='deal_name_full'
-          control={control}
-          render={({ field }) => (
-            <TextArea
-              id='deal_name_full'
-              label='Полное название сделки'
-              value={field.value}
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-              error={errors.deal_name_full?.message}
-              className={styles.dealData_textArea}
-            />
-          )}
-        />
-        <Controller
-          name='orgs_list'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              values={field.value ?? []}
-              options={dealsLists?.orgs_list ?? []}
-              label='Организация с нашей стороны'
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        <Controller
-          name='deal_date'
-          control={control}
-          render={({ field }) => (
-            <InputDate
-              date={field.value}
-              label='Дата сделки'
-              onChange={(date) => field.onChange(date)}
-            />
-          )}
-        />
-        <Controller
-          name='contragents_list'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              values={field.value ?? []}
-              options={dealsLists?.contragents_list ?? []}
-              label='Контрагент'
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        <Controller
-          name='deal_plan_rashod'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='deal_plan_rashod'
-              label='Плановый расход сделки в рублях'
-              value={field.value}
-              hasResetIcon={false}
-              disabled={!isEditingModeActive}
-              onChange={field.onChange}
-              error={errors.deal_plan_rashod?.message}
-            />
-          )}
-        />
-      </div>
+        <div className={styles.inner}>
+          <Controller
+            name='deal_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='deal_name'
+                label='Краткое название сделки'
+                value={field.value}
+                hasResetIcon={false}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.deal_name?.message}
+              />
+            )}
+          />
+          <Controller
+            name='cases_list'
+            control={control}
+            render={({ field }) => (
+              <SelectC
+                values={field.value ?? []}
+                options={dealsLists?.cases_list ?? []}
+                label='Кейс'
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Controller
+            name='dogovor_name'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='dogovor_name'
+                label='Договор'
+                value={field.value}
+                hasResetIcon={false}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.dogovor_name?.message}
+              />
+            )}
+          />
+          <Controller
+            name='deal_name_full'
+            control={control}
+            render={({ field }) => (
+              <TextArea
+                id='deal_name_full'
+                label='Полное название сделки'
+                value={field.value}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.deal_name_full?.message}
+                className={styles.dealData_textArea}
+              />
+            )}
+          />
+          <Controller
+            name='orgs_list'
+            control={control}
+            render={({ field }) => (
+              <SelectC
+                values={field.value ?? []}
+                options={dealsLists?.orgs_list ?? []}
+                label='Организация с нашей стороны'
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Controller
+            name='deal_date'
+            control={control}
+            render={({ field }) => (
+              <InputDate
+                date={field.value}
+                label='Дата сделки'
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
+          <Controller
+            name='contragents_list'
+            control={control}
+            render={({ field }) => (
+              <SelectC
+                values={field.value ?? []}
+                options={dealsLists?.contragents_list ?? []}
+                label='Контрагент'
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Controller
+            name='deal_plan_rashod'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='deal_plan_rashod'
+                label='Плановый расход сделки в рублях'
+                value={field.value}
+                hasResetIcon={false}
+                disabled={!isEditingModeActive}
+                onChange={field.onChange}
+                error={errors.deal_plan_rashod?.message}
+              />
+            )}
+          />
+        </div>
 
-      <div
-        className={classNames(styles.button_wrapper, { [styles.isVisible]: isEditingModeActive })}
-      >
-        <Button
-          type='submit'
-          mode='primary'
-          label='Сохранить изменения'
-          onClick={handleDeactivateEditingMode}
-          disabled={!isValid || isSubmitting}
-        />
-        <Button mode='warning_delete' label='Удалить сделку' onClick={() => setIsDelete(true)} />
-        <Button mode='secondary' label='Отменить' onClick={handleCancel} />
-      </div>
+        <div
+          className={classNames(styles.button_wrapper, { [styles.isVisible]: isEditingModeActive })}
+        >
+          <Button
+            type='submit'
+            mode='primary'
+            label='Сохранить изменения'
+            onClick={handleDeactivateEditingMode}
+            disabled={!isValid || isSubmitting}
+          />
+          <Button mode='warning_delete' label='Удалить сделку' onClick={() => setIsDelete(true)} />
+          <Button mode='secondary' label='Отменить' onClick={handleCancel} />
+        </div>
+        <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+          {isDelete && (
+            <Modal title='Удалить сделку'>
+              <ConfirmWindow
+                labelBadge='Это действие удалит сделку без возможности восстановления. Вы уверены, что хотите продолжить?'
+                submitHandle={handleDelete}
+                link={'/deals'}
+              />
+            </Modal>
+          )}
+        </AnimatePresence>
+      </form>
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
-        {isDelete && (
+        {buttonId === 'delete' && (
           <Modal title='Удалить сделку'>
             <ConfirmWindow
               labelBadge='Это действие удалит сделку без возможности восстановления. Вы уверены, что хотите продолжить?'
@@ -186,6 +200,6 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           </Modal>
         )}
       </AnimatePresence>
-    </form>
+    </>
   )
 }
