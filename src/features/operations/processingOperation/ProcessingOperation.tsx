@@ -192,7 +192,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     const caseOption = caseOptions[0]
     const directionOption = directionOptions[0]
     const articleExpsOption = defaultArticleExpOption
-    const articleOption = articleOptions[0]
+    const articleOption = articleOptions[articleOptions.findIndex((el) => el.value === data?.articles_list_id)]
     const rashodOption = rashodOptions[0]
 
     // счета организации — только для выбранной org

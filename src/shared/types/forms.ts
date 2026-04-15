@@ -19,6 +19,7 @@ export type TFormNewOperation = {
 	cases_list: TSelectOption[]
 	directions_list: TSelectOption[]
 	articles_list: (TSelectOption & { id_direction: string, id_article_exp: string })[]
+  articles_list_id: string
 	rashods_list: TSelectOption[]
   article_exps_list: (TSelectOption & { direction: string })[]
 	date: Date

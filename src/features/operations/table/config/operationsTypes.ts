@@ -35,6 +35,7 @@ export interface OperationsData {
   main_article_name: string
   sub_article_name: string
   summ: string
+  articles_list_id: string
 }
 
 export interface OperationsResponse {
