@@ -34,7 +34,10 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
   const [saveNewOperation] = useSaveOperationMutation()
 
   const selectedDirection = useWatch({ control, name: 'directions_list' }) as any
-  const selectedDeals = useWatch({ control, name: 'deals_list' }) as (TSelectOption & { id_case: string; id_org: string})[]
+  const selectedDeals = useWatch({ control, name: 'deals_list' }) as (TSelectOption & {
+    id_case: string
+    id_org: string
+  })[]
   const selectedArticleExp = useWatch({ control, name: 'article_exps_list' }) as any
 
   const selectedOrg = useWatch({ control, name: 'orgs_list' }) as any
@@ -100,15 +103,18 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
 
   const defaultArticleExpOption = useMemo(() => {
     if (!data?.article_exps_list) return null
-
+    const isDirectionPrihod = selectedDirection && selectedDirection[0]?.label !== 'Расход'
     const hasSelectedDeals =
       Array.isArray(selectedDeals) && selectedDeals.length > 0 && selectedDeals[0].id_case !== '0'
+
     const targetLabel = hasSelectedDeals ? 'прямые' : 'косвенные'
 
+    if (isDirectionPrihod)
+      return (data.article_exps_list[0])
     return (
       data.article_exps_list.find((opt) => opt.label?.toLowerCase().trim() === targetLabel) ?? null
     )
-  }, [data?.article_exps_list, selectedDeals])
+  }, [data?.article_exps_list, selectedDeals, selectedDirection])
 
   useEffect(() => {
     if (!isInitialized) return
@@ -192,7 +198,8 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     const caseOption = caseOptions[0]
     const directionOption = directionOptions[0]
     const articleExpsOption = defaultArticleExpOption
-    const articleOption = articleOptions[articleOptions.findIndex((el) => el.value === data?.articles_list_id)]
+    const articleOption =
+      articleOptions[articleOptions.findIndex((el) => el.value === data?.articles_list_id)]
     const rashodOption = rashodOptions[0]
 
     // счета организации — только для выбранной org

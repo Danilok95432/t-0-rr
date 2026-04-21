@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { EditDealForm } from '@/features/deals/editDeal/EditDealForm'
 import { Loader } from '@/shared/ui/Loader'
 import { DealTableSum } from './sections/DealTableSum/DealTableSum'
+import DealOperationData from './sections/DealOperationsData/DealOperationsData'
 
 const TransactionContent = () => {
   const { id = '0' } = useParams()
@@ -19,6 +20,7 @@ const TransactionContent = () => {
       >
         <EditDealForm deal={dealInfo} id={id} />
         <DealTableSum deal={dealInfo} id={id} />
+        <DealOperationData />
       </ItemLayout>
     )
 }

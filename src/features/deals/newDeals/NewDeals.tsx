@@ -59,7 +59,7 @@ export const NewDeals: FC<IFormProps> = () => {
             render={({ field }) => (
               <Input
                 id='deal_short_name'
-                label='Краткое название сделки'
+                label='Название сделки'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
               />
@@ -72,7 +72,7 @@ export const NewDeals: FC<IFormProps> = () => {
             render={({ field }) => (
               <TextArea
                 id='deal_name_full'
-                label='Полное название сделки'
+                label='Информация о сделке'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
                 className={styles.newDealsTextArea}
@@ -127,7 +127,7 @@ export const NewDeals: FC<IFormProps> = () => {
             render={({ field }) => (
               <Input
                 id='dogovor_name'
-                label='Название Договора'
+                label='Номер Договора'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
               />

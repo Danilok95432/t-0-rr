@@ -20,7 +20,7 @@ export const DealData = () => {
       <div className={styles.inner}>
         <Input
           id='shortName'
-          label='Краткое название сделки'
+          label='Название сделки'
           hasResetIcon
           disabled={!isEditingModeActive}
         />
@@ -35,14 +35,14 @@ export const DealData = () => {
 
         <Input
           id='nameAgreement'
-          label='Название Договора'
+          label='Номер Договора'
           hasResetIcon
           disabled={!isEditingModeActive}
         />
 
         <TextArea
           id='fullName'
-          label='Полное название сделки'
+          label='Информация о сделке'
           className={styles.dealData_textArea}
           disabled={!isEditingModeActive}
         />

@@ -14,11 +14,12 @@ export const ListLayout: FC<IListLayoutProps> = ({
   children,
   noSearch,
   wideRow,
+  className,
 }) => {
   const { value, handleChange } = useQuickFilter()
 
   return (
-    <section className={styles.section}>
+    <section className={classNames(styles.section, className)}>
       <div className={classNames(styles.header, { [styles.wide]: wideRow })}>
         <h2 className={styles.title}>{title}</h2>
         {!noSearch && (

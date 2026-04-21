@@ -14,4 +14,5 @@ export interface IListLayoutProps {
   totalInfoData?: Record<string, string>[]
   noSearch?: boolean
   wideRow?: boolean
+  className?: string
 }

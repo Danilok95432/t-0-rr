@@ -12,6 +12,7 @@ export type DealsDTO = {
   deal_payed: string
   deal_dolg: string
   case: string
+  dogovor: string
 }
 
 export interface PaymentData {

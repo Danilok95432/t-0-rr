@@ -58,7 +58,7 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
             render={({ field }) => (
               <Input
                 id='deal_name'
-                label='Краткое название сделки'
+                label='Название сделки'
                 value={field.value}
                 hasResetIcon={false}
                 disabled={!isEditingModeActive}
@@ -86,7 +86,7 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
             render={({ field }) => (
               <Input
                 id='dogovor_name'
-                label='Договор'
+                label='Номер Договора'
                 value={field.value}
                 hasResetIcon={false}
                 disabled={!isEditingModeActive}
@@ -101,7 +101,7 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
             render={({ field }) => (
               <TextArea
                 id='deal_name_full'
-                label='Полное название сделки'
+                label='Информация о сделке'
                 value={field.value}
                 disabled={!isEditingModeActive}
                 onChange={field.onChange}
@@ -129,7 +129,8 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
             render={({ field }) => (
               <InputDate
                 date={field.value}
-                label='Дата сделки'
+                label='Дата заключения Договора'
+                disabled={!isEditingModeActive}
                 onChange={(date) => field.onChange(date)}
               />
             )}

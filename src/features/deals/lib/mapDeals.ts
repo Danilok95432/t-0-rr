@@ -12,5 +12,6 @@ export const mapDeals = (dealsBack: DealsDTO): DealsDTO => {
     deal_payed: dealsBack.deal_payed,
     deal_dolg: dealsBack.deal_dolg,
     case: dealsBack.case,
+    dogovor: dealsBack.dogovor,
   }
 }

@@ -24,6 +24,7 @@ import { IStandartData, IStandartInfo } from '@/features/standarts/table/configs
 import { standartDef } from '@/features/standarts/table/configs/standartsDef'
 import { standartInfoDef } from '@/features/standart/table/configs/standartDef'
 import { dealsSumDef } from '@/features/deals/table/config/dealSumDef'
+import { operationsDealDef } from '@/features/operations/table/config/operationsDealDef'
 
 export type TGridTableData = {
   columnDefinitions:
@@ -40,6 +41,7 @@ export type TGridTableData = {
     | typeof importDef
     | typeof standartDef
     | typeof standartInfoDef
+    | typeof operationsDealDef
   rowData?:
     | PaymentData[]
     | OperationsData[]

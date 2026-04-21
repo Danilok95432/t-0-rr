@@ -1,7 +1,7 @@
 import { type ColDef } from 'ag-grid-community'
 import { DealsDTO } from './dealsType'
 import { CellLinkShortName } from '../cells/CellLinkShortName'
-import { CellLinkFullName } from '../cells/CellLinkFullName'
+// import { CellLinkFullName } from '../cells/CellLinkFullName'
 
 import styles from './deals.module.scss'
 
@@ -9,20 +9,21 @@ export const dealsDef: ColDef<DealsDTO>[] = [
   { field: 'id', headerName: 'ID', minWidth: 60, maxWidth: 60 },
   {
     field: 'deal_short_name',
-    headerName: 'Краткое название сделки',
+    headerName: 'Название сделки',
     cellRenderer: CellLinkShortName,
     tooltipField: 'deal_short_name',
-    maxWidth: 180,
+    minWidth: 230,
   },
-  {
-    field: 'deal_name',
-    headerName: 'Полное наименование сделки',
-    cellRenderer: CellLinkFullName,
-    tooltipField: 'deal_name',
-  },
-  { field: 'org', headerName: 'Организация', tooltipField: 'org', maxWidth: 140 },
+  // {
+  //   field: 'deal_name',
+  //   headerName: 'Полное наименование сделки',
+  //   cellRenderer: CellLinkFullName,
+  //   tooltipField: 'deal_name',
+  // },
+  { field: 'org', headerName: 'Организация', tooltipField: 'org', minWidth: 160 },
   { field: 'contragent', headerName: 'Контрагент', tooltipField: 'contragent' },
-  { field: 'deal_date', headerName: 'Дата сделки', maxWidth: 110 },
+  { field: 'dogovor', headerName: 'Номер договора', tooltipField: 'dogovor', minWidth: 230 },
+  { field: 'deal_date', headerName: 'Дата договора', maxWidth: 130 },
   {
     field: 'deal_summ',
     headerName: 'Сумма сделки',

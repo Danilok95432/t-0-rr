@@ -104,12 +104,16 @@ export const NewOperation: FC<IFormProps> = ({ labelBadge }) => {
     if (!data?.article_exps_list) return null
 
     const hasSelectedDeals = Array.isArray(selectedDeals) && selectedDeals.length > 0
+    const isDirectionPrihod = selectedDirection && selectedDirection[0]?.label !== 'Расход'
     const targetLabel = hasSelectedDeals ? 'прямые' : 'косвенные'
 
+    if (isDirectionPrihod)
+      return (data.article_exps_list[0])
     return (
       data.article_exps_list.find((opt) => opt.label?.toLowerCase().trim() === targetLabel) ?? null
     )
-  }, [data?.article_exps_list, selectedDeals])
+
+  }, [data?.article_exps_list, selectedDeals, selectedDirection])
 
   const filteredDeals = useMemo(() => {
     if (!data?.deals_list) return []

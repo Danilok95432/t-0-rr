@@ -8,8 +8,8 @@ import { TFormNewOperation } from '@/shared/types/forms'
 
 export interface GetAllOperationsArgs {
   searchtext: string
-  step: number
-  limit: number
+  step?: number
+  limit?: number
   dateFrom?: string
   dateTo?: string
   org?: string  // Теперь строка вместо string[]

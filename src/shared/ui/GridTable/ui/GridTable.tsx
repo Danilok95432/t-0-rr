@@ -85,6 +85,12 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
       defaultColDef={defaultColDef}
       dataTypeDefinitions={dataTypeDefinitions}
       rowSelection={rowSelection}
+      selectionColumnDef={{
+        pinned: 'right',
+        resizable: false,
+        sortable: false,
+        lockPosition: 'right',
+      }}
       theme={theme}
       quickFilterText={quickFilterText}
       cacheQuickFilter
