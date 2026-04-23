@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useState, useCallback, useMemo } from 'react';
-import classNames from 'classnames';
-import Select from 'react-dropdown-select';
-import { ISelectCProps, TSelectOption } from '../types';
+import { FC, useCallback, useMemo, useState } from 'react'
+import classNames from 'classnames'
+import Select, { SelectItemRenderer } from 'react-dropdown-select'
 
-import { Icon } from '@/shared/ui/Icon';
+import { ISelectCProps, TSelectOption } from '../types'
+import { MultiSelOption } from '@/features/filtersMenu/types/type'
+import { Icon } from '@/shared/ui/Icon'
 
-import './select.scss';
-import { MultiSelOption } from '@/features/filtersMenu/types/type';
+import './select.scss'
+
+type SelectOption = TSelectOption | MultiSelOption
 
 export const SelectC: FC<ISelectCProps> = (props) => {
   const {
@@ -23,105 +24,107 @@ export const SelectC: FC<ISelectCProps> = (props) => {
     multiselect = false,
     maxDisplayedTags = 1,
     displayedTagSuffix = '+ {count}',
-  } = props;
+  } = props
 
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false)
 
-  // Мемоизированные значения
-  const computedValues = useMemo<TSelectOption[] | MultiSelOption[]>(() => {
+  const computedValues = useMemo<SelectOption[]>(() => {
     if ((!values || values.length === 0) && value) {
-      return [value];
+      return [value as SelectOption]
     }
-    return values ?? [];
-  }, [values, value]);
+
+    return (values ?? []) as SelectOption[]
+  }, [values, value])
+
+  const normalizedOptions = useMemo<SelectOption[]>(() => {
+    return (options ?? []) as SelectOption[]
+  }, [options])
 
   const handleChange = useCallback(
-    (newValues: TSelectOption[] | MultiSelOption[]) => {
-      onChange(newValues);
+    (newValues: SelectOption[]) => {
+      onChange(newValues as TSelectOption[] | MultiSelOption[])
     },
-    [onChange]
-  );
+    [onChange],
+  )
 
-  // Кастомный рендер контента для выбранных значений
-  const customContentRenderer = useCallback(({ state, methods }: any) => {
-    const totalSelected = state.values.length;
-    
-    if (totalSelected === 0) {
-      return <div className="select__placeholder">{placeholder}</div>;
-    }
 
-    // Если не мультиселект или нет ограничения - показываем все
-    if (!multiselect || !maxDisplayedTags) {
-      return (
-        <div className="select__values">
-          {state.values.map((item: any, idx: number) => (
-            <span key={item.value || idx} className="select__tag">
-              {item.label}
-              {multiselect && (
-                <span 
-                  className="select__tag-remove"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    methods.removeItem(null, item);
-                  }}
-                >
-                  ×
-                </span>
-              )}
-            </span>
-          ))}
-        </div>
-      );
-    }
+  const customOptionRenderer = useCallback(
+    ({ item, state, methods, props }: SelectItemRenderer<SelectOption>) => {
+      if (!multiselect) {
+        return <span>{item.label}</span>
+      }
 
-    // С ограничением
-    const visibleCount = Math.min(totalSelected, maxDisplayedTags);
-    const hiddenCount = totalSelected - visibleCount;
+      const valueField = props.valueField || 'value'
 
-    return (
-      <div className="select__values">
-        {state.values.slice(0, visibleCount).map((item: any, idx: number) => (
-          <span key={item.value || idx} className="select__tag">
+      const currentIndex = state.values.findIndex((selectedItem) => {
+        const selectedValue = selectedItem?.[valueField as keyof SelectOption]
+        const currentValue = item?.[valueField as keyof SelectOption]
+
+        return selectedValue === currentValue
+      })
+
+      if (currentIndex === -1) {
+        return null
+      }
+
+      if (maxDisplayedTags <= 0 || currentIndex < maxDisplayedTags) {
+        return (
+          <span className='select__tag'>
             {item.label}
-            <span 
-              className="select__tag-remove"
-              onClick={(e) => {
-                e.stopPropagation();
-                methods.removeItem(null, item);
-              }}
-            >
-              ×
-            </span>
+            {!disabled && (
+              <span
+                className='select__tag-remove'
+                onMouseDown={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  methods.removeItem(e, item, false)
+                }}
+              >
+                ×
+              </span>
+            )}
           </span>
-        ))}
-        
-        {hiddenCount > 0 && (
-          <span 
-            className="select__tag select__tag--count"
-            title={state.values.slice(maxDisplayedTags).map((v: any) => v.label).join(', ')}
+        )
+      }
+
+      if (currentIndex === maxDisplayedTags) {
+        const hiddenValues = state.values.slice(maxDisplayedTags)
+        const hiddenCount = hiddenValues.length
+
+        if (hiddenCount <= 0) {
+          return null
+        }
+
+        return (
+          <span
+            className='select__tag select__tag--count'
+            title={hiddenValues.map((v) => v.label).join(', ')}
           >
-            {displayedTagSuffix.replace('{count}', hiddenCount.toString())}
+            {displayedTagSuffix.replace('{count}', String(hiddenCount))}
           </span>
-        )}
-      </div>
-    );
-  }, [placeholder, multiselect, maxDisplayedTags, displayedTagSuffix]);
+        )
+      }
+
+      return null
+    },
+    [disabled, displayedTagSuffix, maxDisplayedTags, multiselect],
+  )
 
   return (
     <div className={classNames('select-wrapper', className)}>
-      <Select
+      <Select<SelectOption>
         values={computedValues}
-        options={options}
+        options={normalizedOptions}
         onChange={handleChange}
-        className="select"
+        className='select'
         placeholder={placeholder}
         searchable={searchable}
         multi={multiselect}
         disabled={disabled}
-        contentRenderer={multiselect ? customContentRenderer : undefined}
+        optionRenderer={multiselect ? customOptionRenderer : undefined}
         onDropdownOpen={() => setIsFocused(true)}
         onDropdownClose={() => setIsFocused(false)}
-        searchBy="label"
+        searchBy='label'
         dropdownHandle={false}
       />
 
@@ -135,7 +138,7 @@ export const SelectC: FC<ISelectCProps> = (props) => {
         </label>
       )}
 
-      {disabled && <Icon iconId="lock" className="select__icon_lock" />}
+      {disabled && <Icon iconId='lock' className='select__icon_lock' />}
     </div>
-  );
-};
+  )
+}

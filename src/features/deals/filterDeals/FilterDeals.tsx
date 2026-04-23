@@ -367,6 +367,7 @@ export const FilterDeals = () => {
               onChange={handleMultiSelectChange(field)}
               className={styles.select}
               multiselect
+              searchable={true}
             />
           )}
         />
