@@ -15,6 +15,7 @@ import {
 import { AG_GRID_LOCALE_RU } from '../config/ag-grid-locale'
 import { TGridTableData } from '../types'
 import { customTheme } from '../config/tableTheme'
+import styles from './index.module.scss'
 
 import '../config/checkbox-style.css'
 
@@ -24,12 +25,14 @@ type GridTableProps = {
   onScrollEnd?: () => void
   onSortChanged?: (event: SortChangedEvent) => void
   onSelectionChanged?: (selectedIds: Array<string | number>) => void
+  isRightCheckboxes?: boolean
 }
 
 export const GridTable: FC<TGridTableData & GridTableProps> = ({
   rowData,
   columnDefinitions,
   checkboxHidden = true,
+  isRightCheckboxes,
   quickFilterText,
   onRowClicked,
   onGridReady,
@@ -77,8 +80,18 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
     onGridReady?.(params.api)
   }
 
+  /*
+  selectionColumnDef={{
+        pinned: isRightCheckboxes ? 'right' : 'left',
+        resizable: false,
+        sortable: false,
+        lockPosition: isRightCheckboxes ? 'right' : 'left',
+      }}
+  */
+
   return (
     <AgGridReact
+      className={styles.table}
       ref={gridRef}
       rowData={rowData}
       columnDefs={columnDefinitions}
@@ -86,10 +99,9 @@ export const GridTable: FC<TGridTableData & GridTableProps> = ({
       dataTypeDefinitions={dataTypeDefinitions}
       rowSelection={rowSelection}
       selectionColumnDef={{
-        pinned: 'right',
         resizable: false,
         sortable: false,
-        lockPosition: 'right',
+        lockPosition: isRightCheckboxes ? 'right' : 'left',
       }}
       theme={theme}
       quickFilterText={quickFilterText}

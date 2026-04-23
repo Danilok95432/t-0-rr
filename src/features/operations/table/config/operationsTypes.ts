@@ -36,6 +36,7 @@ export interface OperationsData {
   sub_article_name: string
   summ: string
   articles_list_id: string
+  id_deal: string
 }
 
 export interface OperationsResponse {

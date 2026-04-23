@@ -18,6 +18,12 @@
 	gap: 10px 31px;
 }
 
+.controls {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
 .left,
 .right {
 	display: flex;

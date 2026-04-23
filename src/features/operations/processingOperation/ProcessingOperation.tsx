@@ -14,10 +14,18 @@ import { Button } from '@/shared/ui/Button'
 import { TableProcessingOperation } from './tableProcessing/tableProcessingOperation'
 
 import styles from './processing-operation.module.scss'
-import { useEditOperationQuery, useSaveOperationMutation } from '../api/operationsApi'
+import {
+  useDeleteOperationMutation,
+  useEditOperationQuery,
+  useSaveOperationMutation,
+} from '../api/operationsApi'
 import { Loader } from '@/shared/ui/Loader'
 import { formatDateToYYYYMMDD, getFirstValue } from '@/shared/helpers/helpers'
 import { type TSelectOption } from '@/shared/ui/Select/types'
+import { ConfirmWindow } from '@/features/import/confirm-window/confirm-window'
+import { Modal } from '@/shared/ui/Modal'
+import { AnimatePresence } from 'motion/react'
+import { TrashIconOperations } from '@/shared/ui/icons/trashIconOperations'
 
 type reqProps = {
   id: string
@@ -109,8 +117,7 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
 
     const targetLabel = hasSelectedDeals ? 'прямые' : 'косвенные'
 
-    if (isDirectionPrihod)
-      return (data.article_exps_list[0])
+    if (isDirectionPrihod) return data.article_exps_list[0]
     return (
       data.article_exps_list.find((opt) => opt.label?.toLowerCase().trim() === targetLabel) ?? null
     )
@@ -179,6 +186,15 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     }
     handleCloseModal()
     reset()
+  }
+
+  const [deleteDeal] = useDeleteOperationMutation()
+
+  // Убираем useEffect с reset, который всё портит!
+  // Вместо этого используем данные напрямую из deal
+  const [isDelete, setIsDelete] = useState<boolean>(false)
+  const handleDelete = async () => {
+    await deleteDeal(id)
   }
 
   useEffect(() => {
@@ -263,17 +279,321 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
     return <Loader />
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOperation}>
-      <div className={styles['main-info']}>
-        <div className={classNames(styles.left, styles.hasArrow)}>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.addNewOperation}>
+        <div className={styles['main-info']}>
+          <div className={classNames(styles.left, styles.hasArrow)}>
+            <Controller
+              name='orgs_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={data?.orgs_list ?? []}
+                  values={field.value ?? []}
+                  label='Организация'
+                  onChange={field.onChange}
+                  className={styles['main-info-SelectC']}
+                />
+              )}
+            />
+
+            <Controller
+              name='accounts_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={filteredOrgAccounts}
+                  values={field.value ?? []}
+                  label='Счет организации'
+                  onChange={field.onChange}
+                  className={styles['main-info-select']}
+                />
+              )}
+            />
+          </div>
+          <div className={styles.right}>
+            <Controller
+              name='contragents_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={data?.contragents_list ?? []}
+                  values={field.value ?? []}
+                  label='Контрагент'
+                  onChange={field.onChange}
+                  className={styles.addOperation__select}
+                  searchable={true}
+                />
+              )}
+            />
+
+            <Controller
+              name='contragent_accounts_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={filteredContragentAccounts}
+                  values={field.value ?? []}
+                  label='Счет контрагента'
+                  onChange={field.onChange}
+                  className={styles.addOperation__select}
+                />
+              )}
+            />
+          </div>
+        </div>
+
+        <div className={styles['extra-info']}>
+          <div className={styles.left}>
+            <div className={styles.wrapper}>
+              <Controller
+                name='date'
+                control={control}
+                render={({ field }) => (
+                  <InputDate
+                    date={field.value}
+                    label='Дата операции'
+                    onChange={(date) => field.onChange(date)}
+                  />
+                )}
+              />
+              <Controller
+                name='bank_id'
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    id='bank_id'
+                    label='Банковский ID (идентификатор)'
+                    value={field.value}
+                    onChange={(text) => field.onChange(text)}
+                    className={styles.idInput}
+                    maxLength={25}
+                  />
+                )}
+              />
+            </div>
+
+            <Controller
+              name='summ'
+              control={control}
+              render={({ field }) => (
+                <Input
+                  id='summ'
+                  label='Сумма операции'
+                  value={field.value}
+                  onChange={(text) => field.onChange(text)}
+                  className={styles.sumInput}
+                  hasResetIcon={false}
+                  maxLength={35}
+                  isSum
+                />
+              )}
+            />
+
+            <Controller
+              name='itemname'
+              control={control}
+              render={({ field }) => (
+                <TextArea
+                  id='itemname'
+                  label='Наименование операции'
+                  value={field.value}
+                  onChange={(text) => field.onChange(text)}
+                />
+              )}
+            />
+            <Controller
+              name='comment'
+              control={control}
+              render={({ field }) => (
+                <TextArea
+                  id='comment'
+                  label='Комментарий сотрудника'
+                  value={field.value}
+                  onChange={(text) => field.onChange(text)}
+                />
+              )}
+            />
+          </div>
+
+          <div className={styles.right}>
+            <Controller
+              name='cases_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={data?.cases_list ?? []}
+                  values={field.value ?? []}
+                  label='Кейс'
+                  onChange={field.onChange}
+                  className={styles['main-info-select']}
+                />
+              )}
+            />
+
+            <Controller
+              name='deals_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={filteredDeals}
+                  values={field.value ?? []}
+                  label='Сделка'
+                  onChange={field.onChange}
+                  className={styles['main-info-select']}
+                />
+              )}
+            />
+            <Controller
+              name='directions_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={data?.directions_list ?? []}
+                  values={field.value ?? []}
+                  label='Направление операции'
+                  onChange={field.onChange}
+                  className={styles['main-info-select']}
+                />
+              )}
+            />
+
+            {selectedDirectionId === '2' && (
+              <Controller
+                name='article_exps_list'
+                control={control}
+                render={({ field }) => (
+                  <SelectC
+                    options={data?.article_exps_list ?? []}
+                    values={field.value ?? []}
+                    value={defaultArticleExpOption}
+                    disabled={true}
+                    label='Тип расходов'
+                    onChange={field.onChange}
+                    className={styles['main-info-select']}
+                  />
+                )}
+              />
+            )}
+
+            <Controller
+              name='articles_list'
+              control={control}
+              render={({ field }) => (
+                <SelectC
+                  options={filteredArticles}
+                  values={field.value ?? []}
+                  label='Статья / подстатья'
+                  onChange={field.onChange}
+                  className={styles['main-info-select']}
+                />
+              )}
+            />
+
+            {selectedDirectionId === '2' && (
+              <Controller
+                name='rashods_list'
+                control={control}
+                render={({ field }) => (
+                  <SelectC
+                    options={data?.rashods_list ?? []}
+                    values={field.value ?? [{ value: field.value, label: field.value }]}
+                    label='Расходы на операцию несет'
+                    onChange={field.onChange}
+                    className={styles['main-info-select']}
+                  />
+                )}
+              />
+            )}
+          </div>
+        </div>
+
+        <div className={styles.controls}>
+          <Button
+            mode='delete_transparent'
+            label='Удалить операцию'
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsDelete(true)
+            }}
+            icon={<TrashIconOperations />}
+            type='button'
+          />
+          <Button
+            type='submit'
+            label='Сохранить изменения'
+            mode='primary'
+            disabled={
+              (selectedOrg && (selectedOrg[0].value === 0 || selectedOrg === undefined)) ||
+              (selectedContragent &&
+                (selectedContragent[0].value === 0 || selectedContragent === undefined)) ||
+              (selectedDirection &&
+                (selectedDirection === undefined || selectedDirection[0].value === 0))
+            }
+          />
+        </div>
+
+        <h3 className={styles.subTitle}>Деление операции</h3>
+
+        <div className={styles.sum_block}>
           <Controller
-            name='orgs_list'
+            name='initialAmount'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='initialAmount'
+                label='Первоначальная сумма'
+                value={field.value}
+                onChange={(text) => field.onChange(text)}
+                className={styles.idInput}
+                maxLength={25}
+                disabled
+              />
+            )}
+          />
+          <Controller
+            name='retainedAmount'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='retainedAmount'
+                label='Нераспределенная сумма'
+                value={field.value}
+                onChange={(text) => field.onChange(text)}
+                className={styles.idInput}
+                maxLength={25}
+                disabled
+              />
+            )}
+          />
+        </div>
+
+        <TableProcessingOperation />
+
+        <div className={styles.select_block}>
+          <Controller
+            name='counterpartyDivision'
             control={control}
             render={({ field }) => (
               <SelectC
-                options={data?.orgs_list ?? []}
-                values={field.value ?? []}
-                label='Организация'
+                options={[]}
+                values={field.value ? [{ value: field.value, label: field.value }] : []}
+                label='Контрагент'
+                onChange={field.onChange}
+                className={styles.addOperation__SelectC}
+              />
+            )}
+          />
+
+          <Controller
+            name='caseDivision'
+            control={control}
+            render={({ field }) => (
+              <SelectC
+                options={[]}
+                values={field.value ? [{ value: field.value, label: field.value }] : []}
+                label='Кейс / сделка'
                 onChange={field.onChange}
                 className={styles['main-info-SelectC']}
               />
@@ -281,342 +601,64 @@ export const ProcessingOperation: FC<IFormProps & reqProps> = ({ id }) => {
           />
 
           <Controller
-            name='accounts_list'
-            control={control}
-            render={({ field }) => (
-              <SelectC
-                options={filteredOrgAccounts}
-                values={field.value ?? []}
-                label='Счет организации'
-                onChange={field.onChange}
-                className={styles['main-info-select']}
-              />
-            )}
-          />
-        </div>
-        <div className={styles.right}>
-          <Controller
-            name='contragents_list'
-            control={control}
-            render={({ field }) => (
-              <SelectC
-                options={data?.contragents_list ?? []}
-                values={field.value ?? []}
-                label='Контрагент'
-                onChange={field.onChange}
-                className={styles.addOperation__select}
-                searchable={true}
-              />
-            )}
-          />
-
-          <Controller
-            name='contragent_accounts_list'
-            control={control}
-            render={({ field }) => (
-              <SelectC
-                options={filteredContragentAccounts}
-                values={field.value ?? []}
-                label='Счет контрагента'
-                onChange={field.onChange}
-                className={styles.addOperation__select}
-              />
-            )}
-          />
-        </div>
-      </div>
-
-      <div className={styles['extra-info']}>
-        <div className={styles.left}>
-          <div className={styles.wrapper}>
-            <Controller
-              name='date'
-              control={control}
-              render={({ field }) => (
-                <InputDate
-                  date={field.value}
-                  label='Дата операции'
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
-            <Controller
-              name='bank_id'
-              control={control}
-              render={({ field }) => (
-                <Input
-                  id='bank_id'
-                  label='Банковский ID (идентификатор)'
-                  value={field.value}
-                  onChange={(text) => field.onChange(text)}
-                  className={styles.idInput}
-                  maxLength={25}
-                />
-              )}
-            />
-          </div>
-
-          <Controller
-            name='summ'
+            name='sumOperationDivision'
             control={control}
             render={({ field }) => (
               <Input
-                id='summ'
+                id='sumOperation'
                 label='Сумма операции'
+                extraLabel='RUB — Рубли РФ'
                 value={field.value}
                 onChange={(text) => field.onChange(text)}
                 className={styles.sumInput}
                 hasResetIcon={false}
                 maxLength={35}
-                isSum
               />
             )}
           />
 
           <Controller
-            name='itemname'
-            control={control}
-            render={({ field }) => (
-              <TextArea
-                id='itemname'
-                label='Наименование операции'
-                value={field.value}
-                onChange={(text) => field.onChange(text)}
-              />
-            )}
-          />
-          <Controller
-            name='comment'
-            control={control}
-            render={({ field }) => (
-              <TextArea
-                id='comment'
-                label='Комментарий сотрудника'
-                value={field.value}
-                onChange={(text) => field.onChange(text)}
-              />
-            )}
-          />
-        </div>
-
-        <div className={styles.right}>
-          <Controller
-            name='cases_list'
+            name='counterpartyAccountDivision'
             control={control}
             render={({ field }) => (
               <SelectC
-                options={data?.cases_list ?? []}
-                values={field.value ?? []}
-                label='Кейс'
+                options={[]}
+                values={field.value ? [{ value: field.value, label: field.value }] : []}
+                label='Счет контрагента'
                 onChange={field.onChange}
-                className={styles['main-info-select']}
+                className={styles.addOperation__SelectC}
               />
             )}
           />
 
           <Controller
-            name='deals_list'
+            name='articleDivision'
             control={control}
             render={({ field }) => (
               <SelectC
-                options={filteredDeals}
-                values={field.value ?? []}
-                label='Сделка'
-                onChange={field.onChange}
-                className={styles['main-info-select']}
-              />
-            )}
-          />
-          <Controller
-            name='directions_list'
-            control={control}
-            render={({ field }) => (
-              <SelectC
-                options={data?.directions_list ?? []}
-                values={field.value ?? []}
-                label='Направление операции'
-                onChange={field.onChange}
-                className={styles['main-info-select']}
-              />
-            )}
-          />
-
-          {selectedDirectionId === '2' && (
-            <Controller
-              name='article_exps_list'
-              control={control}
-              render={({ field }) => (
-                <SelectC
-                  options={data?.article_exps_list ?? []}
-                  values={field.value ?? []}
-                  value={defaultArticleExpOption}
-                  disabled={true}
-                  label='Тип расходов'
-                  onChange={field.onChange}
-                  className={styles['main-info-select']}
-                />
-              )}
-            />
-          )}
-
-          <Controller
-            name='articles_list'
-            control={control}
-            render={({ field }) => (
-              <SelectC
-                options={filteredArticles}
-                values={field.value ?? []}
+                options={[]}
+                values={field.value ? [{ value: field.value, label: field.value }] : []}
                 label='Статья / подстатья'
                 onChange={field.onChange}
-                className={styles['main-info-select']}
+                className={styles['main-info-SelectC']}
               />
             )}
           />
-
-          {selectedDirectionId === '2' && (
-            <Controller
-              name='rashods_list'
-              control={control}
-              render={({ field }) => (
-                <SelectC
-                  options={data?.rashods_list ?? []}
-                  values={field.value ?? [{ value: field.value, label: field.value }]}
-                  label='Расходы на операцию несет'
-                  onChange={field.onChange}
-                  className={styles['main-info-select']}
-                />
-              )}
-            />
-          )}
         </div>
-      </div>
 
-      <Button
-        type='submit'
-        label='Сохранить'
-        mode='primary'
-        disabled={
-          (selectedOrg && (selectedOrg[0].value === 0 || selectedOrg === undefined)) ||
-          (selectedContragent &&
-            (selectedContragent[0].value === 0 || selectedContragent === undefined)) ||
-          (selectedDirection &&
-            (selectedDirection === undefined || selectedDirection[0].value === 0))
-        }
-      />
-
-      <h3 className={styles.subTitle}>Деление операции</h3>
-
-      <div className={styles.sum_block}>
-        <Controller
-          name='initialAmount'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='initialAmount'
-              label='Первоначальная сумма'
-              value={field.value}
-              onChange={(text) => field.onChange(text)}
-              className={styles.idInput}
-              maxLength={25}
-              disabled
+        <Button label='Закрыть форму деления' mode='secondary' className={styles.division_btn} />
+      </form>
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {isDelete && (
+          <Modal title='Удалить операцию'>
+            <ConfirmWindow
+              labelBadge='Это действие удалит операцию без возможности восстановления. Вы уверены, что хотите продолжить?'
+              submitHandle={handleDelete}
+              link={'/operations'}
             />
-          )}
-        />
-        <Controller
-          name='retainedAmount'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='retainedAmount'
-              label='Нераспределенная сумма'
-              value={field.value}
-              onChange={(text) => field.onChange(text)}
-              className={styles.idInput}
-              maxLength={25}
-              disabled
-            />
-          )}
-        />
-      </div>
-
-      <TableProcessingOperation />
-
-      <div className={styles.select_block}>
-        <Controller
-          name='counterpartyDivision'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={[]}
-              values={field.value ? [{ value: field.value, label: field.value }] : []}
-              label='Контрагент'
-              onChange={field.onChange}
-              className={styles.addOperation__SelectC}
-            />
-          )}
-        />
-
-        <Controller
-          name='caseDivision'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={[]}
-              values={field.value ? [{ value: field.value, label: field.value }] : []}
-              label='Кейс / сделка'
-              onChange={field.onChange}
-              className={styles['main-info-SelectC']}
-            />
-          )}
-        />
-
-        <Controller
-          name='sumOperationDivision'
-          control={control}
-          render={({ field }) => (
-            <Input
-              id='sumOperation'
-              label='Сумма операции'
-              extraLabel='RUB — Рубли РФ'
-              value={field.value}
-              onChange={(text) => field.onChange(text)}
-              className={styles.sumInput}
-              hasResetIcon={false}
-              maxLength={35}
-            />
-          )}
-        />
-
-        <Controller
-          name='counterpartyAccountDivision'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={[]}
-              values={field.value ? [{ value: field.value, label: field.value }] : []}
-              label='Счет контрагента'
-              onChange={field.onChange}
-              className={styles.addOperation__SelectC}
-            />
-          )}
-        />
-
-        <Controller
-          name='articleDivision'
-          control={control}
-          render={({ field }) => (
-            <SelectC
-              options={[]}
-              values={field.value ? [{ value: field.value, label: field.value }] : []}
-              label='Статья / подстатья'
-              onChange={field.onChange}
-              className={styles['main-info-SelectC']}
-            />
-          )}
-        />
-      </div>
-
-      <Button label='Закрыть форму деления' mode='secondary' className={styles.division_btn} />
-    </form>
+          </Modal>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

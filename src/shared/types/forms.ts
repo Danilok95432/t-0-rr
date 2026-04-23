@@ -116,13 +116,15 @@ export interface TFormFilterOperationsMenu {
 }
 
 export interface TFormFilterDealsMenu {
-  deal_date?: Date | string | undefined
+  dateFrom?: Date | string | undefined
+  dateTo?: Date | string | undefined
   // dateApply?: Date | string | undefined
   org?: string[]
   contragent?: string[]
   cases?: string
   deal_name?: string
   rememberChoice: boolean
+  dogovor?: string
 }
 
 export type TFormOrganization = {

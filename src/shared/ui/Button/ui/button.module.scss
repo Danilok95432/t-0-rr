@@ -81,6 +81,14 @@
     padding: 8px 16px;
   }
 
+  &__delete_transparent {
+    color: var(--negative);
+    background-color: transparent;
+    width: fit-content;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
   &__secondary {
     color: var(--text-01);
     background-color: transparent;

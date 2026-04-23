@@ -28,9 +28,9 @@ export interface FilterOperationData {
 export interface FilterDealData {
   org: MultiSelOption[]
   contragent: MultiSelOption[]
-  deal_name: string
+  dateFrom: string
   cases: SelOption[]
-  deal_date: string
+  dateTo: string
   dateApply: string
   rememberChoice?: string
 }

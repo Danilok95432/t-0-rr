@@ -96,10 +96,17 @@ const TransactionsContent = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { rememberChoice, ...filterParams } = filters
 
-      if (filterParams.deal_date) {
-        const dateDateValue = dateToISOString(filterParams.deal_date)
+      if (filterParams.dateFrom) {
+        const dateDateValue = dateToISOString(filterParams.dateFrom)
         if (dateDateValue) {
-          params.deal_date = dateDateValue
+          params.dateFrom = dateDateValue
+        }
+      }
+
+      if (filterParams.dateTo) {
+        const dateDateValue = dateToISOString(filterParams.dateTo)
+        if (dateDateValue) {
+          params.dateTo = dateDateValue
         }
       }
 
@@ -128,6 +135,13 @@ const TransactionsContent = () => {
         const dealsValue = filterParams.deal_name
         if (dealsValue) {
           params.deal_name = dealsValue
+        }
+      }
+
+      if (filterParams.dogovor) {
+        const dogovorValue = filterParams.dogovor
+        if (dogovorValue) {
+          params.dogovor = dogovorValue
         }
       }
     }

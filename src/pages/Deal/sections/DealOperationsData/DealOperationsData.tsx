@@ -197,6 +197,7 @@ const DealOperationData = () => {
           onGridReady={onGridReady}
           onRowClicked={handleRowClick}
           onSortChanged={handleSortChanged}
+          isRightCheckboxes
           onSelectionChanged={handleSelectionChanged}
           key={tableKey}
         />

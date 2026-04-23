@@ -1,0 +1,17 @@
+.table {
+  :global {
+    .ag-floating-top {
+      border-bottom: solid 0px transparent;
+    }
+    .ag-cell.ag-cell-focus {
+      outline: none !important;
+      border: none !important; /* если есть border */
+      box-shadow: none !important;
+    }
+
+    /* Также убираем у ячейки в состоянии фокуса при редактировании */
+    .ag-cell.ag-cell-focus.ag-cell-inline-editing {
+      outline: none !important;
+    }
+  }
+}

@@ -21,7 +21,8 @@ const convertDealsFilterData = (filterData: any): TFormFilterDealsMenu | null =>
 
   const defaultValues: Partial<TFormFilterDealsMenu> = {
     rememberChoice: false,
-    deal_date: parseServerDate(filterData.deal_date),
+    dateFrom: parseServerDate(filterData.dateFrom),
+    dateTo: parseServerDate(filterData.dateTo),
     deal_name: filterData.deal_name || '',
   }
 

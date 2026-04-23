@@ -7,11 +7,13 @@ export interface GetAllDealsArgs {
   searchtext: string
   step: number
   limit: number
-  deal_date?: string
+  dateFrom?: string
+  dateTo?: string
   org?: string 
   contragent?: string
   cases?: string
   deal_name?: string
+  dogovor?: string
 }
 
 export const dealsApi = createApi({
@@ -20,16 +22,18 @@ export const dealsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getAllDeals: build.query<DealsDTO[], GetAllDealsArgs>({
-      query: ({ step, limit, deal_date, deal_name, org, contragent, cases }) => ({
+      query: ({ step, limit, dateFrom, dateTo, deal_name, org, contragent, cases, dogovor }) => ({
         url: '/deals/list',
         params: {
           step,
           limit,
-          deal_date,
+          dateFrom,
+          dateTo,
           org,
           contragent,
           cases,
           deal_name,
+          dogovor,
         },
       }),
       transformResponse: (response: { deals: DealsDTO[] }) => response.deals,

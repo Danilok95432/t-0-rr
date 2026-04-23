@@ -56,6 +56,16 @@ export const operationsApi = createApi({
             ]
           : [{ type: 'Operations' as const }],
     }),
+    deleteOperation: build.mutation<null, string>({
+      query: (id) => ({
+        url: `cards/delete`,
+        method: 'DELETE',
+        body: {
+          id: id,
+        },
+      }),
+      invalidatesTags: ['Operations'],
+    }),
     getSummary: build.query<OperationsSummary, string>({
       query: (searchtext) => ({
         url: '/cards/summary',
@@ -99,4 +109,5 @@ export const {
   useAddNewOperationQuery,
   useSaveOperationMutation,
   useEditOperationQuery,
+  useDeleteOperationMutation,
 } = operationsApi

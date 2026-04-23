@@ -98,6 +98,7 @@ export const operationsDef: ColDef<OperationsData>[] = [
     valueGetter: (params) => ({
       case: params.data?.case_name,
       deal: params.data?.deal_name,
+      idDeal: params.data?.id_deal,
     }),
     tooltipValueGetter: (params) => {
       const caseName = params.data?.case_name

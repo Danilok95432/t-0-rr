@@ -27,7 +27,8 @@ export const FilterDeals = () => {
 
   const EMPTY_VALUES: TFormFilterDealsMenu = {
     rememberChoice: false,
-    deal_date: undefined,
+    dateFrom: undefined,
+    dateTo: undefined,
     org: [],
     contragent: [],
     cases: '',
@@ -53,8 +54,12 @@ export const FilterDeals = () => {
     }
 
     if (filterData) {
-      if (filterData.deal_date) {
-        defaultValues.deal_date = parseServerDate(filterData.deal_date)
+      if (filterData.dateFrom) {
+        defaultValues.dateFrom = parseServerDate(filterData.dateFrom)
+      }
+
+      if (filterData.dateTo) {
+        defaultValues.dateTo = parseServerDate(filterData.dateTo)
       }
 
       const multiSelectFields = [
@@ -190,7 +195,8 @@ export const FilterDeals = () => {
     try {
       const processedData = {
         ...data,
-        deal_date: data.deal_date ? dateApplyISOString(data.deal_date) : undefined,
+        dateFrom: data.dateFrom ? dateApplyISOString(data.dateFrom) : undefined,
+        dateTo: data.dateTo ? dateApplyISOString(data.dateTo) : undefined,
       }
 
       setFilters(processedData)
@@ -294,7 +300,8 @@ export const FilterDeals = () => {
     const values = getValues()
 
     const hasAnyFilter =
-      values.deal_date ||
+      values.dateFrom ||
+      values.dateTo ||
       values.org?.length ||
       values.contragent?.length ||
       values.cases ||
@@ -312,9 +319,15 @@ export const FilterDeals = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.filterOperations}>
         <ControlledDateInput
           className={styles.date}
-          name='deal_date'
+          name='dateFrom'
           dateFormat='yyyy-MM-dd'
-          placeholder='Дата договора'
+          placeholder='Дата c'
+        />
+        <ControlledDateInput
+          className={styles.date}
+          name='dateTo'
+          dateFormat='yyyy-MM-dd'
+          placeholder='Дата по'
         />
 
         {/* <ControlledDateInput

@@ -6,7 +6,7 @@ export interface IButtonProps {
 	label?: string
 	title?: string
 	type?: 'button' | 'submit' | 'reset'
-	mode?: 'primary' | 'secondary' | 'clear' | 'table' | 'warning_delete'
+	mode?: 'primary' | 'secondary' | 'clear' | 'table' | 'warning_delete' | 'delete_transparent'
 	tableMode?: 'edit' | 'delete' | 'approve'
 	icon?: ReactElement
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void

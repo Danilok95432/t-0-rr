@@ -9,7 +9,6 @@ import { UploadingOperations } from '@/features/operations/uploadingOperations'
 import { SettingsListOperations } from '@/features/operations/settingsListOperations'
 import { ProcessingOperation } from '@/features/operations/processingOperation'
 import { operationsDef } from '@/features/operations/table/config/operationsDef'
-import { useQuickFilter } from '@/features/quickFilter/hooks/useQuickFilter'
 
 import { ListLayout } from '@/shared/layouts/ListLayout'
 import { GridTable } from '@/shared/ui/GridTable'
@@ -33,7 +32,6 @@ const LIMIT = LIMIT_TABLE_DATA
 
 const OperationsContent = () => {
   const { buttonId, openModalById } = useModal()
-  const { value } = useQuickFilter()
   const { filters } = useOperationsFilters()
 
   const [step, setStep] = useState(0)
@@ -187,7 +185,7 @@ const OperationsContent = () => {
   // Преобразуем фильтры в параметры запроса
   const getQueryParams = (): GetAllOperationsArgs => {
     const params: GetAllOperationsArgs = {
-      searchtext: value || '',
+      searchtext: '',
       step,
       limit: LIMIT,
     }
@@ -363,6 +361,9 @@ const OperationsContent = () => {
       if (target?.closest('.ag-selection-checkbox')) {
         return
       }
+      if (target?.closest('.ag-cell[col-id="case_name"]')) {
+        return
+      }
 
       if (!params.data?.id) return
       saveScrollPosition()
@@ -387,7 +388,7 @@ const OperationsContent = () => {
     setOperations([])
     setHasMore(true)
     scrollTopRef.current = 0
-  }, [value, filters, sortState])
+  }, [filters, sortState])
 
   // Обновление списка операций при изменении данных или шага
   useEffect(() => {
@@ -436,12 +437,12 @@ const OperationsContent = () => {
       <GridTable
         rowData={operations}
         columnDefinitions={operationsDef}
-        quickFilterText={value}
         onRowClicked={handleRowClick}
         onGridReady={handleGridReady}
         onScrollEnd={handleScrollLoad}
         onSortChanged={handleSortChanged}
         onSelectionChanged={handleSelectionChanged}
+        isRightCheckboxes
       />
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
@@ -463,7 +464,10 @@ const OperationsContent = () => {
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {buttonId === 'unload' && (
           <Modal title='Выгрузка (экспорт) операций'>
-            <UnloadingOperations labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список' elements={selectedIds} />
+            <UnloadingOperations
+              labelBadge='В этом окне Вы можете выгрузить необходимые Вам операции, предварительно настроив список'
+              elements={selectedIds}
+            />
           </Modal>
         )}
       </AnimatePresence>
