@@ -10,7 +10,7 @@ import { Button } from '@/shared/ui/Button'
 
 import styles from './modal.module.scss'
 
-export const Modal: FC<IModalProps> = ({ title, children, className }) => {
+export const Modal: FC<IModalProps> = ({ title, children, className, withoutOverlay }) => {
   const { isOpenModal, handleCloseModal } = useModal()
 
   // обЪект свойств поведения модального окна
@@ -34,7 +34,7 @@ export const Modal: FC<IModalProps> = ({ title, children, className }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={classNames(styles.overlay, { [styles.visible]: isOpenModal })}
+      className={classNames(styles.overlay, { [styles.visible]: isOpenModal }, { [styles.noOverlay]: withoutOverlay})}
     >
       <motion.div
         role='dialog'

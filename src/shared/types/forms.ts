@@ -30,6 +30,13 @@ export type TFormNewOperation = {
 	comment: string
 }
 
+export type TFormGroupProccesing = {
+  cases_list: TSelectOption[]
+  deals_list: TSelectOption[]
+  articles_list: TSelectOption[]
+  subarticles_list: TSelectOption[]
+}
+
 export type TFormUnloadOperations = {
   mainFilter?: 'selected' | 'all'
   uploadFormat?: 'XLSX' | 'JSON' | 'CSV'

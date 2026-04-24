@@ -4,7 +4,7 @@ import { baseQueryWithReauth } from '@/shared/api/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { OperationsResponse, OperationsSummary } from '../table/config/operationsTypes'
 import { FieldValues } from 'react-hook-form'
-import { TFormNewOperation } from '@/shared/types/forms'
+import { TFormGroupProccesing, TFormNewOperation } from '@/shared/types/forms'
 
 export interface GetAllOperationsArgs {
   searchtext: string
@@ -100,6 +100,21 @@ export const operationsApi = createApi({
       }),
       invalidatesTags: ['Operations'],
     }),
+    getOptionsGroupOperation: build.query<TFormGroupProccesing, null>({
+      query: () => ({
+        url: '/cards/group-info',
+        method: 'GET',
+      }),
+      providesTags: ['Operations'],
+    }),
+    saveOptionsGroupOperation: build.mutation<string, FieldValues>({
+      query: (formData) => ({
+        url: '/cards/save-group-info',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Operations'],
+    }),
   }),
 })
 
@@ -110,4 +125,6 @@ export const {
   useSaveOperationMutation,
   useEditOperationQuery,
   useDeleteOperationMutation,
+  useGetOptionsGroupOperationQuery,
+  useSaveOptionsGroupOperationMutation,
 } = operationsApi

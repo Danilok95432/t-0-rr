@@ -4,4 +4,5 @@ export interface IModalProps {
 	title?: string
 	children?: ReactNode
 	className?: string
+	withoutOverlay?: boolean
 }

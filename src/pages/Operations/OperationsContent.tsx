@@ -27,6 +27,7 @@ import {
   useOperationsFilters,
 } from '@/features/filtersMenu/context/operationsFilterContext'
 import { SortState } from '@/shared/types/sort'
+import { GroupProccesing } from '@/features/operations/group-proccesing'
 
 const LIMIT = LIMIT_TABLE_DATA
 
@@ -450,6 +451,12 @@ const OperationsContent = () => {
           <Modal title='Новая операция'>
             <NewOperation />
           </Modal>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
+        {selectedIds.length > 0 && (
+          <GroupProccesing elements={selectedIds} />
         )}
       </AnimatePresence>
 
