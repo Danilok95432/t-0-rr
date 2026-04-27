@@ -12,7 +12,7 @@ export interface GetAllOperationsArgs {
   limit?: number
   dateFrom?: string
   dateTo?: string
-  org?: string  // Теперь строка вместо string[]
+  org?: string // Теперь строка вместо string[]
   account?: string
   contragent?: string
   directions?: string
@@ -29,7 +29,22 @@ export const operationsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getAllOperations: build.query<OperationsResponse, GetAllOperationsArgs>({
-      query: ({ searchtext, step, limit, dateFrom, dateTo, org, account, contragent, directions, article, cases, deals, order_by, order_dir }) => ({
+      query: ({
+        searchtext,
+        step,
+        limit,
+        dateFrom,
+        dateTo,
+        org,
+        account,
+        contragent,
+        directions,
+        article,
+        cases,
+        deals,
+        order_by,
+        order_dir,
+      }) => ({
         url: '/cards/list',
         params: {
           searchtext,
@@ -44,8 +59,8 @@ export const operationsApi = createApi({
           article,
           cases,
           deals,
-          order_by, 
-          order_dir
+          order_by,
+          order_dir,
         },
       }),
       providesTags: (result) =>
@@ -87,8 +102,8 @@ export const operationsApi = createApi({
         url: '/cards/edit',
         method: 'GET',
         params: {
-          id
-        }
+          id,
+        },
       }),
       providesTags: ['Operations'],
     }),
@@ -102,14 +117,14 @@ export const operationsApi = createApi({
     }),
     getOptionsGroupOperation: build.query<TFormGroupProccesing, null>({
       query: () => ({
-        url: '/cards/group-info',
+        url: '/cards_group/get_data',
         method: 'GET',
       }),
       providesTags: ['Operations'],
     }),
-    saveOptionsGroupOperation: build.mutation<string, FieldValues>({
+    saveOptionsGroupOperation: build.mutation<{ status: string; errortext: string }, FieldValues>({
       query: (formData) => ({
-        url: '/cards/save-group-info',
+        url: '/cards_group/save_data',
         method: 'POST',
         body: formData,
       }),

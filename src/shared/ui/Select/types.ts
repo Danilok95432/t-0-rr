@@ -8,6 +8,12 @@ export type TSelectOption = {
   __hiddenItems?: string[]
 }
 
+export type TSelectOptionArticle = {
+  value: string
+  label: string
+  id_parent: string
+}
+
 export type TSelectOptionDirection = {
   value: string
   label: string
@@ -34,4 +40,5 @@ export interface ISelectCProps {
   multiselect?: boolean
   maxDisplayedTags?: number
   displayedTagSuffix?: string
+  dropdownPositionTop?: boolean
 }

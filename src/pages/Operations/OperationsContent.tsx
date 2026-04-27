@@ -429,6 +429,11 @@ const OperationsContent = () => {
     setSelectedIds(selectedIds)
   }, [])
 
+  const clearSelection = useCallback(() => {
+    setSelectedIds([])
+    gridApiRef.current?.deselectAll()
+  }, [])
+
   return (
     <ListLayout title='Операции' noSearch wideRow totalInfoData={totalInfoData}>
       <FiltersMenu>
@@ -456,7 +461,7 @@ const OperationsContent = () => {
 
       <AnimatePresence initial={false} onExitComplete={() => null} mode='wait'>
         {selectedIds.length > 0 && (
-          <GroupProccesing elements={selectedIds} />
+          <GroupProccesing elements={selectedIds} removeMarks={clearSelection} />
         )}
       </AnimatePresence>
 

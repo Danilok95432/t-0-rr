@@ -1,14 +1,16 @@
 .groupProccessOperation {
-  position: fixed;
+  position: absolute;
   display: block;
-  bottom: 44px;
+  bottom: 24px;
   z-index: 102;
-  width: 94vw;
+  width: 100%;
   background-color: var(--base-01);
-	// border: var(--border);
-	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05), 0 11px 11px 0 rgba(0, 0, 0, 0.04),
-		0 25px 15px 0 rgba(0, 0, 0, 0.03);
-	border-radius: 5px;
+  // border: var(--border);
+  box-shadow:
+    0 3px 6px 0 rgba(0, 0, 0, 0.05),
+    0 11px 11px 0 rgba(0, 0, 0, 0.04),
+    0 25px 15px 0 rgba(0, 0, 0, 0.03);
+  border-radius: 5px;
   border: var(--border);
   form {
     background: #fff;
@@ -19,6 +21,10 @@
     align-items: center;
     gap: 24px;
     padding: 18px 24px;
+    @media (max-width: 1725px) {
+      flex-direction: column;
+      align-items: start;
+    }
   }
 }
 .closed {
@@ -33,7 +39,7 @@
     font-size: 12px;
   }
   .title {
-    font-weight: 500;
+    font-weight: 700;
   }
 }
 
@@ -43,12 +49,17 @@
   flex-direction: row;
   gap: 12px;
   align-items: center;
+  @media (max-width: 1500px) {
+    flex-wrap: wrap;
+  }
   .select {
-    min-width: 300px;
+    min-width: 250px;
+    max-width: 300px;
+    width: 100%;
   }
-  .formContentBottom {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+}
+.formContentBottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

@@ -1,4 +1,4 @@
-import { TSelectOption, TSelectOptionDirection, TSelectOptionParent } from '../ui/Select/types'
+import { TSelectOption, TSelectOptionArticle, TSelectOptionDirection, TSelectOptionParent } from '../ui/Select/types'
 
 export interface IFormProps {
   labelBadge?: string
@@ -31,10 +31,10 @@ export type TFormNewOperation = {
 }
 
 export type TFormGroupProccesing = {
-  cases_list: TSelectOption[]
-  deals_list: TSelectOption[]
-  articles_list: TSelectOption[]
-  subarticles_list: TSelectOption[]
+  cases: TSelectOption[]
+  deals: TSelectOption[]
+  articles: TSelectOption[]
+  subarticles: TSelectOptionArticle[]
 }
 
 export type TFormUnloadOperations = {

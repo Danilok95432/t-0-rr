@@ -24,6 +24,7 @@ export const SelectC: FC<ISelectCProps> = (props) => {
     multiselect = false,
     maxDisplayedTags = 1,
     displayedTagSuffix = '+ {count}',
+    dropdownPositionTop = false,
   } = props
 
   const [isFocused, setIsFocused] = useState(false)
@@ -121,6 +122,7 @@ export const SelectC: FC<ISelectCProps> = (props) => {
         searchable={searchable}
         multi={multiselect}
         disabled={disabled}
+        dropdownPosition={dropdownPositionTop ? 'top' : 'bottom'}
         optionRenderer={multiselect ? customOptionRenderer : undefined}
         onDropdownOpen={() => setIsFocused(true)}
         onDropdownClose={() => setIsFocused(false)}
