@@ -112,17 +112,17 @@ export const SelectC: FC<ISelectCProps> = (props) => {
     [disabled, displayedTagSuffix, maxDisplayedTags, multiselect],
   )
 
-  const singleValueRenderer = useCallback(({ state }: any) => {
-    const value = state.values?.[0]
+  // const singleValueRenderer = useCallback(({ state }: any) => {
+  //   const value = state.values?.[0]
 
-    if (!value) return null
+  //   if (!value) return null
 
-    return (
-      <span title={value.label} className='select__single-value'>
-        {value.label}
-      </span>
-    )
-  }, [])
+  //   return (
+  //     <span title={value.label} className='select__single-value'>
+  //       {value.label}
+  //     </span>
+  //   )
+  // }, [])
 
   return (
     <div className={classNames('select-wrapper', className)}>
@@ -137,7 +137,6 @@ export const SelectC: FC<ISelectCProps> = (props) => {
         disabled={disabled}
         dropdownPosition={dropdownPositionTop ? 'top' : 'bottom'}
         optionRenderer={multiselect ? customOptionRenderer : undefined}
-        contentRenderer={!multiselect ? singleValueRenderer : undefined}
         onDropdownOpen={() => setIsFocused(true)}
         onDropdownClose={() => setIsFocused(false)}
         searchBy='label'
