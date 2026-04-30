@@ -112,7 +112,7 @@
 
       &-content {
         margin-top: 8px;
-
+        width: 100%;
         span {
           display: flex;
           gap: 5px;
@@ -121,7 +121,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          max-width: 400px;
+          max-width: 100%;
         }
       }
 

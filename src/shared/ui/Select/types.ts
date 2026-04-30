@@ -41,4 +41,5 @@ export interface ISelectCProps {
   maxDisplayedTags?: number
   displayedTagSuffix?: string
   dropdownPositionTop?: boolean
+  noDataLabel?: string
 }

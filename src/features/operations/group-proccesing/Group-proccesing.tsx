@@ -121,7 +121,7 @@ export const GroupProccesing: FC<IFormProps & ActionsProps> = ({
             render={({ field }) => (
               <SelectC
                 options={data?.cases ?? []}
-                values={field.value ?? [{ value: field.value, label: field.value }]}
+                values={field.value ?? []}
                 label='Установить кейс'
                 onChange={field.onChange}
                 className={styles.select}
@@ -136,11 +136,12 @@ export const GroupProccesing: FC<IFormProps & ActionsProps> = ({
             render={({ field }) => (
               <SelectC
                 options={filteredDeals}
-                values={field.value ?? [{ value: field.value, label: field.value }]}
+                values={field.value ?? []}
                 label='Установить сделку'
                 onChange={field.onChange}
                 className={styles.select}
                 dropdownPositionTop={true}
+                noDataLabel='Кейс не выбран'
               />
             )}
           />
@@ -151,7 +152,7 @@ export const GroupProccesing: FC<IFormProps & ActionsProps> = ({
             render={({ field }) => (
               <SelectC
                 options={data?.articles ?? []}
-                values={field.value ?? [{ value: field.value, label: field.value }]}
+                values={field.value ?? []}
                 label='Установить статью'
                 onChange={field.onChange}
                 className={styles.select}
@@ -166,11 +167,12 @@ export const GroupProccesing: FC<IFormProps & ActionsProps> = ({
             render={({ field }) => (
               <SelectC
                 options={filteredSubarticles}
-                values={field.value ?? [{ value: field.value, label: field.value }]}
+                values={field.value ?? []}
                 label='Установить подстатью'
                 onChange={field.onChange}
                 className={styles.select}
                 dropdownPositionTop={true}
+                noDataLabel='Статья не выбрана'
               />
             )}
           />
