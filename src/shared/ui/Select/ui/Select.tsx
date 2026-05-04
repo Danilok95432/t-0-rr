@@ -27,6 +27,8 @@ export const SelectC: FC<ISelectCProps> = (props) => {
     displayedTagSuffix = '+ {count}',
     dropdownPositionTop = false,
     noDataLabel = 'Нет данных',
+    valueField = 'value',
+    labelField = 'label',
   } = props
 
   const [isFocused, setIsFocused] = useState(false)
@@ -135,6 +137,8 @@ export const SelectC: FC<ISelectCProps> = (props) => {
         searchable={searchable}
         multi={multiselect}
         disabled={disabled}
+        labelField={labelField}
+        valueField={valueField}
         dropdownPosition={dropdownPositionTop ? 'top' : 'bottom'}
         optionRenderer={multiselect ? customOptionRenderer : undefined}
         onDropdownOpen={() => setIsFocused(true)}

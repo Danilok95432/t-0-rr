@@ -62,9 +62,10 @@ export const MainDataAccount: FC<MainDataAccountProps> = ({ id, account }) => {
               name='account_types'
               control={control}
               render={({ field }) => {
+                const options = account?.account_types ?? []
                 return (
                   <SelectC
-                    values={field.value ? field.value : []}
+                    values={field.value?.length ? [field.value[0]] : options[0] ? [options[0]] : []}
                     options={account.account_types}
                     label='Тип счета'
                     onChange={(selected: TSelectOption[]) => {
@@ -109,9 +110,10 @@ export const MainDataAccount: FC<MainDataAccountProps> = ({ id, account }) => {
               name='orgs'
               control={control}
               render={({ field }) => {
+                const options = account?.orgs ?? []
                 return (
                   <SelectC
-                    values={field.value ? field.value : []}
+                    values={field.value?.length ? [field.value[0]] : options[0] ? [options[0]] : []}
                     options={account.orgs}
                     label='Организация'
                     onChange={(selected: TSelectOption[]) => {

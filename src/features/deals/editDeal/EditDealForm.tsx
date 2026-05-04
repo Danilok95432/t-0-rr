@@ -70,15 +70,21 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           <Controller
             name='cases_list'
             control={control}
-            render={({ field }) => (
-              <SelectC
-                values={field.value ?? []}
-                options={dealsLists?.cases_list ?? []}
-                label='Кейс'
-                disabled={!isEditingModeActive}
-                onChange={field.onChange}
-              />
-            )}
+            render={({ field }) => {
+              const options = dealsLists?.cases_list ?? []
+
+              return (
+                <SelectC
+                  values={field.value?.length ? [field.value[0]] : options[0] ? [options[0]] : []}
+                  options={options}
+                  label='Кейс'
+                  valueField='value'
+                  labelField='label'
+                  disabled={!isEditingModeActive}
+                  onChange={field.onChange}
+                />
+              )
+            }}
           />
           <Controller
             name='dogovor_name'
@@ -113,15 +119,21 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           <Controller
             name='orgs_list'
             control={control}
-            render={({ field }) => (
-              <SelectC
-                values={field.value ?? []}
-                options={dealsLists?.orgs_list ?? []}
-                label='Организация с нашей стороны'
-                disabled={!isEditingModeActive}
-                onChange={field.onChange}
-              />
-            )}
+            render={({ field }) => {
+              const options = dealsLists?.orgs_list ?? []
+
+              return (
+                <SelectC
+                  values={field.value?.length ? [field.value[0]] : options[0] ? [options[0]] : []}
+                  options={dealsLists?.orgs_list ?? []}
+                  label='Организация с нашей стороны'
+                  disabled={!isEditingModeActive}
+                  onChange={field.onChange}
+                  valueField='value'
+                  labelField='label'
+                />
+              )
+            }}
           />
           <Controller
             name='deal_date'
@@ -138,15 +150,20 @@ export const EditDealForm: FC<EditDealFormProps> = ({ id, deal }) => {
           <Controller
             name='contragents_list'
             control={control}
-            render={({ field }) => (
+            render={({ field }) => {
+              const options = dealsLists?.orgs_list ?? []
+
+              return (
               <SelectC
-                values={field.value ?? []}
+                values={field.value?.length ? [field.value[0]] : options[0] ? [options[0]] : []}
                 options={dealsLists?.contragents_list ?? []}
                 label='Контрагент'
                 disabled={!isEditingModeActive}
                 onChange={field.onChange}
+                valueField='value'
+                labelField='label'
               />
-            )}
+            )}}
           />
           <Controller
             name='deal_plan_rashod'

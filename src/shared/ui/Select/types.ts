@@ -28,6 +28,8 @@ export type TSelectOptionParent = {
 }
 
 export interface ISelectCProps {
+  valueField?: string
+  labelField?: string
   options: TSelectOption[] | MultiSelOption[]
   values: TSelectOption[] | MultiSelOption[]
   value?: TSelectOption | MultiSelOption | null
