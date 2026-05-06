@@ -134,10 +134,10 @@ export const DropZone: FC<IDropZoneProps> = ({
       {/* Файл не загружен или можно добавить еще файлы */}
       {(!files?.length || (maxFiles > 1 && files.length < maxFiles)) ? (
         <section className={styles.container}>
-          <div {...getRootProps({ className: 'dropzone' })}>
+          <div {...getRootProps({ className: styles.dropzone })}>
             <input {...getInputProps()} />
             <p className={styles.dropzone__label}>
-              <span>Выберите файл</span> или перетащите файл сюда
+              <span>Выберите файл</span>
               {maxFiles > 1 && (
                 <span className={styles.dropzone__hint}>
                   {` (можно загрузить до ${maxFiles} ${getFilesWord(maxFiles)})`}

@@ -20,16 +20,32 @@ export const NewDeals: FC<IFormProps> = () => {
 
   const newId = newOperationData?.id
 
-  const { data: dealsLists } = useGetDealInfoQuery(newId ?? '') 
+  const { data: dealsLists } = useGetDealInfoQuery(newId ?? '')
 
   const [saveNewDeal] = useSaveDealInfoMutation()
 
-  const { control, handleSubmit, reset, formState: { isValid }, } = useForm<DealInfoSave>()
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isValid },
+  } = useForm<DealInfoSave>({
+    mode: 'onChange',
+    defaultValues: {
+      deal_short_name: '',
+      deal_date: undefined,
+    },
+  })
 
   const onSubmit: SubmitHandler<DealInfoSave> = async (data) => {
     const formData = new FormData()
     if (newId) formData.append('id', newId)
-    formData.append('deal_date', data?.deal_date !== undefined ? formatDateToYYYYMMDD(data?.deal_date) : formatDateToYYYYMMDD(new Date()))
+    formData.append(
+      'deal_date',
+      data?.deal_date !== undefined
+        ? formatDateToYYYYMMDD(data?.deal_date)
+        : formatDateToYYYYMMDD(new Date()),
+    )
     formData.append('deal_short_name', data?.deal_short_name)
     formData.append('deal_name_full', data?.deal_name_full)
     formData.append('id_org', getFirstValue(data?.id_org))
@@ -56,6 +72,10 @@ export const NewDeals: FC<IFormProps> = () => {
           <Controller
             name='deal_short_name'
             control={control}
+            rules={{
+              required: true,
+              validate: (value) => value?.trim().length > 0,
+            }}
             render={({ field }) => (
               <Input
                 id='deal_short_name'
@@ -137,6 +157,9 @@ export const NewDeals: FC<IFormProps> = () => {
           <Controller
             name='deal_date'
             control={control}
+            rules={{
+              required: true,
+            }}
             render={({ field }) => (
               <InputDate
                 date={field.value}
@@ -161,8 +184,14 @@ export const NewDeals: FC<IFormProps> = () => {
           />
         </div>
       </div>
-
-      <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid} />
+      <div className={styles.actions}>
+        {!isValid && (
+          <span className={styles.error}>
+            Обязательные поля для заполнения: название, дата заключения договора
+          </span>
+        )}
+        <Button type='submit' label='Сохранить' mode='primary' disabled={!isValid} />
+      </div>
     </form>
   )
 }
