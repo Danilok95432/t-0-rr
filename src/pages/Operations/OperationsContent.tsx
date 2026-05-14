@@ -404,17 +404,22 @@ const OperationsContent = () => {
       if (step === 0) {
         return pageData
       }
+
+      const pageDataById = new Map(pageData.map((op) => [op.id, op]))
       const existingIds = new Set(prev.map((op) => op.id))
+
+      const updatedPrev = prev.map((op) => {
+        const updatedOperation = pageDataById.get(op.id)
+        return updatedOperation ?? op
+      })
+
       const newItems = pageData.filter((op) => !existingIds.has(op.id))
-      return [...prev, ...newItems]
+
+      return [...updatedPrev, ...newItems]
     })
 
-    if (pageData.length < LIMIT) {
-      setHasMore(false)
-    } else {
-      setHasMore(true)
-    }
-  }, [pageData, step]) // Убрана operations из зависимостей
+    setHasMore(pageData.length >= LIMIT)
+  }, [pageData, step])
 
   // Инициализация данных при первом рендере или изменении фильтров
   useEffect(() => {
